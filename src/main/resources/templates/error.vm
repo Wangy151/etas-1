@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p>出错啦： ${status} ${error}</p>
+</body>
+</html>

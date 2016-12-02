@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Map;
+
 /**
  * Created by xiaolei03 on 16/12/1.
  */
@@ -16,7 +18,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/")
-    public String home() {
+    public String index() {
         return "redirect:/index.html";
     }
 
@@ -24,10 +26,10 @@ public class LoginController {
      * 点击登录
      * @return
      */
-    @RequestMapping(value = "/login/")
-    @ResponseBody
-    public String login() {
-        return "login success";
+    @RequestMapping(value = "/login")
+    public String login(Map<String, Object> model) {
+        model.put("userName", "ray");
+        return "welcome";
     }
 
 }
