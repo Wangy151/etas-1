@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <link href="css/general.css" rel="stylesheet">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style rel="stylesheet">
+        .head{
+            height: 70px;
+            border: 1px solid rgb(224,224,224);
+        }
+        .registe_body{
+            width:600px;
+            min-height: 50px;
+            margin:0 auto;
+            border: 1px solid rgb(224,224,224);
+        }
+    </style>
+</head>
+<body>
+    <div class="head">
+        <a href="index.html"><img src="imgs/top_banner.png"/></a>
+
+    </div>
+
+    <div class="mid">
+        <div class="registe_body">
+
+            <h3 style="text-align: center">教务员注册</h3>
+
+            <form class="form-horizontal" role="form" style="margin-top: 20px">
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>用户名:</label></div>
+                    <div class="col-sm-6" style="margin-left: -12px">
+                        <input type="text" class="form-control" placeholder="用户名">
+                    </div>
+                    <div class="col-sm-3 validate_warn _text_left">长度在5-20之间</div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>密码:</label></div>
+                    <div class="col-sm-6" style="margin-left: -12px">
+                        <input type="password" class="form-control" id="inputPassword3" placeholder="密码">
+                    </div>
+                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>确认密码:</label></div>
+                    <div class="col-sm-6" style="margin-left: -12px">
+                        <input type="password" class="form-control" placeholder="确认密码">
+                    </div>
+                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>姓名:</label></div>
+                    <div class="col-sm-6" style="margin-left: -12px">
+                        <input type="text" class="form-control" placeholder="姓名">
+                    </div>
+                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>教职工号:</label></div>
+                    <div class="col-sm-6" style="margin-left: -12px">
+                        <input type="text" class="form-control" placeholder="教职工号">
+                    </div>
+                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>所在院系:</label></div>
+                    <div class="col-sm-6" style="margin-left: -12px">
+                        <select class="form-control">
+                            <option>软件学院</option>
+                            <option>机械学院</option>
+                            <option>计算机学院</option>
+                            <option>同济医学院</option>
+                            <option>材料与科学学院</option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>联系方式:</label></div>
+                    <div class="col-sm-6" style="margin-left: -12px">
+                        <input type="text" class="form-control" placeholder="联系方式">
+                    </div>
+                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-3 _text_right input_tip"><label>验证码:</label></div>
+                    <div class="col-sm-2" style="margin-left: -12px">
+                        <input type="text" class="form-control" placeholder="验证码">
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="imgs/validate.jpg">
+                    </div>
+                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
+                </div>
+
+                <div class="form-group" style="margin-top: 30px">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">注册</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</body>
+</html>

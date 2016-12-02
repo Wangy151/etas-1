@@ -1,0 +1,20 @@
+._border{
+    border: 1px solid rgb(224,224,224);
+}
+._text_right{
+    text-align: right;
+}
+
+._text_left{
+    text-align: left;
+}
+
+.validate_warn{
+    color: red;
+    margin-top: 4px;
+}
+
+.input_tip{
+    font-family: 微软雅黑;
+    margin-top: 4px;
+}

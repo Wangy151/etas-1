@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>优秀论文申请系统</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <link href="css/general.css" rel="stylesheet">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style rel="stylesheet">
+        .head{
+            height: 70px;
+            border: 1px solid rgb(224,224,224);
+        }
+        .mid{
+            height:480px;
+            border-bottom: 1px solid rgb(224,224,224);
+        }
+        .foot{
+            height: 30px;
+        }
+        .left_background{
+            float: left;
+            width: 520px;
+            height:390px;
+            margin-left: 200px;
+            margin-top: 50px;
+
+        }
+        .login{
+            width:350px;
+            height:370px;
+            float:right;
+            margin-top: 60px;
+            margin-right:150px;
+            border: 1px solid rgb(224,224,224);
+        }
+        ._border{
+            border: 1px solid rgb(224,224,224);
+        }
+        ._text_right{
+            text-align: right;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="head">
+        <img src="imgs/top_banner.png"/>
+
+    </div>
+    <div class="mid">
+        <div class="left_background">
+            <img src="imgs/hust_gate.png"/>
+        </div>
+        <div class="login">
+            <h3 style="text-align: center">登录</h3>
+
+            <form class="form-horizontal" role="form" style="margin-top: 20px">
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>用户名:</label></div>
+                    <div class="col-sm-8" style="margin-left: -12px">
+                        <input type="text" class="form-control" placeholder="用户名">
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>密&nbsp;&nbsp;&nbsp;&nbsp;码:</label></div>
+                    <div class="col-sm-8" style="margin-left: -12px">
+                        <input type="password" class="form-control" id="inputPassword3" placeholder="密码">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-3 _text_right input_tip"><label>验证码:</label></div>
+                    <div class="col-sm-4" style="margin-left: -12px">
+                        <input type="text" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="col-sm-4">
+                        <img src="imgs/validate.jpg">
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-sm-offset-3 validate_warn">密码错误</div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-8">
+                        <button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 微软雅黑;">
+                            登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="row" style="margin-top: 50px">
+
+                <div class="col-sm-offset-5 col-md-3">
+                    <a href="">忘记密码</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="register.html">教务员注册</a>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="foot">
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-4" style="margin-top: 10px;">© 2016 xxx.com 版权所有</div>
+        </div>
+
+    </div>
+</body>
+</html>
