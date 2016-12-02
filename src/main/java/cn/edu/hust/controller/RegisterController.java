@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -23,9 +24,9 @@ public class RegisterController {
      */
     @RequestMapping(value = "/checkUsername")
     @ResponseBody
-    public boolean checkUsernameExists(@RequestBody User user) {
-        System.out.println("username=" + user.getUsername());
-        return !registerService.checkUsernameExists(user.getUsername());
+    public boolean checkUsernameExists(@RequestParam String username) {
+        System.out.println("username=" + username);
+        return !registerService.checkUsernameExists(username);
     }
 
     /**
