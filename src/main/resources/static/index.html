@@ -73,7 +73,7 @@
                             var status = data.code;
                             var msg = data.msg;
                             if(status == "200")
-                                window.open("main.html", "_self");
+                                location.assign("/manage/home");
                             else
                                 $("#validateWarn").html(msg);
                         },
@@ -114,7 +114,7 @@
 
                 <div class="col-sm-3 _text_right input_tip"><label>用户名:</label></div>
                 <div class="col-sm-8" style="margin-left: -12px">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="学号/教工号/邮箱">
                 </div>
             </div>
             <div class="form-group">
