@@ -16,7 +16,8 @@ function validateForm () {
                 rangelength:[2,20],
                 remote: { //远程验证用户名是否已经存在,若存在false，否则true
                     url: "/register/checkUsername",//异步验证
-                    type: "get",
+                    type: "post",
+                    dataType: "json",
                     data: {//发送数据
                         username: function () {
                             return $("#username").val();

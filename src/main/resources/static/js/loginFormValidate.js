@@ -30,7 +30,7 @@ function loginFormValidate(){
             },
         },
         errorPlacement : function(error, element) {
-            error.appendTo($("#validateWarn"));
+             $("#validateWarn").html(error)
         }
     })
 }  //function
