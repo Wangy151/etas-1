@@ -1,7 +1,11 @@
 package cn.edu.hust.controller;
 
+import cn.edu.hust.model.request.LoginRequest;
+import cn.edu.hust.model.response.CommonResponse;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
@@ -27,9 +31,15 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/login")
-    public String login(Map<String, Object> model) {
-        model.put("userName", "ray");
-        return "welcome";
+    @ResponseBody
+    public CommonResponse login(@RequestBody LoginRequest loginRequest) {
+        System.out.println(loginRequest.getUsername());
+        System.out.println(loginRequest.getPassword());
+        System.out.println(loginRequest.getVerifyCodeString());
+
+        CommonResponse commonResponse = new CommonResponse();
+        commonResponse.withCode(201).withMsg("用户名或密码错误");
+        return commonResponse;
     }
 
 }

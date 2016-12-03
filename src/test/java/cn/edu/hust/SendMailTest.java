@@ -38,7 +38,7 @@ public class SendMailTest {
 
         Context context = new Context();
         context.setVariable("mailVerifyCode", "xdsg12");
-        String content = templateEngine.process("register_mail_verify_code", context);
+        String content = templateEngine.process("code_mail_page", context);
 
         mimeMessageHelper.setText(content, true);
 

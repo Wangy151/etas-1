@@ -22,4 +22,14 @@ public class CommonResponse {
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
+    public CommonResponse withCode(int code) {
+        this.code = code;
+        return this;
+    }
+
+    public CommonResponse withMsg(String msg) {
+        this.msg = msg;
+        return this;
+    }
 }
