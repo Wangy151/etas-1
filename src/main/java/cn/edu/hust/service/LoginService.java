@@ -97,6 +97,11 @@ public class LoginService {
         }
 
         User user = userService.getUserInfo(userId);
+        if (null == user) {
+            return commonResponse.withCode(301).withMsg("用户不存在");
+        }
+
+
         String emailTo = user.getEmail();
         String subject = "您的密码已重置,请重新登录";
         String emailTemplatePath = "new_password_email_template";
