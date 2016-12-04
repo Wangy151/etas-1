@@ -4,6 +4,7 @@ import cn.edu.hust.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,14 +18,23 @@ public class RegisterController {
     private RegisterService registerService;
 
     /**
-     * 检查用户名是否存在
-     * @return
+     * 检查学号或教工号是否可以注册
+     * @return true: 可以注册; false: 已存在,不能注册
      */
-    @RequestMapping(value = "/checkUsername")
+    @RequestMapping(value = "/checkUserIdRegister", method = RequestMethod.GET)
     @ResponseBody
-    public boolean checkUsernameExists(@RequestParam String username) {
-        System.out.println("username=" + username);
-        return !registerService.checkUsernameExists(username);
+    public boolean checkUserIdRegister(@RequestParam String userId) {
+        return !registerService.checkUsernameExists(userId);
+    }
+
+    /**
+     * 检查email是否可以注册
+     * @return true: 用户可以注册; false: 用户不能注册
+     */
+    @RequestMapping(value = "/checkEmailRegister", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean checkEmailRegister(@RequestParam String email) {
+        return !registerService.checkEmailExists(email);
     }
 
     /**

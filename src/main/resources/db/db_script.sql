@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS user;
 
 create table user(
 id int not null primary key auto_increment,
-tech_or_stud_num varchar(50) not null unique,
+user_id varchar(50) not null unique,
 password varchar(256) not null,
 department varchar(128) not null,
 real_name varchar(50) not null,
@@ -19,6 +19,6 @@ login_time datetime,
 remark varchar(512)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
-INSERT INTO user (password, department, real_name, phone_number, email, tech_or_stud_num, role, active)
+INSERT INTO user (password, department, real_name, phone_number, email, user_id, role, active)
 VALUES ('123456', '软件学院', '肖雷', '13277930065', '490313386@qq.com',
 'M201476135', '管理员', 1);

@@ -11,12 +11,12 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface LoginDao {
 
-    @Select("SELECT count(*) FROM user WHERE tech_or_stud_num = #{username} OR email = #{username} AND password = #{password}")
+    @Select("SELECT count(*) FROM user WHERE user_id = #{username} OR email = #{username} AND password = #{password}")
     int isLoginSuccess(@Param("username") String username, @Param("password") String password);
 
-    @Select("SELECT tech_or_stud_num, password, department, real_name, " +
+    @Select("SELECT user_id, password, department, real_name, " +
             " phone_number, email, role, active, update_time, login_time," +
-            " remark FROM user WHERE tech_or_stud_num = #{username} OR email = #{username}")
+            " remark FROM user WHERE user_id = #{username} OR email = #{username}")
     User getUserInfo(@Param("username") String username);
 
 }

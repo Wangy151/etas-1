@@ -1,6 +1,7 @@
 package cn.edu.hust.controller;
 
 import cn.edu.hust.model.User;
+import cn.edu.hust.model.request.ForgetPasswordRequest;
 import cn.edu.hust.model.request.LoginRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.service.LoginService;
@@ -26,7 +27,7 @@ public class LoginController {
     private LoginService loginService;
 
     /**
-     * 主页
+     * 登录主页
      * @return
      */
     @RequestMapping(value = "/")
@@ -61,4 +62,12 @@ public class LoginController {
         return commonResponse.withCode(201).withMsg("用户名或密码错误");
     }
 
+    /**
+     * 忘记密码
+     * @return
+     */
+    @RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
+    public String forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
+        return "redirect:/index.html";
+    }
 }

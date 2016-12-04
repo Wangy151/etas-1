@@ -1,22 +1,21 @@
-package cn.edu.hust.model;
+package cn.edu.hust.model.request;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * Created by xiaolei03 on 16/12/2.
+ * Created by xiaolei03 on 16/12/3.
  */
-public class User {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class RegisterRequest {
     private String userId;
     private String password;
+    private String repeatPassword;
     private String department;
     private String realName;
     private String phoneNumber;
     private String email;
     private String role;
     private int active;
-    private Date updateTime;
-    private Date loginTime;
-    private String remark;
 
     public String getUserId() {
         return userId;
@@ -32,6 +31,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
     }
 
     public String getDepartment() {
@@ -80,29 +87,5 @@ public class User {
 
     public void setActive(int active) {
         this.active = active;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Date getLoginTime() {
-        return loginTime;
-    }
-
-    public void setLoginTime(Date loginTime) {
-        this.loginTime = loginTime;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
     }
 }

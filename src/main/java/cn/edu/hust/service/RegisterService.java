@@ -12,7 +12,11 @@ public class RegisterService {
     @Autowired
     private RegisterDao registerDao;
 
-    public boolean checkUsernameExists(String username) {
-        return registerDao.checkUsernameExists(username) > 0;
+    public boolean checkUsernameExists(String userId) {
+        return registerDao.checkUserIdExists(userId) > 0;
+    }
+
+    public boolean checkEmailExists(String email) {
+        return registerDao.checkEmailExists(email) > 0;
     }
 }
