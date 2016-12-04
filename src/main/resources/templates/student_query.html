@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生查询论文状态</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet">
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet">
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet">
+    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet">
+    <script type="text/javascript" th:href="@{/js/jquery-3.1.1.js}" src="../static/js/jquery-3.1.1.js"></script>
+    <script src="../static/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>
+    <script src="../static/js/jquery.validate.js" th:href="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" src="../static/js/menu.js" th:href="@{/js/menu.js}"></script>
+    <style rel="stylesheet">
+        .mid{
+            min-height: 200px;
+            border: 1px solid rgb(224,224,224);
+        }
+        .mid_body{
+            height: auto;
+            margin:0 auto;
+        }
+        .left{
+            width:15%;
+            min-height: 100px;
+            float:left;
+            border: 1px solid rgb(224,224,224);
+        }
+        .right{
+            width:84%;
+            min-height: 300px;
+            float:right;
+            border: 1px solid rgb(224,224,224);
+        }
+
+        .search{
+            background-color: rgb(245,245,245);
+        }
+        .search .search_row{
+            background-color: rgb(245,245,245);
+            height:auto;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .table_body{
+            margin-top: 150px;
+        }
+        .table_body thead{
+            background-color:rgb(224,224,224) ;
+            font-weight: 800;
+        }
+        .position ol{
+            background-color: white;
+        }
+        .one_input{
+            width:21%;
+            height: 30px;
+            float: left;
+            margin-left: 20px;
+        }
+        .input_width{
+            height: 30px;
+        }
+        .search_btn_div{
+            float: left;
+            margin-left: 10px;
+        }
+        .apply_btn_div{
+            width:150px;
+            margin:0 auto;
+        }
+    </style>
+
+</head>
+<body>
+<div class="right">
+
+    <div class="table_body">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <td>学号</td><td>姓名</td><td>类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>操作</td>
+            </thead>
+            <tbody>
+            <tr>
+                <td>M201476136</td>
+                <td>梅浩</td>
+                <td>硕士</td>
+                <td>肖来元</td>
+                <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
+                <td>待上报</td>
+                <td>
+                    <a href="#">查看</a>&nbsp;|&nbsp;
+                    <a href="#">修改</a>&nbsp;|&nbsp;
+                    <a href="#">删除</a>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="apply_btn_div">
+        <button type="button" class="btn btn-primary btn-lg">申请优秀论文</button>
+    </div>
+
+</div>
+</body>
+</html>
