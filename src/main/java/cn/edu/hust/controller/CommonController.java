@@ -84,7 +84,7 @@ public class CommonController {
 
             Context context = new Context();
             context.setVariable("mailVerifyCode", mailVerifyCode);
-            String content = templateEngine.process("code_mail_page", context);
+            String content = templateEngine.process("code_mail_template", context);
 
             mimeMessageHelper.setText(content, true);
 

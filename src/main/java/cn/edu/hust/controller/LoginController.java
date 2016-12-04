@@ -1,20 +1,17 @@
 package cn.edu.hust.controller;
 
-import cn.edu.hust.model.User;
 import cn.edu.hust.model.request.ForgetPasswordRequest;
 import cn.edu.hust.model.request.LoginRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 /**
  * Created by xiaolei03 on 16/12/1.
@@ -41,7 +38,7 @@ public class LoginController {
      *
      * @return
      */
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse login(@RequestBody LoginRequest loginRequest, HttpSession session) {
         try {
@@ -59,7 +56,13 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
-    public String forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
-        return "redirect:/index.html";
+    @ResponseBody
+    public CommonResponse forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest, HttpSession session) {
+        try {
+            return loginService.forgetPassword(forgetPasswordRequest, session);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResponse().withCode(500).withMsg("系统繁忙");
+        }
     }
 }
