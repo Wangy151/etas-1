@@ -47,9 +47,14 @@ public class RegisterController {
      * @return
      */
     @RequestMapping(value = "/submit")
+    @ResponseBody
     public CommonResponse registerSubmit(@RequestBody RegisterRequest registerRequest, HttpSession session) {
-//        String mailVerifyCodeFromSession = (String) session.getAttribute("mailVerifyCode");
-//        return registerService.registerSubmit(registerRequest, mailVerifyCodeFromSession);
-        return new CommonResponse().withCode(201).withMsg("邮箱验证码错误");
+        try {
+            String mailVerifyCodeFromSession = (String) session.getAttribute("mailVerifyCode");
+            return registerService.registerSubmit(registerRequest, mailVerifyCodeFromSession);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResponse().withCode(500).withMsg("失败");
+        }
     }
 }

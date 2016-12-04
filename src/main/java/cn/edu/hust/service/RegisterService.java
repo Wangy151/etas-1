@@ -33,8 +33,15 @@ public class RegisterService {
             return commonResponse.withCode(201).withMsg("邮箱验证码错误");
         }
 
-        return commonResponse.withCode(200).withMsg("成功");
+        if ("学院教务员".equalsIgnoreCase(registerRequest.getRole())) {
+            registerRequest.setActive(0); // 未激活
+        } else {
+            registerRequest.setActive(1); // 激活
+        }
 
-
+        if (registerDao.insertUserInfo(registerRequest) > 0) {
+            return commonResponse.withCode(200).withMsg("成功");
+        }
+        return commonResponse.withCode(500).withMsg("失败");
     }
 }

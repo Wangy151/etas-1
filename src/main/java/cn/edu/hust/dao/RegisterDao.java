@@ -1,5 +1,7 @@
 package cn.edu.hust.dao;
 
+import cn.edu.hust.model.request.RegisterRequest;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -15,5 +17,11 @@ public interface RegisterDao {
 
     @Select(" SELECT count(*) FROM user WHERE email = #{email}")
     int checkEmailExists(@Param("email") String email);
+
+    @Insert(" INSERT INTO user(role, user_id, password, real_name, department, phone_number, email, active) " +
+            " VALUES (#{registerRequest.role}, #{registerRequest.userId}, #{registerRequest.password}, " +
+            " #{registerRequest.realName}, #{registerRequest.department}, #{registerRequest.phoneNumber}, " +
+            " #{registerRequest.email}, #{registerRequest.active}) ")
+    int insertUserInfo(@Param("registerRequest") RegisterRequest registerRequest);
 
 }
