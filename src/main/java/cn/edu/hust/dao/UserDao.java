@@ -17,7 +17,7 @@ public interface UserDao {
             " remark FROM user WHERE user_id = #{username} OR email = #{username}")
     User getUserInfo(@Param("username") String username);
 
-    @Update(" update user set password = #{newPassword} where WHERE user_id = #{username} OR email = #{username} ")
+    @Update(" update user set password = #{newPassword} WHERE user_id = #{username} OR email = #{username} ")
     int updateUserPassword(@Param("newPassword") String newPassword,
                            @Param("username") String username);
 }
