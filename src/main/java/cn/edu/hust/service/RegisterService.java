@@ -30,17 +30,22 @@ public class RegisterService {
         if (StringUtils.isEmpty(mailVerifyCodeFromSession) ||
                 StringUtils.isEmpty(mailVerifyCode) ||
                 !mailVerifyCodeFromSession.equalsIgnoreCase(mailVerifyCode)) {
-            return commonResponse.withCode(201).withMsg("邮箱验证码错误");
+            return commonResponse.withCode(300).withMsg("邮箱验证码错误");
         }
 
         if ("学院教务员".equalsIgnoreCase(registerRequest.getRole())) {
             registerRequest.setActive(0); // 未激活
         } else {
+            // 学生
             registerRequest.setActive(1); // 激活
         }
 
         if (registerDao.insertUserInfo(registerRequest) > 0) {
-            return commonResponse.withCode(200).withMsg("成功");
+            if ("学生".equalsIgnoreCase(registerRequest.getRole())) {
+                return commonResponse.withCode(200).withMsg("学生注册成功");
+            } else {
+                return commonResponse.withCode(201).withMsg("学院教务员注册成功");
+            }
         }
         return commonResponse.withCode(500).withMsg("失败");
     }
