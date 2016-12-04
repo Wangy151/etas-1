@@ -9,14 +9,14 @@ import javax.servlet.http.HttpSession;
  * Created by xiaolei03 on 16/12/3.
  */
 @Controller
-@RequestMapping(value = "/manage")
+@RequestMapping(value = "/home")
 public class HomeController {
     /**
      * 个人中心主页
      * @return
      */
-    @RequestMapping(value = "/home")
-    public String home() {
+    @RequestMapping(value = "/index")
+    public String homeIndex() {
         return "home";
     }
 
