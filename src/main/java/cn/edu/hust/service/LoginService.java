@@ -4,11 +4,14 @@ import cn.edu.hust.dao.LoginDao;
 import cn.edu.hust.model.User;
 import cn.edu.hust.model.request.LoginRequest;
 import cn.edu.hust.model.response.CommonResponse;
+import cn.edu.hust.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by xiaolei03 on 16/12/1.
@@ -31,8 +34,21 @@ public class LoginService {
             return commonResponse.withCode(300).withMsg("验证码错误");
         }
 
+        // 密码 md5加密
+        String passwordEncode;
+        try {
+            passwordEncode = MD5Util.encode(loginRequest.getPassword());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return commonResponse.withCode(500).withMsg("系统繁忙");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return commonResponse.withCode(500).withMsg("系统繁忙");
+        }
+
+
         // 2. 验证用户名和密码
-        if (loginDao.isLoginSuccess(loginRequest.getUsername(), loginRequest.getPassword()) > 0) {
+        if (loginDao.isLoginSuccess(loginRequest.getUsername(), passwordEncode) > 0) {
             // 登录成功
             // 3. 是否激活
             User user = this.getUserInfo(loginRequest.getUsername());

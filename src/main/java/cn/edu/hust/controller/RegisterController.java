@@ -54,7 +54,7 @@ public class RegisterController {
             return registerService.registerSubmit(registerRequest, mailVerifyCodeFromSession);
         } catch (Exception e) {
             e.printStackTrace();
-            return new CommonResponse().withCode(500).withMsg("失败");
+            return new CommonResponse().withCode(500).withMsg("系统繁忙");
         }
     }
 }
