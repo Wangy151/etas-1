@@ -75,9 +75,11 @@
                         success: function(data){
                             var status = data.code;
                             var msg = data.msg;
-                            if(status == "200")  //注册成功
-                                location.assign("/successRegister.html");
-                            else if(status == "201")  //邮箱验证码错误
+                            if(status == "200")  //学生注册成功
+                                location.assign("/studentSuccessRegister.html");
+                            else if(status == "201")  //教务员注册成功
+                                location.assign("/teacherSuccessRegister.html");
+                            else if(status == "300")  //邮箱验证码错误
                                 $("#v_validateCode").html(msg);
                             else if(status == "500")  //服务器原因失败
                                 $("#validateWarn").html("系统繁忙请稍后再试");

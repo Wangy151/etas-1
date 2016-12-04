@@ -69,7 +69,7 @@
                         success: function(data){
                             var status = data.code;
                             var msg = data.msg;
-                            if(status == "200")
+                            if(status == "200") //成功
                                 location.assign("/manage/home");
                             else
                                 $("#validateWarn").html(msg);
