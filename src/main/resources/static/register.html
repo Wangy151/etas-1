@@ -57,13 +57,12 @@
                 },
 
                 success: function(data){
-                    alert("OK");
                     var status = data.code;
                     var msg = data.msg;
                     if(status == "200")
                         alert("邮件验证码已经发送到邮箱!请检查您的邮件，注意检查垃圾箱!");
                     else if(status ==  "500")
-                        alert("邮件验证码发送您的邮箱失败！请");
+                        alert("系统繁忙请稍后再试");
                     else
                         alert("3");
                 },

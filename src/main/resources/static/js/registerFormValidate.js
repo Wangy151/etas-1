@@ -11,19 +11,12 @@ function validateForm () {
             role:{
                 required:true,
             },
-            username: {
-                required:true,
-                rangelength:[2,20],
+            idnumber:{
+                required: true,
+                rangelength:[3,15],
                 remote: { //远程验证用户名是否已经存在,若存在false，否则true
-                    url: "/register/checkUsername",//异步验证
-                    type: "post",
-                    dataType: "json",
-                    data: {//发送数据
-                        username: function () {
-                            return $("#username").val();
-                        }
-                    },
-
+                    url: "/register/checkUserIdRegister?"+$("#idnumber").val(),//异步验证
+                    type: "get",
                 },
             },
             passwd: {
@@ -40,11 +33,7 @@ function validateForm () {
                 rangelength:[2,15],
 
             },
-            idnumber:{
-                required: true,
-                rangelength:[3,15],
 
-            },
             college:{
                 required: true,
             },
@@ -52,12 +41,16 @@ function validateForm () {
                 required: true,
                 minlength:11,
                 maxlength:11,
-
+                number:true,
             },
             email:{
                 required: true,
                 email:true,
                 maxlength:30,
+                remote: { //远程验证用户名是否已经存在,若存在false，否则true
+                    url: "/register/checkEmailRegister?"+$("#email").val(),//异步验证
+                    type: "get",
+                },
             },
             validateCode:{
                 required: true,
@@ -66,11 +59,6 @@ function validateForm () {
         messages: {
             role:{
                 required:"身份不能为空",
-            },
-            username: {
-                required:"用户名不能为空",
-                rangelength:"长度在2-20之间",
-                remote:"用户名已存在",
             },
             passwd: {
                 required: "密码不能为空",
@@ -89,7 +77,7 @@ function validateForm () {
             idnumber:{
                 required: "学号/教工号不能为空",
                 rangelength:"长度在2-15之间",
-
+                remote:"该学号/教工号已被注册",
             },
             college:{
                 required: "学院不能为空",
@@ -98,12 +86,13 @@ function validateForm () {
                 required: "联系方式不能为空",
                 minlength:"长度为11位",
                 maxlength:"长度为11位",
-
+                number:"联系方式为11位数字",
             },
             email:{
                 required: "邮箱不能为空",
                 email:"邮箱不合法",
                 maxlength:"最大长度为30",
+                remote:"该邮箱已被注册!",
             },
             validateCode:{
                 required: "验证码不能为空",
