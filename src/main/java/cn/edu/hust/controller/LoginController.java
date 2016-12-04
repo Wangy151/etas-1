@@ -28,6 +28,7 @@ public class LoginController {
 
     /**
      * 登录主页
+     *
      * @return
      */
     @RequestMapping(value = "/")
@@ -37,33 +38,24 @@ public class LoginController {
 
     /**
      * 点击登录
+     *
      * @return
      */
     @RequestMapping(value = "/login")
     @ResponseBody
     public CommonResponse login(@RequestBody LoginRequest loginRequest, HttpSession session) {
-        CommonResponse commonResponse = new CommonResponse();
-
-        String verifyCodeString = loginRequest.getVerifyCodeString();
-        String verifyCodeStringFromSession = (String) session.getAttribute("verifyCodeString");
-
-        if (StringUtils.isEmpty(verifyCodeString) ||
-                StringUtils.isEmpty(verifyCodeStringFromSession) ||
-                !verifyCodeString.equalsIgnoreCase(verifyCodeStringFromSession)) {
-            return commonResponse.withCode(202).withMsg("验证码错误");
+        try {
+            return loginService.login(loginRequest, session);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new CommonResponse().withCode(500).withMsg("系统繁忙");
         }
 
-        if (loginService.isLoginSuccess(loginRequest)) {
-            // 登录成功
-            User user = loginService.getUserInfo(loginRequest.getUsername());
-            session.setAttribute("user", user);
-            return commonResponse.withCode(200).withMsg("成功");
-        }
-        return commonResponse.withCode(201).withMsg("用户名或密码错误");
     }
 
     /**
      * 忘记密码
+     *
      * @return
      */
     @RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
