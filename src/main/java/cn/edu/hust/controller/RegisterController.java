@@ -1,12 +1,17 @@
 package cn.edu.hust.controller;
 
+import cn.edu.hust.model.request.RegisterRequest;
+import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by xiaolei03 on 16/12/2.
@@ -42,7 +47,9 @@ public class RegisterController {
      * @return
      */
     @RequestMapping(value = "/submit")
-    public String registerSubmit() {
-        return "redirect:/index.html";
+    public CommonResponse registerSubmit(@RequestBody RegisterRequest registerRequest, HttpSession session) {
+//        String mailVerifyCodeFromSession = (String) session.getAttribute("mailVerifyCode");
+//        return registerService.registerSubmit(registerRequest, mailVerifyCodeFromSession);
+        return new CommonResponse().withCode(201).withMsg("邮箱验证码错误");
     }
 }
