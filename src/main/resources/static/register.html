@@ -39,9 +39,60 @@
                 }else {
                     alert("你的邮箱格式不合法");
                 }
-            })
+            });
+
+            $("#register_btn").click(function(){
+                var status = $("#register_form").valid();
+                if(status){
+                    register();
+                }
+
+            });
 
         })
+
+        function register(){
+            $.ajax({
+                        type: "POST",
+                        url: "/register/submit",
+                        contentType: "application/json",
+
+                        data: JSON.stringify({
+                            "userId": $("#userId").val(),
+                            "password": $("#passwd").val(),
+                            "repeatPassword": $("#repasswd").val(),
+                            "department": $("#college").val(),
+                            "realName": $("#realName").val(),
+                            "phoneNumber": $("#contactNumber").val(),
+                            "email": $("#email").val(),
+                            "role": $("#role").val(),
+                            "mailVerifyCode": $("#validateCode").val(),
+                        }),
+
+                        beforeSend: function(XMLHttpRequest){
+                        },
+
+                        success: function(data){
+                            var status = data.code;
+                            var msg = data.msg;
+                            if(status == "200")  //注册成功
+                                location.assign("/successRegister.html");
+                            else if(status == "201")  //邮箱验证码错误
+                                $("#v_validateCode").html(msg);
+                            else if(status == "500")  //服务器原因失败
+                                $("#validateWarn").html("系统繁忙请稍后再试");
+                            else
+                                var empty = "";
+                        },
+
+                        error: function(XMLHttpRequest, textStatus) {
+                        },
+
+                        complete: function(XMLHttpRequest, textStatus){
+                        }
+
+                    });
+        }
 
         function ChangeValidateCode() {
             $("#validateCodeImg").attr("src", $("#validateCodeImg").attr("src") + 1);
@@ -90,7 +141,7 @@
 
         <h3 style="text-align: center">新用户注册</h3>
         <div class="tip input_tip">请用户务必按照个人真实信息填写，错误信息将影响优秀论文的申请</div>
-        <form action="http://www.baidu.com" class="form-horizontal" id="register_form" role="form" style="margin-top: 20px">
+        <form class="form-horizontal" id="register_form" role="form" style="margin-top: 20px">
             <div class="form-group">
 
                 <div class="col-sm-3 _text_right input_tip"><label>身份:</label></div>
@@ -229,7 +280,7 @@
 
             <div class="form-group" style="margin-top: 30px">
                 <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" id="register_btn" class="btn btn-primary btn-lg btn-block">注册</button>
+                    <button type="button" id="register_btn" class="btn btn-primary btn-lg btn-block">注册</button>
                 </div>
             </div>
 

@@ -47,6 +47,7 @@ public class RegisterController {
      * @return
      */
     @RequestMapping(value = "/submit")
+    @ResponseBody
     public CommonResponse registerSubmit(@RequestBody RegisterRequest registerRequest, HttpSession session) {
 //        String mailVerifyCodeFromSession = (String) session.getAttribute("mailVerifyCode");
 //        return registerService.registerSubmit(registerRequest, mailVerifyCodeFromSession);
