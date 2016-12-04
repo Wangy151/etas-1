@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface LoginDao {
 
-    @Select("SELECT count(*) FROM user WHERE user_id = #{username} OR email = #{username} AND password = #{password}")
+    @Select("SELECT count(*) FROM user WHERE (user_id = #{username} OR email = #{username}) AND password = #{password}")
     int isLoginSuccess(@Param("username") String username, @Param("password") String password);
 
     @Select("SELECT user_id, password, department, real_name, " +
