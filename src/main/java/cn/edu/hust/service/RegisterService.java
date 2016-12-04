@@ -13,10 +13,10 @@ public class RegisterService {
     private RegisterDao registerDao;
 
     public boolean checkUsernameExists(String userId) {
-        return registerDao.checkUserIdExists(userId) > 0;
+        return registerDao.checkUserIdExists(userId.trim()) > 0;
     }
 
     public boolean checkEmailExists(String email) {
-        return registerDao.checkEmailExists(email) > 0;
+        return registerDao.checkEmailExists(email.trim()) > 0;
     }
 }

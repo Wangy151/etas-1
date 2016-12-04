@@ -11,11 +11,11 @@ function validateForm () {
             role:{
                 required:true,
             },
-            idnumber:{
+            userId:{
                 required: true,
                 rangelength:[3,15],
                 remote: { //远程验证用户名是否已经存在,若存在false，否则true
-                    url: "/register/checkUserIdRegister?"+$("#idnumber").val(),//异步验证
+                    url: "/register/checkUserIdRegister",//异步验证
                     type: "get",
                 },
             },
@@ -74,10 +74,10 @@ function validateForm () {
                 rangelength:"长度在2-15之间",
 
             },
-            idnumber:{
+            userId:{
                 required: "学号/教工号不能为空",
                 rangelength:"长度在2-15之间",
-                remote:"该学号/教工号已被注册",
+                remote:"已被注册",
             },
             college:{
                 required: "学院不能为空",
@@ -92,7 +92,7 @@ function validateForm () {
                 required: "邮箱不能为空",
                 email:"邮箱不合法",
                 maxlength:"最大长度为30",
-                remote:"该邮箱已被注册!",
+                remote:"已被注册!",
             },
             validateCode:{
                 required: "验证码不能为空",
@@ -107,7 +107,7 @@ function validateForm () {
                 error.appendTo($("#v_repasswd"));
             else if(element.is("#realName"))
                 error.appendTo($("#v_realName"));
-            else if(element.is("#idnumber"))
+            else if(element.is("#userId"))
                 error.appendTo($("#v_idnumber"));
             else if(element.is("#college"))
                 error.appendTo($("#v_college"));
