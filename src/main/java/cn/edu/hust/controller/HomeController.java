@@ -13,11 +13,18 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
     /**
      * 个人中心主页
+     *
      * @return
      */
     @RequestMapping(value = "/index")
     public String homeIndex() {
         return "home";
+    }
+
+    @RequestMapping(value = "/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/index.html";
     }
 
 }
