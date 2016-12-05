@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>硕士学位论文推荐表</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet">
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet">
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet">
+    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet">
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
+    <style rel="stylesheet">
+
+        .mid{
+            width:1000px;
+            margin:0 auto;
+            padding-top: 30px;
+            min-height:300px;
+            /*border: 1px solid rgb(224,224,224);*/
+        }
+        .table_title{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table tbody tr td{
+            border:1px solid black;
+        }
+
+        td input{
+            border:1px solid rgb(224,224,224);
+        }
+
+        td textarea{
+            border:1px solid rgb(224,224,224);
+        }
+
+        .table_title span{
+            font-size:x-large;
+            font-weight: 800;
+        }
+        .td_key{
+            font-weight: 700;
+        }
+        .table tr td{
+            text-align: center;
+        }
+        #table1 tbody td{
+            width: 12.5%;
+        }
+        #table2 tbody td{
+            width: 7.1%;
+        }
+        #table3 tbody td{
+            width: 14.2%;
+        }
+        table tbody tr td input,select{
+            width:98%;
+        }
+        #table4 .t4_c1{
+            width: 7%;
+        }
+        #table4 .t4_c2{
+            width: 11%;
+        }
+        #table4 .t4_c3{
+            width: 82%;
+        }
+        table textarea{
+            width:95%;
+        }
+        .checkTure{
+            margin-bottom: 30px;
+        }
+
+        .check_msg{
+            float: left;
+            margin-left: 100px;
+        }
+        .checkTure_btn_div{
+            float: right;
+            margin-right: 200px;
+        }
+        .submit_btn_div{
+            width:300px;
+            margin:0 auto;
+            margin-bottom: 50px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="head">
+        <img src="../static/imgs/top_banner.png" th:href="@{/imgs/top_banner.png}"/>
+
+    </div>
+
+    <div class="mid">
+        <div id="sheet_wrap">
+
+            <div class="table_title">
+                <span>湖北省优秀硕士学位论文申请</span>
+            </div>
+
+            <table class="table" id="table0">
+                <tbody>
+                <tr>
+                    <td class="td_key">省市代码</td><td><input type="text"/></td>
+                    <td class="td_key">省市名称</td><td><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">学校代码</td><td><input type="text"/></td>
+                    <td class="td_key">学校名称</td><td><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">参评类型</td>
+                    <td colspan="3">
+                        <select>
+                            <option value="">请选择</option>
+                            <option value="湖北省优秀硕士论文评选（已授学位）">湖北省优秀硕士论文评选（已授学位）</option>
+                            <option value="湖北省优秀博士论文评选（已授学位）">湖北省优秀博士论文评选（已授学位）</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_key">作者学号</td><td><input type="text"/></td>
+                    <td class="td_key">序号</td><td><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">论文中文关键字</td><td colspan="3"><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">论文页数</td><td><input type="text"/></td>
+                    <td class="td_key">攻读类型</td>
+                    <td>
+                        <select>
+                            <option value="">请选择</option>
+                            <option value="统招生">统招生</option>
+                            <option value="联合培养">联合培养</option>
+                            <option value="在职攻读">在职攻读</option>
+                            <option value="同等学力">同等学力</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_key">Word论文推荐表路径</td><td><input type="text"/></td>
+                    <td class="td_key">PDF论文原文路径</td><td><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">作者职称</td><td><input type="text"/></td>
+                    <td class="td_key">学校联系人</td><td><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">备注</td>
+                    <td colspan="3"><input type="text"/></td>
+                </tr>
+
+
+                </tbody>
+            </table>
+
+            <div class="checkTure">
+                <div class="check_msg validate_warn">
+                    内容填写错误
+                </div>
+                <div class="checkTure_btn_div">
+                    <button type="button" class="btn btn-primary">检测上面内容</button>
+                </div>
+                <div class="clear">
+
+                </div>
+            </div>
+
+            <table class="table" id="table1">
+                <tbody>
+                <tr>
+                    <td class="td_key">作者姓名</td><td><input type="text"/></td>
+                    <td class="td_key">性别</td><td><input type="text"/></td>
+                    <td class="td_key">出生年月</td><td><input type="text"/></td>
+                    <td class="td_key">民族</td><td><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">论文题目</td><td colspan="7"><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">论文英文题目</td><td colspan="7"><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">入学年月</td><td><input type="text"/></td>
+                    <td class="td_key" colspan="2">论文答辩日期</td><td><input type="text"/></td>
+                    <td class="td_key">获得硕士学位日期</td><td colspan="2"><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">一级学科代码</td><td><input type="text"/></td>
+                    <td class="td_key" colspan="2">一级学科名称</td><td colspan="4"><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">二级学科代码</td><td><input type="text"/></td>
+                    <td class="td_key" colspan="2">二级学科名称</td><td colspan="4"><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key" colspan="2">论文涉及的研究方向</td><td colspan="6"><input type="text"/></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="checkTure">
+                <div class="check_msg validate_warn">
+                    内容填写错误
+                </div>
+                <div class="checkTure_btn_div">
+                    <button type="button" class="btn btn-primary">检测上面内容</button>
+                </div>
+                <div class="clear">
+
+                </div>
+            </div>
+
+            <table class="table" id="table2">
+                <tbody>
+                <tr>
+                    <td rowspan="4" class="td_key"><br>攻硕期间<br>及获得硕<br>士学位后<br>一年内</td>
+                    <td colspan="4" class="td_key">发表学术论文数</td>
+                    <td colspan="8" class="td_key">论文被检索数</td>
+                    <td class="td_key">获发明或实用新型专利数</td>
+                </tr>
+                <tr>
+                    <td class="td_key">第一作者</td><td><input type="text"/></td>
+                    <td class="td_key">第二作者</td><td><input type="text"/></td>
+                    <td class="td_key">SCI</td><td><input type="text"/></td>
+                    <td class="td_key">EI</td><td><input type="text"/></td>
+                    <td class="td_key">SSCI</td><td><input type="text"/></td>
+                    <td class="td_key">ISTP</td><td><input type="text"/></td>
+                    <td><input type="text"/></td>
+
+                </tr>
+                <tr>
+                    <td colspan="13" class="td_key">出国进修的时间、国名、内容、(本栏信息不输入到数据库中)</td>
+                </tr>
+                <tr>
+                    <td colspan="13"><textarea rows="5"></textarea></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="checkTure">
+                <div class="check_msg validate_warn">
+                    内容填写错误
+                </div>
+                <div class="checkTure_btn_div">
+                    <button type="button" class="btn btn-primary">检测上面内容</button>
+                </div>
+                <div class="clear">
+
+                </div>
+            </div>
+
+            <table class="table" id="table3">
+                <tbody>
+                <tr>
+                    <td class="td_key" colspan="2">攻读硕士学位方式</td>
+                    <td colspan="5" class="td_key">统招生 &nbsp;&nbsp; 联合培养&nbsp;&nbsp;  在职攻读</td>
+                </tr>
+                <tr>
+                    <td class="td_key" colspan="2">本科就读学校</td>
+                    <td colspan="5"><input type="text"/></td>
+
+                </tr>
+                <tr>
+                    <td class="td_key" colspan="2">攻读硕士学位单位</td>
+                    <td colspan="5"><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key" rowspan="3">作者<br>现工<br>作情<br>况</td>
+                    <td class="td_key">作者单位</td>
+                    <td colspan="4"><input type="text"/></td>
+                    <td class="td_key">作者邮编</td>
+                </tr>
+                <tr>
+                    <td class="td_key" class="td_key">作者地址</td>
+                    <td colspan="4"><input type="text"/></td>
+                    <td><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key">作者电话</td>
+                    <td><input type="text"/></td>
+                    <td class="td_key">职称</td>
+                    <td><input type="text"/></td>
+                    <td class="td_key">职务</td>
+                    <td><input type="text"/></td>
+                </tr>
+                <tr>
+                    <td class="td_key" colspan="2">指导教师姓名（限填1人）</td>
+                    <td><input type="text"/></td>
+                    <td class="td_key" colspan="2">指导教师研究方向</td>
+                    <td colspan="2"><input type="text"/></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="checkTure">
+                <div class="check_msg validate_warn">
+                    内容填写错误
+                </div>
+                <div class="checkTure_btn_div">
+                    <button type="button" class="btn btn-primary">检测上面内容</button>
+                </div>
+                <div class="clear">
+
+                </div>
+            </div>
+
+            <table class="table" id="table4">
+                <thead>
+                <tr><td class="t4_c1"></td><td class="t4_c2"></td><td class="t4_c3"></td></tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td rowspan="3" class="td_key">攻硕期间及获得硕士学位后一年内获得与硕士学位论文有关的成果</td>
+                    <td class="td_key">发表学术论文（题目、刊物名称、时间）（限填5篇）</td>
+                    <td><textarea rows="6" class="td_key"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="td_key">出版专著（名称、出版社、出版时间）</td>
+                    <td><textarea rows="6"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="td_key">获奖项目（名称、等级及时间，（限填3项））及专利</td>
+                    <td><textarea rows="6"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="td_key">论文的主要创新点</td>
+                    <td colspan="2"><textarea rows="8"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="td_key">单位推荐意见</td>
+                    <td colspan="2"><textarea rows="8"></textarea></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="checkTure">
+                <div class="check_msg validate_warn">
+                    内容填写错误
+                </div>
+                <div class="checkTure_btn_div">
+                    <button type="button" class="btn btn-primary">检测上面内容</button>
+                </div>
+                <div class="clear">
+
+                </div>
+            </div>
+
+            <div class="submit_btn_div">
+                <button type="button" class="btn btn-primary btn-block">以上信息确认无误，提交到系统</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="foot">
+        <div class="row center">
+            ©2017 华中科技大学研究生院 版权所有
+        </div>
+    </div>
+
+</body>
+</html>
