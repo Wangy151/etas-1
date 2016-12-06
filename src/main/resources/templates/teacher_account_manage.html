@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8" />
+    <title>学院教务员账户管理</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
+    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet" />
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
+    <style rel="stylesheet">
+        .mid{
+            min-height: 200px;
+            border: 1px solid rgb(224,224,224);
+        }
+        .mid_body{
+            height: auto;
+            margin:0 auto;
+        }
+        .left{
+            width:15%;
+            min-height: 100px;
+            float:left;
+            border: 1px solid rgb(224,224,224);
+        }
+        .right{
+            width:84%;
+            min-height: 300px;
+            float:right;
+            border: 1px solid rgb(224,224,224);
+        }
+
+        .search{
+            background-color: rgb(245,245,245);
+        }
+        .search .search_row{
+            background-color: rgb(245,245,245);
+            height:auto;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .table_body{
+            margin-top: 30px;
+        }
+        .table_body thead{
+            background-color:rgb(224,224,224) ;
+            font-weight: 800;
+        }
+        .position ol{
+            background-color: white;
+        }
+        .one_input{
+            width:21%;
+            height: 30px;
+            float: left;
+            margin-left: 20px;
+        }
+        .input_width{
+            height: 30px;
+        }
+        .search_btn_div{
+            float: left;
+            margin-left: 10px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="head">
+    <img src="../static/imgs/top_banner.png" th:src="@{/imgs/top_banner.png}" />
+    <div class="welcome_exit">
+        欢迎您: <span th:text="${session.user.realName}">用户</span>&nbsp;&nbsp;&nbsp;
+        <a href="/home/logout">安全退出</a>
+    </div>
+
+</div>
+<div class="mid">
+    <div class="mid_body">
+        <div class="left">
+            <div id="firstpane" class="menu_list">
+                <h3 class="menu_head">学生模块</h3>
+                <div style="display:none" class="menu_body">
+                    <a href="#">申请优秀论文</a>
+                    <a href="#">查询论文审核状态</a>
+                    <a href="#">管理个人信息</a>
+                </div>
+                <h3 class="menu_head">学院教务员模块</h3>
+                <div style="display:none" class="menu_body">
+                    <a href="#">上报学生优秀论文</a>
+                    <a href="#">管理个人信息</a>
+                </div>
+                <h3 class="menu_head">学校管理员模块</h3>
+                <div style="display:none" class="menu_body">
+                    <a href="#">审核学院优秀论文上报</a>
+                    <a href="#">导出优秀论文信息</a>
+                    <a href="#">导入学生信息</a>
+                    <a href="#">管理教务员账户</a>
+                    <a href="#">管理个人信息</a>
+                </div>
+
+            </div>
+
+            <!-- 代码部分end -->
+        </div>
+
+        <div class="right">
+            <div class="search">
+                <div class="search_row">
+                    <div class="one_input">
+                        <label for="department">学院</label>
+                        <select id="department" class="input_width" style="width: 85%">
+                            <option value="" selected="selected">请选择</option>
+                            <option value="机械科学与工程学院">机械科学与工程学院</option>
+                            <option value="计算机科学与技术学院">计算机科学与技术学院</option>
+                            <option value="生命科学与技术学院">生命科学与技术学院</option>
+                            <option value="电气与电子工程学院">电气与电子工程学院</option>
+                            <option value="材料科学与工程学院">材料科学与工程学院</option>
+                            <option value="船舶与海洋工程学院">船舶与海洋工程学院</option>
+                            <option value="能源与动力工程学院">能源与动力工程学院</option>
+                            <option value="自动化学院">自动化学院</option>
+                            <option value="光学与电子信息学院">光学与电子信息学院</option>
+                            <option value="水电与数字化工程学院">水电与数字化工程学院</option>
+                            <option value="软件学院">软件学院</option>
+                            <option value="环境科学与工程学院">环境科学与工程学院</option>
+                            <option value="电子信息与通信学院">电子信息与通信学院</option>
+                            <option value="建筑与城市规划学院">建筑与城市规划学院</option>
+                            <option value="土木工程与力学学院">土木工程与力学学院</option>
+                            <option value="化学与化工学院">化学与化工学院</option>
+                            <option value="数学与统计学院">数学与统计学院</option>
+                            <option value="物理学院">物理学院</option>
+                            <option value="公共管理学院">公共管理学院</option>
+                            <option value="经济学院">经济学院</option>
+                            <option value="管理学院">管理学院</option>
+                            <option value="人文学院">人文学院</option>
+                            <option value="新闻与信息传播学院">新闻与信息传播学院</option>
+                            <option value="马克思主义学院">马克思主义学院</option>
+                            <option value="社会学院">社会学院</option>
+                            <option value="法学院">法学院</option>
+                            <option value="外国语学院">外国语学院</option>
+                            <option value="基础医学院（含法医学系）">基础医学院（含法医学系）</option>
+                            <option value="药学院">药学院</option>
+                            <option value="医药卫生管理学院">医药卫生管理学院</option>
+                            <option value="公共卫生学院">公共卫生学院</option>
+                            <option value="附属协和医院">附属协和医院</option>
+                            <option value="附属同济医院（含附属梨园医院、计划生育研究所、护理学系）">附属同济医院（含附属梨园医院、计划生育研究所、护理学系）</option>
+                            <option value="教育科学研究院">教育科学研究院</option>
+                            <option value="中欧清洁与可再生能源学院">中欧清洁与可再生能源学院</option>
+                            <option value="国学研究院">国学研究院</option>
+                            <option value="体育部">体育部</option>
+                            <option value="武汉光电国家实验室">武汉光电国家实验室</option>
+                            <option value="工程科学学院">工程科学学院</option>
+                            <option value="武汉国际微电子学院">武汉国际微电子学院</option>
+                        </select>
+                    </div>
+                    <div class="one_input">
+                        <label for="department">激活状态</label>
+                        <select class="input_width" style="width: 70%">
+                            <option>请选择</option>
+                            <option>未激活</option>
+                            <option>已激活</option>
+                        </select>
+                    </div>
+                    <div class="one_input input_width">
+                        <label for="realName">姓名</label>
+                        <input type="text" id="realName"/>
+                    </div>
+                    <div class="one_input input_width">
+                        <label for="userId">教工号</label>
+                        <input type="text" id="userId"/>
+                    </div>
+                    <div class="search_btn_div">
+                        <button type="button" class="btn btn-primary">查询</button>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+
+            <div class="table_body">
+                <div class="row">
+                    <div class="col-md-1" style="margin-left: 10px">
+                        <button type="button" class="btn btn-primary btn-xs">全选</button>
+                    </div>
+                    <div class="col-md-1" style="margin-left: -30px">
+                        <button type="button" class="btn btn-primary btn-xs">反选</button>
+                    </div>
+                    <div class="col-md-2" style="margin-left: -30px">
+                        <button type="button" class="btn btn-primary btn-xs">激活为学院教务员</button>
+                    </div>
+
+                </div>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <td>选择</td><td>学院</td><td>教工号</td><td>姓名</td><td>联系方式</td><td>邮箱</td><td>状态</td>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>计算机科学与技术学院</td>
+                        <td>0185263</td>
+                        <td>张辉耀</td>
+                        <td>18855661122</td>
+                        <td>zhyxhk@hust.mail.edu.cn</td>
+                        <td>未激活</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>计算机科学与技术学院</td>
+                        <td>0185263</td>
+                        <td>张辉耀</td>
+                        <td>18855661122</td>
+                        <td>zhyxhk@hust.mail.edu.cn</td>
+                        <td>未激活</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>计算机科学与技术学院</td>
+                        <td>0185263</td>
+                        <td>张辉耀</td>
+                        <td>18855661122</td>
+                        <td>zhyxhk@hust.mail.edu.cn</td>
+                        <td>未激活</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>计算机科学与技术学院</td>
+                        <td>0185263</td>
+                        <td>张辉耀</td>
+                        <td>18855661122</td>
+                        <td>zhyxhk@hust.mail.edu.cn</td>
+                        <td>未激活</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" /></td>
+                        <td>计算机科学与技术学院</td>
+                        <td>0185263</td>
+                        <td>张辉耀</td>
+                        <td>18855661122</td>
+                        <td>zhyxhk@hust.mail.edu.cn</td>
+                        <td>未激活</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="foot">
+    <div class="row center">
+        ©2017 华中科技大学研究生院 版权所有
+    </div>
+</div>
+
+</body>
+</html>

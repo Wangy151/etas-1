@@ -62,3 +62,16 @@ table textarea{
     margin:0 auto;
     width:250px;
 }
+.td_border_left{
+    border-left: none;
+}
+
+.td_border_right{
+    border-right: none;
+}
+.td_border_top{
+    border-top: none;
+}
+.td_border_buttom{
+    border-bottom: none;
+}
