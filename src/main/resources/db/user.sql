@@ -1,7 +1,8 @@
 create database etas;
 
-use etas;
+use user;
 
+-- 用户信息表
 DROP TABLE IF EXISTS user;
 
 create table user(
