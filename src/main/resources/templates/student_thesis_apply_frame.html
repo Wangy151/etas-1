@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>优秀论文申请</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet">
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet">
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet">
+    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet">
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
+    <style rel="stylesheet">
+
+        .mid{
+            width:1000px;
+            margin:0 auto;
+            padding-top: 30px;
+            min-height:300px;
+            /*border: 1px solid rgb(224,224,224);*/
+        }
+        .student_type_class{
+            width:320px;
+            margin:0 auto;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#student_type").bind("change",function(){
+                var student_type = $("#student_type").val();
+                if(student_type=="硕士研究生"){
+                    $("#sheet_wrap").load("master_thesis_apply_sheet.html");
+                }
+                else if(student_type=="博士研究生"){
+                    $("#sheet_wrap").load("doctor_thesis_apply_sheet.html");
+                }
+                else
+                    $("#sheet_wrap").html("");
+            });
+        });
+    </script>
+
+</head>
+<body>
+<div class="head">
+    <img src="../static/imgs/top_banner.png" th:href="@{/imgs/top_banner.png}"/>
+
+</div>
+
+<div class="mid">
+    <div class="student_type_class">
+        <form class="form-inline" role="form">
+            <div class="form-group has-success has-feedback">
+                <label class="control-label" for="student_type">请先选择您的学生类型&nbsp;&nbsp;</label>
+                <select class="form-control" id="student_type">
+                    <option value="">请选择</option>
+                    <option value="硕士研究生">硕士研究生</option>
+                    <option value="博士研究生">博士研究生</option>
+
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <hr/>
+
+    <div id="sheet_wrap">
+
+
+    </div>
+
+</div>
+
+<div class="foot">
+    <div class="row center">
+        ©2017 华中科技大学研究生院 版权所有
+    </div>
+</div>
+
+</body>
+</html>
