@@ -3,18 +3,18 @@
  */
 $(document).ready(function () {
     m_form1_validate();
+    m_form2_validate();
 
-    $("#m_table1_submit_btn").click(function(){
-        var status = $("#master_table1_form").valid();
+    $("#m_table2_submit_btn").click(function () {
+        var status = $("#m_form2").valid();
 
     })
-
 
 })//document.ready
 
 function m_form1_validate(){
 
-    $("#master_table1_form").validate({
+    $("#m_form1").validate({
         rules:{
             ssdm:{ //省市代码
                 required:true,
@@ -123,3 +123,174 @@ function m_form1_validate(){
 
     })//validate
 }
+
+
+function m_form2_validate(){
+
+    $("#m_form2").validate({
+        rules:{
+            zzxm:{  //作者姓名
+                required:true,
+            },
+            xb:{  //性别
+                required:true,
+            },
+            zzxm:{  //作者姓名
+                required:true,
+            },
+            csny:{  //出生年月
+                required:true,
+            },
+            mz:{  //民族
+                required:true,
+            },
+            lwtm:{  //论文题目
+                required:true,
+            },
+            lwywtm:{  //论文英文题目
+                required:true,
+            },
+            rxny:{  //入学年月
+                required:true,
+            },
+            dbrq:{  //论文答辩日期
+                required:true,
+            },
+            hdxwrq:{  //获得硕士学位日期
+                required:true,
+            },
+            yjxkdm:{  //一级学科代码
+                required:true,
+                digits:true,
+            },
+            yjxkmc:{  //一级学科名称
+                required:true,
+            },
+            ejxkdm:{  //二级学科代码
+                required:true,
+            },
+            ejxkmc:{  //二级学科名称
+                required:true,
+            },
+            lwsjdyjfx:{  //论文涉及的研究方向
+                required:true,
+            },
+
+        },
+        messages:{
+            zzxm:{  //作者姓名
+                required:"作者姓名不能为空",
+            },
+            xb:{  //性别
+                required:"XX不能为空",
+            },
+            zzxm:{  //作者姓名
+                required:"性别不能为空",
+            },
+            csny:{  //出生年月
+                required:"出生年月不能为空",
+            },
+            mz:{  //民族
+                required:"民族不能为空",
+            },
+            lwtm:{  //论文题目
+                required:"论文题目不能为空",
+            },
+            lwywtm:{  //论文英文题目
+                required:"论文英文题目不能为空",
+            },
+            rxny:{  //入学年月
+                required:"XX不能为空",
+            },
+            dbrq:{  //论文答辩日期
+                required:"入学年月不能为空",
+            },
+            hdxwrq:{  //获得硕士学位日期
+                required:"获得硕士学位日期不能为空",
+            },
+            yjxkdm:{  //一级学科代码
+                required:"一级学科代码不能为空",
+                digits:"一级学科代码为数字",
+            },
+            yjxkmc:{  //一级学科名称
+                required:"一级学科名称不能为空",
+            },
+            ejxkdm:{  //二级学科代码
+                required:"二级学科代码不能为空",
+            },
+            ejxkmc:{  //二级学科名称
+                required:"二级学科名称不能为空",
+            },
+            lwsjdyjfx:{  //论文涉及的研究方向
+                required:"论文涉及的研究方向不能为空",
+            },
+        },
+        errorPlacement : function(error, element){
+            $("#m_table2_warn").html(error);
+        },
+    })//validate
+
+}//function
+
+function m_form3_validate(){
+
+    $("#m_form3").validate({
+        rules:{
+            dyzz:{  //发表学术论文数(第一作者)
+
+            },
+            dezz:{  //发表学术论文数(第二作者)
+
+            },
+            sci:{  //论文被检索数(SCI)
+
+            },
+            ei:{  //论文被检索数(EI
+
+            },
+            ssci:{  //论文被检索数(SSCI
+
+            },
+            istp:{  //论文被检索数(ISTP)
+
+            },
+            zls:{  //获发明或实用新型专利数
+
+            },
+            cgjx:{  //出国进修的时间 国名 内容
+
+            },
+
+        },
+        messages:{
+            dyzz:{  //发表学术论文数(第一作者)
+
+            },
+            dezz:{  //发表学术论文数(第二作者)
+
+            },
+            sci:{  //论文被检索数(SCI)
+
+            },
+            ei:{  //论文被检索数(EI
+
+            },
+            ssci:{  //论文被检索数(SSCI
+
+            },
+            istp:{  //论文被检索数(ISTP)
+
+            },
+            zls:{  //获发明或实用新型专利数
+
+            },
+            cgjx:{  //出国进修的时间 国名 内容
+
+            },
+        },
+        errorPlacement : function(error, element){
+            $("#m_form3_warn").html(error);
+        },
+    })//validate
+
+}//function

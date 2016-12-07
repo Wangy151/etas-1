@@ -29,17 +29,14 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $("#student_type").bind("change",function(){
-                var student_type = $("#student_type").val();
-                if(student_type=="硕士研究生"){
-                    $("#sheet_wrap").load("master_thesis_apply_sheet.html");
-                }
-                else if(student_type=="博士研究生"){
-                    $("#sheet_wrap").load("doctor_thesis_apply_sheet.html");
-                }
-                else
-                    $("#sheet_wrap").html("");
+           $("#basic_info_btn").click(function(){
+                $("#apply_form_wrap").load("s_apply_basic_info.html");
+           });
+
+           $("#thesis_tjb_btn").click(function(){
+               $("#apply_form_wrap").load("s_thesis_apply_tjb_frame.html");
             });
+
         });
     </script>
 
@@ -51,34 +48,24 @@
 </div>
 
 <div class="mid">
-    <div class="student_type_class">
-        <form class="form-inline" role="form">
-            <div class="form-group has-success has-feedback">
-                <label class="control-label" for="student_type">请先选择您的学生类型&nbsp;&nbsp;</label>
-                <select class="form-control" id="student_type">
-                    <option value="">请选择</option>
-                    <option value="硕士研究生">硕士研究生</option>
-                    <option value="博士研究生">博士研究生</option>
-
-                </select>
-            </div>
-        </form>
+    <div class="row">
+        <div class="col-md-2">
+            <button type="button" id="basic_info_btn" class="btn btn-default">基本信息表</button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" id="thesis_tjb_btn" class="btn btn-default">优秀论文推荐表</button>
+        </div>
     </div>
 
     <hr/>
 
-    <div id="sheet_wrap">
+    <div id="apply_form_wrap">
 
 
     </div>
 
 </div>
 
-<div class="foot">
-    <div class="row center">
-        ©2017 华中科技大学研究生院 版权所有
-    </div>
-</div>
 
 </body>
 </html>
