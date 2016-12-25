@@ -3,6 +3,7 @@ package cn.edu.hust.controller;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
 import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
 import cn.edu.hust.model.request.StudentTypeRequest;
+import cn.edu.hust.model.request.ThesisBasicInfoRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -57,12 +59,14 @@ public class StudentController {
      */
     @RequestMapping(value = "/apply/load/tjb", method = RequestMethod.POST)
     public String loadTjb(@RequestBody StudentTypeRequest StudentTypeRequest, HttpSession session) throws Exception {
-        String userId = (String) session.getAttribute("user");
+//        User user = (User) session.getAttribute("user");
         String studentType = StudentTypeRequest.getStudentType();
         if ("master".equalsIgnoreCase(studentType)) {
+            // Todo
 //            studentService.initMasterThesisApply(userId);
             return "s_master_thesis_apply";
         } else if ("doctor".equalsIgnoreCase(studentType)) {
+            // Todo
 //            studentService.initDocterThesisApply(userId);
             return "s_doctor_thesis_apply";
         } else {
@@ -72,12 +76,25 @@ public class StudentController {
     }
 
     /**
+     * 保存基本信息表
+     * @param thesisBasicInfoRequest
+     * @return
+     */
+    @RequestMapping(value = "/apply/save/basicInfoTable", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResponse saveThesisBasicInfoTable(@RequestBody ThesisBasicInfoRequest thesisBasicInfoRequest) {
+        System.out.println(thesisBasicInfoRequest.toString());
+        return new CommonResponse().withCode(200).withMsg("保存成功");
+    }
+
+
+    /**
      * 保存申请表[硕士]
      *
      * @return
      */
     @RequestMapping(value = "/apply/master/save", method = RequestMethod.POST)
-    public CommonResponse saveMaster(@RequestBody MasterThesisApplyInfoRequest masterThesisApplyInfoRequest) {
+    public CommonResponse saveMasterTjb(@RequestBody MasterThesisApplyInfoRequest masterThesisApplyInfoRequest) {
         CommonResponse commonResponse = new CommonResponse();
         boolean isSuccess = studentService.saveMaster(masterThesisApplyInfoRequest);
         if (isSuccess) {
@@ -92,7 +109,7 @@ public class StudentController {
      * @return
      */
     @RequestMapping(value = "/apply/doctor/save", method = RequestMethod.POST)
-    public CommonResponse saveDoctor(@RequestBody DoctorThesisApplyInfoRequest doctorThesisApplyInfoRequest) {
+    public CommonResponse saveDoctorTjb(@RequestBody DoctorThesisApplyInfoRequest doctorThesisApplyInfoRequest) {
         CommonResponse commonResponse = new CommonResponse();
 
         boolean isSuccess = studentService.saveDoctor(doctorThesisApplyInfoRequest);

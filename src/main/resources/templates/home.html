@@ -107,6 +107,11 @@
                             $(".mid_body").html(data);
                         },
                         error: function(XMLHttpRequest, textStatus) {
+                            if (XMLHttpRequest.status == 401) {
+                                $("#home_right_wrap").html("您没有访问权限 ~");
+                            } else {
+                                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
+                            }
                         },
                         complete: function(XMLHttpRequest, textStatus){
                         }

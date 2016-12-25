@@ -17,7 +17,7 @@ import java.io.IOException;
 /**
  * Created by xiaolei03 on 16/12/5.
  */
-//@WebFilter(filterName = "UserAccessFilter", urlPatterns = "/home/*")
+@WebFilter(filterName = "UserAccessFilter", urlPatterns = "/home/*")
 public class UserAccessFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -32,6 +32,7 @@ public class UserAccessFilter implements Filter {
         User user = (User) session.getAttribute("user");
         if (null == user) {
             System.out.println("用户未登录");
+
             response.sendRedirect("/user_no_login.html");
             return;
         }
@@ -43,7 +44,8 @@ public class UserAccessFilter implements Filter {
                 (uri.startsWith("/home/teacher") && (!"学院教务员".equals(role))) ||
                 (uri.startsWith("/home/admin") && (!"管理员".equals(role)))) {
             System.out.println("没有权限, role: " + role + " uri: " + uri);
-            response.sendRedirect("/no_access_rights.html");
+            response.sendError(401, "无权限");
+//            response.sendRedirect("/no_access_rights.html");
             return;
         }
 
