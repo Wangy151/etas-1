@@ -15,7 +15,7 @@ zzxh varchar(50) NOT NULL DEFAULT '' COMMENT '作者学号',
 zzxm varchar(30) NOT NULL DEFAULT '' COMMENT '作者姓名',
 xb varchar(10) NOT NULL DEFAULT '' COMMENT '性别',
 csny varchar(20) NOT NULL DEFAULT '' COMMENT '出生年月',
-mz varchar(30) NOT NULL DEFAULT '' COMMENT '名族',
+mz varchar(30) NOT NULL DEFAULT '' COMMENT '民族',
 dsxm varchar(30) NOT NULL DEFAULT '' COMMENT '导师姓名',
 lwtm varchar(256) NOT NULL DEFAULT '' COMMENT '论文题目',
 lwywtm varchar(512) NOT NULL DEFAULT '' COMMENT '论文英文题目',
@@ -34,5 +34,10 @@ gdlb varchar(50) NOT NULL DEFAULT '' COMMENT '攻读类别',
 gdxwfs varchar(50) NOT NULL DEFAULT '' COMMENT '攻读方式',
 zzzc varchar(50) NOT NULL DEFAULT '' COMMENT '作者职称',
 xxlxr varchar(50) NOT NULL DEFAULT '' COMMENT '学校联系人',
-bz varchar(256) NOT NULL DEFAULT '' COMMENT '备注'
+bz varchar(256) NOT NULL DEFAULT '' COMMENT '备注',
+
+applyYear varchar(10) NOT NULL DEFAULT '' COMMENT '申请年份',
+studentType varchar(10) NOT NULL DEFAULT '' COMMENT '学生类型:硕士 博士',
+applyStatus varchar(20) NOT NULL DEFAULT '' COMMENT '申请状态'
+
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论文基本信息表';

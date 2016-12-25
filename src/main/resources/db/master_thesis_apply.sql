@@ -4,6 +4,9 @@ DROP TABLE IF EXISTS master_thesis_apply;
 
 create table master_thesis_apply(
 id int not null primary key auto_increment,
+
+user_id varchar(30) NOT NULL COMMENT '用户学号',
+
 dwdm varchar(20) NOT NULL DEFAULT '' COMMENT '单位代码',
 dwmc varchar(50) NOT NULL DEFAULT '' COMMENT '单位名称',
 tbrq varchar(20) NOT NULL DEFAULT '' COMMENT '填表日期',
@@ -48,6 +51,8 @@ fbxslw text COMMENT '发表学术论文',
 cbzz text COMMENT '出版专著',
 hjxm text COMMENT '获奖项目',
 lwdzycxd text COMMENT '论文的主要创新点',
-dwtjyy text COMMENT '单位推荐意见'
+dwtjyy text COMMENT '单位推荐意见',
+
+student_type varchar(20) NOT NULL DEFAULT '' COMMENT '学生类型'
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='硕士学位论文推荐表';

@@ -14,216 +14,6 @@
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
     <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            d_form1_validate();
-            d_form2_validate();
-            d_form1_submit();
-            d_form2_submit();
-        });
-
-        function d_form1_validate(){
-            // d_form1  d_form1_submit_btn  d_form1_warn
-            // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
-            // yjxkdm  yjxkmc  ejxkdm  ejxkmc  zdjsxm  zdjsyjfx
-            // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
-            $("#d_form1").validate({
-                rules:{
-                    // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
-                    lwtm:{ //论文题目
-                        required:true,
-                        maxlength:50,
-                    },
-                    lwywtm:{ //论文英文题目
-                        required:true,
-                        maxlength:200,
-                    },
-                    zzxm:{  //作者姓名
-                        required:true,
-                        maxlength:20,
-                    },
-                    dbrq:{ //答辩日期
-                        required:true,
-                        maxlength:8,
-                    },
-                    hdxwrq:{ //获学位日期
-                        required:true,
-                        maxlength:8,
-                    },
-                    lwsjdyjfx:{ //论文涉及的研究方向
-                        required:true,
-                        maxlength:20,
-                    },
-
-                    // yjxkdm  yjxkmc  ejxkdm  ejxkmc  zdjsxm  zdjsyjfx
-                    yjxkdm:{ //一级学科代码
-                        required:true,
-                    },
-                    yjxkmc:{ //一级学科名称
-                        required:true,
-                    },
-                    ejxkdm:{ //二级学科代码
-                        required:true,
-                    },
-                    ejxkmc:{ //二级学科名称
-                        required:true,
-                    },
-                    zdjsxm:{ //指导教师姓名
-                        required:true,
-                        maxlength:10,
-                    },
-                    zdjsyjfx:{ //指导教师研究方向
-                        required:true,
-                        maxlength:20,
-                    },
-
-
-                }, //rules
-                messages:{
-                    // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
-                    lwtm:{ //论文题目
-                        required:"论文题目不能为空",
-                        maxlength:"论文题目长度不超过50",
-                    },
-                    lwywtm:{ //论文英文题目
-                        required:"论文英文题目不能为空",
-                        maxlength:"论文英文题目长度不超过200",
-                    },
-                    zzxm:{  //作者姓名
-                        required:"作者姓名不能为空",
-                        maxlength:"作者姓名长度不超过20",
-                    },
-                    dbrq:{ //答辩日期
-                        required:"答辩日期不能为空",
-                        maxlength:"答辩日期长度不超过8",
-                    },
-                    hdxwrq:{ //获学位日期
-                        required:"获学位日期不能为空",
-                        maxlength:"获学位日期长度不超过8",
-                    },
-                    lwsjdyjfx:{ //论文涉及的研究方向
-                        required:"论文涉及的研究方向不能为空",
-                        maxlength:"论文涉及的研究方向长度不超过20",
-                    },
-
-                    // yjxkdm  yjxkmc  ejxkdm  ejxkmc  zdjsxm  zdjsyjfx
-                    yjxkdm:{ //一级学科代码
-                        required:"一级学科代码不能为空",
-                    },
-                    yjxkmc:{ //一级学科名称
-                        required:"一级学科名称不能为空",
-                    },
-                    ejxkdm:{ //二级学科代码
-                        required:"二级学科代码不能为空",
-                    },
-                    ejxkmc:{ //二级学科名称
-                        required:"二级学科名称不能为空",
-                    },
-                    zdjsxm:{ //指导教师姓名
-                        required:"指导教师姓名不能为空",
-                        maxlength:"指导教师姓名长度不超过10",
-                    },
-                    zdjsyjfx:{ //指导教师研究方向
-                        required:"指导教师研究方向不能为空",
-                        maxlength:"指导教师研究方向长度不超过20",
-                    },
-                }, //messages
-                errorPlacement : function(error, element){
-                    $("#d_form1_warn").html(error);
-                }, //errorPlacement
-
-            }); //validate
-        };
-
-
-
-        function d_form2_validate(){
-            //  d_form2  d_form2_submit_btn  d_form2_warn
-            // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
-            $("#d_form2").validate({
-                rules:{
-                    fbxslw:{ //发表学术论文
-                        required:true,
-                        maxlength:700,
-                    },
-                    cbzz:{  //出版专著
-                        required:true,
-                        maxlength:400,
-                    },
-                    hjxm:{  //获奖项目
-                        required:true,
-                        maxlength:600,
-                    },
-                    lwdzycxd:{  //论文的主要创新点
-                        required:true,
-                        maxlength:800,
-                    },
-                    dwtjyy:{ //单位推荐意见
-                        required:true,
-                        maxlength:200,
-                    },
-                    tbrq:{ //填表日期
-                        required:true,
-                        maxlength:8,
-                        minlength:8,
-                    },
-                }, //rules
-                messages:{
-                    fbxslw:{ //发表学术论文
-                        required:"发表学术论文不能为空",
-                        maxlength:"发表学术论文长度不超过700",
-                    },
-                    cbzz:{  //出版专著
-                        required:"出版专著不能为空",
-                        maxlength:"出版专著长度不超过400",
-                    },
-                    hjxm:{  //获奖项目
-                        required:"获奖项目不能为空",
-                        maxlength:"获奖项目长度不超过600",
-                    },
-                    lwdzycxd:{  //论文的主要创新点
-                        required:"论文的主要创新点不能为空",
-                        maxlength:"论文的主要创新点长度不超过800",
-                    },
-                    dwtjyy:{ //单位推荐意见
-                        required:"单位推荐意见不能为空",
-                        maxlength:"单位推荐意见长度不超过200",
-                    },
-                    tbrq:{ //填表日期
-                        required:"填表日期不能为空",
-                        maxlength:"填表日期长度为8",
-                        minlength:"填表日期长度为8",
-                    },
-                }, //messages
-                errorPlacement : function(error, element){
-                    $("#d_form2_warn").html(error);
-                }, //errorPlacement
-            })
-        };
-
-
-        function d_form1_submit(){
-            // d_form1  d_form1_submit_btn  d_form1_warn
-            // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
-            // yjxkdm  yjxkmc  ejxkdm  ejxkmc  zdjsxm  zdjsyjfx
-            // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
-            $("#d_form1_submit_btn").click(function () {
-                var status = $("#d_form1").valid();
-                if(status == false)  return;
-            });
-        };
-
-        function d_form2_submit(){
-            //  d_form2  d_form2_submit_btn  d_form2_warn
-            // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
-            $("#d_form2_submit_btn").click(function () {
-                var status = $("#d_form2").valid();
-                if(status == false)  return;
-            });
-        };
-
-    </script>
-
 </head>
 <body>
 
@@ -236,118 +26,110 @@
     </div>
 
 
-    <form id="d_form1">
-        <table class="table" id="table1">
-            <tbody>
-            <tr>
-                <td class="td_key">论文题目</td>
-                <td colspan="3"><input type="text" id="lwtm" name="lwtm" placeholder="论文题目" disabled="disabled"/></td>
-            </tr>
-            <tr>
-                <td class="td_key">论文英文题目</td>
-                <td colspan="3"><input type="text" id="lwywtm" name="lwywtm" placeholder="论文英文题目"/></td>
-            </tr>
-            <tr>
-                <td class="td_key">作者姓名</td>
-                <td class="td_key">论文答辩日期</td>
-                <td class="td_key">获得博士学位日期</td>
-                <td class="td_key">论文涉及的研究方向</td>
-            </tr>
-            <tr>
-                <td><input type="text" id="zzxm" name="zzxm" placeholder="作者姓名"/></td>
-                <td><input type="text" id="dbrq" name="dbrq" placeholder="论文答辩日期"/></td>
-                <td><input type="text" id="hdxwrq" name="hdxwrq" placeholder="获得博士学位日期" disabled="disabled"/></td>
-                <td><input type="text" id="lwsjdyjfx" name="lwsjdyjfx" placeholder="论文涉及的研究方向"/></td>
-            </tr>
-            <tr>
-                <td class="td_key">一级学科代码</td>
-                <td class="td_key">一级学科名称</td>
-                <td class="td_key">二级学科代码</td>
-                <td class="td_key">二级学科名称</td>
-            </tr>
-            <tr>
-                <td><input type="text" id="yjxkdm" name="yjxkdm" placeholder="一级学科代码" disabled="disabled"/></td>
-                <td><input type="text" id="yjxkmc" name="yjxkmc" placeholder="一级学科名称" disabled="disabled"/></td>
-                <td><input type="text" id="ejxkdm" name="ejxkdm" placeholder="二级学科代码" disabled="disabled"/></td>
-                <td><input type="text" id="ejxkmc" name="ejxkmc" placeholder="二级学科名称" disabled="disabled"/></td>
-            </tr>
-            <tr>
-                <td class="td_key">指导教师姓名（限填1人）</td>
-                <td><input type="text" id="zdjsxm" name="zdjsxm" placeholder="指导教师姓名（限填1人）"/></td>
-                <td class="td_key">指导教师研究方向</td>
-                <td><input type="text" id="zdjsyjfx" name="zdjsyjfx" placeholder="指导教师研究方向"/></td>
-            </tr>
-            </tbody>
-        </table>
+    <table class="table" id="table1">
+        <tbody>
+        <tr>
+            <td class="td_key">论文题目</td>
+            <td colspan="3"><input type="text"/></td>
+        </tr>
+        <tr>
+            <td class="td_key">论文英文题目</td>
+            <td colspan="3"><input type="text"/></td>
+        </tr>
+        <tr>
+            <td class="td_key">作者姓名</td>
+            <td class="td_key">论文答辩日期</td>
+            <td class="td_key">获得博士学位日期</td>
+            <td class="td_key">论文涉及的研究方向</td>
+        </tr>
+        <tr>
+            <td><input type="text"/></td>
+            <td><input type="text"/></td>
+            <td><input type="text"/></td>
+            <td><input type="text"/></td>
+        </tr>
+        <tr>
+            <td class="td_key">一级学科代码</td>
+            <td class="td_key">一级学科名称</td>
+            <td class="td_key">二级学科代码</td>
+            <td class="td_key">二级学科名称</td>
+        </tr>
+        <tr>
+            <td><input type="text"/></td>
+            <td><input type="text"/></td>
+            <td><input type="text"/></td>
+            <td><input type="text"/></td>
+        </tr>
+        <tr>
+            <td class="td_key">指导教师姓名（限填1人）</td>
+            <td><input type="text"/></td>
+            <td class="td_key">指导教师研究方向</td>
+            <td><input type="text"/></td>
+        </tr>
+        </tbody>
+    </table>
 
-        <div class="checkTure">
+    <div class="checkTure">
 
-            <div class="checkTure_btn_div">
-                <button type="button" id="d_form1_submit_btn" class="btn btn-primary">此部分信息确认无误，提交保存</button>
-            </div>
-            <div id="d_form1_warn" class="check_msg validate_warn">
-
-            </div>
-
+        <div class="checkTure_btn_div">
+            <button type="button" class="btn btn-primary">此部分信息确认无误，提交保存</button>
         </div>
-    </form>
-
-    <form id="d_form2">
-        <table class="table" id="d_table2">
-            <thead>
-            <tr><td class="d_t2_c1"></td><td class="d_t2_c2"></td><td class="d_t2_c3"></td></tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td rowspan="3" class="td_key"><br><br><br>攻博期间及获得博士学位后一年内获得与博士学位论文有关的成果</td>
-                <td class="td_key">发表学术论文（题目、刊物名称、时间）（限填5篇）</td>
-                <td><textarea rows="10" id="fbxslw" name="fbxslw" placeholder="发表学术论文"></textarea></td>
-            </tr>
-            <tr>
-                <td class="td_key">出版专著（名称、出版社、出版时间）</td>
-                <td><textarea rows="10" id="cbzz" name="cbzz" placeholder="出版专著"></textarea></td>
-            </tr>
-            <tr>
-                <td class="td_key">获奖项目（名称、等级及时间,及专利）（限填3项）</td>
-                <td>
-                    <textarea rows="10" id="hjxm" name="hjxm" placeholder="获奖项目">
-
-                    </textarea>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="td_key">论文的主要创新点</td>
-                <td colspan="2">
-                    <textarea rows="10" id="lwdzycxd" name="lwdzycxd" placeholder="论文的主要创新点"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td class="td_key">单位推荐意见</td>
-                <td colspan="2">
-                    <textarea rows="10" id="dwtjyy" name="dwtjyy" placeholder="单位推荐意见，由学校负责人填写" disabled="disabled"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td class="td_key">填表时间</td>
-                <td colspan="2">
-                    <input type="text" id="tbrq" name="tbrq" placeholder="填表时间"/>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-        <div class="checkTure">
-
-            <div class="checkTure_btn_div">
-                <button type="button" id="d_form2_submit_btn" class="btn btn-primary">此部分信息确认无误，提交保存</button>
-            </div>
-            <div id="d_form2_warn" class="check_msg validate_warn">
-
-            </div>
-
+        <div class="check_msg validate_warn">
+            内容填写错误
         </div>
-    </form>
+
+    </div>
+
+    <table class="table" id="d_table2">
+        <thead>
+        <tr><td class="d_t2_c1"></td><td class="d_t2_c2"></td><td class="d_t2_c3"></td></tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td rowspan="3" class="td_key"><br><br><br>攻博期间及获得博士学位后一年内获得与博士学位论文有关的成果</td>
+            <td class="td_key">发表学术论文（题目、刊物名称、时间）（限填5篇）</td>
+            <td><textarea rows="10"></textarea></td>
+        </tr>
+        <tr>
+            <td class="td_key">出版专著（名称、出版社、出版时间）</td>
+            <td><textarea rows="10"></textarea></td>
+        </tr>
+        <tr>
+            <td class="td_key">获奖项目（名称、等级及时间,及专利）（限填3项）</td>
+            <td><textarea rows="10"></textarea></td>
+        </tr>
+
+        <tr>
+            <td class="td_key">论文的主要创新点</td>
+            <td colspan="2">
+                <textarea rows="10"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="td_key">单位推荐意见</td>
+            <td colspan="2">
+                <textarea rows="10"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="td_key">填表时间</td>
+            <td colspan="2">
+                <input type="text"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="checkTure">
+
+        <div class="checkTure_btn_div">
+            <button type="button" class="btn btn-primary">此部分信息确认无误，提交保存</button>
+        </div>
+        <div class="check_msg validate_warn">
+            内容填写错误
+        </div>
+
+    </div>
 
 </div>
 </body>

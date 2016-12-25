@@ -57,6 +57,10 @@ public class RegisterService {
             return commonResponse.withCode(500).withMsg("系统繁忙");
         }
 
+        // 设置 学号
+        String userId = registerRequest.getUserId().toUpperCase();
+        registerRequest.setUserId(userId);
+
         if (registerDao.insertUserInfo(registerRequest) > 0) {
             if ("学生".equalsIgnoreCase(registerRequest.getRole())) {
                 return commonResponse.withCode(200).withMsg("学生注册成功");

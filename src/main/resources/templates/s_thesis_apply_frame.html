@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>优秀论文申请</title>
-    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet">
-    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet">
-    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet">
-    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet">
-    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet">
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
+    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet" />
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
@@ -30,11 +30,51 @@
         $(document).ready(function () {
 
            $("#basic_info_btn").click(function(){
-                $("#apply_form_wrap").load("s_apply_basic_info.html");
+                // $("#apply_form_wrap").load("s_apply_basic_info.html");
+
+                $.ajax({
+                        type: "POST",
+                        url: "/home/student/apply/load/basicInfoTable",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+
+                        }),
+
+                        beforeSend: function(XMLHttpRequest){
+                        },
+
+                        success: function(data){
+                            $("#apply_form_wrap").html(data);
+                        },
+                        error: function(XMLHttpRequest, textStatus) {
+                        },
+                        complete: function(XMLHttpRequest, textStatus){
+                        }
+                    }); // end ajax
            });
 
            $("#thesis_tjb_btn").click(function(){
-               $("#apply_form_wrap").load("s_thesis_apply_tjb_frame.html");
+               // $("#apply_form_wrap").load("s_thesis_apply_tjb_frame.html");
+
+               $.ajax({
+                        type: "POST",
+                        url: "/home/student/apply/load/tjbFrame",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+
+                        }),
+
+                        beforeSend: function(XMLHttpRequest){
+                        },
+
+                        success: function(data){
+                            $("#apply_form_wrap").html(data);
+                        },
+                        error: function(XMLHttpRequest, textStatus) {
+                        },
+                        complete: function(XMLHttpRequest, textStatus){
+                        }
+                    }); // end ajax
             });
 
         });
@@ -42,11 +82,6 @@
 
 </head>
 <body>
-<div class="head">
-    <img src="../static/imgs/top_banner.png" th:href="@{/imgs/top_banner.png}"/>
-
-</div>
-
 <div class="mid">
     <div class="row">
         <div class="col-md-2">
@@ -60,7 +95,6 @@
     <hr/>
 
     <div id="apply_form_wrap">
-
 
     </div>
 

@@ -1,6 +1,5 @@
 package cn.edu.hust.dao;
 
-import cn.edu.hust.model.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
