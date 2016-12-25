@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8" />
-    <title>主页面</title>
+    <title>优秀论文申请系统</title>
     <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
     <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
     <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
@@ -90,16 +90,35 @@
 //            a_review_thesis_btn    a_export_thesis_info_btn    a_import_student_info_btn
 //             a_active_teacher_btn   a_add_admin_account_btn   a_personal_info_btn
 
-            //学生模块
+            // 学生模块 --> 申请优秀论文
             $("#s_thesis_apply_btn").click(function(){
-                window.open("s_thesis_apply_frame.html","_blank");
+                    $.ajax({
+                        type: "POST",
+                        url: "/home/student/apply/index",
+                        contentType: "application/json",
+                        data: JSON.stringify({
 
+                        }),
+
+                        beforeSend: function(XMLHttpRequest){
+                        },
+
+                        success: function(data){
+                            $(".mid_body").html(data);
+                        },
+                        error: function(XMLHttpRequest, textStatus) {
+                        },
+                        complete: function(XMLHttpRequest, textStatus){
+                        }
+                    }); // end ajax
             });
 
+            // 学生模块 --> 查询论文审核状态
             $("#s_query_thesis_btn").click(function(){
                 $("#home_right_wrap").load("s_query_thesis_status.html");
             });
 
+            // 学生模块 --> 管理个人信息
             $("#s_personal_info_btn").click(function () {
                 $("#home_right_wrap").load("s_t_person_information.html");
 
@@ -141,9 +160,10 @@
 <body>
 
 <div class="head">
-    <img src="../static/imgs/top_banner.png" th:src="@{/imgs/top_banner.png}" />
+    <a href="/home/index"><img src="../static/imgs/top_banner.png" th:src="@{/imgs/top_banner.png}" /></a>
     <div class="welcome_exit">
         欢迎您: <span th:text="${session.user.realName}">用户</span>&nbsp;&nbsp;&nbsp;
+        <a href="/home/index">主页</a>&nbsp;&nbsp;
         <a href="/home/logout">安全退出</a>
     </div>
 
@@ -182,8 +202,8 @@
             <div id="home_right_wrap">
 
                 <div class="home_welcome_tip">
-                    欢迎 <span>梅浩</span> 进入华中科技大学优秀论文申请系统。<br/>
-                    一、您的学号/工号是 <span>M201476136</span>，邮箱为 <span>meihao_private@126.com</span>，请牢记登录信息。<br/>
+                    欢迎 <span th:text="${session.user.realName}">用户</span> 进入华中科技大学优秀论文申请系统。<br/>
+                    一、您的学号/工号是 <span th:text="${session.user.userId}">M201476136</span>，邮箱为 <span th:text="${session.user.email}">meihao_private@126.com</span>，请牢记登录信息。<br/>
                     二、您可以点击<span>【管理个人信息】</span>修改自己的个人基本信息以及登录密码。<br/>
                     三、特别注意：如果您需要申请本年度华中科技大学优秀论文，请先查看优秀论文申请流程，
                     然后点击<span>【申请优秀论文】</span>,<br/>

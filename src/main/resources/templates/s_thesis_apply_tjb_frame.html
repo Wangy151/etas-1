@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>优秀论文推荐表</title>
-    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet">
-    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet">
-    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet">
-    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet">
-    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet">
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
+    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet" />
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
@@ -30,15 +30,27 @@
         $(document).ready(function () {
 
             $("#student_type").bind("change",function(){
-                var student_type = $("#student_type").val();
-                if(student_type=="硕士"){
-                    $("#tjb_wrap").load("s_master_thesis_apply.html");
-                }
-                else if(student_type=="博士"){
-                    $("#tjb_wrap").load("s_doctor_thesis_apply.html");
-                }
-                else
-                    $("#tjb_wrap").html("");
+                var studentType = $("#student_type").val();
+                $.ajax({
+                        type: "POST",
+                        url: "/home/student/apply/load/tjb",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            studentType: studentType
+                        }),
+
+                        beforeSend: function(XMLHttpRequest){
+                            $("#tjb_wrap").empty();
+                        },
+
+                        success: function(data){
+                            $("#tjb_wrap").html(data);
+                        },
+                        error: function(XMLHttpRequest, textStatus) {
+                        },
+                        complete: function(XMLHttpRequest, textStatus){
+                        }
+                    }); // end ajax
             });
         });
     </script>
@@ -52,8 +64,8 @@
         <label class="control-label" for="student_type">请先选择您的学生类型</label>
         <select class="form-control" id="student_type">
         <option value="">请选择</option>
-        <option value="硕士">硕士</option>
-        <option value="博士">博士</option>
+        <option value="master">硕士</option>
+        <option value="doctor">博士</option>
 
         </select>
         </div>

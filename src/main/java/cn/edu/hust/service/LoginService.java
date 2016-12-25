@@ -59,7 +59,11 @@ public class LoginService {
 
 
         // 2. 验证用户名和密码
-        if (loginDao.isLoginSuccess(loginRequest.getUsername(), passwordEncode) > 0) {
+        String username = loginRequest.getUsername();
+        if (!username.contains("@")) {
+            username = username.toUpperCase();
+        }
+        if (loginDao.isLoginSuccess(username, passwordEncode) > 0) {
             // 登录成功
             // 3. 是否激活
             User user = userService.getUserInfo(loginRequest.getUsername());
@@ -96,7 +100,7 @@ public class LoginService {
             return commonResponse.withCode(500).withMsg("系统繁忙");
         }
 
-        User user = userService.getUserInfo(userId);
+        User user = userService.getUserInfo(userId.toUpperCase());
         if (null == user) {
             return commonResponse.withCode(301).withMsg("用户不存在");
         }

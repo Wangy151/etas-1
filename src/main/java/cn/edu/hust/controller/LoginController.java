@@ -24,7 +24,7 @@ public class LoginController {
     private LoginService loginService;
 
     /**
-     * 登录主页
+     * 首页
      *
      * @return
      */

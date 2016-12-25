@@ -17,7 +17,7 @@ import java.io.IOException;
 /**
  * Created by xiaolei03 on 16/12/5.
  */
-@WebFilter(filterName = "UserAccessFilter", urlPatterns = "/home/*")
+//@WebFilter(filterName = "UserAccessFilter", urlPatterns = "/home/*")
 public class UserAccessFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
