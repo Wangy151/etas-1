@@ -121,7 +121,6 @@ function validateForm () {
                 error.appendTo($("#v_role"));
             else
                 ;
-
         }
     });
 }
