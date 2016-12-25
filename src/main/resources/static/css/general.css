@@ -28,4 +28,39 @@ a{
     border: 1px solid rgb(224,224,224);
 }
 
+#model_tip{
+    margin-top: 200px;
+}
 
+.model_head{
+    text-align: center;
+    min-height: 50px;
+    font-size:x-large;
+    font-family: 黑体;
+}
+
+.model_body{
+    font-family: 微软雅黑;
+    font-size:larger;
+    min-height: 100px;
+    text-align: center;
+    padding-top:20px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+.model_foot{
+    min-height: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.model_size{
+    width:420px;
+    height: 250px;
+}
+
+.model_btn_close{
+    width:100px;
+    margin:0 auto;
+}

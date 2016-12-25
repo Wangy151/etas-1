@@ -9,6 +9,7 @@
     <link href="css/layout.css" rel="stylesheet">
     <script src="js/jquery-3.1.1.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/general_help.js"></script>
     <script src="js/jquery.validate.js"></script>
     <script src="js/registerFormValidate.js"></script>
     <style rel="stylesheet">
@@ -37,7 +38,7 @@
                 if($("#email").valid()){
                     sendEmailVerifyCode();
                 }else {
-                    alert("你的邮箱格式不合法");
+                    model_tip_show('model_tip','model_tip_content','系统已发送验证码到您的邮箱!请检查邮箱邮件并输入验证码!');
                 }
             });
 
@@ -113,11 +114,11 @@
                     var status = data.code;
                     var msg = data.msg;
                     if(status == "200")
-                        alert("邮件验证码已经发送到邮箱!请检查您的邮件，注意检查垃圾箱!");
+                        model_tip_show('model_tip','model_tip_content','邮件验证码已经发送到邮箱!请检查您的邮件!');
                     else if(status ==  "500")
-                        alert("系统繁忙请稍后再试");
+                        model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
                     else
-                        alert("3");
+                        model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
                 },
 
                 error: function(XMLHttpRequest, textStatus) {
@@ -304,6 +305,30 @@
         ©2017 华中科技大学研究生院 版权所有
     </div>
 </div>
+
+<!--- Model  --->
+
+<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--- Model  --->
 
 </body>
 </html>
