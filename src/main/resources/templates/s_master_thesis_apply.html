@@ -18,8 +18,13 @@
         $(document).ready(function () {
             m_apply_form1_validate();
             m_apply_form2_validate();
+            m_apply_form3_validate();
+            m_apply_form4_validate();
+
             m_apply_form1_submit();
             m_apply_form2_submit();
+            m_apply_form3_submit();
+            m_apply_form4_submit();
         });
 
 
@@ -178,6 +183,7 @@
                     },
                     cgjx:{ //出国进修
                         required:true,
+                        maxlength:500,
                     },
                 }, //rules
                 messages:{
@@ -211,6 +217,7 @@
                     },
                     cgjx:{ //出国进修
                         required:"出国进修不能为空",
+                        maxlength:"出国进修不超过500",
                     },
                 }, //messages
                 errorPlacement : function(error, element){
@@ -225,11 +232,180 @@
             // gdxwfs  bkjdxx  gdssxwdw  zzdw  zzdz
             // zzyb  zzdh  zc  zw  zdjsxm  zdjsyjfx
             $("#m_form3").validate({
-                rules:{}, //rules
-                messages:{}, //messages
+                rules:{
+                    // gdxwfs  bkjdxx  gdssxwdw  zzdw  zzdz
+                    gdxwfs:{ //攻读硕士学位方式
+                        required:true,
+                    },
+                    bkjdxx:{ //本科就读学校
+                        required:true,
+                        maxlength:30,
+                    },
+                    gdssxwdw:{ //攻读硕士学位单位
+                        required:true,
+                        maxlength:20
+                    },
+                    zzdw:{ //作者单位
+                        required:true,
+                        maxlength:30,
+                    },
+                    zzdz:{ //作者地址
+                        required:true,
+                        maxlength:50,
+                    },
+
+                    // zzyb  zzdh  zc  zw  zdjsxm  zdjsyjfx
+                    zzyb:{ //作者邮编
+                        required:true,
+                        minlength:6,
+                        maxlength:6,
+                    },
+                    zzdh:{ //作者电话
+                        required:true,
+                        number:true,
+                        maxlength:11,
+                        minlength:11,
+                    },
+                    zc:{ //职称
+                        required:true,
+                        maxlength:10,
+                    },
+                    zw:{ //职务
+                        required:true,
+                        maxlength:10,
+                    },
+                    zdjsxm:{ //指导教师姓名
+                        required:true,
+                        maxlength:10,
+                    },
+                    zdjsyjfx:{ //指导教师研究方向
+                        required:true,
+                        maxlength:15,
+                    },
+                }, //rules
+                messages:{
+                    // gdxwfs  bkjdxx  gdssxwdw  zzdw  zzdz
+                    gdxwfs:{ //攻读硕士学位方式
+                        required:"攻读硕士学位方式不能为空",
+                    },
+                    bkjdxx:{ //本科就读学校
+                        required:"本科就读学校不能为空",
+                        maxlength:"本科就读学校长度不超过30",
+                    },
+                    gdssxwdw:{ //攻读硕士学位单位
+                        required:"攻读硕士学位单位不能为空",
+                        maxlength:"攻读硕士学位单位长度不超过20",
+                    },
+                    zzdw:{ //作者单位
+                        required:"作者单位不能为空",
+                        maxlength:"作者单位长度不超过30",
+                    },
+                    zzdz:{ //作者地址
+                        required:"作者地址不能为空",
+                        maxlength:"作者地址长度不超过50",
+                    },
+
+                    // zzyb  zzdh  zc  zw  zdjsxm  zdjsyjfx
+                    zzyb:{ //作者邮编
+                        required:"作者邮编不能为空",
+                        minlength:"邮编长度为6",
+                        maxlength:"邮编长度为6",
+                    },
+                    zzdh:{ //作者电话
+                        required:"作者电话不能为空",
+                        number:"作者电话格式不正确",
+                        maxlength:"作者电话长度为11",
+                        minlength:"作者电话长度为11",
+                    },
+                    zc:{ //职称
+                        required:"职称不能为空",
+                        maxlength:"职称长度不超过10",
+                    },
+                    zw:{ //职务
+                        required:"职务不能为空",
+                        maxlength:"职务长度不超过10",
+                    },
+                    zdjsxm:{ //指导教师姓名
+                        required:"指导教师姓名不能为空",
+                        maxlength:"指导教师姓名长度不超过10",
+                    },
+                    zdjsyjfx:{ //指导教师研究方向
+                        required:"指导教师研究方向不能为空",
+                        maxlength:"指导教师研究方向长度不超过15",
+                    },
+                }, //messages
+                errorPlacement : function(error, element){
+                    $("#m_form3_warn").html(error);
+                }, //errorPlacement
+            }); //validate
+        }
+
+
+        function m_apply_form4_validate(){
+            //  m_form4  m_form4_submit_btn  m_form4_warn
+            //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+            $("#m_form4").validate({
+                rules:{
+                    fbxslw:{ //发表学术论文
+                        required:true,
+                        maxlength:600,
+                    },
+                    cbzz:{ //出版专著
+                        required:true,
+                        maxlength:600,
+                    },
+                    hjxm:{ //获奖项目
+                        required:true,
+                        maxlength:500,
+                    },
+                    lwdzycxd:{ //论文主要创新点
+                        required:true,
+                        maxlength:600,
+                    },
+                    dwtjyy:{ //单位推荐意见
+                        required:true,
+                        maxlength:200,
+                    },
+                    tbrq:{ //单位推荐日期
+                        required:true,
+                        minlength:8,
+                        maxlength:8,
+                    },
+                }, //rules
+                messages:{
+                    fbxslw:{ //发表学术论文
+                        required:"发表学术论文不能为空",
+                        maxlength:"发表学术论文长度不超过600",
+                    },
+                    cbzz:{ //出版专著
+                        required:"出版专著不能为空",
+                        maxlength:"出版专著长度不超过600",
+                    },
+                    hjxm:{ //获奖项目
+                        required:"获奖项目不能为空",
+                        maxlength:"获奖项目长度不超过500",
+                    },
+                    lwdzycxd:{ //论文主要创新点
+                        required:"论文主要创新点不能为空",
+                        maxlength:"论文主要创新点长度不超过600",
+                    },
+                    dwtjyy:{ //单位推荐意见
+                        required:"单位推荐意见不能为空",
+                        maxlength:"单位推荐意见长度不超过200",
+                    },
+                    tbrq:{ //单位推荐日期
+                        required:"单位推荐日期不能为空",
+                        minlength:"单位推荐日期长度为8",
+                        maxlength:"单位推荐日期长度为8",
+                    },
+                }, //messages
+                errorPlacement : function(error, element){
+                    $("#m_form4_warn").html(error);
+                }, //errorPlacement
 
             }); //validate
         }
+
 
         function m_apply_form1_submit(){
             // m_form1  m_form1_submit_btn  m_form1_warn
@@ -347,7 +523,112 @@
             })
         }
 
+        function m_apply_form3_submit(){
+            // m_form3  m_form3_submit_btn  m_form3_warn
+            // gdxwfs  bkjdxx  gdssxwdw  zzdw  zzdz
+            // zzyb  zzdh  zc  zw  zdjsxm  zdjsyjfx
+            $("#m_form3_submit_btn").click(function(){
+                var status = $("#m_form3").valid();
+                if(status == false)   return;
+                /////          URL           ///////////
+                $.ajax({
+                    type: "POST",
+                    url: "",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        // gdxwfs  bkjdxx  gdssxwdw  zzdw  zzdz
+                        "gdxwfs":$("#gdxwfs").val(),
+                        "bkjdxx":$("#bkjdxx").val(),
+                        "gdssxwdw":$("#gdssxwdw").val(),
+                        "zzdw":$("#zzdw").val(),
+                        "zzdz":$("#zzdz").val(),
 
+                        // zzyb  zzdh  zc  zw  zdjsxm  zdjsyjfx
+                        "zzyb":$("#zzyb").val(),
+                        "zzdh":$("#zzdh").val(),
+                        "zc":$("#zc").val(),
+                        "zw":$("#zw").val(),
+                        "zdjsxm":$("#zdjsxm").val(),
+                        "zdjsyjfx":$("#zdjsyjfx").val(),
+
+                    }),
+
+                    beforeSend: function(XMLHttpRequest){
+                    },
+
+                    success: function(data){
+//                        var status = data.code;
+//                        var msg = data.msg;
+//                        if(status == "200")  //学生注册成功
+//                            location.assign("/studentSuccessRegister.html");
+//                        else if(status == "201")  //教务员注册成功
+//                            location.assign("/teacherSuccessRegister.html");
+//                        else if(status == "300")  //邮箱验证码错误
+//                            $("#v_validateCode").html(msg);
+//                        else if(status == "500")  //服务器原因失败
+//                            $("#validateWarn").html("系统繁忙请稍后再试");
+//                        else
+//                            var empty = "";
+                    },
+
+                    error: function(XMLHttpRequest, textStatus) {
+                    },
+
+                    complete: function(XMLHttpRequest, textStatus){
+                    }
+
+                });
+            })
+        }
+
+        function m_apply_form4_submit(){
+            //  m_form4  m_form4_submit_btn  m_form4_warn
+            //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+            $("#m_form4_submit_btn").click(function(){
+                var status = $("#m_form4").valid();
+                if(status == false)  return;
+                $.ajax({
+                    type: "POST",
+                    url: "",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+                        "fbxslw":$("#fbxslw").val(),
+                        "cbzz":$("#cbzz").val(),
+                        "hjxm":$("#hjxm").val(),
+                        "lwdzycxd":$("#lwdzycxd").val(),
+                        "dwtjyy":$("#dwtjyy").val(),
+                        "tbrq":$("#tbrq").val(),
+
+                    }),
+
+                    beforeSend: function(XMLHttpRequest){
+                    },
+
+                    success: function(data){
+//                        var status = data.code;
+//                        var msg = data.msg;
+//                        if(status == "200")  //学生注册成功
+//                            location.assign("/studentSuccessRegister.html");
+//                        else if(status == "201")  //教务员注册成功
+//                            location.assign("/teacherSuccessRegister.html");
+//                        else if(status == "300")  //邮箱验证码错误
+//                            $("#v_validateCode").html(msg);
+//                        else if(status == "500")  //服务器原因失败
+//                            $("#validateWarn").html("系统繁忙请稍后再试");
+//                        else
+//                            var empty = "";
+                    },
+
+                    error: function(XMLHttpRequest, textStatus) {
+                    },
+
+                    complete: function(XMLHttpRequest, textStatus){
+                    }
+
+                });
+            }); //click
+        }
 
     </script>
 
@@ -544,7 +825,7 @@
                 <button type="button" id="m_form3_submit_btn" class="btn btn-primary">此部分信息确认无误，提交保存</button>
             </div>
             <div class="check_msg validate_warn" id="m_form3_warn">
-                内容填写错误
+
             </div>
 
         </div>
@@ -588,10 +869,10 @@
         <div class="checkTure">
 
             <div class="checkTure_btn_div">
-                <button type="button" id="m_table5_submit_btn" class="btn btn-primary">此部分信息确认无误，提交保存</button>
+                <button type="button" id="m_form4_submit_btn" class="btn btn-primary">此部分信息确认无误，提交保存</button>
             </div>
-            <div class="check_msg validate_warn" id="m_table5_warn">
-                内容填写错误
+            <div class="check_msg validate_warn" id="m_form4_warn">
+
             </div>
 
         </div>
