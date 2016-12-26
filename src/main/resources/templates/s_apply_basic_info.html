@@ -127,11 +127,12 @@
             </tr>
 
             <tr>
-                <td class="td_key">作者学号</td><td><input type="text" id="zzxh" name="zzxh" disabled="disabled" placeholder="请填写正确的学号" th:value="${session.user.userId}" /></td>
+                <td class="td_key">作者学号</td>
+                <td><input type="text" id="zzxh" name="zzxh" disabled="disabled" placeholder="请填写正确的学号" th:value="${session.user.userId}" /></td>
                 <td class="td_key">序号</td><td><input type="text" id="xh" name="xh" disabled="disabled" placeholder="此项由学校管理员填写" th:value="${thesisBasicInfo.xh}" /></td>
             </tr>
             <tr>
-                <td class="td_key">参评类型</td>
+                <td class="td_key"><span class="font_star">*</span>参评类型</td>
                 <td>
                     <select id="cplx" name="cplx">
                         <option value="">请选择</option>
@@ -139,7 +140,7 @@
                         <option value="湖北省优秀博士论文评选（已授学位）">湖北省优秀博士论文评选（已授学位）</option>
                     </select>
                 </td>
-                <td class="td_key">攻读方式</td>
+                <td class="td_key"><span class="font_star">*</span>攻读方式</td>
                 <td>
                     <select id="gdfs" name="gdfs">
                         <option value="">请选择</option>
@@ -151,9 +152,9 @@
                 </td>
             </tr>
             <tr>
-                <td class="td_key">作者姓名</td>
+                <td class="td_key"><span class="font_star">*</span>作者姓名</td>
                 <td><input type="text" id="zzxm" name="zzxm" placeholder="姓名中间不允许有空格" th:value="${thesisBasicInfo.zzxm}" /></td>
-                <td class="td_key">作者性别</td>
+                <td class="td_key"><span class="font_star">*</span>作者性别</td>
                 <td>
                     <select id="xb" name="xb">
                         <option value="">请选择</option>
@@ -171,26 +172,28 @@
             </tr>
 
             <tr>
-                <td class="td_key">导师姓名</td>
+                <td class="td_key"><span class="font_star">*</span>导师姓名</td>
                 <td><input type="text" id="dsxm" name="dsxm" placeholder="导师姓名，限填1人" th:value="${thesisBasicInfo.dsxm}" /></td>
                 <td class="td_key">论文题目</td>
                 <td><input type="text" id="lwtm" name="lwtm" disabled="disabled" placeholder="论文题目" th:value="${thesisBasicInfo.lwtm}" /></td>
             </tr>
 
             <tr>
-                <td class="td_key">论文英文题目</td>
+                <td class="td_key"><span class="font_star">*</span>论文英文题目</td>
                 <td colspan="3"><input type="text" id="lwywtm" name="lwywtm" placeholder="论文英文题目，最大长度200" th:value="${thesisBasicInfo.lwywtm}" /></td>
             </tr>
 
             <tr>
-                <td class="td_key">研究方向</td><td><input type="text" id="yjfx" name="yjfx" placeholder="研究方向,最大长度100" th:value="${thesisBasicInfo.yjfx}" /></td>
-                <td class="td_key">中文关键字</td><td><input type="text" id="zwgjz" name="zwgjz" placeholder="中文关键字" th:value="${thesisBasicInfo.yjfx}" /></td>
+                <td class="td_key"><span class="font_star">*</span>研究方向</td>
+                <td><input type="text" id="yjfx" name="yjfx" placeholder="研究方向,最大长度100" th:value="${thesisBasicInfo.yjfx}" /></td>
+                <td class="td_key"><span class="font_star">*</span>中文关键字</td>
+                <td><input type="text" id="zwgjz" name="zwgjz" placeholder="中文关键字" th:value="${thesisBasicInfo.yjfx}" /></td>
             </tr>
 
             <tr>
-                <td class="td_key">论文页数</td>
+                <td class="td_key"><span class="font_star">*</span>论文页数</td>
                 <td><input type="text" id="lwys" name="lwys" placeholder="论文页数，为数字，如72" th:value="${thesisBasicInfo.yjfx}" /></td>
-                <td class="td_key">攻读类别</td>
+                <td class="td_key"><span class="font_star">*</span>攻读类别</td>
                 <td>
                     <select id="gdlb" name="gdlb">
                         <option value="">请选择</option>
@@ -231,18 +234,18 @@
             </tr>
 
             <tr>
-                <td class="td_key">作者职称</td>
+                <td class="td_key"><span class="font_star">*</span>作者职称</td>
                 <td><input type="text" id="zzzc" name="zzzc" placeholder="作者职称，长度不超过10"/></td>
                 <td class="td_key">学校联系人</td>
                 <td><input type="text" id="xxlxr" name="xxlxr" disabled="disabled" value="王老师"/></td>
             </tr>
 
             <tr>
-                <td class="td_key">备注</td>
+                <td class="td_key"><span class="font_star">*</span>备注</td>
                 <td colspan="3"><input type="text" id="bz" name="bz" placeholder="长度不超过100，只标注特殊情况，如论文为非中文撰写，如英语撰写的，请备注“英文撰写”"/></td>
             </tr>
             <tr>
-                <td class="td_key">论文上传（pdf格式）</td>
+                <td class="td_key"><span class="font_star">*</span>论文上传（pdf格式）</td>
                 <td colspan="3"><input type="file"/></td>
             </tr>
 
