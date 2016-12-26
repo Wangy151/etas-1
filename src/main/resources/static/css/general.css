@@ -64,3 +64,10 @@ a{
     width:100px;
     margin:0 auto;
 }
+
+.font_star{
+    color: #ff0000;
+    font-weight: bolder;
+    margin-left: 5px;
+    margin-right: 5px;
+}
