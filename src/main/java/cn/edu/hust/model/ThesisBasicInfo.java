@@ -1,12 +1,9 @@
-package cn.edu.hust.model.request;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+package cn.edu.hust.model;
 
 /**
- * Created by xiaolei03 on 16/12/25.
+ * Created by xiaolei03 on 16/12/26.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class ThesisBasicInfoRequest {
+public class ThesisBasicInfo {
     private String ssdm;
     private String ssmc;
     private String xxdm;
@@ -308,7 +305,7 @@ public class ThesisBasicInfoRequest {
 
     @Override
     public String toString() {
-        return "ThesisBasicInfoRequest{" +
+        return "ThesisBasicInfo{" +
                 "ssdm='" + ssdm + '\'' +
                 ", ssmc='" + ssmc + '\'' +
                 ", xxdm='" + xxdm + '\'' +

@@ -1,13 +1,17 @@
 package cn.edu.hust.controller;
 
+import cn.edu.hust.model.ThesisBasicInfo;
+import cn.edu.hust.model.User;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
 import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
 import cn.edu.hust.model.request.StudentTypeRequest;
-import cn.edu.hust.model.request.ThesisBasicInfoRequest;
 import cn.edu.hust.model.response.CommonResponse;
+import cn.edu.hust.model.response.FailResponse;
+import cn.edu.hust.model.response.SuccessResponse;
 import cn.edu.hust.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,7 +44,19 @@ public class StudentController {
      * 加载基本信息表
      */
     @RequestMapping(value = "/apply/load/basicInfoTable")
-    public String loadBasicInfoTablePage() {
+    public String loadBasicInfoTablePage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        String userId = user.getUserId();
+
+        // 首先判断用户是否第一次点击
+        if (!studentService.hasApplyBasicInfoTable(userId)) {
+            // 若第一次点击则初始化数据
+            studentService.initThesisBasicInfoTable(userId);
+        } else {
+            // 若非第一次点击,则填充数据
+            ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
+            model.addAttribute("thesisBasicInfo", thesisBasicInfo);
+        }
         return "s_apply_basic_info";
     }
 
@@ -58,9 +74,10 @@ public class StudentController {
      * @return
      */
     @RequestMapping(value = "/apply/load/tjb", method = RequestMethod.POST)
-    public String loadTjb(@RequestBody StudentTypeRequest StudentTypeRequest, HttpSession session) throws Exception {
-//        User user = (User) session.getAttribute("user");
-        String studentType = StudentTypeRequest.getStudentType();
+    public String loadTjb(@RequestBody StudentTypeRequest studentTypeRequest, HttpSession session) throws Exception {
+        User user = (User) session.getAttribute("user");
+
+        String studentType = studentTypeRequest.getStudentType();
         if ("master".equalsIgnoreCase(studentType)) {
             // Todo
 //            studentService.initMasterThesisApply(userId);
@@ -77,14 +94,18 @@ public class StudentController {
 
     /**
      * 保存基本信息表
-     * @param thesisBasicInfoRequest
-     * @return
+     * @param thesisBasicInfo 前台参数
+     * @return 200:保存成功 500:保存失败
      */
     @RequestMapping(value = "/apply/save/basicInfoTable", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse saveThesisBasicInfoTable(@RequestBody ThesisBasicInfoRequest thesisBasicInfoRequest) {
-        System.out.println(thesisBasicInfoRequest.toString());
-        return new CommonResponse().withCode(200).withMsg("保存成功");
+    public CommonResponse saveThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
+        System.out.println(thesisBasicInfo.toString());
+
+        if (studentService.saveThesisBasicInfoTable(thesisBasicInfo)) {
+            return new SuccessResponse();
+        }
+        return new FailResponse();
     }
 
 
@@ -117,16 +138,6 @@ public class StudentController {
             return commonResponse.withCode(200).withMsg("保存成功");
         }
         return commonResponse.withCode(500).withMsg("失败");
-    }
-
-    /**
-     * 提交申请表
-     *
-     * @return
-     */
-    @RequestMapping(value = "/apply/submit", method = RequestMethod.POST)
-    public String submit() {
-        return "";
     }
 
 }

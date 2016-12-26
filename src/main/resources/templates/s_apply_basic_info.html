@@ -127,8 +127,8 @@
             </tr>
 
             <tr>
-                <td class="td_key">作者学号</td><td><input type="text" id="zzxh" name="zzxh" placeholder="请填写正确的学号"/></td>
-                <td class="td_key">序号</td><td><input type="text" id="xh" name="xh" disabled="disabled" placeholder="此项由学校管理员填写"/></td>
+                <td class="td_key">作者学号</td><td><input type="text" id="zzxh" name="zzxh" disabled="disabled" placeholder="请填写正确的学号" th:value="${session.user.userId}" /></td>
+                <td class="td_key">序号</td><td><input type="text" id="xh" name="xh" disabled="disabled" placeholder="此项由学校管理员填写" th:value="${thesisBasicInfo.xh}" /></td>
             </tr>
             <tr>
                 <td class="td_key">参评类型</td>
@@ -152,7 +152,7 @@
             </tr>
             <tr>
                 <td class="td_key">作者姓名</td>
-                <td><input type="text" id="zzxm" name="zzxm" placeholder="姓名中间不允许有空格"/></td>
+                <td><input type="text" id="zzxm" name="zzxm" placeholder="姓名中间不允许有空格" th:value="${thesisBasicInfo.zzxm}" /></td>
                 <td class="td_key">作者性别</td>
                 <td>
                     <select id="xb" name="xb">
@@ -165,31 +165,31 @@
 
             <tr>
                 <td class="td_key">出生年月</td>
-                <td><input type="text" id="csny" name="csny" disabled="disabled" placeholder="如199109"/></td>
+                <td><input type="text" id="csny" name="csny" disabled="disabled" placeholder="如199109" th:value="${thesisBasicInfo.csny}" /></td>
                 <td class="td_key">民族</td>
-                <td><input type="text" id="mz" name="mz" disabled="disabled" placeholder="民族"/></td>
+                <td><input type="text" id="mz" name="mz" disabled="disabled" placeholder="民族" th:value="${thesisBasicInfo.mz}" /></td>
             </tr>
 
             <tr>
                 <td class="td_key">导师姓名</td>
-                <td><input type="text" id="dsxm" name="dsxm" placeholder="导师姓名，限填1人"/></td>
+                <td><input type="text" id="dsxm" name="dsxm" placeholder="导师姓名，限填1人" th:value="${thesisBasicInfo.dsxm}" /></td>
                 <td class="td_key">论文题目</td>
-                <td><input type="text" id="lwtm" name="lwtm" disabled="disabled" placeholder="论文题目"/></td>
+                <td><input type="text" id="lwtm" name="lwtm" disabled="disabled" placeholder="论文题目" th:value="${thesisBasicInfo.lwtm}" /></td>
             </tr>
 
             <tr>
                 <td class="td_key">论文英文题目</td>
-                <td colspan="3"><input type="text" id="lwywtm" name="lwywtm" placeholder="论文英文题目，最大长度200"/></td>
+                <td colspan="3"><input type="text" id="lwywtm" name="lwywtm" placeholder="论文英文题目，最大长度200" th:value="${thesisBasicInfo.lwywtm}" /></td>
             </tr>
 
             <tr>
-                <td class="td_key">研究方向</td><td><input type="text" id="yjfx" name="yjfx" placeholder="研究方向,最大长度100"/></td>
-                <td class="td_key">中文关键字</td><td><input type="text" id="zwgjz" name="zwgjz" placeholder="中文关键字"/></td>
+                <td class="td_key">研究方向</td><td><input type="text" id="yjfx" name="yjfx" placeholder="研究方向,最大长度100" th:value="${thesisBasicInfo.yjfx}" /></td>
+                <td class="td_key">中文关键字</td><td><input type="text" id="zwgjz" name="zwgjz" placeholder="中文关键字" th:value="${thesisBasicInfo.yjfx}" /></td>
             </tr>
 
             <tr>
                 <td class="td_key">论文页数</td>
-                <td><input type="text" id="lwys" name="lwys" placeholder="论文页数，为数字，如72"/></td>
+                <td><input type="text" id="lwys" name="lwys" placeholder="论文页数，为数字，如72" th:value="${thesisBasicInfo.yjfx}" /></td>
                 <td class="td_key">攻读类别</td>
                 <td>
                     <select id="gdlb" name="gdlb">
@@ -204,9 +204,9 @@
 
             <tr>
                 <td class="td_key">Word论文推荐表路径</td>
-                <td><input type="text" id="lwtjblj" name="lwtjblj" disabled="disabled" value="th:text='@{lwtjblj}'" placeholder="由系统自动生成"/></td>
+                <td><input type="text" id="lwtjblj" name="lwtjblj" disabled="disabled" placeholder="由系统自动生成" th:value="${thesisBasicInfo.lwtjblj}" /></td>
                 <td class="td_key">PDF论文原文路径</td>
-                <td><input type="text" id="lwywlj" name="lwywlj" disabled="disabled" placeholder="由系统自动生成"/></td>
+                <td><input type="text" id="lwywlj" name="lwywlj" disabled="disabled" placeholder="由系统自动生成" th:value="${thesisBasicInfo.lwtjblj}" /></td>
             </tr>
 
             <tr>

@@ -1,17 +1,41 @@
 package cn.edu.hust.dao;
 
+import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
 import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * Created by xiaolei03 on 16/12/6.
  */
 @Mapper
 public interface ThesisApplyDao {
+    @Select(" SELECT COUNT(*) FROM thesis_basic_info WHERE zzxh = #{userId} ")
+    int hasApplyBasicInfoTable(@Param("userId") String userId);
+
+    @Insert(" INSERT INTO thesis_basic_info(zzxh) VALUES (#{userId}) ")
+    int initThesisBasicInfoTable(@Param("userId") String userId);
+
+    @Select(" SELECT * FROM thesis_basic_info WHERE zzxh = #{userId} ")
+    ThesisBasicInfo getThesisBasicInfo(@Param("userId") String userId);
+
+    @Update(" UPDATE thesis_basic_info SET ssdm = #{thesisBasicInfo.ssdm}, ssmc = #{thesisBasicInfo.ssmc}, " +
+            " xxdm = #{thesisBasicInfo.xxdm}, xxmc = #{thesisBasicInfo.xxmc}, cplx = #{thesisBasicInfo.cplx}, " +
+            " xh = #{thesisBasicInfo.xh}, zzxm = #{thesisBasicInfo.zzxm}, xb = #{thesisBasicInfo.xb}, " +
+            " csny = #{thesisBasicInfo.csny}, mz = #{thesisBasicInfo.mz}, dsxm = #{thesisBasicInfo.dsxm}, " +
+            " lwtm = #{thesisBasicInfo.lwtm}, lwywtm = #{thesisBasicInfo.lwywtm}, yjfx = #{thesisBasicInfo.yjfx}, " +
+            " lwzwgjz = #{thesisBasicInfo.lwzwgjz}, lwys = #{thesisBasicInfo.lwys}, lwtjblj = #{thesisBasicInfo.lwtjblj}, " +
+            " lwywlj = #{thesisBasicInfo.lwywlj}, rxny = #{thesisBasicInfo.rxny}, hdxwrq = #{thesisBasicInfo.hdxwrq}, " +
+            " yjxkdm = #{thesisBasicInfo.yjxkdm}, yjxkmc = #{thesisBasicInfo.yjxkmc}, ejxkdm = #{thesisBasicInfo.ejxkdm}, " +
+            " ejxkmc = #{thesisBasicInfo.ejxkmc}, gdlb = #{thesisBasicInfo.gdlb}, gdxwfs = #{thesisBasicInfo.gdxwfs}, " +
+            " zzzc = #{thesisBasicInfo.zzzc}, xxlxr = #{thesisBasicInfo.xxlxr}, bz = #{thesisBasicInfo.bz}, " +
+            " applyYear = #{thesisBasicInfo.applyYear}, studentType = #{thesisBasicInfo.studentType}, applyStatus = #{thesisBasicInfo.applyStatus} " +
+            " WHERE zzxh = #{thesisBasicInfo.zzxh}" )
+    int saveThesisBasicInfoTable(@Param("thesisBasicInfo") ThesisBasicInfo thesisBasicInfo);
 
     @Insert(" INSERT INTO master_thesis_apply(zzxh) VALUES (#{userId})")
     int initMasterThesisApply(@Param("userId") String userId);
@@ -24,7 +48,6 @@ public interface ThesisApplyDao {
 
     @Select( "select count(*) from doctor_thesis_apply where zzxh = #{userId}")
     int hasDoctorUser(@Param("userId") String userId);
-
 
     @Insert(" INSERT INTO master_thesis_apply " +
             " (ssdm,ssmc,xxdm,xxmc,cplx,zzxh,xh,lwzwgjz,lwys,gdlb,lwtjblj," +
