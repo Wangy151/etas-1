@@ -1,5 +1,6 @@
 package cn.edu.hust.controller;
 
+import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.User;
@@ -106,7 +107,8 @@ public class StudentController {
             // 初始化
             studentService.initDoctorThesisApply(userId);
 
-
+            DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
+            model.addAttribute("doctorThesisApply", doctorThesisApply);
             return "s_doctor_thesis_apply";
         } else {
             throw new Exception("error");
@@ -143,10 +145,14 @@ public class StudentController {
      */
     @RequestMapping(value = "/apply/doctor/save", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse saveDoctorTjb(@RequestBody DoctorThesisApplyInfoRequest doctorThesisApplyInfoRequest) {
+    public CommonResponse saveDoctorTjb(@RequestBody DoctorThesisApply doctorThesisApply, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        String userId = user.getUserId();
+        doctorThesisApply.setZzxh(userId);
+
         CommonResponse commonResponse = new CommonResponse();
 
-        boolean isSuccess = studentService.saveDoctor(doctorThesisApplyInfoRequest);
+        boolean isSuccess = studentService.saveDoctor(doctorThesisApply);
         if (isSuccess) {
             return commonResponse.withCode(200).withMsg("保存成功");
         }

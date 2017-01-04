@@ -1,6 +1,7 @@
 package cn.edu.hust.service;
 
 import cn.edu.hust.dao.ThesisApplyDao;
+import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
@@ -83,7 +84,20 @@ public class StudentService {
     }
 
 
-    public boolean saveDoctor(DoctorThesisApplyInfoRequest doctorThesisApplyInfoRequest) {
-        return thesisApplyDao.saveDoctor(doctorThesisApplyInfoRequest) > 0;
+    public DoctorThesisApply getDoctorTjb(String userId) {
+        return thesisApplyDao.getDoctorTjb(userId);
+    }
+
+
+    public boolean saveDoctor(DoctorThesisApply doctorThesisApply) {
+        String savePart = doctorThesisApply.getPart();
+
+        if ("part1".equalsIgnoreCase(savePart)) {
+            return thesisApplyDao.saveDoctorTjb1(doctorThesisApply) > 0;
+        } else if ("part2".equalsIgnoreCase(savePart)) {
+            return thesisApplyDao.saveDoctorTjb2(doctorThesisApply) > 0;
+        }
+
+        return false;
     }
 }

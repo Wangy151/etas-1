@@ -1,9 +1,9 @@
 package cn.edu.hust.dao;
 
+import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
-import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -88,24 +88,26 @@ public interface ThesisApplyDao {
      * @param userId
      * @return
      */
-    @Select( "select count(*) from doctor_thesis_apply where user_id = #{userId}")
+    @Select( "select count(*) from doctor_thesis_apply where zzxh = #{userId} ")
     int hasDoctorUser(@Param("userId") String userId);
 
-    @Insert(" INSERT INTO doctor_thesis_apply(user_id) VALUES (#{userId})")
+    @Insert(" INSERT INTO doctor_thesis_apply(zzxh) VALUES (#{userId}) ")
     int initDoctorThesisApply(@Param("userId") String userId);
 
-    @Insert(" INSERT INTO doctor_thesis_apply " +
-            " (ssdm,ssmc,xxdm,xxmc,zzxh,xh,cplx,xb,mz,csny,rxny,gdxwfs,lwzwgjz,lwys,gdlb," +
-            " lwtjblj,lwywlj,zzzc,xxlxr,bz,lwtm,lwywtm,zzxm,dbrq,hdxwrq,lwsjdyjfx,yjxkdm," +
-            " yjxkmc,ejxkdm,ejxkmc,zdjsxm,zdjsyjfx,fbxslw,cbzz,hjxm,lwdzycxd,dwtjyy,tbrq,student_type) " +
-            " VALUES (#{request.ssdm}},#{request.#{request.ssmc},#{request.xxdm},#{request.xxmc}," +
-            " #{request.zzxh},#{request.xh},#{request.cplx},#{request.xb},#{request.mz},#{request.csny}," +
-            " #{request.rxny},#{request.gdxwfs},#{request.lwzwgjz},#{request.lwys},#{request.gdlb}," +
-            " #{request.lwtjblj},#{request.lwywlj},#{request.zzzc},#{request.xxlxr},#{request.bz}," +
-            " #{request.lwtm},#{request.lwywtm},#{request.zzxm},#{request.dbrq},#{request.hdxwrq}," +
-            " #{request.lwsjdyjfx},#{request.yjxkdm},#{request.yjxkmc},#{request.ejxkdm},#{request.ejxkmc}," +
-            " #{request.zdjsxm},#{request.zdjsyjfx},#{request.fbxslw},#{request.cbzz},#{request.hjxm}," +
-            " #{request.lwdzycxd},#{request.dwtjyy},#{request.tbrq},#{request.studentType}) ")
-    int saveDoctor(@Param("request")DoctorThesisApplyInfoRequest request);
+    @Select(" SELECT * FROM doctor_thesis_apply WHERE zzxh = #{userId} ")
+    DoctorThesisApply getDoctorTjb(@Param("userId") String userId);
+
+    @Update(" UPDATE doctor_thesis_apply SET " +
+            " lwtm = #{model.lwtm}, lwywtm = #{model.lwywtm}, zzxm = #{model.zzxm}, dbrq = #{model.dbrq}, hdxwrq = #{model.hdxwrq}, " +
+            " lwsjdyjfx = #{model.lwsjdyjfx}, yjxkdm = #{model.yjxkdm}, yjxkmc = #{model.yjxkmc}, ejxkdm = #{model.ejxkdm}, ejxkmc = #{model.ejxkmc}, " +
+            " zdjsxm = #{model.zdjsxm}, zdjsyjfx = #{model.zdjsyjfx} " +
+            " WHERE zzxh = #{model.zzxh} ")
+    int saveDoctorTjb1(@Param("model") DoctorThesisApply model);
+
+    @Update(" UPDATE doctor_thesis_apply SET " +
+            " fbxslw = #{model.fbxslw}, cbzz = #{model.cbzz}, hjxm = #{model.hjxm}, lwdzycxd = #{model.lwdzycxd}, dwtjyy = #{model.dwtjyy}, " +
+            " tbrq = #{model.tbrq} " +
+            " WHERE zzxh = #{model.zzxh} ")
+    int saveDoctorTjb2(@Param("model") DoctorThesisApply model);
 
 }

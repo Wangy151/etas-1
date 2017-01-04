@@ -211,7 +211,7 @@
                 if(status == false)  return;
                 $.ajax({
                     type: "POST",
-                    url: "",
+                    url: "/home/student/apply/doctor/save",
                     contentType: "application/json",
                     data: JSON.stringify({
                         // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
@@ -268,7 +268,7 @@
                 if(status == false)  return;
                 $.ajax({
                     type: "POST",
-                    url: "",
+                    url: "/home/student/apply/doctor/save",
                     contentType: "application/json",
                     data: JSON.stringify({
                         // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
@@ -330,7 +330,7 @@
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>论文英文题目</td>
-                <td colspan="3"><input type="text" id="lwywtm" name="lwywtm" placeholder="论文英文题目"/></td>
+                <td colspan="3"><input type="text" id="lwywtm" name="lwywtm" placeholder="论文英文题目" th:value="${doctorThesisApply.lwywtm}"/></td>
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>作者姓名</td>
@@ -339,10 +339,10 @@
                 <td class="td_key"><span class="font_star">*</span>论文涉及的研究方向</td>
             </tr>
             <tr>
-                <td><input type="text" id="zzxm" name="zzxm" placeholder="作者姓名"/></td>
-                <td><input type="text" id="dbrq" name="dbrq" placeholder="论文答辩日期"/></td>
+                <td><input type="text" id="zzxm" name="zzxm" placeholder="作者姓名"  th:value="${doctorThesisApply.zzxm}"/></td>
+                <td><input type="text" id="dbrq" name="dbrq" placeholder="论文答辩日期" th:value="${doctorThesisApply.dbrq}"/></td>
                 <td><input type="text" id="hdxwrq" name="hdxwrq" placeholder="获得博士学位日期" disabled="disabled"/></td>
-                <td><input type="text" id="lwsjdyjfx" name="lwsjdyjfx" placeholder="论文涉及的研究方向"/></td>
+                <td><input type="text" id="lwsjdyjfx" name="lwsjdyjfx" placeholder="论文涉及的研究方向" th:value="${doctorThesisApply.lwsjdyjfx}"/></td>
             </tr>
             <tr>
                 <td class="td_key">一级学科代码</td>
@@ -358,9 +358,9 @@
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>指导教师姓名（限填1人）</td>
-                <td><input type="text" id="zdjsxm" name="zdjsxm" placeholder="指导教师姓名（限填1人）"/></td>
+                <td><input type="text" id="zdjsxm" name="zdjsxm" placeholder="指导教师姓名（限填1人）" th:value="${doctorThesisApply.zdjsxm}"/></td>
                 <td class="td_key"><span class="font_star">*</span>指导教师研究方向</td>
-                <td><input type="text" id="zdjsyjfx" name="zdjsyjfx" placeholder="指导教师研究方向"/></td>
+                <td><input type="text" id="zdjsyjfx" name="zdjsyjfx" placeholder="指导教师研究方向" th:value="${doctorThesisApply.zdjsyjfx}"/></td>
             </tr>
             </tbody>
         </table>
@@ -385,16 +385,16 @@
             <tr>
                 <td rowspan="3" class="td_key"><br /><br /><br /><span class="font_star">*</span>攻博期间及获得博士学位后一年内获得与博士学位论文有关的成果</td>
                 <td class="td_key"><span class="font_star">*</span>发表学术论文（题目、刊物名称、时间）（限填5篇）</td>
-                <td><textarea rows="10" id="fbxslw" name="fbxslw" placeholder="发表学术论文"></textarea></td>
+                <td><textarea rows="10" id="fbxslw" name="fbxslw" placeholder="发表学术论文" th:field="${doctorThesisApply.fbxslw}"></textarea></td>
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>出版专著（名称、出版社、出版时间）</td>
-                <td><textarea rows="10" id="cbzz" name="cbzz" placeholder="出版专著"></textarea></td>
+                <td><textarea rows="10" id="cbzz" name="cbzz" placeholder="出版专著" th:field="${doctorThesisApply.cbzz}"></textarea></td>
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>获奖项目（名称、等级及时间,及专利）（限填3项）</td>
                 <td>
-                    <textarea rows="10" id="hjxm" name="hjxm" placeholder="获奖项目">
+                    <textarea rows="10" id="hjxm" name="hjxm" placeholder="获奖项目" th:field="${doctorThesisApply.hjxm}">
 
                     </textarea>
                 </td>
@@ -403,7 +403,7 @@
             <tr>
                 <td class="td_key"><span class="font_star">*</span>论文的主要创新点</td>
                 <td colspan="2">
-                    <textarea rows="10" id="lwdzycxd" name="lwdzycxd" placeholder="论文的主要创新点"></textarea>
+                    <textarea rows="10" id="lwdzycxd" name="lwdzycxd" placeholder="论文的主要创新点" th:field="${doctorThesisApply.lwdzycxd}"></textarea>
                 </td>
             </tr>
             <tr>
@@ -415,7 +415,7 @@
             <tr>
                 <td class="td_key"><span class="font_star">*</span>填表时间</td>
                 <td colspan="2">
-                    <input type="text" id="tbrq" name="tbrq" placeholder="填表时间"/>
+                    <input type="text" id="tbrq" name="tbrq" placeholder="填表时间" th:field="${doctorThesisApply.tbrq}"/>
                 </td>
             </tr>
             </tbody>

@@ -744,7 +744,7 @@
                 <td colspan="13" class="td_key"><span class="font_star">*</span>出国进修的时间、国名、内容、(本栏信息不输入到数据库中)</td>
             </tr>
             <tr>
-                <td colspan="13"><textarea rows="5" id="cgjx" name="cgjx" placeholder="出国进修的时间、国名、内容、(本栏信息不输入到数据库中)" th:value="${masterThesisApply.cgjx}"></textarea></td>
+                <td colspan="13"><textarea rows="5" id="cgjx" name="cgjx" placeholder="出国进修的时间、国名、内容、(本栏信息不输入到数据库中)" th:field="${masterThesisApply.cgjx}"></textarea></td>
             </tr>
             </tbody>
         </table>
@@ -838,24 +838,24 @@
             <tr>
                 <td rowspan="3" class="td_key"><span class="font_star">*</span>攻硕期间及获得硕士学位后一年内获得与硕士学位论文有关的成果</td>
                 <td class="td_key"><span class="font_star">*</span>发表学术论文（题目、刊物名称、时间）（限填5篇）</td>
-                <td><textarea rows="6" id="fbxslw" class="td_key" name="fbxslw" placeholder="发表学术论文（题目、刊物名称、时间）（限填5篇）" th:value="${masterThesisApply.fbxslw}"></textarea></td>
+                <td><textarea rows="6" id="fbxslw" class="td_key" name="fbxslw" placeholder="发表学术论文（题目、刊物名称、时间）（限填5篇）" th:field="${masterThesisApply.fbxslw}"></textarea></td>
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>出版专著（名称、出版社、出版时间）</td>
-                <td><textarea rows="6" id="cbzz" name="cbzz" placeholder="出版专著（名称、出版社、出版时间）" th:value="${masterThesisApply.cbzz}"></textarea></td>
+                <td><textarea rows="6" id="cbzz" name="cbzz" placeholder="出版专著（名称、出版社、出版时间）" th:field="${masterThesisApply.cbzz}"></textarea></td>
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>获奖项目（名称、等级及时间，（限填3项））及专利</td>
-                <td><textarea rows="6" id="hjxm" name="hjxm" placeholder="获奖项目（名称、等级及时间，（限填3项））及专利" th:value="${masterThesisApply.hjxm}"></textarea></td>
+                <td><textarea rows="6" id="hjxm" name="hjxm" placeholder="获奖项目（名称、等级及时间，（限填3项））及专利" th:field="${masterThesisApply.hjxm}"></textarea></td>
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>论文的主要创新点</td>
-                <td colspan="2"><textarea rows="8" id="lwdzycxd" name="lwdzycxd" placeholder="论文的主要创新点" th:value="${masterThesisApply.lwdzycxd}"></textarea></td>
+                <td colspan="2"><textarea rows="8" id="lwdzycxd" name="lwdzycxd" placeholder="论文的主要创新点" th:field="${masterThesisApply.lwdzycxd}"></textarea></td>
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>单位推荐意见</td>
                 <td colspan="2">
-                    <textarea rows="8" id="dwtjyy" name="dwtjyy" placeholder="单位推荐意见">
+                    <textarea rows="8" id="dwtjyy" name="dwtjyy" placeholder="单位推荐意见" th:field="${masterThesisApply.dwtjyy}">
                     </textarea>
                 </td>
             </tr>
