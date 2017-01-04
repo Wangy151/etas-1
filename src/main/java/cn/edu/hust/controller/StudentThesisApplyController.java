@@ -24,8 +24,8 @@ import javax.servlet.http.HttpSession;
  * Created by xiaolei03 on 16/12/6.
  */
 @Controller
-@RequestMapping(value = "/home/student")
-public class StudentController {
+@RequestMapping(value = "/home/student/apply")
+public class StudentThesisApplyController {
 
     @Autowired
     private StudentService studentService;
@@ -35,7 +35,7 @@ public class StudentController {
      *
      * @return
      */
-    @RequestMapping(value = "/apply/index")
+    @RequestMapping(value = "/index")
     public String index() {
         return "s_thesis_apply_frame";
     }
@@ -44,7 +44,7 @@ public class StudentController {
     /**
      * 加载基本信息表
      */
-    @RequestMapping(value = "/apply/load/basicInfoTable")
+    @RequestMapping(value = "/load/basicInfoTable")
     public String loadBasicInfoTablePage(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         String userId = user.getUserId();
@@ -65,7 +65,7 @@ public class StudentController {
      * @param thesisBasicInfo 前台参数
      * @return 200:保存成功 500:保存失败
      */
-    @RequestMapping(value = "/apply/save/basicInfoTable", method = RequestMethod.POST)
+    @RequestMapping(value = "/save/basicInfoTable", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse saveThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
         System.out.println(thesisBasicInfo.toString());
@@ -80,7 +80,7 @@ public class StudentController {
     /**
      * 加载优秀论文推荐表: 主页面
      */
-    @RequestMapping(value = "/apply/load/tjbFrame")
+    @RequestMapping(value = "/load/tjbFrame")
     public String loadTjbFrame() {
         return "s_thesis_apply_tjb_frame";
     }
@@ -90,7 +90,7 @@ public class StudentController {
      *
      * @return
      */
-    @RequestMapping(value = "/apply/load/tjb", method = RequestMethod.POST)
+    @RequestMapping(value = "/load/tjb", method = RequestMethod.POST)
     public String loadTjb(@RequestBody StudentTypeRequest studentTypeRequest, Model model, HttpSession session) throws Exception {
         User user = (User) session.getAttribute("user");
         String userId = user.getUserId();
@@ -122,7 +122,7 @@ public class StudentController {
      *
      * @return
      */
-    @RequestMapping(value = "/apply/master/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/master/save", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse saveMasterTjb(@RequestBody MasterThesisApply masterThesisApply, HttpSession session) {
         User user = (User) session.getAttribute("user");
@@ -143,7 +143,7 @@ public class StudentController {
      *
      * @return
      */
-    @RequestMapping(value = "/apply/doctor/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/doctor/save", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse saveDoctorTjb(@RequestBody DoctorThesisApply doctorThesisApply, HttpSession session) {
         User user = (User) session.getAttribute("user");
