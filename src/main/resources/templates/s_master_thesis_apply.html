@@ -631,7 +631,7 @@
             <tbody>
             <tr>
                 <td class="td_key">作者学号</td>
-                <td><input type="text" id="zzxh" name="zzxh" disabled="disabled" placeholder="作者学号"/></td>
+                <td><input type="text" id="zzxh" name="zzxh" disabled="disabled" placeholder="作者学号" th:value="${session.user.userId}"/></td>
                 <td class="td_key"><span class="font_star">*</span>作者姓名</td>
                 <td><input type="text" id="zzxm" name="zzxm" placeholder="中间不能有空格"/></td>
                 <td class="td_key"><span class="font_star">*</span>性别</td>
