@@ -76,21 +76,24 @@
 
         <table class="table table-bordered table-striped">
             <thead>
-                <td>学号</td><td>姓名</td><td>类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>操作</td>
+                <td>学号</td><td>姓名</td><td>学生类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>操作</td>
             </thead>
             <tbody>
-            <tr>
-                <td>M201476136</td>
-                <td>梅浩</td>
-                <td>硕士</td>
-                <td>肖来元</td>
-                <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-                <td>待上报</td>
+            <tr th:if="${thesisBasicInfo} != null">
+                <td th:text="${thesisBasicInfo.zzxh}">请填写学号</td>
+                <td th:text="${thesisBasicInfo.zzxm}">请填写姓名</td>
+                <td th:text="${thesisBasicInfo.studentType}">请填写学生类型</td>
+                <td th:text="${thesisBasicInfo.dsxm}">请填写导师姓名</td>
+                <td th:text="${thesisBasicInfo.lwtm}">请填写论文题目</td>
+                <td th:text="${thesisBasicInfo.applyStatus}">暂无状态</td>
                 <td>
                     <a href="#">查看</a>&nbsp;|&nbsp;
                     <a href="#">修改</a>&nbsp;|&nbsp;
                     <a href="#">删除</a>
                 </td>
+            </tr>
+            <tr th:if="${thesisBasicInfo} == null">
+                <td colspan="7" align="center">无记录, 赶紧去申请吧</td>
             </tr>
 
             </tbody>
@@ -98,7 +101,7 @@
     </div>
 
     <div class="apply_btn_div">
-        <button type="button" class="btn btn-primary btn-lg">申请优秀论文</button>
+        <button type="button" class="btn btn-primary btn-lg">确认无误 提交申请</button>
     </div>
 
 </body>

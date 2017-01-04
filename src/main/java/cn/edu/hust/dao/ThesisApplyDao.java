@@ -1,5 +1,6 @@
 package cn.edu.hust.dao;
 
+import cn.edu.hust.common.ThesisApplyStatus;
 import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
@@ -39,9 +40,12 @@ public interface ThesisApplyDao {
             " yjxkdm = #{thesisBasicInfo.yjxkdm}, yjxkmc = #{thesisBasicInfo.yjxkmc}, ejxkdm = #{thesisBasicInfo.ejxkdm}, " +
             " ejxkmc = #{thesisBasicInfo.ejxkmc}, gdlb = #{thesisBasicInfo.gdlb}, gdfs = #{thesisBasicInfo.gdfs}, " +
             " zzzc = #{thesisBasicInfo.zzzc}, xxlxr = #{thesisBasicInfo.xxlxr}, bz = #{thesisBasicInfo.bz}, " +
-            " applyYear = #{thesisBasicInfo.applyYear}, studentType = #{thesisBasicInfo.studentType}, applyStatus = #{thesisBasicInfo.applyStatus} " +
+            " apply_year = #{thesisBasicInfo.applyYear}, student_type = #{thesisBasicInfo.studentType}, apply_status = #{thesisBasicInfo.applyStatus} " +
             " WHERE zzxh = #{thesisBasicInfo.zzxh}" )
     int saveThesisBasicInfoTable(@Param("thesisBasicInfo") ThesisBasicInfo thesisBasicInfo);
+
+    @Update(" UPDATE thesis_basic_info SET apply_status = #{applyStatus} WHERE zzxh = #{zzxh} ")
+    int updateThesisApplyStatus(@Param("applyStatus") ThesisApplyStatus applyStatus, @Param("zzxh") String zzxh);
 
     /**
      * 硕士 推荐表
