@@ -448,14 +448,14 @@
                     },
 
                     success: function(data){
-//                        var status = data.code;
-//                        var msg = data.msg;
-//                        if(status == "200")  //学生注册成功
-//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-//                        else if(status == "201")  //教务员注册成功
-//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-//                        else
-//                            var empty = "";
+                        var status = data.code;
+                        var msg = data.msg;
+                        if(status == "200")  //信息保存成功
+                            model_tip_show('model_tip','model_tip_content','保存成功');
+                        else if(status == "500")  //服务器繁忙
+                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
+                        else
+                            var empty = "";
                     },
 
                     error: function(XMLHttpRequest, textStatus) {
@@ -500,14 +500,14 @@
                     },
 
                     success: function(data){
-//                        var status = data.code;
-//                        var msg = data.msg;
-//                        if(status == "200")  //学生注册成功
-//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-//                        else if(status == "201")  //教务员注册成功
-//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-//                        else
-//                            var empty = "";
+                        var status = data.code;
+                        var msg = data.msg;
+                        if(status == "200")  //信息保存成功
+                            model_tip_show('model_tip','model_tip_content','保存成功');
+                        else if(status == "500")  //服务器繁忙
+                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
+                        else
+                            var empty = "";
                     },
 
                     error: function(XMLHttpRequest, textStatus) {
@@ -558,9 +558,9 @@
                     success: function(data){
                         var status = data.code;
                         var msg = data.msg;
-                        if(status == "200")  //学生注册成功
-                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-                        else if(status == "201")  //教务员注册成功
+                        if(status == "200")  //信息保存成功
+                            model_tip_show('model_tip','model_tip_content','保存成功');
+                        else if(status == "500")  //服务器繁忙
                             model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
                         else
                             var empty = "";
@@ -605,9 +605,9 @@
                     success: function(data){
                         var status = data.code;
                         var msg = data.msg;
-                        if(status == "200")  //学生注册成功
-                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-                        else if(status == "201")  //教务员注册成功
+                        if(status == "200")  //信息保存成功
+                            model_tip_show('model_tip','model_tip_content','保存成功');
+                        else if(status == "500")  //服务器繁忙
                             model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
                         else
                             var empty = "";
