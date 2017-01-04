@@ -30,7 +30,7 @@ public class ThesisBasicInfo {
     private String ejxkdm;
     private String ejxkmc;
     private String gdlb;
-    private String gdxwfs;
+    private String gdfs;
     private String zzzc;
     private String xxlxr;
     private String bz;
@@ -247,12 +247,12 @@ public class ThesisBasicInfo {
         this.gdlb = gdlb;
     }
 
-    public String getGdxwfs() {
-        return gdxwfs;
+    public String getGdfs() {
+        return gdfs;
     }
 
-    public void setGdxwfs(String gdxwfs) {
-        this.gdxwfs = gdxwfs;
+    public void setGdfs(String gdfs) {
+        this.gdfs = gdfs;
     }
 
     public String getZzzc() {
@@ -332,7 +332,7 @@ public class ThesisBasicInfo {
                 ", ejxkdm='" + ejxkdm + '\'' +
                 ", ejxkmc='" + ejxkmc + '\'' +
                 ", gdlb='" + gdlb + '\'' +
-                ", gdxwfs='" + gdxwfs + '\'' +
+                ", gdfs='" + gdfs + '\'' +
                 ", zzzc='" + zzzc + '\'' +
                 ", xxlxr='" + xxlxr + '\'' +
                 ", bz='" + bz + '\'' +

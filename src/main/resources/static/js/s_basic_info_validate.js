@@ -6,7 +6,7 @@
 function basic_info_validate(){
     //  basic_info_form   basic_info_submit_btn  m_table1_warn
     //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
-    // csny  mz  dsxm  lwtm  lwywtm  yjfx  zwgjz  lwys  gdlb  lwtjblj
+    // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
     // lwywlj  rxny  hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc  zzzc  xxlxr  bz
 
     $("#basic_info_form").validate({
@@ -44,7 +44,7 @@ function basic_info_validate(){
                 required:true,
             },
 
-            // csny  mz  dsxm  lwtm  lwywtm  yjfx  zwgjz  lwys  gdlb  lwtjblj
+            // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
             csny:{ //出生年月
                 required:true,
             },
@@ -65,7 +65,7 @@ function basic_info_validate(){
                 required:true,
                 maxlength:100,
             },
-            zwgjz:{ ////中文关键词
+            lwzwgjz:{ ////中文关键词
                 required:true,
             },
             lwys:{ //论文页数
@@ -149,7 +149,7 @@ function basic_info_validate(){
                 required:"性别不能为空",
             },
 
-            // csny  mz  dsxm  lwtm  lwywtm  yjfx  zwgjz  lwys  gdlb  lwtjblj
+            // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
             csny:{ //出生年月
                 required:"出生年月不能为空",
             },
@@ -170,7 +170,7 @@ function basic_info_validate(){
                 required:"研究方向不能为空",
                 maxlength:"研究方向最长不超过郭100",
             },
-            zwgjz:{ ////中文关键词
+            lwzwgjz:{ ////中文关键词
                 required:"中文关键词不能为空",
             },
             lwys:{ //论文页数

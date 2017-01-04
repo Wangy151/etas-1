@@ -55,6 +55,7 @@ public class StudentController {
         } else {
             // 若非第一次点击,则填充数据
             ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
+            System.out.println(thesisBasicInfo.toString());
             model.addAttribute("thesisBasicInfo", thesisBasicInfo);
         }
         return "s_apply_basic_info";

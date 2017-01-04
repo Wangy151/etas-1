@@ -31,7 +31,7 @@ public interface ThesisApplyDao {
             " lwzwgjz = #{thesisBasicInfo.lwzwgjz}, lwys = #{thesisBasicInfo.lwys}, lwtjblj = #{thesisBasicInfo.lwtjblj}, " +
             " lwywlj = #{thesisBasicInfo.lwywlj}, rxny = #{thesisBasicInfo.rxny}, hdxwrq = #{thesisBasicInfo.hdxwrq}, " +
             " yjxkdm = #{thesisBasicInfo.yjxkdm}, yjxkmc = #{thesisBasicInfo.yjxkmc}, ejxkdm = #{thesisBasicInfo.ejxkdm}, " +
-            " ejxkmc = #{thesisBasicInfo.ejxkmc}, gdlb = #{thesisBasicInfo.gdlb}, gdxwfs = #{thesisBasicInfo.gdxwfs}, " +
+            " ejxkmc = #{thesisBasicInfo.ejxkmc}, gdlb = #{thesisBasicInfo.gdlb}, gdfs = #{thesisBasicInfo.gdfs}, " +
             " zzzc = #{thesisBasicInfo.zzzc}, xxlxr = #{thesisBasicInfo.xxlxr}, bz = #{thesisBasicInfo.bz}, " +
             " applyYear = #{thesisBasicInfo.applyYear}, studentType = #{thesisBasicInfo.studentType}, applyStatus = #{thesisBasicInfo.applyStatus} " +
             " WHERE zzxh = #{thesisBasicInfo.zzxh}" )
