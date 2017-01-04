@@ -52,6 +52,7 @@
 
         })
 
+
         function register(){
             $.ajax({
                         type: "POST",
@@ -307,8 +308,9 @@
 </div>
 
 <!--- Model  --->
+<!---调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');---->
 
-<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
     <div class="modal-dialog modal-sm model_size">
         <div class="modal-content">
             <div class="model_head">

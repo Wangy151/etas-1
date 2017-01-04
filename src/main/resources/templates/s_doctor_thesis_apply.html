@@ -13,7 +13,7 @@
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
     <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
-
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             d_form1_validate();
@@ -235,7 +235,7 @@
     </div>
 
 
-    <form id="d_form1">
+    <form id="d_form1" class="border_top">
         <table class="table" id="table1">
             <tbody>
             <tr>
@@ -290,7 +290,7 @@
         </div>
     </form>
 
-    <form id="d_form2">
+    <form id="d_form2" class="border_top">
         <table class="table" id="d_table2">
             <thead>
             <tr><td class="d_t2_c1"></td><td class="d_t2_c2"></td><td class="d_t2_c3"></td></tr>
@@ -348,6 +348,30 @@
     </form>
 
 </div>
+
+
+<!-- Model  -->
+<!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Model  -->
 
 </body>
 </html>

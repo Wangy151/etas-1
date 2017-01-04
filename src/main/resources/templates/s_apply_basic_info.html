@@ -13,6 +13,7 @@
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
     <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
     <script type="text/javascript" src="../static/js/s_basic_info_validate.js" th:src="@{/js/s_basic_info_validate.js}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -72,18 +73,14 @@
                     },
 
                     success: function(data){
-//                        var status = data.code;
-//                        var msg = data.msg;
-//                        if(status == "200")  //学生注册成功
-//                            location.assign("/studentSuccessRegister.html");
-//                        else if(status == "201")  //教务员注册成功
-//                            location.assign("/teacherSuccessRegister.html");
-//                        else if(status == "300")  //邮箱验证码错误
-//                            $("#v_validateCode").html(msg);
-//                        else if(status == "500")  //服务器原因失败
-//                            $("#validateWarn").html("系统繁忙请稍后再试");
-//                        else
-//                            var empty = "";
+                        var status = data.code;
+                        var msg = data.msg;
+                        if(status == "200")  //信息保存成功
+                            model_tip_show('model_tip','model_tip_content','信息保存成功!');
+                        else if(status == "500")  //服务器繁忙
+                            model_tip_show('model_tip','model_tip_content','系统繁忙，请稍后再试!');
+                        else
+                            var empty = "";
                     },
 
                     error: function(XMLHttpRequest, textStatus) {
@@ -110,7 +107,7 @@
     </div>
 
 
-    <form id="basic_info_form">
+    <form id="basic_info_form" style="border-top: 1px solid black;">
         <table class="table" id="table0">
             <tbody>
             <tr>
@@ -284,6 +281,32 @@
     <!--</div>-->
 
 </div>
+
+
+<!-- Model  -->
+<!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+
+<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model  -->
 
 </body>
 </html>

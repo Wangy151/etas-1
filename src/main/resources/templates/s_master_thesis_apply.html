@@ -12,6 +12,7 @@
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
     <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
     <script type="text/javascript" src="../static/js/s_basic_info_validate.js" th:src="@{/js/s_basic_info_validate.js}"></script>
     <script type="text/javascript">
@@ -448,13 +449,9 @@
 //                        var status = data.code;
 //                        var msg = data.msg;
 //                        if(status == "200")  //学生注册成功
-//                            location.assign("/studentSuccessRegister.html");
+//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
 //                        else if(status == "201")  //教务员注册成功
-//                            location.assign("/teacherSuccessRegister.html");
-//                        else if(status == "300")  //邮箱验证码错误
-//                            $("#v_validateCode").html(msg);
-//                        else if(status == "500")  //服务器原因失败
-//                            $("#validateWarn").html("系统繁忙请稍后再试");
+//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
 //                        else
 //                            var empty = "";
                     },
@@ -502,13 +499,9 @@
 //                        var status = data.code;
 //                        var msg = data.msg;
 //                        if(status == "200")  //学生注册成功
-//                            location.assign("/studentSuccessRegister.html");
+//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
 //                        else if(status == "201")  //教务员注册成功
-//                            location.assign("/teacherSuccessRegister.html");
-//                        else if(status == "300")  //邮箱验证码错误
-//                            $("#v_validateCode").html(msg);
-//                        else if(status == "500")  //服务器原因失败
-//                            $("#validateWarn").html("系统繁忙请稍后再试");
+//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
 //                        else
 //                            var empty = "";
                     },
@@ -560,13 +553,9 @@
 //                        var status = data.code;
 //                        var msg = data.msg;
 //                        if(status == "200")  //学生注册成功
-//                            location.assign("/studentSuccessRegister.html");
+//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
 //                        else if(status == "201")  //教务员注册成功
-//                            location.assign("/teacherSuccessRegister.html");
-//                        else if(status == "300")  //邮箱验证码错误
-//                            $("#v_validateCode").html(msg);
-//                        else if(status == "500")  //服务器原因失败
-//                            $("#validateWarn").html("系统繁忙请稍后再试");
+//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
 //                        else
 //                            var empty = "";
                     },
@@ -609,13 +598,9 @@
 //                        var status = data.code;
 //                        var msg = data.msg;
 //                        if(status == "200")  //学生注册成功
-//                            location.assign("/studentSuccessRegister.html");
+//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
 //                        else if(status == "201")  //教务员注册成功
-//                            location.assign("/teacherSuccessRegister.html");
-//                        else if(status == "300")  //邮箱验证码错误
-//                            $("#v_validateCode").html(msg);
-//                        else if(status == "500")  //服务器原因失败
-//                            $("#validateWarn").html("系统繁忙请稍后再试");
+//                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
 //                        else
 //                            var empty = "";
                     },
@@ -641,7 +626,7 @@
         <span>湖北省优秀<span style="font-weight: 900;color: red">硕士</span>学位论文推荐表</span>
     </div>
 
-    <form id="m_form1">
+    <form id="m_form1" class="border_top">
         <table class="table" id="table1">
             <tbody>
             <tr>
@@ -715,7 +700,7 @@
     </div>
 
 
-    <form id="m_form2">
+    <form id="m_form2" class="border_top">
         <table class="table" id="table2">
             <tbody>
             <tr>
@@ -767,7 +752,7 @@
     </div>
 
 
-    <form id="m_form3">
+    <form id="m_form3" class="border_top">
         <table class="table" id="table3">
             <tbody>
             <tr>
@@ -831,7 +816,7 @@
 
     </form>
 
-    <form id="m_form4">
+    <form id="m_form4" class="border_top">
         <table class="table" id="table4">
             <thead>
             <tr><td class="t4_c1"></td><td class="t4_c2"></td><td class="t4_c3"></td></tr>
@@ -882,6 +867,31 @@
     <!--</div>-->
 
 </div>
+
+
+<!-- Model  -->
+<!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model  -->
 
 </body>
 </html>
