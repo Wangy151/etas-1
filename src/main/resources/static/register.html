@@ -30,31 +30,20 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#validateCode_btn").click(function(){
-                ChangeValidateCode();
-            });
+           //更换验证码
+            ChangeValidateCode();
+            //发送邮箱验证码
+            sendEmailVerifyCode();
+            //注册
+            register();
 
-            $("#emailVerify_btn").click(function () {
-                if($("#email").valid()){
-                    sendEmailVerifyCode();
-                }else {
-                    model_tip_show('model_tip','model_tip_content','系统已发送验证码到您的邮箱!请检查邮箱邮件并输入验证码!');
-                }
-            });
-
-            $("#register_btn").click(function(){
-                var status = $("#register_form").valid();
-                if(status){
-                    register();
-                }
-
-            });
-
-        })
-
+        });
 
         function register(){
-            $.ajax({
+            $("#register_btn").click(function(){
+                var status = $("#register_form").valid();
+                if(status){  //注册前验证表单
+                    $.ajax({
                         type: "POST",
                         url: "/register/submit",
                         contentType: "application/json",
@@ -96,40 +85,51 @@
                         }
 
                     });
-        }
+                } //if valid
+            }); //click
+        } //register function
 
         function ChangeValidateCode() {
-            $("#validateCodeImg").attr("src", $("#validateCodeImg").attr("src") + 1);
+            $("#validateCode_btn").click(function(){
+                $("#validateCodeImg").attr("src", $("#validateCodeImg").attr("src") + 1);
+            });
+
         }
 
         function sendEmailVerifyCode() {
-            var email = $("#email").val();
-            $.ajax({
-                type: "GET",
-                url: "/sendVerifyCodeMail?emailTo="+email,
+            $("#emailVerify_btn").click(function () {
+                if($("#email").valid()){  //发送邮箱验证码前验证表单验证码是否合法
+                    var email = $("#email").val();
+                    $.ajax({
+                        type: "GET",
+                        url: "/sendVerifyCodeMail?emailTo="+email,
 
-                beforeSend: function(XMLHttpRequest){
-                },
+                        beforeSend: function(XMLHttpRequest){
+                        },
 
-                success: function(data){
-                    var status = data.code;
-                    var msg = data.msg;
-                    if(status == "200")
-                        model_tip_show('model_tip','model_tip_content','邮件验证码已经发送到邮箱!请检查您的邮件!');
-                    else if(status ==  "500")
-                        model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-                    else
-                        model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-                },
+                        success: function(data){
+                            var status = data.code;
+                            var msg = data.msg;
+                            if(status == "200")
+                                model_tip_show('model_tip','model_tip_content','邮件验证码已经发送到邮箱!请检查您的邮件!');
+                            else if(status ==  "500")
+                                model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
+                            else
+                                model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
+                        },
 
-                error: function(XMLHttpRequest, textStatus) {
-                },
+                        error: function(XMLHttpRequest, textStatus) {
+                        },
 
-                complete: function(XMLHttpRequest, textStatus){
-                }
+                        complete: function(XMLHttpRequest, textStatus){
+                        }
 
+                    }); //ajax
+                } //valid
             });
+
         }
+
     </script>
 
 
