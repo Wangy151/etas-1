@@ -5,12 +5,7 @@ DROP TABLE IF EXISTS master_thesis_apply;
 create table master_thesis_apply(
 id int not null primary key auto_increment,
 
-user_id varchar(30) NOT NULL COMMENT '用户学号',
-
-dwdm varchar(20) NOT NULL DEFAULT '' COMMENT '单位代码',
-dwmc varchar(50) NOT NULL DEFAULT '' COMMENT '单位名称',
-tbrq varchar(20) NOT NULL DEFAULT '' COMMENT '填表日期',
-
+zzxh varchar(50) DEFAULT '' COMMENT '作者学号',
 zzxm varchar(30) NOT NULL DEFAULT '' COMMENT '作者姓名',
 xb varchar(10) NOT NULL DEFAULT '' COMMENT '性别',
 csny varchar(20) NOT NULL DEFAULT '' COMMENT '出生年月',
@@ -24,7 +19,7 @@ yjxkdm varchar(20) NOT NULL DEFAULT '' COMMENT '一级学科代码',
 yjxkmc varchar(128) NOT NULL DEFAULT '' COMMENT '一级学科名称',
 ejxkdm varchar(20) NOT NULL DEFAULT '' COMMENT '二级学科代码',
 ejxkmc varchar(128) NOT NULL DEFAULT '' COMMENT '二级学科名称',
-yjfx varchar(1024) NOT NULL DEFAULT '' COMMENT '论文涉及的研究方向',
+lwsjdyjfx varchar(1024) NOT NULL DEFAULT '' COMMENT '论文涉及的研究方向',
 
 dyzz int(3) NOT NULL DEFAULT 0 COMMENT '发表学术论文数(第一作者)',
 dezz int(3) NOT NULL DEFAULT 0 COMMENT '发表学术论文数(第二作者)',
@@ -52,7 +47,10 @@ cbzz text COMMENT '出版专著',
 hjxm text COMMENT '获奖项目',
 lwdzycxd text COMMENT '论文的主要创新点',
 dwtjyy text COMMENT '单位推荐意见',
+tbrq varchar(20) NOT NULL DEFAULT '' COMMENT '填表日期',
 
+dwdm varchar(20) NOT NULL DEFAULT '' COMMENT '单位代码',
+dwmc varchar(50) NOT NULL DEFAULT '' COMMENT '单位名称',
 student_type varchar(20) NOT NULL DEFAULT '' COMMENT '学生类型'
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='硕士学位论文推荐表';

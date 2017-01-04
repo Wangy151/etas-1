@@ -1,5 +1,6 @@
 package cn.edu.hust.dao;
 
+import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
 import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
@@ -14,6 +15,11 @@ import org.apache.ibatis.annotations.Update;
  */
 @Mapper
 public interface ThesisApplyDao {
+    /**
+     * 基本信息表
+     * @param userId
+     * @return
+     */
     @Select(" SELECT COUNT(*) FROM thesis_basic_info WHERE zzxh = #{userId} ")
     int hasApplyBasicInfoTable(@Param("userId") String userId);
 
@@ -37,37 +43,56 @@ public interface ThesisApplyDao {
             " WHERE zzxh = #{thesisBasicInfo.zzxh}" )
     int saveThesisBasicInfoTable(@Param("thesisBasicInfo") ThesisBasicInfo thesisBasicInfo);
 
-    @Insert(" INSERT INTO master_thesis_apply(zzxh) VALUES (#{userId})")
-    int initMasterThesisApply(@Param("userId") String userId);
-
-    @Insert(" INSERT INTO doctor_thesis_apply(zzxh) VALUES (#{userId})")
-    int initDocterThesisApply(@Param("userId") String userId);
-
-    @Select( "select count(*) from master_thesis_apply where zzxh = #{userId}")
+    /**
+     * 硕士 推荐表
+     * @param userId
+     * @return
+     */
+    @Select( "select count(*) from master_thesis_apply where zzxh = #{userId} ")
     int hasMasterUser(@Param("userId") String userId);
 
-    @Select( "select count(*) from doctor_thesis_apply where zzxh = #{userId}")
+    @Insert(" INSERT INTO master_thesis_apply(zzxh) VALUES (#{userId}) ")
+    int initMasterTjb(@Param("userId") String userId);
+
+    @Select(" SELECT * FROM master_thesis_apply WHERE zzxh = #{userId} ")
+    MasterThesisApply getMasterTjb(@Param("userId") String userId);
+
+    @Update(" UPDATE master_thesis_apply SET " +
+            " zzxh = #{model.zzxh}, zzxm = #{model.zzxm}, xb = #{model.xb}, csny = #{model.csny}, mz = #{model.mz}, " +
+            " lwtm = #{model.lwtm}, lwywtm = #{model.lwywtm}, rxny = #{model.rxny}, dbrq = #{model.dbrq}, hdxwrq = #{model.hdxwrq}, " +
+            " yjxkdm = #{model.yjxkdm}, yjxkmc = #{model.yjxkmc}, ejxkdm = #{model.ejxkdm}, ejxkmc = #{model.ejxkmc}, lwsjdyjfx = #{model.lwsjdyjfx} " +
+            " WHERE zzxh = #{model.zzxh} ")
+    int saveMasterTjb1(@Param("model") MasterThesisApply model);
+
+    @Update(" UPDATE master_thesis_apply SET " +
+            " dyzz = #{model.dyzz}, dezz = #{model.dezz}, sci = #{model.sci}, ei = #{model.ei}, ssci = #{model.ssci}, " +
+            " istp = #{model.istp}, zls = #{model.zls}, cgjx = #{model.cgjx} " +
+            " WHERE zzxh = #{model.zzxh} ")
+    int saveMasterTjb2(@Param("model") MasterThesisApply model);
+
+    @Update(" UPDATE master_thesis_apply SET " +
+            " gdxwfs = #{model.gdxwfs}, bkjdxx = #{model.bkjdxx}, gdssxwdw = #{model.gdssxwdw}, zzdw = #{model.zzdw}, zzdz = #{model.zzdz}, " +
+            " zzyb = #{model.zzyb}, zzdh = #{model.zzdh}, zc = #{model.zc}, zw = #{model.zw}, zdjsxm = #{model.zdjsxm}, " +
+            " zdjsyjfx = #{model.zdjsyjfx} " +
+            " WHERE zzxh = #{model.zzxh} ")
+    int saveMasterTjb3(@Param("model") MasterThesisApply model);
+
+    @Update(" UPDATE master_thesis_apply SET " +
+            " fbxslw = #{model.fbxslw}, cbzz = #{model.cbzz}, hjxm = #{model.hjxm}, lwdzycxd = #{model.lwdzycxd}, dwtjyy = #{model.dwtjyy}, " +
+            " tbrq = #{model.tbrq} " +
+            " WHERE zzxh = #{model.zzxh} ")
+    int saveMasterTjb4(@Param("model") MasterThesisApply model);
+
+    /**
+     * 博士推荐表
+     * @param userId
+     * @return
+     */
+    @Select( "select count(*) from doctor_thesis_apply where user_id = #{userId}")
     int hasDoctorUser(@Param("userId") String userId);
 
-    @Insert(" INSERT INTO master_thesis_apply " +
-            " (ssdm,ssmc,xxdm,xxmc,cplx,zzxh,xh,lwzwgjz,lwys,gdlb,lwtjblj," +
-            " lwywlj,zzzc,xxlxr,bz,zzxm,xb,csny,mz,lwtm,lwywtm,rxny,dbrq," +
-            " hdxwrq,yjxkdm,yjxkmc,ejxkdm,ejxkmc,lwsjdyjfx,dyzz,dezz,sci," +
-            " ei,ssci,istp,zls,cgjx,gdxwfs,bkjdxx,gdssxwdw,zzdw,zzyb,zzdz," +
-            " zzdh,zc,zw,zdjsxm,zdjsyjfx,fbxslw,cbzz,hjxm,lwdzycxd,dwtjyy," +
-            " tbrq,student_type) " +
-            " VALUES (#{request.ssdm},#{request.ssmc},#{request.xxdm},#{request.xxmc},#{request.cplx}," +
-            " #{request.zzxh},#{request.xh},#{request.lwzwgjz},#{request.lwys},#{request.gdlb}," +
-            " #{request.lwtjblj},#{request.lwywlj},#{request.zzzc},#{request.xxlxr},#{request.bz}," +
-            " #{request.zzxm},#{request.xb},#{request.csny},#{request.mz},#{request.lwtm},#{request.lwywtm}," +
-            " #{request.rxny},#{request.dbrq},#{request.hdxwrq},#{request.yjxkdm},#{request.yjxkmc}," +
-            " #{request.ejxkdm},#{request.ejxkmc},#{request.lwsjdyjfx},#{request.dyzz},#{request.dezz}," +
-            " #{request.sci},#{request.ei},#{request.ssci},#{request.istp},#{request.zls},#{request.cgjx}," +
-            " #{request.gdxwfs},#{request.bkjdxx},#{request.gdssxwdw},#{request.zzdw},#{request.zzyb}," +
-            " #{request.zzdz},#{request.zzdh},#{request.zc},#{request.zw},#{request.zdjsxm}," +
-            " #{request.zdjsyjfx},#{request.fbxslw},#{request.cbzz},#{request.hjxm},#{request.lwdzycxd}," +
-            " #{request.dwtjyy},#{request.tbrq},#{request.studentType}) ")
-    int saveMaster(@Param("request") MasterThesisApplyInfoRequest request);
+    @Insert(" INSERT INTO doctor_thesis_apply(user_id) VALUES (#{userId})")
+    int initDoctorThesisApply(@Param("userId") String userId);
 
     @Insert(" INSERT INTO doctor_thesis_apply " +
             " (ssdm,ssmc,xxdm,xxmc,zzxh,xh,cplx,xb,mz,csny,rxny,gdxwfs,lwzwgjz,lwys,gdlb," +

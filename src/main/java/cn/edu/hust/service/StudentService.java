@@ -1,6 +1,7 @@
 package cn.edu.hust.service;
 
 import cn.edu.hust.dao.ThesisApplyDao;
+import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
 import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
@@ -16,6 +17,11 @@ public class StudentService {
     @Autowired
     private ThesisApplyDao thesisApplyDao;
 
+    /**
+     * 基本信息表
+     * @param userId
+     * @return
+     */
     public boolean hasApplyBasicInfoTable(String userId) {
         return thesisApplyDao.hasApplyBasicInfoTable(userId) > 0;
     }
@@ -36,19 +42,46 @@ public class StudentService {
         return thesisApplyDao.saveThesisBasicInfoTable(thesisBasicInfo) > 0;
     }
 
-
-    public boolean initMasterThesisApply(String userId) {
-
-        return thesisApplyDao.initMasterThesisApply(userId) > 0;
+    /**
+     * 硕士推荐表
+     * @param userId
+     */
+    public void initMasterTjb(String userId) {
+        if (thesisApplyDao.hasMasterUser(userId) <= 0) {
+            thesisApplyDao.initMasterTjb(userId);
+        }
     }
 
-    public boolean initDocterThesisApply(String userId) {
-        return thesisApplyDao.initDocterThesisApply(userId) > 0;
+    public MasterThesisApply getMasterTjb(String userId) {
+        return thesisApplyDao.getMasterTjb(userId);
     }
 
-    public boolean saveMaster(MasterThesisApplyInfoRequest masterThesisApplyInfoRequest) {
-        return thesisApplyDao.saveMaster(masterThesisApplyInfoRequest) > 0;
+    public boolean saveMasterTjb(MasterThesisApply masterThesisApply) {
+        String savePart = masterThesisApply.getPart();
+
+        if ("part1".equalsIgnoreCase(savePart)) {
+            return thesisApplyDao.saveMasterTjb1(masterThesisApply) > 0;
+        } else if ("part2".equalsIgnoreCase(savePart)) {
+            return thesisApplyDao.saveMasterTjb2(masterThesisApply) > 0;
+        } else if ("part3".equalsIgnoreCase(savePart)) {
+            return thesisApplyDao.saveMasterTjb3(masterThesisApply) > 0;
+        } else if ("part4".equalsIgnoreCase(savePart)) {
+            return thesisApplyDao.saveMasterTjb4(masterThesisApply) > 0;
+        }
+
+        return false;
     }
+
+    /**
+     * 博士推荐表
+     * @param userId
+     */
+    public void initDoctorThesisApply(String userId) {
+        if (thesisApplyDao.hasDoctorUser(userId) <= 0) {
+            thesisApplyDao.initDoctorThesisApply(userId);
+        }
+    }
+
 
     public boolean saveDoctor(DoctorThesisApplyInfoRequest doctorThesisApplyInfoRequest) {
         return thesisApplyDao.saveDoctor(doctorThesisApplyInfoRequest) > 0;

@@ -1,9 +1,9 @@
 package cn.edu.hust.controller;
 
+import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.User;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
-import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
 import cn.edu.hust.model.request.StudentTypeRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
@@ -48,50 +48,16 @@ public class StudentController {
         User user = (User) session.getAttribute("user");
         String userId = user.getUserId();
 
-        // 首先判断用户是否第一次点击
+        // 判断是否已初始化
         if (!studentService.hasApplyBasicInfoTable(userId)) {
-            // 若第一次点击则初始化数据
             studentService.initThesisBasicInfoTable(userId);
         } else {
-            // 若非第一次点击,则填充数据
             ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
-            System.out.println(thesisBasicInfo.toString());
             model.addAttribute("thesisBasicInfo", thesisBasicInfo);
         }
         return "s_apply_basic_info";
     }
 
-    /**
-     * 加载优秀论文推荐表: 页面
-     */
-    @RequestMapping(value = "/apply/load/tjbFrame")
-    public String loadTjbFrame() {
-        return "s_thesis_apply_tjb_frame";
-    }
-
-    /**
-     * 根据 [硕士]或[博士] load 不同推荐表
-     *
-     * @return
-     */
-    @RequestMapping(value = "/apply/load/tjb", method = RequestMethod.POST)
-    public String loadTjb(@RequestBody StudentTypeRequest studentTypeRequest, HttpSession session) throws Exception {
-        User user = (User) session.getAttribute("user");
-
-        String studentType = studentTypeRequest.getStudentType();
-        if ("master".equalsIgnoreCase(studentType)) {
-            // Todo
-//            studentService.initMasterThesisApply(userId);
-            return "s_master_thesis_apply";
-        } else if ("doctor".equalsIgnoreCase(studentType)) {
-            // Todo
-//            studentService.initDocterThesisApply(userId);
-            return "s_doctor_thesis_apply";
-        } else {
-            throw new Exception("error");
-        }
-
-    }
 
     /**
      * 保存基本信息表
@@ -111,18 +77,63 @@ public class StudentController {
 
 
     /**
+     * 加载优秀论文推荐表: 主页面
+     */
+    @RequestMapping(value = "/apply/load/tjbFrame")
+    public String loadTjbFrame() {
+        return "s_thesis_apply_tjb_frame";
+    }
+
+    /**
+     * 根据 [硕士]或[博士] load 不同推荐表
+     *
+     * @return
+     */
+    @RequestMapping(value = "/apply/load/tjb", method = RequestMethod.POST)
+    public String loadTjb(@RequestBody StudentTypeRequest studentTypeRequest, Model model, HttpSession session) throws Exception {
+        User user = (User) session.getAttribute("user");
+        String userId = user.getUserId();
+
+        String studentType = studentTypeRequest.getStudentType();
+        if ("master".equalsIgnoreCase(studentType)) {
+            // 初始化
+            studentService.initMasterTjb(userId);
+
+            MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
+            model.addAttribute("masterThesisApply", masterThesisApply);
+            return "s_master_thesis_apply";
+        } else if ("doctor".equalsIgnoreCase(studentType)) {
+            // 初始化
+            studentService.initDoctorThesisApply(userId);
+
+
+            return "s_doctor_thesis_apply";
+        } else {
+            throw new Exception("error");
+        }
+
+    }
+
+
+    /**
      * 保存申请表[硕士]
      *
      * @return
      */
     @RequestMapping(value = "/apply/master/save", method = RequestMethod.POST)
-    public CommonResponse saveMasterTjb(@RequestBody MasterThesisApplyInfoRequest masterThesisApplyInfoRequest) {
+    @ResponseBody
+    public CommonResponse saveMasterTjb(@RequestBody MasterThesisApply masterThesisApply, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        String userId = user.getUserId();
+        masterThesisApply.setZzxh(userId);
+
         CommonResponse commonResponse = new CommonResponse();
-        boolean isSuccess = studentService.saveMaster(masterThesisApplyInfoRequest);
+
+        boolean isSuccess = studentService.saveMasterTjb(masterThesisApply);
         if (isSuccess) {
             return commonResponse.withCode(200).withMsg("保存成功");
         }
-        return commonResponse.withCode(500).withMsg("失败");
+        return commonResponse.withCode(500).withMsg("保存失败");
     }
 
     /**
@@ -131,6 +142,7 @@ public class StudentController {
      * @return
      */
     @RequestMapping(value = "/apply/doctor/save", method = RequestMethod.POST)
+    @ResponseBody
     public CommonResponse saveDoctorTjb(@RequestBody DoctorThesisApplyInfoRequest doctorThesisApplyInfoRequest) {
         CommonResponse commonResponse = new CommonResponse();
 
