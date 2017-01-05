@@ -44,6 +44,10 @@ public class StudentThesisManageController {
         User user = (User) session.getAttribute("user");
         String userId = user.getUserId();
 
+        if (studentService.hasThesisApply(userId)) {
+            return new CommonResponse().withCode(300).withMsg("重复提交");
+        }
+
         boolean isSuccess = studentService.updateThesisApplyStatus(ThesisApplyStatus.TO_REPORT, userId);
         if (isSuccess) {
             return new SuccessResponse();

@@ -44,6 +44,9 @@ public interface ThesisApplyDao {
             " WHERE zzxh = #{thesisBasicInfo.zzxh}" )
     int saveThesisBasicInfoTable(@Param("thesisBasicInfo") ThesisBasicInfo thesisBasicInfo);
 
+    @Select(" SELECT apply_status FROM thesis_basic_info WHERE zzxh = #{zzxh}")
+    String queryThesisApplyStatus(@Param("zzxh") String zzxh);
+
     @Update(" UPDATE thesis_basic_info SET apply_status = #{applyStatus} WHERE zzxh = #{zzxh} ")
     int updateThesisApplyStatus(@Param("applyStatus") ThesisApplyStatus applyStatus, @Param("zzxh") String zzxh);
 

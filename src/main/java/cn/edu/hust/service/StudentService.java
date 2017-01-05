@@ -42,6 +42,10 @@ public class StudentService {
         return thesisApplyDao.saveThesisBasicInfoTable(thesisBasicInfo) > 0;
     }
 
+    public boolean hasThesisApply(String userId) {
+        String applyStatus = thesisApplyDao.queryThesisApplyStatus(userId);
+        return !ThesisApplyStatus.TO_SUBMIT.getValue().equalsIgnoreCase(applyStatus);
+    }
 
     public boolean updateThesisApplyStatus(ThesisApplyStatus applyStatus, String zzxh) {
         return thesisApplyDao.updateThesisApplyStatus(applyStatus, zzxh) > 0;
