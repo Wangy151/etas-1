@@ -105,3 +105,4 @@ bce-osp-datacenter.Rproj
 .Rhistory
 
 .DS_Store
+*.log*
