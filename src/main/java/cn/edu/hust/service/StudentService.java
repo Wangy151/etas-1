@@ -10,6 +10,7 @@ import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by xiaolei03 on 16/12/6.
@@ -42,6 +43,11 @@ public class StudentService {
         return thesisApplyDao.saveThesisBasicInfoTable(thesisBasicInfo) > 0;
     }
 
+    /**
+     * 是否已经提交过申请
+     * @param userId
+     * @return true: 已经提交过  false:未提交过
+     */
     public boolean hasThesisApply(String userId) {
         String applyStatus = thesisApplyDao.queryThesisApplyStatus(userId);
         return !ThesisApplyStatus.TO_SUBMIT.getValue().equalsIgnoreCase(applyStatus);
@@ -49,6 +55,22 @@ public class StudentService {
 
     public boolean updateThesisApplyStatus(ThesisApplyStatus applyStatus, String zzxh) {
         return thesisApplyDao.updateThesisApplyStatus(applyStatus.getValue(), zzxh) > 0;
+    }
+
+    /**
+     * 是否可以删除申请
+     * @param zzxh
+     * @return  true: 可以删除  false:不能删除
+     */
+    public boolean hasPermissionDeleteThesisApply(String zzxh) {
+        String applyStatus = thesisApplyDao.queryThesisApplyStatus(zzxh);
+        if (ThesisApplyStatus.TO_SUBMIT.getValue().equalsIgnoreCase(applyStatus) ||
+                ThesisApplyStatus.TO_REPORT.getValue().equalsIgnoreCase(applyStatus)) {
+            // 待学生提交 or 待教务员审核 --> 可以删除
+            return true;
+        }
+
+        return false;
     }
 
 
@@ -108,5 +130,12 @@ public class StudentService {
         }
 
         return false;
+    }
+
+    @Transactional
+    public void deleteThesisApplyRecords(String userId) {
+        thesisApplyDao.deleteThesisBasicInfoRecord(userId);
+        thesisApplyDao.deleteMasterTjbRecord(userId);
+        thesisApplyDao.deleteDoctorTjbRecord(userId);
     }
 }

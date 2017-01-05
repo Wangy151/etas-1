@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 程序入口
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 //@Configuration
 //@EnableAutoConfiguration
 //@ComponentScan
+@EnableTransactionManagement
 @SpringBootApplication
 @ServletComponentScan
 public class Application {

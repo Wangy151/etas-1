@@ -38,6 +38,11 @@ public class StudentThesisManageController {
         return "s_query_thesis_status";
     }
 
+    /**
+     * 提交申请
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/submit")
     @ResponseBody
     public CommonResponse submitThesisApply(HttpSession session) {
@@ -53,5 +58,31 @@ public class StudentThesisManageController {
             return new SuccessResponse();
         }
         return new FailResponse();
+    }
+
+    /**
+     * 删除论文申请
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/delete")
+    @ResponseBody
+    public CommonResponse deleteThesisApply(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        String userId = user.getUserId();
+
+        if (!studentService.hasPermissionDeleteThesisApply(userId)) {
+            return new CommonResponse().withCode(300).withMsg("学院教务员已审核通过,不能删除");
+        }
+
+        try {
+            studentService.deleteThesisApplyRecords(userId);
+        } catch (Exception e) {
+            // 异常情况
+            e.printStackTrace();
+            return new FailResponse();
+        }
+
+        return new SuccessResponse();
     }
 }
