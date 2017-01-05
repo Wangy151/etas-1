@@ -15,7 +15,7 @@ function search(){
             url: "/home/student/thesis/manage/submit",
             contentType: "application/json",
             data: JSON.stringify({
-                "school":$("#school").text(),
+                "department":$("#school").text(),
                 "year":$("#year").val(),
                 "applyStatus":$("#apply_status").val(),
                 "studentType":$("#student_type").val(),
