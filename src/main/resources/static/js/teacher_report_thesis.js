@@ -15,10 +15,10 @@ function search(){
             url: "/home/student/thesis/manage/submit",
             contentType: "application/json",
             data: JSON.stringify({
-                "school":$("#school").val(),
+                "school":$("#school").text(),
                 "year":$("#year").val(),
-                "apply_status":$("#apply_status").val(),
-                "student_type":$("#student_type").val(),
+                "applyStatus":$("#apply_status").val(),
+                "studentType":$("#student_type").val(),
                 "realName":$("#realName").val(),
             }),
 
