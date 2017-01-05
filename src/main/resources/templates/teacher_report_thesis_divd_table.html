@@ -9,6 +9,8 @@
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet"/>
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
+    <script type="text/javascript" src="../static/js/teacher_report_thesis_divd_table.js" th:src="@{/js/teacher_report_thesis_divd_table.js}"></script>
     <style rel="stylesheet">
 
         .search .search_row{
@@ -30,21 +32,25 @@
 
     </style>
 
+    <script>
+
+    </script>
+
 </head>
 <body>
 <div class="table_body">
     <div class="row" style="margin-bottom: 15px;">
         <div class="col-md-1" style="margin-left: 10px">
-            <button type="button" class="btn btn-primary btn-xs">全选</button>
+            <button type="button" id="select_all_btn" class="btn btn-primary btn-xs">全选</button>
         </div>
         <div class="col-md-1" style="margin-left: -30px">
-            <button type="button" class="btn btn-primary btn-xs">反选</button>
+            <button type="button" id="no_select_all_btn" class="btn btn-primary btn-xs">反选</button>
         </div>
         <div class="col-md-1" style="margin-left: -30px">
-            <button type="button" class="btn btn-primary btn-xs">上报</button>
+            <button type="button" id="report_btn" class="btn btn-primary btn-xs">上报</button>
         </div>
         <div class="col-md-1" style="margin-left: -30px">
-            <button type="button" class="btn btn-primary btn-xs">取消上报</button>
+            <button type="button" id="cancel_report_btn" class="btn btn-primary btn-xs">取消上报</button>
         </div>
 
     </div>
@@ -54,8 +60,8 @@
         </thead>
         <tbody>
         <tr>
-            <td><input type="checkbox"/></td>
-            <td>M201476136</td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
+            <td>M201476130</td>
             <td>刘杰</td>
             <td>硕士</td>
             <td>付海文</td>
@@ -64,8 +70,8 @@
             <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
         </tr>
         <tr>
-            <td><input type="checkbox"/></td>
-            <td>M201476136</td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
+            <td>M201476131</td>
             <td>刘杰</td>
             <td>硕士</td>
             <td>付海文</td>
@@ -74,8 +80,8 @@
             <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
         </tr>
         <tr>
-            <td><input type="checkbox"/></td>
-            <td>M201476136</td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
+            <td>M201476132</td>
             <td>刘杰</td>
             <td>硕士</td>
             <td>付海文</td>
@@ -84,8 +90,8 @@
             <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
         </tr>
         <tr>
-            <td><input type="checkbox"/></td>
-            <td>M201476136</td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
+            <td>M201476133</td>
             <td>刘杰</td>
             <td>硕士</td>
             <td>付海文</td>
@@ -94,8 +100,8 @@
             <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
         </tr>
         <tr>
-            <td><input type="checkbox"/></td>
-            <td>M201476136</td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
+            <td>M201476134</td>
             <td>刘杰</td>
             <td>硕士</td>
             <td>付海文</td>
@@ -104,8 +110,8 @@
             <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
         </tr>
         <tr>
-            <td><input type="checkbox"/></td>
-            <td>M201476136</td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
+            <td>M201476135</td>
             <td>梅浩</td>
             <td>硕士</td>
             <td>肖来元</td>
@@ -117,6 +123,31 @@
         </tbody>
     </table>
 </div>
+
+<!-- Model  -->
+<!--调用方法:model_tip_show('model_tip1','model_tip_content1','系统繁忙请稍后再试!');-->
+
+<div id="model_tip1" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel1" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content1">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model  -->
 
 </body>
 </html>
