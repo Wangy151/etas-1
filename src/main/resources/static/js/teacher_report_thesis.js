@@ -12,27 +12,22 @@ function search(){
     $("#search_btn").click(function(){
         $.ajax({
             type: "POST",
-            url: "/home/student/thesis/manage/submit",
+            url: "/home/teacher/thesis/search",
             contentType: "application/json",
             data: JSON.stringify({
                 "department":$("#school").text(),
-                "year":$("#year").val(),
+                "applyYear":$("#year").val(),
                 "applyStatus":$("#apply_status").val(),
                 "studentType":$("#student_type").val(),
-                "realName":$("#realName").val(),
+                "zzxm":$("#realName").val(),
             }),
 
             beforeSend: function(XMLHttpRequest){
+                $("#talbe_wrap").empty();
             },
 
             success: function(data){
-                // 200 成功    300 重复申请  500 失败
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //200 成功
-                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!')
-                else
-                    var empty = "";
+                $("#talbe_wrap").html(data);
             },
 
             error: function(XMLHttpRequest, textStatus) {

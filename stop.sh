@@ -1,5 +1,5 @@
 #!/bin/sh
-ps ux | grep "portal.jar" | grep -v grep | grep -v stop.sh | cut -c 9-15 | xargs kill -s 9
+ps ux | grep "etas.jar" | grep -v grep | grep -v stop.sh | cut -c 9-15 | xargs kill -s 9
 
 for var in $@
 do

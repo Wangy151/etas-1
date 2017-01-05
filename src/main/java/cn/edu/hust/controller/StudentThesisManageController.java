@@ -76,6 +76,7 @@ public class StudentThesisManageController {
         }
 
         try {
+            // TODO 测试
             studentService.deleteThesisApplyRecords(userId);
         } catch (Exception e) {
             // 异常情况

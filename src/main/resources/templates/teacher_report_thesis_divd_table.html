@@ -56,70 +56,24 @@
     </div>
     <table class="table table-bordered table-striped">
         <thead>
-        <td>选择</td><td>学号</td><td>姓名</td><td>类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>操作</td>
+            <td>选择</td><td>申请年份</td><td>学号</td><td>姓名</td><td>学生类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>操作</td>
         </thead>
         <tbody>
-        <tr>
-            <td><input type="checkbox" name="checkboxStatus"/></td>
-            <td>M201476130</td>
-            <td>刘杰</td>
-            <td>硕士</td>
-            <td>付海文</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" name="checkboxStatus"/></td>
-            <td>M201476131</td>
-            <td>刘杰</td>
-            <td>硕士</td>
-            <td>付海文</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" name="checkboxStatus"/></td>
-            <td>M201476132</td>
-            <td>刘杰</td>
-            <td>硕士</td>
-            <td>付海文</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" name="checkboxStatus"/></td>
-            <td>M201476133</td>
-            <td>刘杰</td>
-            <td>硕士</td>
-            <td>付海文</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" name="checkboxStatus"/></td>
-            <td>M201476134</td>
-            <td>刘杰</td>
-            <td>硕士</td>
-            <td>付海文</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" name="checkboxStatus"/></td>
-            <td>M201476135</td>
-            <td>梅浩</td>
-            <td>硕士</td>
-            <td>肖来元</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
+            <tr th:if="${#lists.isEmpty(thesisBasicInfoList)}">
+                <td colspan="9" align="center">暂无数据, 请尝试输入其他条件重新查询~</td>
+            </tr>
 
+            <tr th:each="item : ${thesisBasicInfoList}">
+                <td><input type="checkbox" name="checkboxStatus"/></td>
+                <td th:text="${item.applyYear}">2017</td>
+                <td th:text="${item.zzxh}">M201476130</td>
+                <td th:text="${item.zzxm}">刘杰</td>
+                <td th:text="${item.studentType}">硕士</td>
+                <td th:text="${item.dsxm}">付海文</td>
+                <td th:text="${item.lwtm}">基于HTTP协议的电力智能锁控系统设计与实现</td>
+                <td th:text="${item.applyStatus}">待上报</td>
+                <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
+            </tr>
         </tbody>
     </table>
 </div>

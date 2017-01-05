@@ -1,14 +1,4 @@
-#!/bin/sh
-if [ $# -eq 0 ] ; then
-  mvn -Dspring.profiles.active=test clean package -U
-else
-  if [ $1 = "-q" ] ; then
-    mvn -Dmaven.test.skip=true clean package -U
-  else
-    echo "build.sh [-q]"
-    exit 0
-  fi
-fi
+mvn -Dmaven.test.skip=true clean package -U
 
 if [ $? -ne 0 ] ; then
   echo "mvn package error"
@@ -18,8 +8,9 @@ fi
 rm -rf output
 mkdir output
 
-mkdir -p output/bin
-mkdir -p output/conf
-cp portal/target/portal-version.jar output/bin/portal.jar
-cp portal/deploy/start.sh output/bin
-cp portal/deploy/stop.sh output/bin
+mkdir -p output/etas/bin
+mkdir -p output/etas/conf
+cp target/etas-1.0.jar output/etas/bin/etas.jar
+cp start.sh output/etas/bin
+cp stop.sh output/etas/bin
+cp target/classes/application.properties output/etas/conf

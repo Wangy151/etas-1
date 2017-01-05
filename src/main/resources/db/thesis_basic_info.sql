@@ -36,8 +36,9 @@ zzzc varchar(50) DEFAULT '' COMMENT '作者职称',
 xxlxr varchar(50) DEFAULT '' COMMENT '学校联系人',
 bz varchar(256) DEFAULT '' COMMENT '备注',
 
-apply_year varchar(10) DEFAULT '' COMMENT '申请年份',
-student_type varchar(10) DEFAULT '' COMMENT '学生类型:硕士 博士',
-apply_status varchar(20) DEFAULT '' COMMENT '申请状态'
+apply_year varchar(20) DEFAULT '' COMMENT '申请年份',
+department varchar(50) DEFAULT '' COMMENT '院系',
+student_type varchar(30) DEFAULT '' COMMENT '学生类型:硕士 博士',
+apply_status varchar(50) DEFAULT '' COMMENT '申请状态'
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论文基本信息表';
