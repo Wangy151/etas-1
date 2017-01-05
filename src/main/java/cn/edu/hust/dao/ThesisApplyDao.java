@@ -48,7 +48,7 @@ public interface ThesisApplyDao {
     String queryThesisApplyStatus(@Param("zzxh") String zzxh);
 
     @Update(" UPDATE thesis_basic_info SET apply_status = #{applyStatus} WHERE zzxh = #{zzxh} ")
-    int updateThesisApplyStatus(@Param("applyStatus") ThesisApplyStatus applyStatus, @Param("zzxh") String zzxh);
+    int updateThesisApplyStatus(@Param("applyStatus") String applyStatus, @Param("zzxh") String zzxh);
 
     /**
      * 硕士 推荐表

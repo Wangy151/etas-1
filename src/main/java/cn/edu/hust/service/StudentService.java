@@ -48,7 +48,7 @@ public class StudentService {
     }
 
     public boolean updateThesisApplyStatus(ThesisApplyStatus applyStatus, String zzxh) {
-        return thesisApplyDao.updateThesisApplyStatus(applyStatus, zzxh) > 0;
+        return thesisApplyDao.updateThesisApplyStatus(applyStatus.getValue(), zzxh) > 0;
     }
 
 
