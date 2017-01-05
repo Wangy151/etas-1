@@ -1,2 +1,3 @@
 # etas
+remote
 local
