@@ -1,5 +1,6 @@
 package cn.edu.hust.service;
 
+import cn.edu.hust.common.ThesisApplyStatus;
 import cn.edu.hust.dao.ThesisApplyDao;
 import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
@@ -23,12 +24,10 @@ public class StudentService {
      * @param userId
      * @return
      */
-    public boolean hasApplyBasicInfoTable(String userId) {
-        return thesisApplyDao.hasApplyBasicInfoTable(userId) > 0;
-    }
-
-    public boolean initThesisBasicInfoTable(String userId) {
-        return thesisApplyDao.initThesisBasicInfoTable(userId) > 0;
+    public void initThesisBasicInfoTable(String userId) {
+        if (thesisApplyDao.hasApplyBasicInfoTable(userId) <= 0) {
+            thesisApplyDao.initThesisBasicInfoTable(userId);
+        }
     }
 
     public ThesisBasicInfo getThesisBasicInfo(String userId) {
@@ -36,12 +35,22 @@ public class StudentService {
     }
 
     public boolean saveThesisBasicInfoTable(ThesisBasicInfo thesisBasicInfo) {
-        thesisBasicInfo.setApplyStatus("待提交");
+        thesisBasicInfo.setApplyStatus(ThesisApplyStatus.TO_SUBMIT.getValue());
         int year = DateTime.now().getYear();
         thesisBasicInfo.setApplyYear(String.valueOf(year));
 
         return thesisApplyDao.saveThesisBasicInfoTable(thesisBasicInfo) > 0;
     }
+
+    public boolean hasThesisApply(String userId) {
+        String applyStatus = thesisApplyDao.queryThesisApplyStatus(userId);
+        return !ThesisApplyStatus.TO_SUBMIT.getValue().equalsIgnoreCase(applyStatus);
+    }
+
+    public boolean updateThesisApplyStatus(ThesisApplyStatus applyStatus, String zzxh) {
+        return thesisApplyDao.updateThesisApplyStatus(applyStatus, zzxh) > 0;
+    }
+
 
     /**
      * 硕士推荐表

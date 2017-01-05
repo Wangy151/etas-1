@@ -49,13 +49,13 @@ public class StudentThesisApplyController {
         User user = (User) session.getAttribute("user");
         String userId = user.getUserId();
 
-        // 判断是否已初始化
-        if (!studentService.hasApplyBasicInfoTable(userId)) {
-            studentService.initThesisBasicInfoTable(userId);
-        } else {
-            ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
-            model.addAttribute("thesisBasicInfo", thesisBasicInfo);
+        ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
+        // 第一次进入页面没有数据, 防止空指针
+        if (null == thesisBasicInfo) {
+            thesisBasicInfo = new ThesisBasicInfo();
+            thesisBasicInfo.setZzxh(userId);
         }
+        model.addAttribute("thesisBasicInfo", thesisBasicInfo);
         return "s_apply_basic_info";
     }
 
@@ -68,7 +68,8 @@ public class StudentThesisApplyController {
     @RequestMapping(value = "/save/basicInfoTable", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse saveThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
-        System.out.println(thesisBasicInfo.toString());
+        // 初始化
+        studentService.initThesisBasicInfoTable(thesisBasicInfo.getZzxh());
 
         if (studentService.saveThesisBasicInfoTable(thesisBasicInfo)) {
             return new SuccessResponse();
@@ -97,17 +98,23 @@ public class StudentThesisApplyController {
 
         String studentType = studentTypeRequest.getStudentType();
         if ("master".equalsIgnoreCase(studentType)) {
-            // 初始化
-            studentService.initMasterTjb(userId);
-
             MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
+
+            // 第一次进入页面没有数据, 防止空指针
+            if (null == masterThesisApply) {
+                masterThesisApply = new MasterThesisApply();
+                masterThesisApply.setZzxh(userId);
+            }
             model.addAttribute("masterThesisApply", masterThesisApply);
             return "s_master_thesis_apply";
         } else if ("doctor".equalsIgnoreCase(studentType)) {
-            // 初始化
-            studentService.initDoctorThesisApply(userId);
-
             DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
+
+            // 第一次进入页面没有数据, 防止空指针
+            if (null == doctorThesisApply) {
+                doctorThesisApply = new DoctorThesisApply();
+                doctorThesisApply.setZzxh(userId);
+            }
             model.addAttribute("doctorThesisApply", doctorThesisApply);
             return "s_doctor_thesis_apply";
         } else {
@@ -131,6 +138,9 @@ public class StudentThesisApplyController {
 
         CommonResponse commonResponse = new CommonResponse();
 
+        // 初始化
+        studentService.initMasterTjb(userId);
+
         boolean isSuccess = studentService.saveMasterTjb(masterThesisApply);
         if (isSuccess) {
             return commonResponse.withCode(200).withMsg("保存成功");
@@ -151,6 +161,9 @@ public class StudentThesisApplyController {
         doctorThesisApply.setZzxh(userId);
 
         CommonResponse commonResponse = new CommonResponse();
+
+        // 初始化
+        studentService.initDoctorThesisApply(userId);
 
         boolean isSuccess = studentService.saveDoctor(doctorThesisApply);
         if (isSuccess) {
