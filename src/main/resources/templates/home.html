@@ -153,7 +153,32 @@
 
             //学院教务员模块
             $("#t_report_thesis_btn").click(function(){
-                $("#home_right_wrap").load("teacher_report_thesis.html");
+                // $("#home_right_wrap").load("teacher_report_thesis.html");
+
+                $.ajax({
+                        type: "POST",
+                        url: "/home/teacher/thesis/index",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+
+                        }),
+
+                        beforeSend: function(XMLHttpRequest){
+                        },
+
+                        success: function(data){
+                            $("#home_right_wrap").html(data);
+                        },
+                        error: function(XMLHttpRequest, textStatus) {
+                            if (XMLHttpRequest.status == 401) {
+                                $("#home_right_wrap").html("您没有访问权限 ~");
+                            } else {
+                                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
+                            }
+                        },
+                        complete: function(XMLHttpRequest, textStatus){
+                        }
+                    }); // end ajax
             });
 
             $("#t_personal_info_btn").click(function(){
