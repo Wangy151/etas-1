@@ -11,6 +11,10 @@ import javax.servlet.http.HttpSession;
 /**
  * Created by xiaolei03 on 16/12/5.
  */
+
+/**
+ * 未使用
+ */
 public class UserAccessInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
