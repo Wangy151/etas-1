@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>教务员上报论文表格</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet"/>
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet"/>
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <style rel="stylesheet">
+
+        .search .search_row{
+            background-color: rgb(245,245,245);
+            height:auto;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .table_body{
+            margin-top: 30px;
+        }
+        .table_body thead{
+            background-color:rgb(224,224,224) ;
+            font-weight: 800;
+        }
+        .position ol{
+            background-color: white;
+        }
+
+    </style>
+
+</head>
+<body>
+<div class="table_body">
+    <div class="row" style="margin-bottom: 15px;">
+        <div class="col-md-1" style="margin-left: 10px">
+            <button type="button" class="btn btn-primary btn-xs">全选</button>
+        </div>
+        <div class="col-md-1" style="margin-left: -30px">
+            <button type="button" class="btn btn-primary btn-xs">反选</button>
+        </div>
+        <div class="col-md-1" style="margin-left: -30px">
+            <button type="button" class="btn btn-primary btn-xs">上报</button>
+        </div>
+        <div class="col-md-1" style="margin-left: -30px">
+            <button type="button" class="btn btn-primary btn-xs">取消上报</button>
+        </div>
+
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <td>选择</td><td>学号</td><td>姓名</td><td>类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>操作</td>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>M201476136</td>
+            <td>刘杰</td>
+            <td>硕士</td>
+            <td>付海文</td>
+            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
+            <td>待上报</td>
+            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>M201476136</td>
+            <td>刘杰</td>
+            <td>硕士</td>
+            <td>付海文</td>
+            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
+            <td>待上报</td>
+            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>M201476136</td>
+            <td>刘杰</td>
+            <td>硕士</td>
+            <td>付海文</td>
+            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
+            <td>待上报</td>
+            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>M201476136</td>
+            <td>刘杰</td>
+            <td>硕士</td>
+            <td>付海文</td>
+            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
+            <td>待上报</td>
+            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>M201476136</td>
+            <td>刘杰</td>
+            <td>硕士</td>
+            <td>付海文</td>
+            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
+            <td>待上报</td>
+            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"/></td>
+            <td>M201476136</td>
+            <td>梅浩</td>
+            <td>硕士</td>
+            <td>肖来元</td>
+            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
+            <td>待上报</td>
+            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
