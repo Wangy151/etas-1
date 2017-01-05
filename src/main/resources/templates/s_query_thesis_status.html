@@ -11,32 +11,9 @@
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
     <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
     <style rel="stylesheet">
-        .mid{
-            min-height: 200px;
-            border: 1px solid rgb(224,224,224);
-        }
-        .mid_body{
-            height: auto;
-            margin:0 auto;
-        }
-        .left{
-            width:15%;
-            min-height: 100px;
-            float:left;
-            border: 1px solid rgb(224,224,224);
-        }
-        .right{
-            width:84%;
-            min-height: 300px;
-            float:right;
-            border: 1px solid rgb(224,224,224);
-        }
-
-        .search{
-            background-color: rgb(245,245,245);
-        }
         .search .search_row{
             background-color: rgb(245,245,245);
             height:auto;
@@ -50,24 +27,65 @@
         .position ol{
             background-color: white;
         }
-        .one_input{
-            width:21%;
-            height: 30px;
-            float: left;
-            margin-left: 20px;
-        }
-        .input_width{
-            height: 30px;
-        }
-        .search_btn_div{
-            float: left;
-            margin-left: 10px;
-        }
+
         .apply_btn_div{
             width:150px;
             margin:0 auto;
         }
     </style>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            applyThesis();
+        });
+
+        function applyThesis(){
+            //applyThesis_btn   name="checkboxStatus"
+            $("#applyThesis_btn").click(function () {
+                var length = $("input[name='checkboxStatus']:checked").length;
+                if(length>1){//选中了多个
+                    model_tip_show('model_tip','model_tip_content','一次只能提交一个申请!');
+                }else if(length<=0){//未选中
+                    model_tip_show('model_tip','model_tip_content','请选择要提交的申请!');
+                }else{ //选中了1个
+                    $.ajax({
+                        type: "POST",
+                        url: "/home/student/thesis/manage/submit",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+
+                        }),
+
+                        beforeSend: function(XMLHttpRequest){
+                        },
+
+                        success: function(data){
+                            // 200 成功    300 重复申请  500 失败
+                            var status = data.code;
+                            var msg = data.msg;
+                            if(status == "200")  //200 成功
+                                model_tip_show('model_tip','model_tip_content','提交申请成功');
+                            else if(status == "300")  //300 重复申请
+                                model_tip_show('model_tip','model_tip_content','申请状态已改变，不能再提交申请');
+                            else if(status == "500")  //服务器繁忙
+                                model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+                            else
+                                var empty = "";
+                        },
+
+                        error: function(XMLHttpRequest, textStatus) {
+                        },
+
+                        complete: function(XMLHttpRequest, textStatus){
+                        }
+
+                    });
+                } //else
+
+            }) //click
+        }
+
+    </script>
 
 </head>
 <body>
@@ -76,10 +94,11 @@
 
         <table class="table table-bordered table-striped">
             <thead>
-                <td>学号</td><td>姓名</td><td>学生类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>操作</td>
+                <td></td><td>学号</td><td>姓名</td><td>学生类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>操作</td>
             </thead>
             <tbody>
             <tr th:if="${thesisBasicInfo} != null">
+                <td><input type="checkbox" name="checkboxStatus"/></td>
                 <td th:text="${thesisBasicInfo.zzxh}">请填写学号</td>
                 <td th:text="${thesisBasicInfo.zzxm}">请填写姓名</td>
                 <td th:text="${thesisBasicInfo.studentType}">请填写学生类型</td>
@@ -101,8 +120,33 @@
     </div>
 
     <div class="apply_btn_div">
-        <button type="button" class="btn btn-primary btn-lg">确认无误 提交申请</button>
+        <button type="button" id="applyThesis_btn" class="btn btn-primary btn-lg">确认无误 提交申请</button>
     </div>
+
+    <!-- Model  -->
+    <!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+
+    <div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_body" id="model_tip_content">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_btn_close">
+                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
 
 </body>
 </html>
