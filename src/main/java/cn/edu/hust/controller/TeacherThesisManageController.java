@@ -1,13 +1,18 @@
 package cn.edu.hust.controller;
 
 import cn.edu.hust.model.ThesisBasicInfo;
+import cn.edu.hust.model.request.TeacherReportRequest;
 import cn.edu.hust.model.request.TeacherSearchRequest;
+import cn.edu.hust.model.response.CommonResponse;
+import cn.edu.hust.model.response.FailResponse;
+import cn.edu.hust.model.response.SuccessResponse;
 import cn.edu.hust.service.TeacherThesisManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -40,4 +45,35 @@ public class TeacherThesisManageController {
         model.addAttribute("thesisBasicInfoList", thesisBasicInfoList);
         return "teacher_report_thesis_divd_table";
     }
+
+    /**
+     * 上报
+     * @param teacherReportRequest
+     * @return
+     */
+    @RequestMapping(value = "/report")
+    @ResponseBody
+    public CommonResponse report(@RequestBody TeacherReportRequest teacherReportRequest) {
+        if (thesisManageService.report(teacherReportRequest)) {
+            return new SuccessResponse();
+        }
+
+        return new FailResponse();
+    }
+
+    /**
+     * 取消上报
+     * @param teacherReportRequest
+     * @return
+     */
+    @RequestMapping(value = "/cancelReport")
+    @ResponseBody
+    public CommonResponse cancelReport(@RequestBody TeacherReportRequest teacherReportRequest) {
+        if (thesisManageService.report(teacherReportRequest)) {
+            return new SuccessResponse();
+        }
+
+        return new FailResponse();
+    }
+
 }
