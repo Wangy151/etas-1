@@ -35,8 +35,10 @@ public class AdminThesisManageService {
         String studentType = adminSearchRequest.getStudentType();
         String zzxm = adminSearchRequest.getZzxm();
 
+        querySql += " WHERE '1' = '1' ";
+
         if (!StringUtils.isEmpty(department)) {
-            querySql += " WHERE department = '" + department + "' ";
+            querySql += " AND department = '" + department + "' ";
         }
 
         if (!StringUtils.isEmpty(applyYear)) {
