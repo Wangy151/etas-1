@@ -11,7 +11,7 @@
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
-    <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
+    <script type="text/javascript" src="../static/js/admin_review_thesis.js" th:src="@{/js/admin_review_thesis.js}"></script>
     <style rel="stylesheet">
         .right{
             width:84%;
@@ -40,10 +40,10 @@
             background-color: white;
         }
         .one_input{
-            width:21%;
+            width:15%;
             height: 30px;
             float: left;
-            margin-left: 20px;
+            margin-left: 15px;
         }
         .input_width{
             height: 30px;
@@ -55,189 +55,151 @@
 
     </style>
 
+    <script>
+
+    </script>
+
 </head>
 <body>
 
-<div class="search">
-    <div class="search_row">
-        <div class="one_input">
-            <label for="department">年份</label>
-            <select class="input_width" style="width: 70%">
-                <option>请选择</option>
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-                <option>2019</option>
-                <option>2020</option>
-                <option>2021</option>
-                <option>2022</option>
-                <option>2023</option>
-                <option>2024</option>
-                <option>2025</option>
-                <option>2026</option>
-            </select>
-        </div>
-        <div class="one_input">
-            <label for="department">学生类型</label>
-            <select class="input_width" style="width: 70%">
-                <option>请选择</option>
-                <option>硕士</option>
-                <option>博士</option>
-            </select>
-        </div>
+    <div class="search">
+        <div class="search_row">
 
-        <div class="one_input">
-            <label for="department">申请状态</label>
-            <select class="input_width" style="width: 70%">
-                <option>请选择</option>
-                <option>待管理员审核</option>
-                <option>审核成功</option>
-            </select>
-        </div>
+            <div class="one_input input_width">
+                <label for="year">申请年份</label>
+                <select id="year" name="year" class="input_width" style="width: 50%">
+                    <option value="">请选择</option>
+                    <!--<option value="2016">2016</option>-->
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                    <option value="2031">2031</option>
+                    <option value="2032">2032</option>
+                    <option value="2033">2033</option>
+                    <option value="2034">2034</option>
+                    <option value="2035">2035</option>
+                </select>
+            </div>
+            <div class="one_input input_width">
+                <label for="apply_status">申请状态</label>
+                <select id="apply_status" name="apply_status" class="input_width" style="width: 60%">
+                    <option value="">请选择</option>
+                    <option value="待学院上报">待学院上报</option>
+                    <option value="待学校审核">待学校审核</option>
+                    <option value="通过审核">通过审核</option>
+                </select>
+            </div>
 
-        <div class="one_input">
-            <label for="department">学院</label>
-            <select id="department" class="input_width" style="width: 85%">
-                <option value="" selected="selected">请选择</option>
-                <option value="机械科学与工程学院">机械科学与工程学院</option>
-                <option value="计算机科学与技术学院">计算机科学与技术学院</option>
-                <option value="生命科学与技术学院">生命科学与技术学院</option>
-                <option value="电气与电子工程学院">电气与电子工程学院</option>
-                <option value="材料科学与工程学院">材料科学与工程学院</option>
-                <option value="船舶与海洋工程学院">船舶与海洋工程学院</option>
-                <option value="能源与动力工程学院">能源与动力工程学院</option>
-                <option value="自动化学院">自动化学院</option>
-                <option value="光学与电子信息学院">光学与电子信息学院</option>
-                <option value="水电与数字化工程学院">水电与数字化工程学院</option>
-                <option value="软件学院">软件学院</option>
-                <option value="环境科学与工程学院">环境科学与工程学院</option>
-                <option value="电子信息与通信学院">电子信息与通信学院</option>
-                <option value="建筑与城市规划学院">建筑与城市规划学院</option>
-                <option value="土木工程与力学学院">土木工程与力学学院</option>
-                <option value="化学与化工学院">化学与化工学院</option>
-                <option value="数学与统计学院">数学与统计学院</option>
-                <option value="物理学院">物理学院</option>
-                <option value="公共管理学院">公共管理学院</option>
-                <option value="经济学院">经济学院</option>
-                <option value="管理学院">管理学院</option>
-                <option value="人文学院">人文学院</option>
-                <option value="新闻与信息传播学院">新闻与信息传播学院</option>
-                <option value="马克思主义学院">马克思主义学院</option>
-                <option value="社会学院">社会学院</option>
-                <option value="法学院">法学院</option>
-                <option value="外国语学院">外国语学院</option>
-                <option value="基础医学院（含法医学系）">基础医学院（含法医学系）</option>
-                <option value="药学院">药学院</option>
-                <option value="医药卫生管理学院">医药卫生管理学院</option>
-                <option value="公共卫生学院">公共卫生学院</option>
-                <option value="附属协和医院">附属协和医院</option>
-                <option value="附属同济医院（含附属梨园医院、计划生育研究所、护理学系）">附属同济医院（含附属梨园医院、计划生育研究所、护理学系）</option>
-                <option value="教育科学研究院">教育科学研究院</option>
-                <option value="中欧清洁与可再生能源学院">中欧清洁与可再生能源学院</option>
-                <option value="国学研究院">国学研究院</option>
-                <option value="体育部">体育部</option>
-                <option value="武汉光电国家实验室">武汉光电国家实验室</option>
-                <option value="工程科学学院">工程科学学院</option>
-                <option value="武汉国际微电子学院">武汉国际微电子学院</option>
-            </select>
-        </div>
+            <div class="one_input input_width" style="width:20%">
+                <label for="department">学院:</label>
+                <select class="input_width" id="department" name="college" style="width: 50%">
+                    <option value="" selected="selected">请选择</option>
+                    <option value="机械科学与工程学院">机械科学与工程学院</option>
+                    <option value="计算机科学与技术学院">计算机科学与技术学院</option>
+                    <option value="生命科学与技术学院">生命科学与技术学院</option>
+                    <option value="电气与电子工程学院">电气与电子工程学院</option>
+                    <option value="材料科学与工程学院">材料科学与工程学院</option>
+                    <option value="船舶与海洋工程学院">船舶与海洋工程学院</option>
+                    <option value="能源与动力工程学院">能源与动力工程学院</option>
+                    <option value="自动化学院">自动化学院</option>
+                    <option value="光学与电子信息学院">光学与电子信息学院</option>
+                    <option value="水电与数字化工程学院">水电与数字化工程学院</option>
+                    <option value="软件学院">软件学院</option>
+                    <option value="环境科学与工程学院">环境科学与工程学院</option>
+                    <option value="电子信息与通信学院">电子信息与通信学院</option>
+                    <option value="建筑与城市规划学院">建筑与城市规划学院</option>
+                    <option value="土木工程与力学学院">土木工程与力学学院</option>
+                    <option value="化学与化工学院">化学与化工学院</option>
+                    <option value="数学与统计学院">数学与统计学院</option>
+                    <option value="物理学院">物理学院</option>
+                    <option value="公共管理学院">公共管理学院</option>
+                    <option value="经济学院">经济学院</option>
+                    <option value="管理学院">管理学院</option>
+                    <option value="人文学院">人文学院</option>
+                    <option value="新闻与信息传播学院">新闻与信息传播学院</option>
+                    <option value="马克思主义学院">马克思主义学院</option>
+                    <option value="社会学院">社会学院</option>
+                    <option value="法学院">法学院</option>
+                    <option value="外国语学院">外国语学院</option>
+                    <option value="基础医学院（含法医学系）">基础医学院（含法医学系）</option>
+                    <option value="药学院">药学院</option>
+                    <option value="医药卫生管理学院">医药卫生管理学院</option>
+                    <option value="公共卫生学院">公共卫生学院</option>
+                    <option value="附属协和医院">附属协和医院</option>
+                    <option value="附属同济医院（含附属梨园医院、计划生育研究所、护理学系）">附属同济医院（含附属梨园医院、计划生育研究所、护理学系）</option>
+                    <option value="教育科学研究院">教育科学研究院</option>
+                    <option value="中欧清洁与可再生能源学院">中欧清洁与可再生能源学院</option>
+                    <option value="国学研究院">国学研究院</option>
+                    <option value="体育部">体育部</option>
+                    <option value="武汉光电国家实验室">武汉光电国家实验室</option>
+                    <option value="工程科学学院">工程科学学院</option>
+                    <option value="武汉国际微电子学院">武汉国际微电子学院</option>
 
-        <!--<div class="one_input input_width">-->
-        <!--<label for="userId">学号</label>-->
-        <!--<input type="text" id="userId"/>-->
-        <!--</div>-->
-        <div class="search_btn_div">
-            <button type="button" class="btn btn-primary">查询</button>
-        </div>
-        <div class="clear"></div>
-    </div>
 
-</div>
-<div class="table_body">
-    <div class="row"  style="margin-top: 50px;margin-bottom: 10px">
-        <div class="col-md-1" style="margin-left: 10px">
-            <button type="button" class="btn btn-primary btn-xs">全选</button>
-        </div>
-        <div class="col-md-1" style="margin-left: -30px">
-            <button type="button" class="btn btn-primary btn-xs">反选</button>
-        </div>
-        <div class="col-md-1" style="margin-left: -30px">
-            <button type="button" class="btn btn-primary btn-xs">同意</button>
-        </div>
-        <div class="col-md-1" style="margin-left: -30px">
-            <button type="button" class="btn btn-primary btn-xs">取消同意</button>
+                </select>
+            </div>
+
+            <div class="one_input input_width">
+                <label for="student_type">学生类型</label>
+                <select id="student_type" name="student_type" class="input_width" style="width: 50%">
+                    <option value="">请选择</option>
+                    <option value="硕士">硕士</option>
+                    <option value="博士">博士</option>
+                </select>
+            </div>
+            <div class="one_input input_width">
+                <label for="realName">姓名</label>
+                <input type="text" id="realName" name="realName" style="width:50%"/>
+            </div>
+
+            <div class="search_btn_div">
+                <button id="search_btn" type="button" class="btn btn-primary">查询</button>
+            </div>
+            <div class="clear"></div>
         </div>
 
     </div>
-    <table class="table table-bordered table-striped">
-        <thead>
-        <td>选择</td><td>学号</td><td>姓名</td><td>类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>操作</td>
-        </thead>
-        <tbody>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>M201476136</td>
-            <td>梅浩</td>
-            <td>硕士</td>
-            <td>肖来元</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>M201476136</td>
-            <td>梅浩</td>
-            <td>硕士</td>
-            <td>肖来元</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>M201476136</td>
-            <td>梅浩</td>
-            <td>硕士</td>
-            <td>肖来元</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>M201476136</td>
-            <td>梅浩</td>
-            <td>硕士</td>
-            <td>肖来元</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>M201476136</td>
-            <td>梅浩</td>
-            <td>硕士</td>
-            <td>肖来元</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>M201476136</td>
-            <td>梅浩</td>
-            <td>硕士</td>
-            <td>肖来元</td>
-            <td>基于HTTP协议的电力智能锁控系统设计与实现</td>
-            <td>待上报</td>
-            <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
-        </tr>
 
-        </tbody>
-    </table>
-</div>
+    <!-- 学校管理员审核表格填充框 -->
+    <div id="talbe_wrap">
+
+    </div>
+
+    <!-- Model  -->
+    <!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+
+    <div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_body" id="model_tip_content">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_btn_close">
+                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
 
 </body>
 </html>

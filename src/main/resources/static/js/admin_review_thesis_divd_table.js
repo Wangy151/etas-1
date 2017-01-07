@@ -1,8 +1,7 @@
 /**
- * Created by Administrator on 2017/1/5.
+ * Created by Administrator on 2017/1/7.
  */
 
-//select_all_btn  no_select_all_btn  report_btn  cancel_report_btn
 // .apply_status  .t_report_check_detail_btn   .t_report_modify_btn
 // #report_btn   #cancel_report_btn
 $(document).ready(function () {
@@ -10,10 +9,9 @@ $(document).ready(function () {
     modifyInfo();
     select_all();
     no_select_all();
-    report();
-    cancel_report();
+    review();
+    cancel_review();
 });
-
 
 //全选按钮事件
 function select_all(){
@@ -37,9 +35,9 @@ function no_select_all(){
 }
 
 //上报按钮事件
-function report(){
+function review(){
     //report_btn
-    $("#report_btn").click(function () {
+    $("#review_btn").click(function () {
         //检查是否选中
         var checked = $("input[name='checkboxStatus']:checked");
         var checked_length = checked.length;
@@ -50,9 +48,9 @@ function report(){
         }
         //如果选中了
 
-        //1.检查选中的申请的状态是否有不可上报状态
+        //1.检查选中的申请的状态是否有不可审核状态
         if(checkBeforeReport()==false){
-            model_tip_show('model_tip1','model_tip_content1','只能上报状态为【待学院上报】, 请重新选择');
+            model_tip_show('model_tip1','model_tip_content1','只能上报状态为【待学校审核】, 请重新选择');
             return;
         }
         //2.如果选中的是正确，准备将数据发往服务器
@@ -62,7 +60,7 @@ function report(){
         })
         $.ajax({
             type: "POST",
-            url: "/home/teacher/thesis/report",
+            url: "/home/admin/thesis/review",   //url
             contentType: "application/json",
             data: JSON.stringify({
                 "userIds":xh_array,
@@ -76,7 +74,7 @@ function report(){
                 var status = data.code;
                 var msg = data.msg;
                 if(status == "200")  //200 成功
-                    model_tip_show('model_tip1','model_tip_content1','上报成功, 待学校审核');
+                    model_tip_show('model_tip1','model_tip_content1','审核成功');
                 else if(status == "500")  //服务器繁忙
                     model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                 else
@@ -95,7 +93,7 @@ function report(){
 } //function
 
 //取消上报按钮事件
-function cancel_report(){
+function cancel_review(){
     //cancel_report_btn
     $("#cancel_report_btn").click(function () {
         //1.检查是否有选中
@@ -108,7 +106,7 @@ function cancel_report(){
         }
         //2.检查选中的状态是否正确
         if(checkBeforeCancelReport()==false){
-            model_tip_show('model_tip1','model_tip_content1','只能取消状态为【待学校审核】, 请重新选择');
+            model_tip_show('model_tip1','model_tip_content1','只能取消状态为【通过审核】, 请重新选择');
             return;
         }
 
@@ -119,7 +117,7 @@ function cancel_report(){
         })
         $.ajax({
             type: "POST",
-            url: "/home/teacher/thesis/cancelReport",
+            url: "/home/admin/thesis/cancelReview",
             contentType: "application/json",
             data: JSON.stringify({
                 "userIds":xh_array,
@@ -133,7 +131,7 @@ function cancel_report(){
                 var status = data.code;
                 var msg = data.msg;
                 if(status == "200")  //200 成功
-                    model_tip_show('model_tip1','model_tip_content1','取消上报成功');
+                    model_tip_show('model_tip1','model_tip_content1','取消审核成功');
                 else if(status == "500")  //服务器繁忙
                     model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                 else
@@ -157,7 +155,7 @@ function checkBeforeReport(){
     var _status =  _checked.parent().parent().children("td.apply_status");
     var inspectV = 1;
     _status.each(function(){
-        if($(this).text() !='待学院上报'){
+        if($(this).text() !='待学校审核'){
             inspectV = 0;
             return;
         }
@@ -174,7 +172,7 @@ function checkBeforeCancelReport(){
     var _status =  _checked.parent().parent().children("td.apply_status");
     var inspectV = 1;
     _status.each(function(){
-        if($(this).text() !='待学校审核'){
+        if($(this).text() !='通过审核'){
             inspectV = 0;
             return;
         }
@@ -187,14 +185,14 @@ function checkBeforeCancelReport(){
 
 //表格里面每行记录的  查看详情 按钮事件
 function checkDetail(){
-    $(".t_report_check_detail_btn").click(function () {
+    $(".t_review_check_detail_btn").click(function () {
         refreshToStudentApplyThesis();
     })
 };
 
 //表格里面每行记录的  修改 按钮事件
 function modifyInfo(){
-    $(".t_report_modify_btn").click(function () {
+    $(".t_review_modify_btn").click(function () {
         refreshToStudentApplyThesis();
     })
 };
