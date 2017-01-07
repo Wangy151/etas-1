@@ -49,8 +49,7 @@ public class AdminThesisManageController {
     public String search(@RequestBody AdminSearchRequest adminSearchRequest, Model model) {
         List<ThesisBasicInfo> thesisBasicInfoList = adminThesisManageService.search(adminSearchRequest);
         model.addAttribute("thesisBasicInfoList", thesisBasicInfoList);
-        // TODO
-        return "teacher_report_thesis_divd_table";
+        return "admin_review_thesis_divd_table";
     }
 
     /**
