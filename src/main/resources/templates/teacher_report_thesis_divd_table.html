@@ -33,6 +33,52 @@
     </style>
 
     <script>
+            // .apply_status  .t_report_check_detail_btn   .t_report_modify_btn
+          // #report_btn   #cancel_report_btn
+        $(document).ready(function () {
+            checkDetail();
+            modifyInfo();
+        });
+
+        function checkDetail(){
+            $(".t_report_check_detail_btn").click(function () {
+                refreshToStudentApplyThesis();
+            })
+        };
+
+        function modifyInfo(){
+            $(".t_report_modify_btn").click(function () {
+                refreshToStudentApplyThesis();
+            })
+        };
+
+
+        function refreshToStudentApplyThesis(){
+            $.ajax({
+                type: "POST",
+                url: "/home/student/apply/index",
+                contentType: "application/json",
+                data: JSON.stringify({
+
+                }),
+
+                beforeSend: function(XMLHttpRequest){
+                },
+
+                success: function(data){
+                    $(".mid_body").html(data);
+                },
+                error: function(XMLHttpRequest, textStatus) {
+                    if (XMLHttpRequest.status == 401) {
+                        $("#home_right_wrap").html("您没有访问权限 ~");
+                    } else {
+                        $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
+                    }
+                },
+                complete: function(XMLHttpRequest, textStatus){
+                }
+            }); // end ajax
+        }
 
     </script>
 
@@ -71,8 +117,8 @@
                 <td th:text="${item.studentType}">硕士</td>
                 <td th:text="${item.dsxm}">付海文</td>
                 <td th:text="${item.lwtm}">基于HTTP协议的电力智能锁控系统设计与实现</td>
-                <td th:text="${item.applyStatus}">待上报</td>
-                <td><a href="#">查看</a>&nbsp;|&nbsp;<a href="#">修改</a></td>
+                <td class="apply_status" th:text="${item.applyStatus}">待学院上报</td>
+                <td><a class="t_report_check_detail_btn" href="#">查看</a>&nbsp;|&nbsp;<a class="t_report_modify_btn" href="#">修改</a></td>
             </tr>
         </tbody>
     </table>
