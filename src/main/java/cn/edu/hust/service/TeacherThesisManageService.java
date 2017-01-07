@@ -2,12 +2,15 @@ package cn.edu.hust.service;
 
 import cn.edu.hust.dao.TeacherThesisManageDao;
 import cn.edu.hust.model.ThesisBasicInfo;
+import cn.edu.hust.model.request.TeacherReportRequest;
 import cn.edu.hust.model.request.TeacherSearchRequest;
+import cn.edu.hust.model.response.FailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiaolei03 on 17/1/5.
@@ -58,4 +61,47 @@ public class TeacherThesisManageService {
 
         return querySql;
     }
+
+    public boolean report(TeacherReportRequest teacherReportRequest) {
+        String[] userIds = teacherReportRequest.getUserIds();
+        if (null == userIds || userIds.length == 0) {
+            return false;
+        }
+
+        return teacherThesisManageDao.updateApplyStatus("待学校审核", this.arrayToSql(userIds)) > 0;
+    }
+
+    public boolean cancelReport(TeacherReportRequest teacherReportRequest) {
+        String[] userIds = teacherReportRequest.getUserIds();
+        if (null == userIds || userIds.length == 0) {
+            return false;
+        }
+
+        return teacherThesisManageDao.updateApplyStatus("待学院上报", this.arrayToSql(userIds)) > 0;
+    }
+
+    private String arrayToSql(String[] arr) {
+        String sql = "";
+        for (int i = 0; i < arr.length; i++) {
+            sql += "'" + arr[i] + "'";
+            if (i < arr.length - 1) {
+                sql += ", ";
+            }
+        }
+        return sql;
+    }
+
+    /**
+     * 生成sql
+     * @param param
+     * @return
+     */
+    public String getUpdateSql(Map<String, String> param) {
+        String updateSql = "UPDATE thesis_basic_info SET apply_status = '";
+        updateSql += param.get("applyStatus") + "' WHERE zzxh IN (";
+        updateSql += param.get("whereInSql") + ")";
+
+        return updateSql;
+    }
+
 }
