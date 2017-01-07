@@ -7,11 +7,9 @@
     <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
     <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
-    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet" />
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
-    <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
-    <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
+    <script type="text/javascript" src="../static/js/MyAjaxForm.js" th:src="@{/js/MyAjaxForm.js}"></script>
     <style rel="stylesheet">
 
         body{
@@ -38,7 +36,60 @@
             margin-top:20px;
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            downloadFileModel();
+            uploadStudentInfoFile();
+        });
 
+        function downloadFileModel(){
+            //#downloadFile_btn
+            $("#downloadFile_btn").click(function () {
+
+            })
+        };
+
+        function uploadStudentInfoFile(){
+            //#uploadFile_btn   #file_status_warn   #student_info_file
+            $("#uploadFile_btn").click(function () {
+                $("#file_status_warn").html("");
+                var fileName = $("#student_info_file").val();
+                if(fileName!=""){
+                    //判断文件的后缀名是否为xls，如果不是则提示
+                    var file_extent = fileName.substring(fileName.lastIndexOf(".")+1);
+                    if(file_extent!="xls"){ //文件格式错误
+                        $("#file_status_warn").attr("class","text-danger");
+                        $("#file_status_warn").html("文件格式必须为xls格式！");
+                    }
+                    //文件后缀名正确，提交文件
+                    $("#student_info_file").ajaxSubmit({
+                        url: "upload.txt",
+                        type: "post",
+                        success: function (data) { //服务器回调函数
+                            var status = data.code;
+                            var msg = data.msg;
+                            if(status == "200"){//文件上传成功
+                                $("#file_status_warn").attr("class","text-info");
+                                $("#file_status_warn").html('上传成功，已成功上传 <span class="text-danger">5600</span>条记录到系统中。');
+
+                            }
+                            else if(status == "500"){//文件上传不成功
+                                $("#file_status_warn").attr("class","text-danger");
+                                $("#file_status_warn").html("服务器繁忙，请稍后再试！");
+                            }
+
+                            else
+                                var empty = "";
+                        } //success
+                    });
+                }else{ //未选择文件
+                    $("#file_status_warn").attr("class","text-danger");
+                    $("#file_status_warn").html("没有选择文件!");
+                }
+            })
+        };
+
+    </script>
 
 
 </head>
@@ -51,16 +102,16 @@
         </div>
         <div style="margin-bottom: 30px">
             <span style="color: red">上传Excel文件前可以先下载Excel文件模版，确保Excel文件的字段是正确的</span>
-            <button type="submit" class="btn btn-primary">下载文件模版</button>
+            <button type="submit" id="downloadFile_btn" class="btn btn-primary">下载文件模版</button>
         </div>
 
         <div class="row">
-            <div class="col-md-4"><input class="form-control" type="file" value="选择文件"/></div>
-            <div class="col-md-4"><button type="submit" class="btn btn-primary">上传Excel文件</button></div>
+            <div class="col-md-4"><input class="form-control" id="student_info_file" type="file" value="选择EXECL文件"/></div>
+            <div class="col-md-4"><button type="submit" id="uploadFile_btn" class="btn btn-primary">上传学生信息库</button></div>
         </div>
         <div class="upload_warn">
-            上传成功，已成功上传5600条记录到系统中。<br>
-            系统中现有5600条记录。
+            <span id="file_status_warn">上传成功，已成功上传 <span class="text-danger">5600</span>条记录到系统中。</span><br>
+            系统中现有<span class="text-danger">5600</span>条记录。
         </div>
     </div>
 

@@ -34,7 +34,7 @@ function no_select_all(){
     })
 }
 
-//上报按钮事件
+//审核按钮事件
 function review(){
     //report_btn
     $("#review_btn").click(function () {
@@ -92,10 +92,10 @@ function review(){
     }) //click
 } //function
 
-//取消上报按钮事件
+//取消审核按钮事件
 function cancel_review(){
     //cancel_report_btn
-    $("#cancel_report_btn").click(function () {
+    $("#cancel_review_btn").click(function () {
         //1.检查是否有选中
         var checked = $("input[name='checkboxStatus']:checked");
         var checked_length = checked.length;
