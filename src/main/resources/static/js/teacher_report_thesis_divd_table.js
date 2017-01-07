@@ -40,12 +40,12 @@ function report(){
             return;
         }
         checked.each(function(){ //将选中的学号放到xh_array数组中
-            var value = $(this).parent().next().html();
+            var value = $(this).parent().next().next().html();
             xh_array.push(value);
         })
         $.ajax({
             type: "POST",
-            url: "/home/student/thesis/manage/submit",
+            url: "/home/teacher/thesis/report",
             contentType: "application/json",
             data: JSON.stringify({
                 "userIds":xh_array,
@@ -59,7 +59,7 @@ function report(){
                 var status = data.code;
                 var msg = data.msg;
                 if(status == "200")  //200 成功
-                    model_tip_show('model_tip1','model_tip_content1','未选择申请!');
+                    model_tip_show('model_tip1','model_tip_content1','上报成功, 待学校审核');
                 else
                     var empty = "";
             },
