@@ -69,7 +69,7 @@ public class TeacherThesisManageController {
     @RequestMapping(value = "/cancelReport")
     @ResponseBody
     public CommonResponse cancelReport(@RequestBody TeacherReportRequest teacherReportRequest) {
-        if (thesisManageService.report(teacherReportRequest)) {
+        if (thesisManageService.cancelReport(teacherReportRequest)) {
             return new SuccessResponse();
         }
 

@@ -37,14 +37,14 @@ function report(){
         var checked_length = checked.length;
         var xh_array = new Array();
         if(checked_length <= 0){ //如果没有选中申请
-            model_tip_show('model_tip1','model_tip_content1','未选择申请!');
+            model_tip_show('model_tip1','model_tip_content1','未选择申请');
             return;
         }
         //如果选中了
 
         //1.检查选中的申请的状态是否有不可上报状态
         if(checkBeforeReport()==false){
-            model_tip_show('model_tip1','model_tip_content1','选中的记录中有不是“待学院上报”状态');
+            model_tip_show('model_tip1','model_tip_content1','只能上报状态为【待学院上报】, 请重新选择');
             return;
         }
         //2.如果选中的是正确，准备将数据发往服务器
@@ -69,8 +69,10 @@ function report(){
                 var msg = data.msg;
                 if(status == "200")  //200 成功
                     model_tip_show('model_tip1','model_tip_content1','上报成功, 待学校审核');
+                else if(status == "500")  //服务器繁忙
+                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                 else
-                    var empty = "";
+                    model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
             },
 
             error: function(XMLHttpRequest, textStatus) {
@@ -93,23 +95,23 @@ function cancel_report(){
         var checked_length = checked.length;
         var xh_array = new Array();
         if(checked_length <= 0){ //如果没有选中申请
-            model_tip_show('model_tip1','model_tip_content1','未选择申请!');
+            model_tip_show('model_tip1','model_tip_content1','未选择申请');
             return;
         }
         //2.检查选中的状态是否正确
         if(checkBeforeCancelReport()==false){
-            model_tip_show('model_tip1','model_tip_content1','选中的记录中有不是“待学校审核状态”');
+            model_tip_show('model_tip1','model_tip_content1','只能取消状态为【待学校审核】, 请重新选择');
             return;
         }
 
         //3.组装数据发给后台服务器处理
         checked.each(function(){ //将选中的学号放到xh_array数组中
-            var value = $(this).parent().next().html();
+            var value = $(this).parent().next().next().html();
             xh_array.push(value);
         })
         $.ajax({
             type: "POST",
-            url: "/home/student/thesis/manage/submit",
+            url: "/home/teacher/thesis/cancelReport",
             contentType: "application/json",
             data: JSON.stringify({
                 "userIds":xh_array,
@@ -123,9 +125,11 @@ function cancel_report(){
                 var status = data.code;
                 var msg = data.msg;
                 if(status == "200")  //200 成功
-                    model_tip_show('model_tip1','model_tip_content1','未选择申请!');
+                    model_tip_show('model_tip1','model_tip_content1','取消上报成功');
+                else if(status == "500")  //服务器繁忙
+                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                 else
-                    var empty = "";
+                    model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
             },
 
             error: function(XMLHttpRequest, textStatus) {
