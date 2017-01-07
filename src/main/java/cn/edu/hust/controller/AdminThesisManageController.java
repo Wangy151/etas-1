@@ -36,8 +36,7 @@ public class AdminThesisManageController {
      */
     @RequestMapping(value = "/index")
     public String index() {
-        // TODO
-        return "teacher_report_thesis";
+        return "admin_review_thesis";
     }
 
     /**

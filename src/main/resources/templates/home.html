@@ -187,7 +187,32 @@
 
             //管理员模块
             $("#a_review_thesis_btn").click(function(){
-                $("#home_right_wrap").load("admin_review_thesis.html");
+                // $("#home_right_wrap").load("admin_review_thesis.html");
+
+                $.ajax({
+                        type: "POST",
+                        url: "/home/admin/thesis/index",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+
+                        }),
+
+                        beforeSend: function(XMLHttpRequest){
+                        },
+
+                        success: function(data){
+                            $("#home_right_wrap").html(data);
+                        },
+                        error: function(XMLHttpRequest, textStatus) {
+                            if (XMLHttpRequest.status == 401) {
+                                $("#home_right_wrap").html("您没有访问权限 ~");
+                            } else {
+                                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
+                            }
+                        },
+                        complete: function(XMLHttpRequest, textStatus){
+                        }
+                    }); // end ajax
             });
 
             $("#a_export_thesis_info_btn").click(function(){
