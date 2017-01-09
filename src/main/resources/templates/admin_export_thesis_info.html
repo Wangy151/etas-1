@@ -7,11 +7,8 @@
     <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
     <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
-    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet" />
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
-    <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
-    <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
     <style rel="stylesheet">
         .mid{
             min-height: 200px;
@@ -69,6 +66,94 @@
 
     </style>
 
+    <script>
+        $(document).ready(function () {
+            search();
+            select_all();
+            no_select_all();
+            exportExeclFile();
+            exportLwtjbFile();
+            exportThesisPdfFile();
+        });
+
+        //搜索按钮事件
+        function search(){
+            //talbe_wrap   search_btn   school  year  apply_status   student_type  realName
+            $("#search_btn").click(function(){
+                $.ajax({
+                    type: "POST",
+                    url: "/home/admin/thesis/search",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+//                        "department":$("#school").text(),
+//                        "applyYear":$("#year").val(),
+//                        "applyStatus":$("#apply_status").val(),
+//                        "studentType":$("#student_type").val(),
+//                        "zzxm":$("#realName").val(),
+                    }),
+
+                    beforeSend: function(XMLHttpRequest){
+//                        $("#talbe_wrap").empty();
+                    },
+
+                    success: function(data){
+//                        $("#talbe_wrap").html(data);
+                    },
+
+                    error: function(XMLHttpRequest, textStatus) {
+                    },
+
+                    complete: function(XMLHttpRequest, textStatus){
+                    }
+
+                }); //ajax
+            }) //click
+        }
+        //全选按钮事件
+        function select_all(){
+            //select_all_btn
+            $("#select_all_btn").click(function () {
+                // name="checkboxStatus"
+                $("input[name='checkboxStatus']").prop("checked",true);
+            })
+        }
+
+        //反选按钮事件
+        function no_select_all(){
+            //no_select_all_btn
+            $("#no_select_all_btn").click(function () {
+                // name="checkboxStatus"
+                var checkbox = $("input[name='checkboxStatus']");
+                checkbox.each(function () {
+                    $(this).prop("checked", !$(this).prop("checked"));
+                })
+            })
+        }
+
+
+        //export_execl_file_btn  export_lwtjb_file_btn   export_thesis_pdf_file_btn
+        //导出Excel基本信息表
+        function exportExeclFile(){
+            $("#export_thesis_pdf_file_btn").click(function () {
+
+            })
+        };
+        //导出论文推荐表
+        function exportLwtjbFile(){
+            $("#export_lwtjb_file_btn").click(function () {
+
+            })
+        };
+        //导出论文PDF文件
+        function exportThesisPdfFile(){
+            $("#export_thesis_pdf_file_btn").click(function () {
+
+            })
+        };
+
+    </script>
+
+
 </head>
 <body>
 
@@ -77,36 +162,45 @@
         <div class="one_input">
             <label for="department">年份</label>
             <select class="input_width" style="width: 70%">
-                <option>请选择</option>
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-                <option>2019</option>
-                <option>2020</option>
-                <option>2021</option>
-                <option>2022</option>
-                <option>2023</option>
-                <option>2024</option>
-                <option>2025</option>
-                <option>2026</option>
+                <option value="">请选择</option>
+                <!--<option value="2016">2016</option>-->
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+                <option value="2029">2029</option>
+                <option value="2030">2030</option>
+                <option value="2031">2031</option>
+                <option value="2032">2032</option>
+                <option value="2033">2033</option>
+                <option value="2034">2034</option>
+                <option value="2035">2035</option>
             </select>
         </div>
 
         <div class="one_input">
             <label for="department">申请状态</label>
             <select class="input_width" style="width: 70%">
-                <option>请选择</option>
-                <option>待管理员审核</option>
-                <option>审核成功</option>
+                <option value="">请选择</option>
+                <option value="待学校审核">待学校审核</option>
+                <option value="通过审核">通过审核</option>
             </select>
         </div>
 
         <div class="one_input">
             <label for="department">学生类型</label>
             <select class="input_width" style="width: 70%">
-                <option>请选择</option>
-                <option>硕士</option>
-                <option>博士</option>
+                <option value="">请选择</option>
+                <option value="硕士">硕士</option>
+                <option value="博士">博士</option>
             </select>
         </div>
 
@@ -160,7 +254,7 @@
 
 
         <div class="search_btn_div">
-            <button type="button" class="btn btn-primary">查询</button>
+            <button type="button" id="search_btn" class="btn btn-primary">查询</button>
         </div>
         <div class="clear"></div>
     </div>
@@ -170,19 +264,19 @@
 <div class="table_body">
     <div class="row" style="margin-top: 50px;margin-bottom: 10px">
         <div class="col-md-1" style="margin-left: 10px">
-            <button type="button" class="btn btn-primary btn-xs">全选</button>
+            <button type="button" id="select_all_btn" class="btn btn-primary btn-xs">全选</button>
         </div>
         <div class="col-md-1" style="margin-left: -30px">
-            <button type="button" class="btn btn-primary btn-xs">反选</button>
+            <button type="button" id="no_select_all_btn" class="btn btn-primary btn-xs">反选</button>
         </div>
         <div class="col-md-2" style="margin-left: -30px">
-            <button type="button" class="btn btn-primary btn-xs">导出Excel文件</button>
+            <button type="button" id="export_execl_file_btn" class="btn btn-success btn-xs">导出Excel文件</button>
         </div>
         <div class="col-md-2" style="margin-left: -30px">
-            <button type="button" class="btn btn-primary btn-xs">导出论文推荐表</button>
+            <button type="button" id="export_lwtjb_file_btn" class="btn btn-success btn-xs">导出论文推荐表</button>
         </div>
         <div class="col-md-2" style="margin-left: -30px">
-            <button type="button" class="btn btn-primary btn-xs">导出论文pdf文件</button>
+            <button type="button" id="export_thesis_pdf_file_btn" class="btn btn-success btn-xs">导出论文pdf文件</button>
         </div>
 
     </div>
@@ -192,7 +286,7 @@
         </thead>
         <tbody>
         <tr>
-            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" name="checkboxStatus" /></td>
             <td>计算机科学与技术学院</td>
             <td>硕士</td>
             <td>吴耀武</td>
@@ -202,7 +296,7 @@
             <td>同意</td>
         </tr>
         <tr>
-            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
             <td>计算机科学与技术学院</td>
             <td>硕士</td>
             <td>吴耀武</td>
@@ -212,7 +306,7 @@
             <td>同意</td>
         </tr>
         <tr>
-            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
             <td>计算机科学与技术学院</td>
             <td>硕士</td>
             <td>吴耀武</td>
@@ -222,7 +316,7 @@
             <td>同意</td>
         </tr>
         <tr>
-            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
             <td>计算机科学与技术学院</td>
             <td>硕士</td>
             <td>吴耀武</td>
@@ -232,7 +326,7 @@
             <td>同意</td>
         </tr>
         <tr>
-            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
             <td>计算机科学与技术学院</td>
             <td>硕士</td>
             <td>吴耀武</td>
@@ -242,7 +336,7 @@
             <td>同意</td>
         </tr>
         <tr>
-            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
             <td>计算机科学与技术学院</td>
             <td>硕士</td>
             <td>吴耀武</td>
@@ -252,7 +346,7 @@
             <td>同意</td>
         </tr>
         <tr>
-            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
             <td>计算机科学与技术学院</td>
             <td>硕士</td>
             <td>吴耀武</td>
@@ -262,7 +356,7 @@
             <td>同意</td>
         </tr>
         <tr>
-            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" name="checkboxStatus"/></td>
             <td>计算机科学与技术学院</td>
             <td>硕士</td>
             <td>吴耀武</td>
