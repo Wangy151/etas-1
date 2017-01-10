@@ -3,6 +3,9 @@ package cn.edu.hust.controller;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
+import cn.edu.hust.service.AdminImportService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +25,11 @@ import java.io.IOException;
 @Controller
 @RequestMapping(value = "/home/admin/import")
 public class AdminImportController {
+    @Autowired
+    private AdminImportService adminImportService;
+
+    @Value("")
+    private String FILE_UPLOAD_DIRECTORY;
 
     /**
      * 进入主页
@@ -41,14 +49,19 @@ public class AdminImportController {
     @ResponseBody
     public CommonResponse upload(@RequestParam("file") MultipartFile file) {
         BufferedOutputStream out = null;
+
+        String fileName = "etas_student_info_import.xls";
+
         try {
-            out = new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
+            out = new BufferedOutputStream(new FileOutputStream(new File(fileName)));
             out.write(file.getBytes());
             out.flush();
             out.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return new FailResponse();
+
+            boolean isSuccess = adminImportService.importStudentInfos(fileName);
+            if (!isSuccess) {
+                return new FailResponse();
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return new FailResponse();

@@ -1,16 +1,10 @@
 package cn.edu.hust.dao;
 
-import cn.edu.hust.model.ThesisBasicInfo;
-import cn.edu.hust.model.request.AdminSearchRequest;
-import cn.edu.hust.service.AdminThesisManageService;
-import cn.edu.hust.service.TeacherThesisManageService;
+import cn.edu.hust.model.StudentInfoImport;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.UpdateProvider;
-
-import java.util.List;
 
 /**
  * Created by xiaolei03 on 17/1/5.
@@ -18,16 +12,10 @@ import java.util.List;
 @Mapper
 public interface StudentInfoImportDao {
 
-    @SelectProvider(type = AdminThesisManageService.class, method = "getSearchSql")
-    List<ThesisBasicInfo> getThesisBasicInfoList(AdminSearchRequest adminSearchRequest);
-
-    @UpdateProvider(type = TeacherThesisManageService.class, method = "getUpdateSql")
-    int updateApplyStatus(@Param("applyStatus") String applyStatus,
-                          @Param("userIdsForSql") String userIdsForSql);
-
     @Delete(" DELETE FROM student_info_import ")
     int deleteAllRecords();
 
-
+    @InsertProvider(type=StudentInfoImportSql.class, method = "getInsertSql")
+    int insertRecord(@Param("model")StudentInfoImport model);
 
 }

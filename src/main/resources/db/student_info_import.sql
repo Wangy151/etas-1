@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS student_info_import;
 
 create table student_info_import(
 id int not null primary key auto_increment,
-xh varchar(50) not null unique COMMENT '学号',
+xh varchar(50) not null COMMENT '学号',
 name varchar(50) DEFAULT '' COMMENT '姓名',
 csrq varchar(50) DEFAULT '' COMMENT '出生日期',
 yjxkdm varchar(20) DEFAULT '' COMMENT '一级学科代码',
