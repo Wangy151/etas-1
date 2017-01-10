@@ -56,43 +56,49 @@ function report(){
             return;
         }
         //2.如果选中的是正确，准备将数据发往服务器
-        checked.each(function(){ //将选中的学号放到xh_array数组中
-            var value = $(this).parent().next().next().html();
-            xh_array.push(value);
-        })
-        $.ajax({
-            type: "POST",
-            url: "/home/teacher/thesis/report",
-            contentType: "application/json",
-            data: JSON.stringify({
-                "userIds":xh_array,
-            }),
+        //3.确认是否上报
+        model_ok_show("model_ok","model_ok_content","确认是否上报申请","model_ok_btn",report1);
 
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                // 200 成功    300 重复申请  500 失败
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //200 成功
-                    model_tip_show('model_tip1','model_tip_content1','上报成功, 待学校审核');
-                else if(status == "500")  //服务器繁忙
-                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
-                else
-                    model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        }); //ajax
 
     }) //click
 } //function
+
+function report1(){
+    checked.each(function(){ //将选中的学号放到xh_array数组中
+        var value = $(this).parent().next().next().html();
+        xh_array.push(value);
+    })
+    $.ajax({
+        type: "POST",
+        url: "/home/teacher/thesis/report",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "userIds":xh_array,
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            // 200 成功    300 重复申请  500 失败
+            var status = data.code;
+            var msg = data.msg;
+            if(status == "200")  //200 成功
+                model_tip_show('model_tip1','model_tip_content1','上报成功, 待学校审核');
+            else if(status == "500")  //服务器繁忙
+                model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+            else
+                model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+        }
+
+    }); //ajax
+}
 
 //取消上报按钮事件
 function cancel_report(){
@@ -111,44 +117,49 @@ function cancel_report(){
             model_tip_show('model_tip1','model_tip_content1','只能取消状态为【待学校审核】, 请重新选择');
             return;
         }
-
-        //3.组装数据发给后台服务器处理
-        checked.each(function(){ //将选中的学号放到xh_array数组中
-            var value = $(this).parent().next().next().html();
-            xh_array.push(value);
-        })
-        $.ajax({
-            type: "POST",
-            url: "/home/teacher/thesis/cancelReport",
-            contentType: "application/json",
-            data: JSON.stringify({
-                "userIds":xh_array,
-            }),
-
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                // 200 成功    300 重复申请  500 失败
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //200 成功
-                    model_tip_show('model_tip1','model_tip_content1','取消上报成功');
-                else if(status == "500")  //服务器繁忙
-                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
-                else
-                    model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        }); //ajax
+        //提示是否取消上报
+        model_ok_show("model_ok","model_ok_content","确认是否取消上报","model_ok_btn",cancelReoprt1);
 
     }) //click
+}
+
+
+function cancelReoprt1(){
+    //3.组装数据发给后台服务器处理
+    checked.each(function(){ //将选中的学号放到xh_array数组中
+        var value = $(this).parent().next().next().html();
+        xh_array.push(value);
+    })
+    $.ajax({
+        type: "POST",
+        url: "/home/teacher/thesis/cancelReport",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "userIds":xh_array,
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            // 200 成功    300 重复申请  500 失败
+            var status = data.code;
+            var msg = data.msg;
+            if(status == "200")  //200 成功
+                model_tip_show('model_tip1','model_tip_content1','取消上报成功');
+            else if(status == "500")  //服务器繁忙
+                model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+            else
+                model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+        }
+
+    }); //ajax
 }
 
 //上报前检查--状态是否可以上报
