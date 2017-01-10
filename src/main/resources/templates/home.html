@@ -219,7 +219,32 @@
                 $("#home_right_wrap").load("admin_export_thesis_info.html");
             });
             $("#a_import_student_info_btn").click(function(){
-                $("#home_right_wrap").load("admin_import_student_info.html");
+                // $("#home_right_wrap").load("admin_import_student_info.html");
+
+                $.ajax({
+                        type: "POST",
+                        url: "/home/admin/import/index",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+
+                        }),
+
+                        beforeSend: function(XMLHttpRequest){
+                        },
+
+                        success: function(data){
+                            $("#home_right_wrap").html(data);
+                        },
+                        error: function(XMLHttpRequest, textStatus) {
+                            if (XMLHttpRequest.status == 401) {
+                                $("#home_right_wrap").html("您没有访问权限 ~");
+                            } else {
+                                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
+                            }
+                        },
+                        complete: function(XMLHttpRequest, textStatus){
+                        }
+                    }); // end ajax
             });
             $("#a_active_teacher_btn").click(function(){
                 $("#home_right_wrap").load("admin_active_teacher_account.html");
