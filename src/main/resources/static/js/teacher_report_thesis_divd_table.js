@@ -43,7 +43,6 @@ function report(){
         //检查是否选中
         var checked = $("input[name='checkboxStatus']:checked");
         var checked_length = checked.length;
-        var xh_array = new Array();
         if(checked_length <= 0){ //如果没有选中申请
             model_tip_show('model_tip1','model_tip_content1','未选择申请');
             return;
@@ -64,10 +63,12 @@ function report(){
 } //function
 
 function report1(){
+    var checked = $("input[name='checkboxStatus']:checked");
+    var xh_array = new Array();
     checked.each(function(){ //将选中的学号放到xh_array数组中
         var value = $(this).parent().next().next().html();
         xh_array.push(value);
-    })
+    });
     $.ajax({
         type: "POST",
         url: "/home/teacher/thesis/report",
@@ -80,6 +81,7 @@ function report1(){
         },
 
         success: function(data){
+            closeModal("model_ok");
             // 200 成功    300 重复申请  500 失败
             var status = data.code;
             var msg = data.msg;
@@ -125,11 +127,13 @@ function cancel_report(){
 
 
 function cancelReoprt1(){
+    var checked = $("input[name='checkboxStatus']:checked");
+    var xh_array = new Array();
     //3.组装数据发给后台服务器处理
     checked.each(function(){ //将选中的学号放到xh_array数组中
         var value = $(this).parent().next().next().html();
         xh_array.push(value);
-    })
+    });
     $.ajax({
         type: "POST",
         url: "/home/teacher/thesis/cancelReport",
@@ -142,6 +146,7 @@ function cancelReoprt1(){
         },
 
         success: function(data){
+            closeModal("model_ok");
             // 200 成功    300 重复申请  500 失败
             var status = data.code;
             var msg = data.msg;

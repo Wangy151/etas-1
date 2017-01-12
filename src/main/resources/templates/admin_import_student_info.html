@@ -41,39 +41,54 @@
             $("#uploadFile_btn").click(function () {
                 $("#file_status_warn").html("");
                 var fileName = $("#student_info_file").val();
-                //未选择文件
+                //1. 判断未选择文件
                 if(fileName==""){
                     model_tip_show('model_tip','model_tip_content','未选择文件');
                     return;
                 }
-                //判断文件的后缀名是否为xls
+                //2. 判断文件的后缀名是否为xls
                 var file_extent = fileName.substring(fileName.lastIndexOf(".")+1);
                 if(file_extent!="xls"){ //文件格式错误
                     model_tip_show('model_tip','model_tip_content','文件后缀名必须为xls格式');
                     return;
                 }
-                //文件后缀名正确，提交文件
-                $("#form1").ajaxSubmit({
-                    url: "/home/admin/import/upload",
-                    type: "post",
-                    success: function (data) { //服务器回调函数
-                        var status = data.code;
-                        var msg = data.msg;
-                        if(status == "200"){//文件上传成功
-                            model_tip_show('model_tip','model_tip_content','文件上传成功');
-                        }
-                        else if(status == "300"){//文件字段名不符合要求
-                            model_tip_show('model_tip','model_tip_content','文件字段名不符合要求');
-                        }
-                        else if(status == "500"){//文件上传不成功
-                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
-                        }
-                        else
-                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
-                    } //success
-                });
+                //3. 文件后缀名正确，弹出浮层
+                $("#model_file_status").modal('show');
+                //4. 提交文件,上传文件
+                uploadStudentInfoFile1();
             })
         };
+
+        function uploadStudentInfoFile1(){
+            $("#form1").ajaxSubmit({
+                url: "/home/admin/import/upload",
+                type: "post",
+                success: function (data) { //服务器回调函数
+                    //1.关闭文件提示浮层
+                    $("#model_file_status").modal('hide');
+                    //{code:'',msg:'',errorRowNum:'',totalNum:''}
+                    // 200:成功 --> totalNum     300:格式有误 --> errorRowNum
+                    // 301:学号重复  --> errorRowNum     500:失败
+                    var status = data.code;
+                    var errorMsg;
+                    var succMsg;
+                    if(status == "200"){//文件上传成功
+                        succMsg = "已经成功上传"+data.totalNum+"条记录到系统中";
+                        model_tip_show('model_tip','model_tip_content',succMsg);
+                    }
+                    else if(status == "300"){//文件字段名不符合要求
+                        errorMsg = "第"+data.errorRowNum+"行有字段为空或格式不符合要求";
+                        model_tip_show('model_tip','model_tip_content',errorMsg);
+                    }
+                    else if(status == "301"){//学号重复
+                        errorMsg = "第"+data.errorRowNum+"行的学号重复";
+                        model_tip_show('model_tip','model_tip_content',errorMsg);
+                    }
+                    else // status =='500'
+                        model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
+                } //success
+            });
+        }
 
     </script>
 
@@ -129,6 +144,39 @@
     </div>
 
     <!-- Model  -->
+
+    <!-- 文件上传  Model  -->
+    <!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+
+    <div id="model_file_status" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" style="text-align: center">文件上传进度</h3>
+                </div>
+                <div class="model_body" id="model_file_status_content">
+                    <div class="text-center text-info">文件正在上传，请不要离开</div>
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 40%;">
+                            <span class="sr-only">40% 完成</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="model_foot">
+                    <div class="model_btn_close">
+                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
+
 
 </body>
 </html>

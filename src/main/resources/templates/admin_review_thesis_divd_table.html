@@ -105,5 +105,30 @@
 
 <!-- Model  -->
 
+<!-- 确定/取消 Model  -->
+<!--调用方法:model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",success_func)-->
+<div id="model_ok" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_ok_body" id="model_ok_content">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_ok_btn_close">
+                    <button type="button" id="model_ok_btn" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style=" float:right;margin-right:5px">取&nbsp;&nbsp;消</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model  -->
+
 </body>
 </html>

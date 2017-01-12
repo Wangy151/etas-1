@@ -41,7 +41,7 @@ function review(){
         //检查是否选中
         var checked = $("input[name='checkboxStatus']:checked");
         var checked_length = checked.length;
-        var xh_array = new Array();
+
         if(checked_length <= 0){ //如果没有选中申请
             model_tip_show('model_tip1','model_tip_content1','未选择申请');
             return;
@@ -53,44 +53,54 @@ function review(){
             model_tip_show('model_tip1','model_tip_content1','只能上报状态为【待学校审核】, 请重新选择');
             return;
         }
-        //2.如果选中的是正确，准备将数据发往服务器
-        checked.each(function(){ //将选中的学号放到xh_array数组中
-            var value = $(this).parent().next().next().html();
-            xh_array.push(value);
-        })
-        $.ajax({
-            type: "POST",
-            url: "/home/admin/thesis/review",   //url
-            contentType: "application/json",
-            data: JSON.stringify({
-                "userIds":xh_array,
-            }),
-
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                // 200 成功    300 重复申请  500 失败
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //200 成功
-                    model_tip_show('model_tip1','model_tip_content1','审核成功');
-                else if(status == "500")  //服务器繁忙
-                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
-                else
-                    model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        }); //ajax
+        //确认是否审核通过
+        model_ok_show("model_ok","model_ok_content","确认是否审核通过","model_ok_btn",review1);
 
     }) //click
 } //function
+
+
+function review1(){
+    var checked = $("input[name='checkboxStatus']:checked");
+    var xh_array = new Array();
+    //2.如果选中的是正确，准备将数据发往服务器
+    checked.each(function(){ //将选中的学号放到xh_array数组中
+        var value = $(this).parent().next().next().html();
+        xh_array.push(value);
+    })
+    $.ajax({
+        type: "POST",
+        url: "/home/admin/thesis/review",   //url
+        contentType: "application/json",
+        data: JSON.stringify({
+            "userIds":xh_array,
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            // 200 成功    300 重复申请  500 失败
+            closeModal("model_ok");
+            var status = data.code;
+            var msg = data.msg;
+            if(status == "200")  //200 成功
+                model_tip_show('model_tip1','model_tip_content1','审核成功');
+            else if(status == "500")  //服务器繁忙
+                model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+            else
+                model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+        }
+
+    }); //ajax
+} //function review1
+
 
 //取消审核按钮事件
 function cancel_review(){
@@ -99,7 +109,6 @@ function cancel_review(){
         //1.检查是否有选中
         var checked = $("input[name='checkboxStatus']:checked");
         var checked_length = checked.length;
-        var xh_array = new Array();
         if(checked_length <= 0){ //如果没有选中申请
             model_tip_show('model_tip1','model_tip_content1','未选择申请');
             return;
@@ -109,44 +118,52 @@ function cancel_review(){
             model_tip_show('model_tip1','model_tip_content1','只能取消状态为【通过审核】, 请重新选择');
             return;
         }
-
-        //3.组装数据发给后台服务器处理
-        checked.each(function(){ //将选中的学号放到xh_array数组中
-            var value = $(this).parent().next().next().html();
-            xh_array.push(value);
-        })
-        $.ajax({
-            type: "POST",
-            url: "/home/admin/thesis/cancelReview",
-            contentType: "application/json",
-            data: JSON.stringify({
-                "userIds":xh_array,
-            }),
-
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                // 200 成功    300 重复申请  500 失败
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //200 成功
-                    model_tip_show('model_tip1','model_tip_content1','取消审核成功');
-                else if(status == "500")  //服务器繁忙
-                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
-                else
-                    model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        }); //ajax
+        //确认是否取消审核
+        model_ok_show("model_ok","model_ok_content","确认是否取消审核通过","model_ok_btn",cancelReview1);
 
     }) //click
+}
+
+
+function cancelReview1(){
+    var checked = $("input[name='checkboxStatus']:checked");
+    var xh_array = new Array();
+    //3.组装数据发给后台服务器处理
+    checked.each(function(){ //将选中的学号放到xh_array数组中
+        var value = $(this).parent().next().next().html();
+        xh_array.push(value);
+    })
+    $.ajax({
+        type: "POST",
+        url: "/home/admin/thesis/cancelReview",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "userIds":xh_array,
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            // 200 成功    300 重复申请  500 失败
+            closeModal("model_ok");
+            var status = data.code;
+            var msg = data.msg;
+            if(status == "200")  //200 成功
+                model_tip_show('model_tip1','model_tip_content1','取消审核成功');
+            else if(status == "500")  //服务器繁忙
+                model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+            else
+                model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+        }
+
+    }); //ajax
 }
 
 //上报前检查--状态是否可以上报

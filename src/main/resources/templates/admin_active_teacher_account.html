@@ -7,32 +7,10 @@
     <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
     <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
-    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet" />
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
-    <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
-    <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
     <style rel="stylesheet">
-        .mid{
-            min-height: 200px;
-            border: 1px solid rgb(224,224,224);
-        }
-        .mid_body{
-            height: auto;
-            margin:0 auto;
-        }
-        .left{
-            width:15%;
-            min-height: 100px;
-            float:left;
-            border: 1px solid rgb(224,224,224);
-        }
-        .right{
-            width:84%;
-            min-height: 300px;
-            float:right;
-            border: 1px solid rgb(224,224,224);
-        }
 
         .search{
             background-color: rgb(245,245,245);
@@ -68,6 +46,237 @@
         }
 
     </style>
+
+    <script>
+
+        $(document).ready(function () {
+            search();
+            select_all();
+            no_select_all();
+            active();
+            cancelActive();
+
+        });
+
+        //搜索事件
+        function search(){
+            $("#search").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/home/admin/thesis/search",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        "department":$("#department").text(),
+                        "activeStatus":$("#activeStatus").val(),
+                        "realName":$("#realName").val(),
+                        "userID":$("#userId").val(),
+                    }),
+
+                    beforeSend: function(XMLHttpRequest){
+                        $("#talbe_wrap").empty();
+                    },
+
+                    success: function(data){
+                        $("#talbe_wrap").html(data);
+                    },
+
+                    error: function(XMLHttpRequest, textStatus) {
+                    },
+
+                    complete: function(XMLHttpRequest, textStatus){
+                    }
+
+                }); //ajax
+            });//click
+        }
+
+        //全选按钮事件
+        function select_all(){
+            //select_all_btn
+            $("#select_all_btn").click(function () {
+                // name="checkboxStatus"
+                $("input[name='checkboxStatus']").prop("checked",true);
+            })
+        }
+
+        //反选按钮事件
+        function no_select_all(){
+            //no_select_all_btn
+            $("#no_select_all_btn").click(function () {
+                // name="checkboxStatus"
+                var checkbox = $("input[name='checkboxStatus']");
+                checkbox.each(function () {
+                    $(this).prop("checked", !$(this).prop("checked"));
+                })
+            })
+        }
+
+        //激活按钮事件  cancel_active_btn
+        function active(){
+            //report_btn
+            $("#active_btn").click(function () {
+                //1.检查是否选中
+                var checked = $("input[name='checkboxStatus']:checked");
+                var checked_length = checked.length;
+
+                if(checked_length <= 0){ //如果没有选中激活
+                    model_tip_show('model_tip1','model_tip_content1','未选择激活');
+                    return;
+                }
+                //如果选中了
+
+                //2.检查选中的申请的状态是否有不可激活状态
+                if(checkBeforeActive()==false){
+                    model_tip_show('model_tip1','model_tip_content1','只能激活状态为【未激活】, 请重新选择');
+                    return;
+                }
+                //3. 确认是否审核通过
+                model_ok_show("model_ok","model_ok_content","确认是否激活该账户","model_ok_btn",active1);
+
+            }) //click
+        } //function
+
+
+        function active1(){
+            var checked = $("input[name='checkboxStatus']:checked");
+            var xh_array = new Array();
+            //2.组装数据，准备将数据发往服务器
+            checked.each(function(){ //将选中的学号放到xh_array数组中
+                var value = $(this).parent().next().next().html();
+                xh_array.push(value);
+            })
+            $.ajax({
+                type: "POST",
+                url: "/home/admin/thesis/review",   //url
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "userIds":xh_array,
+                }),
+
+                beforeSend: function(XMLHttpRequest){
+                },
+
+                success: function(data){
+                    // 200 成功   500 失败
+                    closeModal("model_ok");
+                    var status = data.code;
+                    var msg = data.msg;
+                    if(status == "200")  //200 成功
+                        model_tip_show('model_tip1','model_tip_content1','激活成功');
+                    else if(status == "500")  //服务器繁忙
+                        model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+                    else
+                        model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
+                },
+
+                error: function(XMLHttpRequest, textStatus) {
+                },
+
+                complete: function(XMLHttpRequest, textStatus){
+                }
+
+            }); //ajax
+        } //function review1
+
+
+        //取消激活按钮事件
+        function cancelActive(){
+            //cancel_report_btn
+            $("#cancel_active_btn").click(function () {
+                //1.检查是否有选中
+                var checked = $("input[name='checkboxStatus']:checked");
+                var checked_length = checked.length;
+                if(checked_length <= 0){ //如果没有选中申请
+                    model_tip_show('model_tip1','model_tip_content1','未选择激活');
+                    return;
+                }
+                //2.检查选中的状态是否正确
+                if(checkBeforeCancelActive()==false){
+                    model_tip_show('model_tip1','model_tip_content1','只能取消状态为【已激活】的账户, 请重新选择');
+                    return;
+                }
+                //确认是否取消审核
+                model_ok_show("model_ok","model_ok_content","确认是否取消激活该账户","model_ok_btn",cancelActive1);
+
+            }) //click
+        }
+
+
+        function cancelActive1(){
+            var checked = $("input[name='checkboxStatus']:checked");
+            var xh_array = new Array();
+            //3.组装数据发给后台服务器处理
+            checked.each(function(){ //将选中的学号放到xh_array数组中
+                var value = $(this).parent().next().next().html();
+                xh_array.push(value);
+            })
+            $.ajax({
+                type: "POST",
+                url: "/home/admin/thesis/cancelReview",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "userIds":xh_array,
+                }),
+
+                beforeSend: function(XMLHttpRequest){
+                },
+
+                success: function(data){
+                    // 200 成功    500 失败
+                    closeModal("model_ok");
+                    var status = data.code;
+                    var msg = data.msg;
+                    if(status == "200")  //200 成功
+                        model_tip_show('model_tip1','model_tip_content1','取消激活成功');
+                    else if(status == "500")  //服务器繁忙
+                        model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+                    else
+                        model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
+                },
+
+                error: function(XMLHttpRequest, textStatus) {
+                },
+
+                complete: function(XMLHttpRequest, textStatus){
+                }
+
+            }); //ajax
+        }
+
+        //激活前检查--状态是否可以激活
+        function checkBeforeActive(){
+            var _checked = $("input[name='checkboxStatus']:checked");
+            var _status =  _checked.parent().parent().children("td.active_status");
+            var inspectV = 1;
+            _status.each(function(){
+                if($(this).text() !='未激活'){
+                    inspectV = 0;
+                    return;
+                }
+            });
+            if(inspectV==1)
+                return true;
+            else
+                return false;
+        }
+
+        //取消激活前检查--状态是否可以取消激活
+        function checkBeforeCancelActive(){
+            var _checked = $("input[name='checkboxStatus']:checked");
+            var _status =  _checked.parent().parent().children("td.active_status");
+            var inspectV = 1;
+            _status.each(function(){
+                if($(this).text() !='已激活'){
+                    inspectV = 0;
+                    return;
+                }
+            });
+            if(inspectV==1)
+                return true;
+            else
+                return false;
+        }
+    </script>
 
 </head>
 <body>
@@ -121,11 +330,11 @@
                 </select>
             </div>
             <div class="one_input">
-                <label for="department">激活状态</label>
-                <select class="input_width" style="width: 70%">
-                    <option>请选择</option>
-                    <option>未激活</option>
-                    <option>已激活</option>
+                <label for="activeStatus">激活状态</label>
+                <select id="activeStatus" class="input_width" style="width: 70%">
+                    <option value="">请选择</option>
+                    <option value="0">未激活</option>
+                    <option value="1">已激活</option>
                 </select>
             </div>
             <div class="one_input input_width">
@@ -137,7 +346,7 @@
                 <input type="text" id="userId"/>
             </div>
             <div class="search_btn_div">
-                <button type="button" class="btn btn-primary">查询</button>
+                <button id="search" type="button" class="btn btn-primary">查询</button>
             </div>
             <div class="clear"></div>
         </div>
@@ -147,16 +356,16 @@
     <div class="table_body">
         <div class="row" style="margin-top: 50px;margin-bottom: 10px">
             <div class="col-md-1" style="margin-left: 10px">
-                <button type="button" class="btn btn-primary btn-xs">全选</button>
+                <button type="button" id="select_all_btn" class="btn btn-primary btn-xs">全选</button>
             </div>
             <div class="col-md-1" style="margin-left: -30px">
-                <button type="button" class="btn btn-primary btn-xs">反选</button>
+                <button type="button" id="no_select_all_btn" class="btn btn-primary btn-xs">反选</button>
             </div>
             <div class="col-md-2" style="margin-left: -30px">
-                <button type="button" class="btn btn-primary btn-xs">激活为学院教务员</button>
+                <button type="button" id="active_btn" class="btn btn-success btn-xs">激活为学院教务员</button>
             </div>
             <div class="col-md-2" style="margin-left: -30px">
-                <button type="button" class="btn btn-primary btn-xs">取消激活</button>
+                <button type="button" id="cancel_active_btn" class="btn btn-danger btn-xs">取消激活</button>
             </div>
 
         </div>
@@ -166,49 +375,49 @@
             </thead>
             <tbody>
             <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" name='checkboxStatus' /></td>
                 <td>计算机科学与技术学院</td>
                 <td>0185263</td>
                 <td>张辉耀</td>
                 <td>18855661122</td>
                 <td>zhyxhk@hust.mail.edu.cn</td>
-                <td>未激活</td>
+                <td class="active_status">未激活</td>
             </tr>
             <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" name='checkboxStatus'/></td>
                 <td>计算机科学与技术学院</td>
                 <td>0185263</td>
                 <td>张辉耀</td>
                 <td>18855661122</td>
                 <td>zhyxhk@hust.mail.edu.cn</td>
-                <td>未激活</td>
+                <td class="active_status">已激活</td>
             </tr>
             <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" name='checkboxStatus'/></td>
                 <td>计算机科学与技术学院</td>
                 <td>0185263</td>
                 <td>张辉耀</td>
                 <td>18855661122</td>
                 <td>zhyxhk@hust.mail.edu.cn</td>
-                <td>未激活</td>
+                <td class="active_status">未激活</td>
             </tr>
             <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" name='checkboxStatus'/></td>
                 <td>计算机科学与技术学院</td>
                 <td>0185263</td>
                 <td>张辉耀</td>
                 <td>18855661122</td>
                 <td>zhyxhk@hust.mail.edu.cn</td>
-                <td>未激活</td>
+                <td class="active_status">已激活</td>
             </tr>
             <tr>
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox" name='checkboxStatus'/></td>
                 <td>计算机科学与技术学院</td>
                 <td>0185263</td>
                 <td>张辉耀</td>
                 <td>18855661122</td>
                 <td>zhyxhk@hust.mail.edu.cn</td>
-                <td>未激活</td>
+                <td class="active_status">未激活</td>
             </tr>
 
             </tbody>
@@ -216,6 +425,55 @@
     </div>
 
 
+    <!-- Model  -->
+    <!--调用方法:model_tip_show('model_tip1','model_tip_content1','系统繁忙请稍后再试!');-->
+
+    <div id="model_tip1" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="myModalLabel1" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_body" id="model_tip_content1">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_btn_close">
+                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
+
+    <!-- 确定/取消 Model  -->
+    <!--调用方法:model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",success_func)-->
+    <div id="model_ok" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_ok_body" id="model_ok_content">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_ok_btn_close">
+                        <button type="button" id="model_ok_btn" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" style=" float:right;margin-right:5px">取&nbsp;&nbsp;消</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
 
 </body>
 </html>
