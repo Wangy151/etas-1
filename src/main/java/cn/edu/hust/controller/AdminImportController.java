@@ -62,6 +62,9 @@ public class AdminImportController {
         } catch (IOException e) {
             e.printStackTrace();
             return new FailResponse();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new FailResponse();
         } finally {
             // 删除此文件
             File fileObj = new File(fileName);

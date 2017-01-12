@@ -85,7 +85,7 @@
                         model_tip_show('model_tip','model_tip_content',errorMsg);
                     }
                     else // status =='500'
-                        model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
+                        model_tip_show('model_tip','model_tip_content','上传失败,请检查所上传文件,稍后再试');
                 } //success
             });
         }
@@ -156,7 +156,7 @@
                     <h3 class="modal-title" style="text-align: center">文件上传进度</h3>
                 </div>
                 <div class="model_body" id="model_file_status_content">
-                    <div class="text-center text-info">文件正在上传，请不要离开</div>
+                    <div class="text-center text-info">文件正在上传，请不要关闭本窗口</div>
                     <div class="progress progress-striped active">
                         <div class="progress-bar progress-bar-success" role="progressbar"
                              aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
@@ -166,10 +166,9 @@
                     </div>
                 </div>
                 <div class="model_foot">
-                    <div class="model_btn_close">
-                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
-                    </div>
-
+                    <!--<div class="model_btn_close">-->
+                        <!--<button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>

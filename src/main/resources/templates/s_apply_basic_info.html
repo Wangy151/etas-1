@@ -102,11 +102,15 @@
 
 
         function checkFormValidateStatus(){
-            //basic_info_form  fileUplodStatus
+            // basic_info_form  fileUplodStatus
             var form_status = $("#basic_info_form").valid();
             var file_status = $("#fileUplodStatus").val();
-            if(form_status==true&&file_status=='1')
-                return true;
+            if (form_status == true) {
+                if (file_status == '1') {
+                    return true;
+                }
+            }
+
             return false;
         }
 
