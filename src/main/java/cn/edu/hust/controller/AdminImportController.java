@@ -42,8 +42,8 @@ public class AdminImportController {
     }
 
     /**
-     * 上传文件
-     * @return
+     * 导入学生信息
+     * @return 200:成功  300:格式有误 301:学号重复  500:失败
      */
     @RequestMapping(value = "/upload", method= RequestMethod.POST)
     @ResponseBody
@@ -51,23 +51,22 @@ public class AdminImportController {
         BufferedOutputStream out = null;
 
         String fileName = "etas_student_info_import.xls";
-
         try {
+            // save file
             out = new BufferedOutputStream(new FileOutputStream(new File(fileName)));
             out.write(file.getBytes());
             out.flush();
             out.close();
 
-            boolean isSuccess = adminImportService.importStudentInfos(fileName);
-            if (!isSuccess) {
-                return new FailResponse();
-            }
+            return adminImportService.importStudentInfos(fileName);
         } catch (IOException e) {
             e.printStackTrace();
             return new FailResponse();
+        } finally {
+            // 删除此文件
+            File fileObj = new File(fileName);
+            fileObj.delete();
         }
-
-        return new SuccessResponse();
     }
 
 }
