@@ -25,9 +25,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -119,8 +122,14 @@ public class StudentService {
 
         String fileSavePath = fileName;
 
+        // delete old file
+        File fileObj = new File(fileSavePath);
+        if (fileObj.exists()) {
+            fileObj.delete();
+        }
+
         // save file
-        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(fileSavePath)));
+        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileObj));
         out.write(file.getBytes());
         out.flush();
         out.close();
@@ -130,6 +139,37 @@ public class StudentService {
 
         return new SuccessResponse();
     }
+
+    public byte[] getFileByteArray(String fileName) throws IOException {
+        File f = new File(fileName);
+        if (!f.exists()) {
+            throw new FileNotFoundException(fileName);
+        }
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream((int) f.length());
+        BufferedInputStream in = null;
+        try {
+            in = new BufferedInputStream(new FileInputStream(f));
+            int buf_size = 1024;
+            byte[] buffer = new byte[buf_size];
+            int len = 0;
+            while (-1 != (len = in.read(buffer, 0, buf_size))) {
+                bos.write(buffer, 0, len);
+            }
+            return bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            bos.close();
+        }
+    }
+
 
     /**
      * 是否已经提交过申请

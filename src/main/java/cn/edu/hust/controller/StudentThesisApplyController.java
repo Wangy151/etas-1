@@ -12,6 +12,10 @@ import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
 import cn.edu.hust.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -106,6 +110,27 @@ public class StudentThesisApplyController {
             e.printStackTrace();
             return new FailResponse();
         }
+    }
+
+    /**
+     * 下载pdf论文
+     * @param fileName
+     * @return
+     */
+    @RequestMapping(value = "/basicInfoTable/pdf/download")
+    public ResponseEntity<byte[]> downloadThesisPdf(@RequestParam("fileName") String fileName) {
+        byte[] buf = null;
+        try {
+            buf = studentService.getFileByteArray(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        httpHeaders.setContentDispositionFormData("attachment", fileName);
+
+        return new ResponseEntity<byte[]>(buf, httpHeaders, HttpStatus.CREATED);
     }
 
 

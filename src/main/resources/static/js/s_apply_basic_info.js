@@ -127,7 +127,7 @@ function fileUpload1(){
         return;
     }
     // 2.组装数据
-    var fileName = "10487"+"_"+getEjxkdmFromPage()+"_"+$("#zzxh").val()+"_ZPB.pdf";
+    var fileName = "10487"+"_"+getEjxkdmFromPage()+"_"+$("#zzxh").val()+"_LW.pdf";
     $("#savedFileName").val(fileName);
     $("#savedUserId").val(getUserIdFromPage());
 

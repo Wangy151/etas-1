@@ -39,6 +39,7 @@ public class ThesisBasicInfo {
     private String studentType;
     private String applyStatus;
     private String department;
+    private int uploadStatus;
 
     public String getSsdm() {
         return ssdm;
@@ -312,6 +313,14 @@ public class ThesisBasicInfo {
         this.department = department;
     }
 
+    public int getUploadStatus() {
+        return uploadStatus;
+    }
+
+    public void setUploadStatus(int uploadStatus) {
+        this.uploadStatus = uploadStatus;
+    }
+
     @Override
     public String toString() {
         return "ThesisBasicInfo{" +
@@ -349,6 +358,7 @@ public class ThesisBasicInfo {
                 ", studentType='" + studentType + '\'' +
                 ", applyStatus='" + applyStatus + '\'' +
                 ", department='" + department + '\'' +
+                ", uploadStatus=" + uploadStatus +
                 '}';
     }
 }
