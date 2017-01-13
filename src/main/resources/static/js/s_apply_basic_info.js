@@ -6,7 +6,7 @@ $(document).ready(function () {
     basic_info_validate();
     basicInfoSubmit();
     fileUpload();
-    inputDisableToAble();
+//    inputDisableToAble();
 });
 
 function basicInfoSubmit()  {
@@ -206,7 +206,7 @@ function checkFormValidateStatus(){
 
     if($("#fileUplodStatus").val()!='1'){
         $("#m_table1_warn").html("未上传文件");
-//        return false;
+        return false;
     }
     return true;
 }
