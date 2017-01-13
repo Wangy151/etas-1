@@ -38,6 +38,7 @@ public class ThesisBasicInfo {
     private String applyYear;
     private String studentType;
     private String applyStatus;
+    private String department;
 
     public String getSsdm() {
         return ssdm;
@@ -303,6 +304,14 @@ public class ThesisBasicInfo {
         this.applyStatus = applyStatus;
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
     @Override
     public String toString() {
         return "ThesisBasicInfo{" +
@@ -339,6 +348,7 @@ public class ThesisBasicInfo {
                 ", applyYear='" + applyYear + '\'' +
                 ", studentType='" + studentType + '\'' +
                 ", applyStatus='" + applyStatus + '\'' +
+                ", department='" + department + '\'' +
                 '}';
     }
 }

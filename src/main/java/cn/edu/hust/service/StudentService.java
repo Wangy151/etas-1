@@ -7,12 +7,15 @@ import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.StudentInfoImport;
 import cn.edu.hust.model.ThesisBasicInfo;
+import cn.edu.hust.model.User;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
 import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by xiaolei03 on 16/12/6.
@@ -30,9 +33,16 @@ public class StudentService {
      * @param userId
      * @return
      */
-    public void initThesisBasicInfoTable(String userId) {
+    public void initThesisBasicInfoTable(String userId, HttpSession session) {
         if (thesisApplyDao.hasApplyBasicInfoTable(userId) <= 0) {
-            thesisApplyDao.initThesisBasicInfoTable(userId);
+            // 初始化数据 applyYear applyStatus department;
+            String applyYear = String.valueOf(DateTime.now().getYear());
+            String applyStatus = ThesisApplyStatus.TO_SUBMIT.getValue();
+
+            User user = (User)session.getAttribute("user");
+            String department = user.getDepartment();
+
+            thesisApplyDao.initThesisBasicInfoTable(applyYear, applyStatus, department, userId);
         }
     }
 
@@ -68,10 +78,6 @@ public class StudentService {
 
     public boolean saveThesisBasicInfoTable(ThesisBasicInfo thesisBasicInfo) {
         // 初始化数据
-        thesisBasicInfo.setApplyStatus(ThesisApplyStatus.TO_SUBMIT.getValue());
-        int year = DateTime.now().getYear();
-        thesisBasicInfo.setApplyYear(String.valueOf(year));
-
         String filePathPrefix = thesisBasicInfo.getXxdm() + "_" + thesisBasicInfo.getEjxkdm()
                 + "_" + thesisBasicInfo.getZzxh();
 

@@ -68,10 +68,10 @@ public class StudentThesisApplyController {
      */
     @RequestMapping(value = "/save/basicInfoTable", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse saveThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
+    public CommonResponse saveThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo, HttpSession session) {
         // TODO 前端传studentType
         // 初始化
-        studentService.initThesisBasicInfoTable(thesisBasicInfo.getZzxh());
+        studentService.initThesisBasicInfoTable(thesisBasicInfo.getZzxh(), session);
 
         if (studentService.saveThesisBasicInfoTable(thesisBasicInfo)) {
             return new SuccessResponse();
