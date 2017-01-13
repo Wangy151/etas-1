@@ -1,10 +1,8 @@
 package cn.edu.hust.dao;
 
-import cn.edu.hust.common.ThesisApplyStatus;
 import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
-import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -56,6 +54,10 @@ public interface ThesisApplyDao {
 
     @Delete(" DELETE FROM thesis_basic_info WHERE WHERE zzxh = #{zzxh} ")
     int deleteThesisBasicInfoRecord(@Param("zzxh") String zzxh);
+
+    @Update( "update thesis_basic_info set upload_status = #{uploadStatus} where zzxh = #{zzxh}")
+    int updateUploadStatus(@Param("uploadStatus") int uploadStatus,
+                           @Param("zzxh") String zzxh);
 
     /**
      * 硕士 推荐表

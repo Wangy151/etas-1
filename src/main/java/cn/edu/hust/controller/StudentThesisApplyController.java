@@ -5,6 +5,7 @@ import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.User;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
+import cn.edu.hust.model.request.LoadBasicInfoTableRequest;
 import cn.edu.hust.model.request.StudentTypeRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
@@ -16,9 +17,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by xiaolei03 on 16/12/6.
@@ -45,15 +52,14 @@ public class StudentThesisApplyController {
      * 加载基本信息表
      */
     @RequestMapping(value = "/load/basicInfoTable")
-    public String loadBasicInfoTablePage(Model model, HttpSession session) {
-        // TODO 接收xh
-        User user = (User) session.getAttribute("user");
-        String xh = user.getUserId();
+    public String loadBasicInfoTablePage(@RequestBody LoadBasicInfoTableRequest loadBasicInfoTableRequest, Model model) {
+        // 接收学号
+        String userId = loadBasicInfoTableRequest.getUserId();
 
-        ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(xh);
+        ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
         // 第一次进入页面没有数据, 页面需要填充导入信息
         if (null == thesisBasicInfo) {
-            thesisBasicInfo = studentService.getInitThesisBasicInfo(xh);
+            thesisBasicInfo = studentService.getInitThesisBasicInfo(userId);
         }
 
         model.addAttribute("thesisBasicInfo", thesisBasicInfo);
@@ -63,6 +69,7 @@ public class StudentThesisApplyController {
 
     /**
      * 保存基本信息表
+     *
      * @param thesisBasicInfo 前台参数
      * @return 200:保存成功 500:保存失败
      */
@@ -77,6 +84,28 @@ public class StudentThesisApplyController {
             return new SuccessResponse();
         }
         return new FailResponse();
+    }
+
+    /**
+     * 上传pdf论文
+     *
+     * @param file
+     * @return 200:成功  300:论文中含有敏感字符(如华中科技大学字样) 500:失败
+     */
+    @RequestMapping(value = "/basicInfoTable/pdf/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResponse updateThesisPdf(@RequestParam("file") MultipartFile file,
+                                          @RequestParam("fileName") String fileName,
+                                          @RequestParam("userId") String userId) {
+        try {
+            return studentService.uploadThesisPdf(file, fileName, userId);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new FailResponse();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new FailResponse();
+        }
     }
 
 
