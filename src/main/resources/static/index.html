@@ -39,16 +39,26 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            ClickChangeValidateCode();
+            ajaxLogin();
 
+
+        })//$(document).ready
+
+        function ClickChangeValidateCode(){
             //点击验证码图片切换验证码
             $("#validateCode_btn").click(function(){
                 ChangeValidateCode();
             });
+        }
 
+        function ajaxLogin(){
             //点击登录按钮，进行异步登录
             $("#login_btn").click(function () {
                 var status = $("#loginForm").valid();  //先查看表单验证是否通过
                 if(status==true){
+                    $("#validateWarn").html();
+                    DisableLoginBtn();
                     $.ajax({
                         type: "POST",
                         url: "/login",
@@ -68,8 +78,11 @@
                             var msg = data.msg;
                             if(status == "200") //成功
                                 location.assign("/home/index");
-                            else
+                            else{ //登陆失败
+                                ChangeValidateCode();
                                 $("#validateWarn").html(msg);
+                            }
+                            AbleLoginBtn();
                         },
                         error: function(XMLHttpRequest, textStatus) {
                         },
@@ -78,10 +91,20 @@
                     });
                 }//if
             }) //click
-        })//$(document).ready
+        }
 
         function ChangeValidateCode() {
             $("#validateCodeImg").attr("src", $("#validateCodeImg").attr("src") + 1);
+        }
+
+        function DisableLoginBtn(){
+            $("#login_btn").attr('disabled','disabled');
+            $("#login_btn").html("正在登录，请稍等...");
+        }
+
+        function AbleLoginBtn(){
+            $("#login_btn").removeAttr('disabled');
+            $("#login_btn").html("登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录");
         }
     </script>
 
