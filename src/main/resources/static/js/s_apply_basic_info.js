@@ -4,12 +4,12 @@
 
 $(document).ready(function () {
     basic_info_validate();
-    basic_info_submit();
+    basicInfoSubmit();
     fileUpload();
-    // inputDisableToAble();
+    inputDisableToAble();
 });
 
-function basic_info_submit(){
+function basicInfoSubmit()  {
     //  basic_info_form   basic_info_submit_btn
     //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
     // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
@@ -96,46 +96,71 @@ function basic_info_submit(){
 function fileUpload(){
     // article_file    fileUpload_btn   file_status_warn
     $("#fileUpload_btn").click(function () {
+        //0.初始化
         $("#file_status_warn").html("");
         $("#fileUplodStatus").val("0");
         var fileName = $("#article_file").val();
-        //未选择文件
+        //1.未选择文件
         if(fileName==""){
             $("#file_status_warn").attr("class","text-danger");
             $("#file_status_warn").html("没有选择文件!");
             return;
         }
-        //判断文件的后缀名是否为pdf
+        //2.判断文件的后缀名是否为pdf
         var file_extent = fileName.substring(fileName.lastIndexOf(".")+1);
         if(file_extent!="pdf"){ //文件格式错误
             $("#file_status_warn").attr("class","text-danger");
             $("#file_status_warn").html("文件格式错误！");
             return;
         }
-        //文件后缀名正确，提交文件
-        $("#file_submit_form").ajaxSubmit({
-            url: "upload.txt",
-            type: "post",
-            success: function (data) { //服务器回调函数
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200"){//文件上传成功
-                    $("#file_status_warn").attr("class","text-info");
-                    $("#file_status_warn").html("文件上传成功！");
-                    $("#fileUplodStatus").val("1");
-
-                }
-                else if(status == "500"){//文件上传不成功
-                    $("#file_status_warn").attr("class","text-danger");
-                    $("#file_status_warn").html("服务器繁忙，请稍后再试！");
-                }
-
-                else
-                    var empty = "";
-            } //success
-        });
+        //3.文件后缀名正确，提交文件
+        fileUpload1();
 
     })
+}
+
+function fileUpload1(){
+    // 1.检查是否可以上传文件
+    if(checkIfCanUploadFile()==false){
+        $("#file_status_warn").attr("class","text-danger");
+        $("#file_status_warn").html("二级学科代码为空，不能上传文件");
+        return;
+    }
+    // 2.组装数据
+    var fileName = "10487"+"_"+getEjxkdmFromPage()+"_"+getUserIdFromPage()+"_ZPB";
+    $("#savedFileName").val(getEjxkdmFromPage());
+    $("#savedUserId").val(getUserIdFromPage())
+    // 3.上传文件
+
+    $("#file_submit_form").ajaxSubmit({
+        url: "/home/student/apply/basicInfoTable/pdf/upload",
+        type: "post",
+        success: function (data) { //服务器回调函数
+            //200:成功  300:论文中含有敏感字符(如华中科技大学字样) 500:失败
+            var status = data.code;
+            var msg = data.msg;
+            if(status == "200"){//文件上传成功
+                $("#file_status_warn").attr("class","text-info");
+                $("#file_status_warn").html("文件上传成功！");
+                $("#fileUplodStatus").val("1");
+
+            }
+            else if(status == "300"){//论文中含有敏感字符(如华中科技大学字样)
+                $("#file_status_warn").attr("class","text-danger");
+                $("#file_status_warn").html("上传失败:论文中含有敏感字符！(如华中科技大学)");
+            }
+
+            else if(status == "500"){//文件上传不成功
+                $("#file_status_warn").attr("class","text-danger");
+                $("#file_status_warn").html("服务器繁忙，请稍后再试！");
+            }
+            else{
+                $("#file_status_warn").attr("class","text-danger");
+                $("#file_status_warn").html("服务器繁忙，请稍后再试！");
+            }
+        } //success
+    }); //ajaxSubmit
+
 }
 
 function checkFormValidateStatus(){
@@ -416,4 +441,22 @@ function inputDisableToAble(){
     //hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc
     $('input[disabled="disabled"]').removeAttr('disabled');
     $('select[disabled="disabled"]').removeAttr('disabled');
+}
+
+
+function getUserIdFromPage(){
+    return $("#savedThesisApplyUserId").val();
+}
+
+function setUserIdToPage(userId){
+    $("#savedThesisApplyUserId").val(userId);
+}
+
+function getEjxkdmFromPage(){
+    return $("#ejxkdm").val();
+}
+
+function checkIfCanUploadFile(){
+    if(getEjxkdmFromPage()==""||$("#zzxh").val()=="") return false;
+    return true;
 }
