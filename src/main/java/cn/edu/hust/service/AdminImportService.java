@@ -13,6 +13,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,32 +61,44 @@ public class AdminImportService {
                 continue;
             }
 
-            // validate
-            if (!checkCellValid(row)) {
+            try {
+                // validate
+                if (!checkCellValid(row)) {
+                    return new AdminImportResponse().withErrorRowNum(rowNum + 1).withCode(300).withMsg("格式有误");
+                }
+
+                String xh = this.getCellValue(row.getCell(0)); // 学号
+                if (xhlist.contains(xh)) {
+                    return new AdminImportResponse().withErrorRowNum(rowNum + 1).withCode(301).withMsg("重复学号");
+                } else {
+                    xhlist.add(xh);
+                }
+
+                String ejxkdm = this.getCellValue(row.getCell(3)); // 二级学科代码
+
+                studentInfoImport.setXh(this.getCellValue(row.getCell(0)));
+                studentInfoImport.setName(this.getCellValue(row.getCell(1)));
+                studentInfoImport.setCsrq(this.getCellValue(row.getCell(2)));
+                studentInfoImport.setEjxkdm(ejxkdm);
+                studentInfoImport.setEjxkmc(this.getCellValue(row.getCell(4)));
+                studentInfoImport.setDs(this.getCellValue(row.getCell(5)));
+                studentInfoImport.setLwtm(this.getCellValue(row.getCell(6)));
+                studentInfoImport.setRxnf(this.getCellValue(row.getCell(7)));
+                studentInfoImport.setHxwsj(this.getCellValue(row.getCell(8)));
+                studentInfoImport.setDbsj(this.getCellValue(row.getCell(9)));
+
+                String yjxkdm = ejxkdm.substring(0, 4); // 一级学科代码
+                String yjxkmc = studentInfoImportDao.getYjxkmc(yjxkdm); // 一级学科名称
+                studentInfoImport.setYjxkdm(yjxkdm);
+                studentInfoImport.setYjxkmc(yjxkmc);
+                studentInfoImportList.add(studentInfoImport);
+            } catch (IllegalStateException e) {
                 return new AdminImportResponse().withErrorRowNum(rowNum + 1).withCode(300).withMsg("格式有误");
             }
 
-            String xh = row.getCell(0).getStringCellValue(); // 学号
-            if (xhlist.contains(xh)) {
-                return new AdminImportResponse().withErrorRowNum(rowNum + 1).withCode(301).withMsg("重复学号");
-            } else {
-                xhlist.add(xh);
-            }
-
-            studentInfoImport.setXh(row.getCell(0).getStringCellValue());
-            studentInfoImport.setName(row.getCell(1).getStringCellValue());
-            studentInfoImport.setCsrq(row.getCell(2).getStringCellValue());
-            studentInfoImport.setEjxkdm(row.getCell(3).getStringCellValue());
-            studentInfoImport.setEjxkmc(row.getCell(4).getStringCellValue());
-            studentInfoImport.setDs(row.getCell(5).getStringCellValue());
-            studentInfoImport.setLwtm(row.getCell(6).getStringCellValue());
-            studentInfoImport.setRxnf(row.getCell(7).getStringCellValue());
-            studentInfoImport.setHxwsj(row.getCell(8).getStringCellValue());
-            studentInfoImport.setDbsj(row.getCell(9).getStringCellValue());
-            studentInfoImportList.add(studentInfoImport);
-
             totalNum++;
         } // end for
+
         wb.close();
 
         // 2. 删除所有旧记录
@@ -118,15 +131,15 @@ public class AdminImportService {
         }
 
         // 入学年份
-        String rxny = row.getCell(7).getStringCellValue();
+        String rxny = this.getCellValue(row.getCell(7));
         if (rxny.length() != 4) {
             return false;
         }
 
         // 获取学位时间
-        String hqxwsj = row.getCell(8).getStringCellValue();
+        String hqxwsj = this.getCellValue(row.getCell(8));
         // 答辩时间
-        String dbsj = row.getCell(9).getStringCellValue();
+        String dbsj = this.getCellValue(row.getCell(9));
         if (hqxwsj.length() != 8 || dbsj.length() != 8) {
             return false;
         }
@@ -134,5 +147,20 @@ public class AdminImportService {
         return true;
     }
 
+    private String getCellValue(HSSFCell cell) {
+        int type = cell.getCellType();
+        System.out.println("type===" + type);
+
+        if (type == 0) {
+            // 数字类型
+            cell.setCellType(CellType.STRING);
+            return cell.getStringCellValue();
+        } else if (type == 1) {
+            // 文本类型
+            return cell.getStringCellValue();
+        } else {
+            throw new IllegalStateException();
+        }
+    }
 
 }
