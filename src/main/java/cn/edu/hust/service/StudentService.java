@@ -7,12 +7,31 @@ import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.StudentInfoImport;
 import cn.edu.hust.model.ThesisBasicInfo;
+import cn.edu.hust.model.User;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
 import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
+import cn.edu.hust.model.response.AdminImportResponse;
+import cn.edu.hust.model.response.CommonResponse;
+import cn.edu.hust.model.response.FailResponse;
+import cn.edu.hust.model.response.SuccessResponse;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpSession;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by xiaolei03 on 16/12/6.
@@ -30,9 +49,16 @@ public class StudentService {
      * @param userId
      * @return
      */
-    public void initThesisBasicInfoTable(String userId) {
+    public void initThesisBasicInfoTable(String userId, HttpSession session) {
         if (thesisApplyDao.hasApplyBasicInfoTable(userId) <= 0) {
-            thesisApplyDao.initThesisBasicInfoTable(userId);
+            // 初始化数据 applyYear applyStatus department;
+            String applyYear = String.valueOf(DateTime.now().getYear());
+            String applyStatus = ThesisApplyStatus.TO_SUBMIT.getValue();
+
+            User user = (User)session.getAttribute("user");
+            String department = user.getDepartment();
+
+            thesisApplyDao.initThesisBasicInfoTable(applyYear, applyStatus, department, userId);
         }
     }
 
@@ -68,10 +94,6 @@ public class StudentService {
 
     public boolean saveThesisBasicInfoTable(ThesisBasicInfo thesisBasicInfo) {
         // 初始化数据
-        thesisBasicInfo.setApplyStatus(ThesisApplyStatus.TO_SUBMIT.getValue());
-        int year = DateTime.now().getYear();
-        thesisBasicInfo.setApplyYear(String.valueOf(year));
-
         String filePathPrefix = thesisBasicInfo.getXxdm() + "_" + thesisBasicInfo.getEjxkdm()
                 + "_" + thesisBasicInfo.getZzxh();
 
@@ -82,6 +104,31 @@ public class StudentService {
         thesisBasicInfo.setLwywlj(lwywlj);
 
         return thesisApplyDao.saveThesisBasicInfoTable(thesisBasicInfo) > 0;
+    }
+
+    /**
+     * 上传pdf论文
+     *
+     * @return
+     */
+    @Transactional
+    public CommonResponse uploadThesisPdf(MultipartFile file, String fileName, String zzxh) throws IOException {
+        if (null == file || StringUtils.isEmpty(fileName) || StringUtils.isEmpty(zzxh)) {
+            return new FailResponse();
+        }
+
+        String fileSavePath = fileName;
+
+        // save file
+        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(fileSavePath)));
+        out.write(file.getBytes());
+        out.flush();
+        out.close();
+
+        // update column: upload_status
+        thesisApplyDao.updateUploadStatus(1, zzxh);
+
+        return new SuccessResponse();
     }
 
     /**
