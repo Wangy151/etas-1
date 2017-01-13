@@ -23,4 +23,9 @@ public interface StudentInfoImportDao {
     @Select(" SELECT yjxkmc FROM yjxk_map WHERE yjxkdm = #{yjxkdm}")
     String getYjxkmc(@Param("yjxkdm")String yjxkdm);
 
+    @Select(" SELECT xh, name, csrq, yjxkdm, yjxkmc, ejxkdm, ejxkmc, ds, lwtm, rxnf, hxwsj, dbsj" +
+            " FROM student_info_import WHERE xh = #{xh}")
+    StudentInfoImport getStudentInfoImport(@Param("xh")String xh);
+
+
 }

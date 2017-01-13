@@ -209,35 +209,35 @@
             </tr>
 
             <tr>
-                <td class="td_key"><span class="font_star">*</span>入学年月</td><td>
-                <input type="text" id="rxny" name="rxny" placeholder="入学年月"/></td>
+                <td class="td_key"><span class="font_star">*</span>入学年月(格式如201609)</td><td>
+                <input type="text" id="rxny" name="rxny" placeholder="入学年月,如201609" th:value="${thesisBasicInfo.rxny}"/></td>
                 <td class="td_key">获学位日期</td>
-                <td><input type="text" id="hxwrq" name="hxwrq" disabled="disabled" placeholder="获学位日期"/></td>
+                <td><input type="text" id="hdxwrq" name="hdxwrq" disabled="disabled" placeholder="获学位日期,如20160606" th:value="${thesisBasicInfo.hdxwrq}"/></td>
             </tr>
 
             <tr>
                 <td class="td_key">一级学科码</td>
-                <td><input type="text" id="yjxkm" name="yjxkm" disabled="disabled" placeholder="一级学科码"/></td>
+                <td><input type="text" id="yjxkdm" name="yjxkdm" disabled="disabled" placeholder="一级学科码" th:value="${thesisBasicInfo.yjxkdm}"/></td>
                 <td class="td_key">一级学科名称</td>
-                <td><input type="text" id="yjxkmc" name="yjxkmc" disabled="disabled" placeholder="一级学科名称"/></td>
+                <td><input type="text" id="yjxkmc" name="yjxkmc" disabled="disabled" placeholder="一级学科名称" th:value="${thesisBasicInfo.yjxkmc}"/></td>
             </tr>
 
             <tr>
                 <td class="td_key">二级学科码</td>
-                <td><input type="text" id="ejxkm" name="ejxkm" disabled="disabled" placeholder="二级学科码"/></td>
+                <td><input type="text" id="ejxkdm" name="ejxkdm" disabled="disabled" placeholder="二级学科码" th:value="${thesisBasicInfo.ejxkdm}"/></td>
                 <td class="td_key">二级学科名称</td>
-                <td><input type="text" id="ejxkmc" name="ejxkmc" disabled="disabled" placeholder="二级学科名称"/></td>
+                <td><input type="text" id="ejxkmc" name="ejxkmc" disabled="disabled" placeholder="二级学科名称" th:value="${thesisBasicInfo.ejxkmc}"/></td>
             </tr>
 
             <tr>
-                <td class="td_key"><span class="font_star">*</span>作者职称</td>
+                <td class="td_key"><span class="font_star">*</span>作者职称(没有 填无)</td>
                 <td><input type="text" id="zzzc" name="zzzc" placeholder="作者职称，长度不超过10" th:value="${thesisBasicInfo.zzzc}"/></td>
                 <td class="td_key">学校联系人</td>
                 <td><input type="text" id="xxlxr" name="xxlxr" disabled="disabled" value="王老师"/></td>
             </tr>
 
             <tr>
-                <td class="td_key"><span class="font_star">*</span>备注</td>
+                <td class="td_key"><span class="font_star">*</span>备注(没有 填无)</td>
                 <td colspan="3"><input type="text" id="bz" name="bz" placeholder="长度不超过100，只标注特殊情况，如论文为非中文撰写，如英语撰写的，请备注“英文撰写”" th:value="${thesisBasicInfo.bz}"/></td>
             </tr>
             <tr>
