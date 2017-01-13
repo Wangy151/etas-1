@@ -54,7 +54,8 @@ table textarea{
 
 .check_msg{
     float: right;
-    width:350px;
+    width: 400px;
+    margin-right: 150px;
     margin-top: -25px;
     text-align: center;
 }
@@ -74,4 +75,9 @@ table textarea{
 }
 .td_border_buttom{
     border-bottom: none;
+}
+
+#file_btn{
+    float: left;
+    margin-left: 30px;
 }

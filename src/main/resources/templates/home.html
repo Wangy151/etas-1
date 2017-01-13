@@ -85,64 +85,47 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-//            t_report_thesis_btn   t_personal_info_btn
-//            a_review_thesis_btn    a_export_thesis_info_btn    a_import_student_info_btn
-//             a_active_teacher_btn   a_add_admin_account_btn   a_personal_info_btn
+//        t_report_thesis_btn   t_personal_info_btn
+//        a_review_thesis_btn    a_export_thesis_info_btn    a_import_student_info_btn
+//        a_active_teacher_btn   a_add_admin_account_btn   a_personal_info_btn
+            loadStudentModalPage();
+            loadTeacherModalPage();
+            loadAdminModalPage();
 
+        })
+
+        function loadStudentModalPage(){
             // 学生模块 --> 申请优秀论文
             $("#s_thesis_apply_btn").click(function(){
-                    $.ajax({
-                        type: "POST",
-                        url: "/home/student/apply/index",
-                        contentType: "application/json",
-                        data: JSON.stringify({
-
-                        }),
-
-                        beforeSend: function(XMLHttpRequest){
-                        },
-
-                        success: function(data){
-                            $(".mid_body").html(data);
-                        },
-                        error: function(XMLHttpRequest, textStatus) {
-                            if (XMLHttpRequest.status == 401) {
-                                $("#home_right_wrap").html("您没有访问权限 ~");
-                            } else {
-                                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-                            }
-                        },
-                        complete: function(XMLHttpRequest, textStatus){
-                        }
-                    }); // end ajax
+                loadThesisApplyPage($("#homeUserId").text());
             });
 
             // 学生模块 --> 查询论文审核状态
             $("#s_query_thesis_btn").click(function(){
                 $.ajax({
-                        type: "POST",
-                        url: "/home/student/thesis/manage/index",
-                        contentType: "application/json",
-                        data: JSON.stringify({
+                    type: "POST",
+                    url: "/home/student/thesis/manage/index",
+                    contentType: "application/json",
+                    data: JSON.stringify({
 
-                        }),
+                    }),
 
-                        beforeSend: function(XMLHttpRequest){
-                        },
+                    beforeSend: function(XMLHttpRequest){
+                    },
 
-                        success: function(data){
-                            $("#home_right_wrap").html(data);
-                        },
-                        error: function(XMLHttpRequest, textStatus) {
-                            if (XMLHttpRequest.status == 401) {
-                                $("#home_right_wrap").html("您没有访问权限 ~");
-                            } else {
-                                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-                            }
-                        },
-                        complete: function(XMLHttpRequest, textStatus){
+                    success: function(data){
+                        $("#home_right_wrap").html(data);
+                    },
+                    error: function(XMLHttpRequest, textStatus) {
+                        if (XMLHttpRequest.status == 401) {
+                            $("#home_right_wrap").html("您没有访问权限 ~");
+                        } else {
+                            $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
                         }
-                    }); // end ajax
+                    },
+                    complete: function(XMLHttpRequest, textStatus){
+                    }
+                }); // end ajax
             });
 
             // 学生模块 --> 管理个人信息
@@ -150,112 +133,149 @@
                 $("#home_right_wrap").load("s_t_person_information.html");
 
             });
+        };
 
+        //从主页面加载学生论文申请页面
+        function loadThesisApplyPage(savedUserId){
+            $.ajax({
+                type: "POST",
+                url: "/home/student/apply/index",
+                contentType: "application/json",
+                data: JSON.stringify({
+
+                }),
+
+                beforeSend: function(XMLHttpRequest){
+                },
+
+                success: function(data){
+                    $("#savedThesisApplyUserId").val(savedUserId);
+                    $(".mid_body").html(data);
+                },
+                error: function(XMLHttpRequest, textStatus) {
+                    if (XMLHttpRequest.status == 401) {
+                        $("#home_right_wrap").html("您没有访问权限 ~");
+                    } else {
+                        $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
+                    }
+                },
+                complete: function(XMLHttpRequest, textStatus){
+                }
+            }); // end ajax
+        }
+
+        function loadTeacherModalPage(){
             //学院教务员模块
             $("#t_report_thesis_btn").click(function(){
                 // $("#home_right_wrap").load("teacher_report_thesis.html");
 
                 $.ajax({
-                        type: "POST",
-                        url: "/home/teacher/thesis/index",
-                        contentType: "application/json",
-                        data: JSON.stringify({
+                    type: "POST",
+                    url: "/home/teacher/thesis/index",
+                    contentType: "application/json",
+                    data: JSON.stringify({
 
-                        }),
+                    }),
 
-                        beforeSend: function(XMLHttpRequest){
-                        },
+                    beforeSend: function(XMLHttpRequest){
+                    },
 
-                        success: function(data){
-                            $("#home_right_wrap").html(data);
-                        },
-                        error: function(XMLHttpRequest, textStatus) {
-                            if (XMLHttpRequest.status == 401) {
-                                $("#home_right_wrap").html("您没有访问权限 ~");
-                            } else {
-                                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-                            }
-                        },
-                        complete: function(XMLHttpRequest, textStatus){
+                    success: function(data){
+                        $("#home_right_wrap").html(data);
+                    },
+                    error: function(XMLHttpRequest, textStatus) {
+                        if (XMLHttpRequest.status == 401) {
+                            $("#home_right_wrap").html("您没有访问权限 ~");
+                        } else {
+                            $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
                         }
-                    }); // end ajax
+                    },
+                    complete: function(XMLHttpRequest, textStatus){
+                    }
+                }); // end ajax
             });
 
             $("#t_personal_info_btn").click(function(){
                 $("#home_right_wrap").load("s_t_person_information.html");
             });
+        };
 
+        function loadAdminModalPage(){
             //管理员模块
             $("#a_review_thesis_btn").click(function(){
                 // $("#home_right_wrap").load("admin_review_thesis.html");
 
                 $.ajax({
-                        type: "POST",
-                        url: "/home/admin/thesis/index",
-                        contentType: "application/json",
-                        data: JSON.stringify({
+                    type: "POST",
+                    url: "/home/admin/thesis/index",
+                    contentType: "application/json",
+                    data: JSON.stringify({
 
-                        }),
+                    }),
 
-                        beforeSend: function(XMLHttpRequest){
-                        },
+                    beforeSend: function(XMLHttpRequest){
+                    },
 
-                        success: function(data){
-                            $("#home_right_wrap").html(data);
-                        },
-                        error: function(XMLHttpRequest, textStatus) {
-                            if (XMLHttpRequest.status == 401) {
-                                $("#home_right_wrap").html("您没有访问权限 ~");
-                            } else {
-                                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-                            }
-                        },
-                        complete: function(XMLHttpRequest, textStatus){
+                    success: function(data){
+                        $("#home_right_wrap").html(data);
+                    },
+                    error: function(XMLHttpRequest, textStatus) {
+                        if (XMLHttpRequest.status == 401) {
+                            $("#home_right_wrap").html("您没有访问权限 ~");
+                        } else {
+                            $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
                         }
-                    }); // end ajax
+                    },
+                    complete: function(XMLHttpRequest, textStatus){
+                    }
+                }); // end ajax
             });
 
             $("#a_export_thesis_info_btn").click(function(){
                 $("#home_right_wrap").load("admin_export_thesis_info.html");
             });
+
             $("#a_import_student_info_btn").click(function(){
                 // $("#home_right_wrap").load("admin_import_student_info.html");
 
                 $.ajax({
-                        type: "POST",
-                        url: "/home/admin/import/index",
-                        contentType: "application/json",
-                        data: JSON.stringify({
+                    type: "POST",
+                    url: "/home/admin/import/index",
+                    contentType: "application/json",
+                    data: JSON.stringify({
 
-                        }),
+                    }),
 
-                        beforeSend: function(XMLHttpRequest){
-                        },
+                    beforeSend: function(XMLHttpRequest){
+                    },
 
-                        success: function(data){
-                            $("#home_right_wrap").html(data);
-                        },
-                        error: function(XMLHttpRequest, textStatus) {
-                            if (XMLHttpRequest.status == 401) {
-                                $("#home_right_wrap").html("您没有访问权限 ~");
-                            } else {
-                                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-                            }
-                        },
-                        complete: function(XMLHttpRequest, textStatus){
+                    success: function(data){
+                        $("#home_right_wrap").html(data);
+                    },
+                    error: function(XMLHttpRequest, textStatus) {
+                        if (XMLHttpRequest.status == 401) {
+                            $("#home_right_wrap").html("您没有访问权限 ~");
+                        } else {
+                            $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
                         }
-                    }); // end ajax
+                    },
+                    complete: function(XMLHttpRequest, textStatus){
+                    }
+                }); // end ajax
             });
+
             $("#a_active_teacher_btn").click(function(){
                 $("#home_right_wrap").load("admin_active_teacher_account.html");
             });
+
             $("#a_add_admin_account_btn").click(function(){
 
             });
+
             $("#a_personal_info_btn").click(function(){
                 $("#home_right_wrap").load("admin_person_information.html");
             });
-        })
+        };
     </script>
 
 </head>
@@ -267,6 +287,7 @@
         欢迎您: <span th:text="${session.user.realName}">用户</span>&nbsp;&nbsp;&nbsp;
         <a href="/home/index">主页</a>&nbsp;&nbsp;
         <a href="/home/logout">安全退出</a>
+        <input type="text" value="" id="savedThesisApplyUserId" hidden="hidden"/>
     </div>
 
 </div>
@@ -305,7 +326,7 @@
 
                 <div class="home_welcome_tip">
                     欢迎 <span th:text="${session.user.realName}">用户</span> 进入华中科技大学优秀论文申请系统。<br/>
-                    一、您的学号/工号是 <span th:text="${session.user.userId}">M201476136</span>，邮箱为 <span th:text="${session.user.email}">meihao_private@126.com</span>，请牢记登录信息。<br/>
+                    一、您的学号/工号是 <span id="homeUserId" th:text="${session.user.userId}">M201476136</span>，邮箱为 <span th:text="${session.user.email}">meihao_private@126.com</span>，请牢记登录信息。<br/>
                     二、您可以点击<span>【管理个人信息】</span>修改自己的个人基本信息以及登录密码。<br/>
                     三、特别注意：申请前请阅读以下注意事项:<br/>
  &nbsp;&nbsp;&nbsp;

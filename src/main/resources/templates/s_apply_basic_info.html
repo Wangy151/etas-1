@@ -13,7 +13,6 @@
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
     <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
     <script type="text/javascript" src="../static/js/MyAjaxForm.js" th:src="@{/js/MyAjaxForm.js}"></script>
-    <script type="text/javascript" src="../static/js/s_basic_info_validate.js" th:src="@{/js/s_basic_info_validate.js}"></script>
     <script type="text/javascript" src="../static/js/s_apply_basic_info.js" th:src="@{/js/s_apply_basic_info.js}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -31,7 +30,7 @@
     </div>
 
 
-    <form id="basi c_info_form" style="border-top: 1px solid black;">
+    <form id="basic_info_form" style="border-top: 1px solid black;">
         <table class="table" id="table0">
             <tbody>
             <tr>
@@ -239,6 +238,7 @@
             <tr>
                 <td class="td_key"><span class="font_star">*</span>备注(没有 填无)</td>
                 <td colspan="3"><input type="text" id="bz" name="bz" placeholder="长度不超过100，只标注特殊情况，如论文为非中文撰写，如英语撰写的，请备注“英文撰写”" th:value="${thesisBasicInfo.bz}"/></td>
+
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>论文上传（pdf格式）</td>
@@ -246,6 +246,7 @@
                     <button type="button" id="file_btn">上传论文</button>
                     <input type="text" id="fileUplodStatus" hidden="hidden" value="0"/>
                 </td>
+
 
             </tr>
 
@@ -270,7 +271,7 @@
             <button type="button" id="basic_info_submit_btn" class="btn btn-primary">信息确认无误，提交保存</button>
 
         </div>
-        <div class="check_msg validate_warn" id="m_table1_warn">
+        <div class="check_msg validate_warn text-left" id="m_table1_warn">
 
         </div>
 
