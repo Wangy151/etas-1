@@ -55,7 +55,7 @@
         function ajaxLogin(){
             //点击登录按钮，进行异步登录
             $("#login_btn").click(function () {
-                var status = $("#loginForm").valid();  //先查看表单验证是否通过
+                var status = checkFormIfValid();  //先查看表单验证是否通过
                 if(status==true){
                     $("#validateWarn").html();
                     DisableLoginBtn();
@@ -105,6 +105,14 @@
         function AbleLoginBtn(){
             $("#login_btn").removeAttr('disabled');
             $("#login_btn").html("登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录");
+        }
+
+        function checkFormIfValid(){
+            //username  passwd   validateCode
+            if($("#username").valid()==false) return false;
+            if($("#passwd").valid()==false) return false;
+            if($("#validateCode").valid()==false) return false;
+            return true;
         }
     </script>
 

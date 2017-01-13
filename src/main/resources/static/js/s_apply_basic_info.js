@@ -16,7 +16,6 @@ function basic_info_submit(){
     // lwywlj  rxny  hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc  zzzc  xxlxr  bz
     $("#basic_info_submit_btn").click(function(){
         if(checkFormValidateStatus() == false){
-            $("#m_table1_warn").html("未上传文件");
             return;
         }
         $("#m_table1_warn").html("");
@@ -86,15 +85,6 @@ function basic_info_submit(){
 }
 
 
-function checkFormValidateStatus(){
-    //basic_info_form  fileUplodStatus
-    var form_status = $("#basic_info_form").valid();
-    var file_status = $("#fileUplodStatus").val();
-    if(form_status==true&&file_status=='1')
-        return true;
-    return false;
-}
-
 function fileUpload(){
     // article_file    fileUpload_btn   file_status_warn
     $("#fileUpload_btn").click(function () {
@@ -147,3 +137,52 @@ function inputDisableToAble(){
     $('input[disabled="disabled"]').removeAttr('disabled');
     $('select[disabled="disabled"]').removeAttr('disabled');
 }
+
+function checkFormValidateStatus(){
+    //  basic_info_form   basic_info_submit_btn  m_table1_warn
+    //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
+    // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
+    // lwywlj  rxny  hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc  zzzc  xxlxr  bz
+    //////////////////////////////////////////////////////////////////
+    //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
+    if($("#ssdm").valid() == false) return false;
+    if($("#ssmc").valid() == false) return false;
+    if($("#xxdm").valid() == false) return false;
+    if($("#xxmc").valid() == false) return false;
+    if($("#zzxh").valid() == false) return false;
+    if($("#xh").valid() == false) return false;
+    if($("#cplx").valid() == false) return false;
+    if($("#gdfs").valid() == false) return false;
+    if($("#zzxm").valid() == false) return false;
+    if($("#xb").valid() == false) return false;
+    // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
+    if($("#csny").valid() == false) return false;
+    if($("#mz").valid() == false) return false;
+    if($("#dsxm").valid() == false) return false;
+    if($("#lwtm").valid() == false) return false;
+    if($("#lwywtm").valid() == false) return false;
+    if($("#yjfx").valid() == false) return false;
+    if($("#lwzwgjz").valid() == false) return false;
+    if($("#lwys").valid() == false) return false;
+    if($("#gdlb").valid() == false) return false;
+    if($("#lwtjblj").valid() == false) return false;
+    // lwywlj  rxny  hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc  zzzc  xxlxr  bz
+    if($("#lwywlj").valid() == false) return false;
+    if($("#rxny").valid() == false) return false;
+    if($("#hxwrq").valid() == false) return false;
+    if($("#yjxkm").valid() == false) return false;
+    if($("#yjxkmc").valid() == false) return false;
+    if($("#ejxkm").valid() == false) return false;
+    if($("#ejxkmc").valid() == false) return false;
+    if($("#zzzc").valid() == false) return false;
+    if($("#xxlxr").valid() == false) return false;
+    if($("#bz").valid() == false) return false;
+
+    if($("#fileUplodStatus").val()!='1'){
+        $("#m_table1_warn").html("未上传文件");
+        return false;
+    }
+    return true;
+}
+
+

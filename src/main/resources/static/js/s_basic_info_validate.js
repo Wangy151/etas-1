@@ -71,6 +71,7 @@ function basic_info_validate(){
             lwys:{ //论文页数
                 required:true,
                 digits:true,
+                range:[20,350],
             },
             gdlb:{//攻读类别
                 required:true,
@@ -175,6 +176,7 @@ function basic_info_validate(){
             lwys:{ //论文页数
                 required:"论文页数不能为空",
                 digits:"论文页数为数字",
+                range:"论文页数范围在20-350之间"
             },
             gdlb:{//攻读类别
                 required:"攻读类别不能为空",
