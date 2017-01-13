@@ -46,15 +46,16 @@ public class StudentThesisApplyController {
      */
     @RequestMapping(value = "/load/basicInfoTable")
     public String loadBasicInfoTablePage(Model model, HttpSession session) {
+        // TODO 接收xh
         User user = (User) session.getAttribute("user");
-        String userId = user.getUserId();
+        String xh = user.getUserId();
 
-        ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
-        // 第一次进入页面没有数据, 防止空指针
+        ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(xh);
+        // 第一次进入页面没有数据, 页面需要填充导入信息
         if (null == thesisBasicInfo) {
-            thesisBasicInfo = new ThesisBasicInfo();
-            thesisBasicInfo.setZzxh(userId);
+            thesisBasicInfo = studentService.getInitThesisBasicInfo(xh);
         }
+
         model.addAttribute("thesisBasicInfo", thesisBasicInfo);
         return "s_apply_basic_info";
     }
@@ -68,6 +69,7 @@ public class StudentThesisApplyController {
     @RequestMapping(value = "/save/basicInfoTable", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse saveThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
+        // TODO 前端传studentType
         // 初始化
         studentService.initThesisBasicInfoTable(thesisBasicInfo.getZzxh());
 

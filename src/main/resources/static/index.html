@@ -81,10 +81,12 @@
                             else{ //登陆失败
                                 ChangeValidateCode();
                                 $("#validateWarn").html(msg);
+                                AbleLoginBtn();
                             }
-                            AbleLoginBtn();
+
                         },
                         error: function(XMLHttpRequest, textStatus) {
+                            AbleLoginBtn();
                         },
                         complete: function(XMLHttpRequest, textStatus){
                         }

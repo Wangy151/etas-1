@@ -13,7 +13,7 @@ function basic_info_submit(){
     //  basic_info_form   basic_info_submit_btn
     //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
     // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
-    // lwywlj  rxny  hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc  zzzc  xxlxr  bz
+    // lwywlj  rxny  hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc  zzzc  xxlxr  bz
     $("#basic_info_submit_btn").click(function(){
         if(checkFormValidateStatus() == false){
             return;
@@ -46,13 +46,13 @@ function basic_info_submit(){
                 "lwys":$("#lwys").val(),
                 "gdlb":$("#gdlb").val(),
                 "lwtjblj":$("#lwtjblj").val(),
-                // lwywlj  rxny  hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc  zzzc  xxlxr  bz
+                // lwywlj  rxny  hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc  zzzc  xxlxr  bz
                 "lwywlj":$("#lwywlj").val(),
                 "rxny":$("#rxny").val(),
-                "hxwrq":$("#hxwrq").val(),
-                "yjxkm":$("#yjxkm").val(),
+                "hdxwrq":$("#hdxwrq").val(),
+                "yjxkdm":$("#yjxkdm").val(),
                 "yjxkmc":$("#yjxkmc").val(),
-                "ejxkm":$("#ejxkm").val(),
+                "ejxkdm":$("#ejxkdm").val(),
                 "ejxkmc":$("#ejxkmc").val(),
                 "zzzc":$("#zzzc").val(),
                 "xxlxr":$("#xxlxr").val(),
@@ -133,7 +133,7 @@ function fileUpload(){
 function inputDisableToAble(){
     //前端已赋值:  ssdm  ssmc  xxdm  xxmc  zzxh  xxlxr
     //csny  dsxm  lwtm  lwtjblj  lwywlj  rxny
-    //hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc
+    //hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc
     $('input[disabled="disabled"]').removeAttr('disabled');
     $('select[disabled="disabled"]').removeAttr('disabled');
 }
@@ -142,7 +142,7 @@ function checkFormValidateStatus(){
     //  basic_info_form   basic_info_submit_btn  m_table1_warn
     //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
     // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
-    // lwywlj  rxny  hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc  zzzc  xxlxr  bz
+    // lwywlj  rxny  hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc  zzzc  xxlxr  bz
     //////////////////////////////////////////////////////////////////
     //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
     if($("#ssdm").valid() == false) return false;
@@ -166,13 +166,13 @@ function checkFormValidateStatus(){
     if($("#lwys").valid() == false) return false;
     if($("#gdlb").valid() == false) return false;
     if($("#lwtjblj").valid() == false) return false;
-    // lwywlj  rxny  hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc  zzzc  xxlxr  bz
+    // lwywlj  rxny  hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc  zzzc  xxlxr  bz
     if($("#lwywlj").valid() == false) return false;
     if($("#rxny").valid() == false) return false;
-    if($("#hxwrq").valid() == false) return false;
-    if($("#yjxkm").valid() == false) return false;
+    if($("#hdxwrq").valid() == false) return false;
+    if($("#yjxkdm").valid() == false) return false;
     if($("#yjxkmc").valid() == false) return false;
-    if($("#ejxkm").valid() == false) return false;
+    if($("#ejxkdm").valid() == false) return false;
     if($("#ejxkmc").valid() == false) return false;
     if($("#zzzc").valid() == false) return false;
     if($("#xxlxr").valid() == false) return false;
@@ -180,7 +180,7 @@ function checkFormValidateStatus(){
 
     if($("#fileUplodStatus").val()!='1'){
         $("#m_table1_warn").html("未上传文件");
-        return false;
+//        return false;
     }
     return true;
 }

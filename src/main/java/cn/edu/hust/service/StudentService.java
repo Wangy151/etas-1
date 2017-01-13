@@ -1,9 +1,11 @@
 package cn.edu.hust.service;
 
 import cn.edu.hust.common.ThesisApplyStatus;
+import cn.edu.hust.dao.StudentInfoImportDao;
 import cn.edu.hust.dao.ThesisApplyDao;
 import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
+import cn.edu.hust.model.StudentInfoImport;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
 import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
@@ -20,6 +22,9 @@ public class StudentService {
     @Autowired
     private ThesisApplyDao thesisApplyDao;
 
+    @Autowired
+    private StudentInfoImportDao studentInfoImportDao;
+
     /**
      * 基本信息表
      * @param userId
@@ -35,10 +40,46 @@ public class StudentService {
         return thesisApplyDao.getThesisBasicInfo(userId);
     }
 
+
+    public ThesisBasicInfo getInitThesisBasicInfo(String xh) {
+        StudentInfoImport studentInfoImport = studentInfoImportDao.getStudentInfoImport(xh);
+        // 导入信息表中不存在该学号信息
+        if (null == studentInfoImport) {
+            // 只填充学号
+            ThesisBasicInfo thesisBasicInfo = new ThesisBasicInfo();
+            thesisBasicInfo.setZzxh(xh);
+            return thesisBasicInfo;
+        }
+
+        ThesisBasicInfo thesisBasicInfo = new ThesisBasicInfo();
+        thesisBasicInfo.setZzxh(studentInfoImport.getXh());
+        thesisBasicInfo.setZzxm(studentInfoImport.getName());
+        thesisBasicInfo.setCsny(studentInfoImport.getCsrq().substring(0, 6));
+        thesisBasicInfo.setYjxkdm(studentInfoImport.getYjxkdm());
+        thesisBasicInfo.setYjxkmc(studentInfoImport.getYjxkmc());
+        thesisBasicInfo.setEjxkdm(studentInfoImport.getEjxkdm());
+        thesisBasicInfo.setEjxkmc(studentInfoImport.getEjxkmc());
+        thesisBasicInfo.setDsxm(studentInfoImport.getDs());
+        thesisBasicInfo.setLwtm(studentInfoImport.getLwtm());
+        thesisBasicInfo.setHdxwrq(studentInfoImport.getHxwsj());
+
+        return thesisBasicInfo;
+    }
+
     public boolean saveThesisBasicInfoTable(ThesisBasicInfo thesisBasicInfo) {
+        // 初始化数据
         thesisBasicInfo.setApplyStatus(ThesisApplyStatus.TO_SUBMIT.getValue());
         int year = DateTime.now().getYear();
         thesisBasicInfo.setApplyYear(String.valueOf(year));
+
+        String filePathPrefix = thesisBasicInfo.getXxdm() + "_" + thesisBasicInfo.getEjxkdm()
+                + "_" + thesisBasicInfo.getZzxh();
+
+        String lwtjblj = filePathPrefix + "_ZPB"; // word论文推荐表路径
+        String lwywlj = filePathPrefix + "_LW"; // pdf论文原文路径
+
+        thesisBasicInfo.setLwtjblj(lwtjblj);
+        thesisBasicInfo.setLwywlj(lwywlj);
 
         return thesisApplyDao.saveThesisBasicInfoTable(thesisBasicInfo) > 0;
     }
