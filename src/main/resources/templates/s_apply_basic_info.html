@@ -7,161 +7,15 @@
     <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
     <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
-    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet" />
     <link href="../static/css/master_thesis_apply_sheet.css" th:href="@{/css/master_thesis_apply_sheet.css}" rel="stylesheet" />
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
-    <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
     <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
     <script type="text/javascript" src="../static/js/MyAjaxForm.js" th:src="@{/js/MyAjaxForm.js}"></script>
     <script type="text/javascript" src="../static/js/s_basic_info_validate.js" th:src="@{/js/s_basic_info_validate.js}"></script>
+    <script type="text/javascript" src="../static/js/s_apply_basic_info.js" th:src="@{/js/s_apply_basic_info.js}"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            basic_info_validate();
-            basic_info_submit();
-            fileUpload();
-            inputDisableToAble();
-        });
-
-        function basic_info_submit(){
-            //  basic_info_form   basic_info_submit_btn
-            //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
-            // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
-            // lwywlj  rxny  hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc  zzzc  xxlxr  bz
-            $("#basic_info_submit_btn").click(function(){
-                if(checkFormValidateStatus() == false){
-                    $("#m_table1_warn").html("未上传文件");
-                    return;
-                }
-                $("#m_table1_warn").html("");
-                $.ajax({
-                    type: "POST",
-                    url: "/home/student/apply/save/basicInfoTable",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
-                        "ssdm":$("#ssdm").val(),
-                        "ssmc":$("#ssmc").val(),
-                        "xxdm":$("#xxdm").val(),
-                        "xxmc":$("#xxmc").val(),
-                        "zzxh":$("#zzxh").val(),
-                        "xh":$("#xh").val(),
-                        "cplx":$("#cplx").val(),
-                        "gdfs":$("#gdfs").val(),
-                        "zzxm":$("#zzxm").val(),
-                        "xb":$("#xb").val(),
-                        // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
-                        "csny":$("#csny").val(),
-                        "mz":$("#mz").val(),
-                        "dsxm":$("#dsxm").val(),
-                        "lwtm":$("#lwtm").val(),
-                        "lwywtm":$("#lwywtm").val(),
-                        "yjfx":$("#yjfx").val(),
-                        "lwzwgjz":$("#lwzwgjz").val(),
-                        "lwys":$("#lwys").val(),
-                        "gdlb":$("#gdlb").val(),
-                        "lwtjblj":$("#lwtjblj").val(),
-                        // lwywlj  rxny  hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc  zzzc  xxlxr  bz
-                        "lwywlj":$("#lwywlj").val(),
-                        "rxny":$("#rxny").val(),
-                        "hxwrq":$("#hxwrq").val(),
-                        "yjxkm":$("#yjxkm").val(),
-                        "yjxkmc":$("#yjxkmc").val(),
-                        "ejxkm":$("#ejxkm").val(),
-                        "ejxkmc":$("#ejxkmc").val(),
-                        "zzzc":$("#zzzc").val(),
-                        "xxlxr":$("#xxlxr").val(),
-                        "bz":$("#bz").val(),
-                    }),
-
-                    beforeSend: function(XMLHttpRequest){
-                    },
-
-                    success: function(data){
-                        var status = data.code;
-                        var msg = data.msg;
-                        if(status == "200")  //信息保存成功
-                            model_tip_show('model_tip','model_tip_content','信息保存成功!');
-                        else if(status == "500")  //服务器繁忙
-                            model_tip_show('model_tip','model_tip_content','系统繁忙，请稍后再试!');
-                        else
-                            var empty = "";
-                    },
-
-                    error: function(XMLHttpRequest, textStatus) {
-                    },
-
-                    complete: function(XMLHttpRequest, textStatus){
-                    }
-
-                });
-            }) //click
-
-        }
-
-
-        function checkFormValidateStatus(){
-            //basic_info_form  fileUplodStatus
-            var form_status = $("#basic_info_form").valid();
-            var file_status = $("#fileUplodStatus").val();
-            if(form_status==true&&file_status=='1')
-                return true;
-            return false;
-        }
-
-        function fileUpload(){
-            // article_file    fileUpload_btn   file_status_warn
-            $("#fileUpload_btn").click(function () {
-                $("#file_status_warn").html("");
-                $("#fileUplodStatus").val("0");
-                var fileName = $("#article_file").val();
-                //未选择文件
-                if(fileName==""){
-                    $("#file_status_warn").attr("class","text-danger");
-                    $("#file_status_warn").html("没有选择文件!");
-                    return;
-                }
-                //判断文件的后缀名是否为pdf
-                var file_extent = fileName.substring(fileName.lastIndexOf(".")+1);
-                if(file_extent!="pdf"){ //文件格式错误
-                    $("#file_status_warn").attr("class","text-danger");
-                    $("#file_status_warn").html("文件格式错误！");
-                    return;
-                }
-                //文件后缀名正确，提交文件
-                $("#file_submit_form").ajaxSubmit({
-                    url: "upload.txt",
-                    type: "post",
-                    success: function (data) { //服务器回调函数
-                        var status = data.code;
-                        var msg = data.msg;
-                        if(status == "200"){//文件上传成功
-                            $("#file_status_warn").attr("class","text-info");
-                            $("#file_status_warn").html("文件上传成功！");
-                            $("#fileUplodStatus").val("1");
-
-                        }
-                        else if(status == "500"){//文件上传不成功
-                            $("#file_status_warn").attr("class","text-danger");
-                            $("#file_status_warn").html("服务器繁忙，请稍后再试！");
-                        }
-
-                        else
-                            var empty = "";
-                    } //success
-                });
-
-            })
-        }
-
-        function inputDisableToAble(){
-            //前端已赋值:  ssdm  ssmc  xxdm  xxmc  zzxh  xxlxr
-            //csny  dsxm  lwtm  lwtjblj  lwywlj  rxny
-            //hxwrq  yjxkm  yjxkmc  ejxkm  ejxkmc
-            $('input[disabled="disabled"]').removeAttr('disabled');
-            $('select[disabled="disabled"]').removeAttr('disabled');
-        }
 
     </script>
 
@@ -241,7 +95,67 @@
                 <td class="td_key">出生年月</td>
                 <td><input type="text" id="csny" name="csny" disabled="disabled" placeholder="如199109" th:value="${thesisBasicInfo.csny}" /></td>
                 <td class="td_key">民族</td>
-                <td><input type="text" id="mz" name="mz" placeholder="民族" th:value="${thesisBasicInfo.mz}" /></td>
+                <td>
+                    <select name="mz" id="mz">
+                        <option selected="selected" value="">请选择</option>
+                        <option value="汉族">汉族</option>
+                        <option value="蒙古族">蒙古族</option>
+                        <option value="彝族">彝族</option>
+                        <option value="侗族">侗族</option>
+                        <option value="哈萨克族">哈萨克族</option>
+                        <option value="畲族">畲族</option>
+                        <option value="纳西族">纳西族</option>
+                        <option value="仫佬族">仫佬族</option>
+                        <option value="仡佬族">仡佬族</option>
+                        <option value="怒族">怒族</option>
+                        <option value="保安族">保安族</option>
+                        <option value="鄂伦春族">鄂伦春族</option>
+                        <option value="回族">回族</option>
+                        <option value="壮族">壮族</option>
+                        <option value="瑶族">瑶族</option>
+                        <option value="傣族">傣族</option>
+                        <option value="高山族">高山族</option>
+                        <option value="景颇族">景颇族</option>
+                        <option value="羌族">羌族</option>
+                        <option value="锡伯族">锡伯族</option>
+                        <option value="乌孜别克族">乌孜别克族</option>
+                        <option value="裕固族">裕固族</option>
+                        <option value="赫哲族">赫哲族</option>
+                        <option value="藏族">藏族</option>
+                        <option value="布依族">布依族</option>
+                        <option value="白族">白族</option>
+                        <option value="黎族">黎族</option>
+                        <option value="拉祜族">拉祜族</option>
+                        <option value="柯尔克孜族">柯尔克孜族</option>
+                        <option value="布朗族">布朗族</option>
+                        <option value="阿昌族">阿昌族</option>
+                        <option value="俄罗斯族">俄罗斯族</option>
+                        <option value="京族">京族</option>
+                        <option value="门巴族">门巴族</option>
+                        <option value="维吾尔族">维吾尔族</option>
+                        <option value="朝鲜族">朝鲜族</option>
+                        <option value="土家族">土家族</option>
+                        <option value="傈僳族">傈僳族</option>
+                        <option value="水族">水族</option>
+                        <option value="土族">土族</option>
+                        <option value="撒拉族">撒拉族</option>
+                        <option value="普米族">普米族</option>
+                        <option value="鄂温克族">鄂温克族</option>
+                        <option value="塔塔尔族">塔塔尔族</option>
+                        <option value="珞巴族">珞巴族</option>
+                        <option value="苗族">苗族</option>
+                        <option value="满族">满族</option>
+                        <option value="哈尼族">哈尼族</option>
+                        <option value="佤族">佤族</option>
+                        <option value="东乡族">东乡族</option>
+                        <option value="达斡尔族">达斡尔族</option>
+                        <option value="毛南族">毛南族</option>
+                        <option value="塔吉克族">塔吉克族</option>
+                        <option value="德昂族">德昂族</option>
+                        <option value="独龙族">独龙族</option>
+                        <option value="基诺族">基诺族</option>
+                    </select>
+                </td>
             </tr>
 
             <tr>
@@ -291,7 +205,7 @@
 
             <tr>
                 <td class="td_key">入学年月</td><td>
-                <input type="text" id="rxny" name="rxny" disabled="disabled" placeholder="入学年月"/></td>
+                <input type="text" id="rxny" name="rxny" placeholder="入学年月"/></td>
                 <td class="td_key">获学位日期</td>
                 <td><input type="text" id="hxwrq" name="hxwrq" disabled="disabled" placeholder="获学位日期"/></td>
             </tr>

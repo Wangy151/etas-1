@@ -150,16 +150,16 @@ function basic_info_validate(){
 
             // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
             csny:{ //出生年月
-                required:"出生年月不能为空",
+                required:"系统找不到您的出生年月，请联系学校学位办",
             },
             mz:{ //民族
                 required:"民族不能为空",
             },
             dsxm:{ //导师姓名
-                required:"导师姓名不能为空",
+                required:"系统找不到您的导师姓名，请联系学校学位办",
             },
             lwtm:{ //论文题目
-                required:"论文题目不能为空",
+                required:"系统找不到您的论文题目，请联系学校学位办",
             },
             lwywtm:{ //论文英文题目
                 required:"论文英文题目不能为空",
@@ -191,19 +191,19 @@ function basic_info_validate(){
                 required:"入学年月不能为空",
             },
             hxwrq:{ //获学位日期
-                required:"获学位日期不能为空",
+                required:"系统找不到您的获学位日期，请联系学校学位办",
             },
             yjxkm:{//一级学科码
-                required:"一级学科码不能为空",
+                required:"系统找不到您的一级学科码，请联系学校学位办",
             },
             yjxkmc:{//一级学科名称
-                required:"一级学科名称不能为空",
+                required:"系统找不到您的一级学科名称，请联系学校学位办",
             },
             ejxkm:{//二级学科码
-                required:"二级学科码不能为空",
+                required:"系统找不到您的二级学科码，请联系学校学位办",
             },
             ejxkmc:{ //二级学科名称
-                required:"二级学科名称不能为空",
+                required:"系统找不到您的二级学科名称，请联系学校学位办",
             },
             zzzc:{ //作者职称
                 required:"作者职称不能为空",
