@@ -123,13 +123,14 @@ function fileUpload1(){
     // 1.检查是否可以上传文件
     if(checkIfCanUploadFile()==false){
         $("#file_status_warn").attr("class","text-danger");
-        $("#file_status_warn").html("二级学科代码为空，不能上传文件");
+        $("#file_status_warn").html("学号或者二级学科代码为空，不能上传文件");
         return;
     }
     // 2.组装数据
-    var fileName = "10487"+"_"+getEjxkdmFromPage()+"_"+getUserIdFromPage()+"_ZPB";
-    $("#savedFileName").val(getEjxkdmFromPage());
-    $("#savedUserId").val(getUserIdFromPage())
+    var fileName = "10487"+"_"+getEjxkdmFromPage()+"_"+$("#zzxh").val()+"_ZPB";
+    $("#savedFileName").val(fileName);
+    $("#savedUserId").val(getUserIdFromPage());
+
     // 3.上传文件
 
     $("#file_submit_form").ajaxSubmit({
@@ -278,7 +279,7 @@ function basic_info_validate(){
             lwys:{ //论文页数
                 required:true,
                 digits:true,
-                range:[0,2000],
+                range:[1,2000],
             },
             gdlb:{//攻读类别
                 required:true,
@@ -383,7 +384,7 @@ function basic_info_validate(){
             lwys:{ //论文页数
                 required:"论文页数不能为空",
                 digits:"论文页数为数字",
-                range:"论文页数范围在0-2000之间"
+                range:"论文页数范围在1-2000之间"
             },
             gdlb:{//攻读类别
                 required:"攻读类别不能为空",

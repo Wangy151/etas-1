@@ -323,17 +323,23 @@
             <div class="model_body">
                 <form id="file_submit_form" name="file_submit_form">
                     <div class="text-justify small text-danger">注意：论文为pdf格式，论文页眉、页脚和内容部分<strong>不能出现学校名称、作者姓名、导师姓名</strong>，否则会影响论文申请</div>
-                    <input type="file" id="article_file" name="file" style="margin-top:20px" class="form-control"/>
+                    <input type="file" id="article_file" name="file" enctype="multipart/form-data" style="margin-top:20px" class="form-control" value="选择EXECL文件"/>
+                    <!--<input class="form-control" id="article_file" name="file" type="file" enctype="multipart/form-data" value="选择EXECL文件"/>-->
                     <input type="text" id="savedFileName" name="fileName" hidden="hidden"/>
                     <input type="text" id="savedUserId" name="userId" hidden="hidden"/>
                     <div id="file_status_warn" style="height:30px"></div>
                     <button type="button" id="fileUpload_btn" class="btn btn-default">上传论文</button>
                 </form>
 
+                <!--<form id="form1" name="form1">-->
+                    <!--<div class="col-md-4"><input class="form-control" id="student_info_file" name="file" type="file" enctype="multipart/form-data" value="选择EXECL文件"/></div>-->
+                    <!--<div class="col-md-4"><button type="button" id="uploadFile_btn" class="btn btn-primary">上传学生信息库</button></div>-->
+                <!--</form>-->
+
             </div>
             <div class="model_foot" style="padding-top: 50px;">
                 <div class="model_btn_close">
-                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                    <!--<button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>-->
                 </div>
 
             </div>
