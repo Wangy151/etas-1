@@ -163,8 +163,11 @@
             <tr>
                 <td class="td_key">导师姓名</td>
                 <td><input type="text" id="dsxm" name="dsxm" disabled="disabled" placeholder="导师姓名，限填1人" th:value="${thesisBasicInfo.dsxm}" /></td>
+            </tr>
+
+            <tr>
                 <td class="td_key">论文题目</td>
-                <td><input type="text" id="lwtm" name="lwtm" disabled="disabled" placeholder="论文题目" th:value="${thesisBasicInfo.lwtm}" /></td>
+                <td colspan="3"><input type="text" id="lwtm" name="lwtm" disabled="disabled" placeholder="论文题目" th:value="${thesisBasicInfo.lwtm}" /></td>
             </tr>
 
             <tr>
@@ -239,8 +242,11 @@
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>论文上传（pdf格式）</td>
-                <td colspan="1"><button type="button" id="file_btn">上传论文</button></td>
-                <td colspan="2"><input type="text" id="fileUplodStatus" hidden="hidden" value="0"/></td>
+                <td colspan="3">
+                    <button type="button" id="file_btn">上传论文</button>
+                    <input type="text" id="fileUplodStatus" hidden="hidden" value="0"/>
+                </td>
+
             </tr>
 
             <script>
