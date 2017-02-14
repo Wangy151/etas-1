@@ -23,3 +23,35 @@ function model_ok_show(model_id,content_id,content,ok_btn_id,success_func){
 function closeModal(modalId){
     $("#"+modalId).modal('hide');
 }
+
+
+
+function refreshToViewApplyThesisPage(){
+
+}
+
+function refreshToViewBasicInfoPage(){
+
+}
+
+function refreshToViewTjbFramePage(){
+
+}
+
+function refreshToViewMasterTjbPage(){}
+
+function refreshToViewDoctorTjbPage(){}
+
+
+
+function refreshToModifyApplyThesisPage(){
+}
+
+function refreshToModifyBasicInfoPage(){
+}
+function refreshToModifyTjbFramePage(){
+}
+
+function refreshToModifyMasterTjbPage(){}
+
+function refreshToModifyDoctorTjbPage(){}

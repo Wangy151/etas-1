@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8" />
+    <title>优秀论文推荐表</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
+    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet" />
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <style rel="stylesheet">
+
+        .student_type_class{
+            width:320px;
+            margin:0 auto;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            studentTypeClick();
+        });
+
+        function studentTypeClick(){
+            $("#student_type").bind("change",function(){
+                var studentType = $("#student_type").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/home/student/apply/load/tjb",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        studentType: studentType
+                    }),
+
+                    beforeSend: function(XMLHttpRequest){
+                        $("#tjb_wrap").empty();
+                    },
+
+                    success: function(data){
+                        $("#tjb_wrap").html(data);
+                    },
+                    error: function(XMLHttpRequest, textStatus) {
+                    },
+                    complete: function(XMLHttpRequest, textStatus){
+                    }
+                }); // end ajax
+            });
+        }
+    </script>
+
+</head>
+<body>
+
+    <div class="student_type_class">
+    <form class="form-inline" role="form">
+        <div class="form-group has-success has-feedback">
+        <label class="control-label" for="student_type">请先选择您的学生类型</label>
+        <select class="form-control" id="student_type">
+        <option value="">请选择</option>
+        <option value="master">硕士</option>
+        <option value="doctor">博士</option>
+
+        </select>
+        </div>
+    </form>
+        <hr/>
+    </div>
+    <div id="tjb_wrap">
+
+
+    </div>
+
+
+</body>
+</html>

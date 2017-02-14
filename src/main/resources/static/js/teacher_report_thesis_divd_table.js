@@ -211,7 +211,11 @@ function checkDetail(){
 //表格里面每行记录的  修改 按钮事件
 function modifyInfo(){
     $(".t_report_modify_btn").click(function () {
-        refreshToStudentApplyThesis();
+        var applyStatus = $(this).parent().parent().children("td.apply_status").text();
+        if(applyStatus == "待学院上报")
+            refreshToStudentApplyThesis();
+        else
+            model_tip_show('model_tip1','model_tip_content1','该申请已提交，不能修改');
     })
 };
 

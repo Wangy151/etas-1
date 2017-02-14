@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>博士学位论文推荐表</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
+    <link href="../static/css/doctor_thesis_apply_sheet.css" th:href="@{/css/doctor_thesis_apply_sheet.css}" rel="stylesheet" />
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+
+</head>
+<body>
+
+<div id="sheet_wrap">
+
+    <div class="table_title">
+        <span>湖北省优秀<span style="font-weight: 900;color: red">博士</span>学位论文推荐表</span>
+    </div>
+
+
+    <form id="d_form1" class="border_top">
+        <table class="table" id="table1">
+            <tbody>
+            <tr>
+                <td class="td_key">论文题目</td>
+                <td colspan="3"><input type="text" id="lwtm" name="lwtm" placeholder="论文题目" disabled="disabled"/></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>论文英文题目</td>
+                <td colspan="3"><input type="text" id="lwywtm" name="lwywtm" placeholder="论文英文题目" th:value="${doctorThesisApply.lwywtm}"/></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>作者姓名</td>
+                <td class="td_key">论文答辩日期</td>
+                <td class="td_key">获得博士学位日期</td>
+                <td class="td_key"><span class="font_star">*</span>论文涉及的研究方向</td>
+            </tr>
+            <tr>
+                <td><input type="text" id="zzxm" name="zzxm" placeholder="作者姓名"  th:value="${doctorThesisApply.zzxm}"/></td>
+                <td><input type="text" id="dbrq" name="dbrq" disabled="disabled" placeholder="论文答辩日期" th:value="${doctorThesisApply.dbrq}"/></td>
+                <td><input type="text" id="hdxwrq" name="hdxwrq" placeholder="获得博士学位日期" disabled="disabled"/></td>
+                <td><input type="text" id="lwsjdyjfx" name="lwsjdyjfx" placeholder="论文涉及的研究方向" th:value="${doctorThesisApply.lwsjdyjfx}"/></td>
+            </tr>
+            <tr>
+                <td class="td_key">一级学科代码</td>
+                <td class="td_key">一级学科名称</td>
+                <td class="td_key">二级学科代码</td>
+                <td class="td_key">二级学科名称</td>
+            </tr>
+            <tr>
+                <td><input type="text" id="yjxkdm" name="yjxkdm" placeholder="一级学科代码" disabled="disabled"/></td>
+                <td><input type="text" id="yjxkmc" name="yjxkmc" placeholder="一级学科名称" disabled="disabled"/></td>
+                <td><input type="text" id="ejxkdm" name="ejxkdm" placeholder="二级学科代码" disabled="disabled"/></td>
+                <td><input type="text" id="ejxkmc" name="ejxkmc" placeholder="二级学科名称" disabled="disabled"/></td>
+            </tr>
+            <tr>
+                <td class="td_key">指导教师姓名（限填1人）</td>
+                <td><input type="text" id="zdjsxm" name="zdjsxm" disabled="disabled" placeholder="指导教师姓名（限填1人）" th:value="${doctorThesisApply.zdjsxm}"/></td>
+                <td class="td_key"><span class="font_star">*</span>指导教师研究方向</td>
+                <td><input type="text" id="zdjsyjfx" name="zdjsyjfx" placeholder="指导教师研究方向" th:value="${doctorThesisApply.zdjsyjfx}"/></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="checkTure">
+
+
+        </div>
+    </form>
+
+    <form id="d_form2" class="border_top">
+        <table class="table" id="d_table2">
+            <thead>
+            <tr><td class="d_t2_c1"></td><td class="d_t2_c2"></td><td class="d_t2_c3"></td></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td rowspan="3" class="td_key"><br /><br /><br /><span class="font_star">*</span>攻博期间及获得博士学位后一年内获得与博士学位论文有关的成果</td>
+                <td class="td_key"><span class="font_star">*</span>发表学术论文（题目、刊物名称、时间）（限填5篇）</td>
+                <td><textarea rows="10" id="fbxslw" name="fbxslw" placeholder="发表学术论文" th:field="${doctorThesisApply.fbxslw}"></textarea></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>出版专著（名称、出版社、出版时间）</td>
+                <td><textarea rows="10" id="cbzz" name="cbzz" placeholder="出版专著" th:field="${doctorThesisApply.cbzz}"></textarea></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>获奖项目（名称、等级及时间,及专利）（限填3项）</td>
+                <td>
+                    <textarea rows="10" id="hjxm" name="hjxm" placeholder="获奖项目" th:field="${doctorThesisApply.hjxm}">
+
+                    </textarea>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>论文的主要创新点</td>
+                <td colspan="2">
+                    <textarea rows="10" id="lwdzycxd" name="lwdzycxd" placeholder="论文的主要创新点" th:field="${doctorThesisApply.lwdzycxd}"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>单位推荐意见</td>
+                <td colspan="2">
+                    <textarea rows="10" id="dwtjyy" name="dwtjyy" placeholder="单位推荐意见，由学校负责人填写" disabled="disabled"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>填表时间</td>
+                <td colspan="2">
+                    <input type="text" id="tbrq" name="tbrq" placeholder="填表时间" th:field="${doctorThesisApply.tbrq}"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="checkTure">
+
+
+        </div>
+    </form>
+
+</div>
+
+
+<!-- Model  -->
+<!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Model  -->
+
+</body>
+</html>

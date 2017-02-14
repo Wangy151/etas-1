@@ -63,8 +63,6 @@ function applyThesis1(){
 }
 
 
-
-
 //删除申请按钮事件
 function deleteApply(){
     //delete_btn
@@ -117,7 +115,6 @@ function deleteApply1(){
 }
 
 
-
 //查看详情按钮事件
 function checkDetail(){
     //checke_btn
@@ -130,7 +127,12 @@ function checkDetail(){
 function modifyApply(){
     //modify_btn
     $("#modify_btn").click(function(){
-        refreshToStudentApplyThesis();
+        //1.检查论文状态，如果为“待学生提交”，则允许修改，并跳转到修改页面，否则不允许修改
+        var applyStatus = $(this).parent().parent().children("td.apply_status").text();
+        if(applyStatus == "待学生提交")
+           refreshToStudentApplyThesis();
+        else
+            model_tip_show('model_tip','model_tip_content','论文已提交，不允许修改');
     });//click
 }
 
