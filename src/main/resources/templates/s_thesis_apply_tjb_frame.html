@@ -7,11 +7,10 @@
     <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
     <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
-    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet" />
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
-    <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
     <style rel="stylesheet">
 
         .mid{
@@ -31,26 +30,10 @@
 
             $("#student_type").bind("change",function(){
                 var studentType = $("#student_type").val();
-                $.ajax({
-                        type: "POST",
-                        url: "/home/student/apply/load/tjb",
-                        contentType: "application/json",
-                        data: JSON.stringify({
-                            studentType: studentType
-                        }),
-
-                        beforeSend: function(XMLHttpRequest){
-                            $("#tjb_wrap").empty();
-                        },
-
-                        success: function(data){
-                            $("#tjb_wrap").html(data);
-                        },
-                        error: function(XMLHttpRequest, textStatus) {
-                        },
-                        complete: function(XMLHttpRequest, textStatus){
-                        }
-                    }); // end ajax
+                if(studentType == 'doctor')
+                    refreshToDoctorTjbPage();
+                else
+                    refreshToMasterTjbPage();
             });
         });
     </script>

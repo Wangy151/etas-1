@@ -204,7 +204,8 @@ function checkBeforeCancelReport(){
 //表格里面每行记录的  查看详情 按钮事件
 function checkDetail(){
     $(".t_report_check_detail_btn").click(function () {
-        refreshToStudentApplyThesis();
+        var userId = $(this).parent().parent().children("td.userId").text();
+        refreshToApplyThesisPage(userId,'2');
     })
 };
 
@@ -212,37 +213,11 @@ function checkDetail(){
 function modifyInfo(){
     $(".t_report_modify_btn").click(function () {
         var applyStatus = $(this).parent().parent().children("td.apply_status").text();
+        var userId = $(this).parent().parent().children("td.userId").text();
         if(applyStatus == "待学院上报")
-            refreshToStudentApplyThesis();
+            refreshToApplyThesisPage(userId,'1');
         else
             model_tip_show('model_tip1','model_tip_content1','该申请已提交，不能修改');
     })
 };
 
-//让页面跳转到学生详情和修改申请页面
-function refreshToStudentApplyThesis(){
-    $.ajax({
-        type: "POST",
-        url: "/home/student/apply/index",
-        contentType: "application/json",
-        data: JSON.stringify({
-
-        }),
-
-        beforeSend: function(XMLHttpRequest){
-        },
-
-        success: function(data){
-            $(".mid_body").html(data);
-        },
-        error: function(XMLHttpRequest, textStatus) {
-            if (XMLHttpRequest.status == 401) {
-                $("#home_right_wrap").html("您没有访问权限 ~");
-            } else {
-                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-            }
-        },
-        complete: function(XMLHttpRequest, textStatus){
-        }
-    }); // end ajax
-}

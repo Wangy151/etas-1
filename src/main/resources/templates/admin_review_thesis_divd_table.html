@@ -64,7 +64,7 @@
         <tr th:each="item : ${thesisBasicInfoList}">
             <td><input type="checkbox" name="checkboxStatus"/></td>
             <td th:text="${item.applyYear}">2017</td>
-            <td th:text="${item.zzxh}">M201476130</td>
+            <td class="userId" th:text="${item.zzxh}">M201476130</td>
             <td th:text="${item.zzxm}">刘杰</td>
             <td th:text="${item.studentType}">硕士</td>
             <td th:text="${item.dsxm}">付海文</td>

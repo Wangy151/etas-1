@@ -24,7 +24,7 @@
             <tbody>
             <tr th:if="${thesisBasicInfo} != null">
                 <td><input type="checkbox" name="checkboxStatus"/></td>
-                <td th:text="${thesisBasicInfo.zzxh}">请填写学号</td>
+                <td class="userId" th:text="${thesisBasicInfo.zzxh}">请填写学号</td>
                 <td th:text="${thesisBasicInfo.zzxm}">请填写姓名</td>
                 <td th:text="${thesisBasicInfo.studentType}">请填写学生类型</td>
                 <td th:text="${thesisBasicInfo.dsxm}">请填写导师姓名</td>
