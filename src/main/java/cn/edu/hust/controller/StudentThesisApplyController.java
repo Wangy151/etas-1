@@ -70,23 +70,25 @@ public class StudentThesisApplyController {
      */
     @RequestMapping(value = "/load/basicInfoTable")
     public String loadBasicInfoTablePage(@RequestBody LoadBasicInfoTableRequest loadBasicInfoTableRequest, Model model) {
-        // 接收学号
+        // 接收学号 和 pageType
         String userId = loadBasicInfoTableRequest.getUserId();
         String pageType = loadBasicInfoTableRequest.getPageType();
 
-        // pageType(0表示'新增申请',1表示‘编辑’,2表示‘查看’)
-
-        if ("0".equalsIgnoreCase(pageType) || "1".equalsIgnoreCase(pageType)) {
-
+        if ("0".equalsIgnoreCase(pageType)) {
+            // 0表示'新增申请'
+            ThesisBasicInfo  thesisBasicInfo = studentService.getInitThesisBasicInfo(userId);
+            model.addAttribute("thesisBasicInfo", thesisBasicInfo);
+            return "s_apply_basic_info";
+        } else if ("1".equalsIgnoreCase(pageType)) {
+            // 1表示‘修改’
             ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
-            // 第一次进入页面没有数据, 页面需要填充导入信息
-            if (null == thesisBasicInfo) {
-                thesisBasicInfo = studentService.getInitThesisBasicInfo(userId);
-            }
-
             model.addAttribute("thesisBasicInfo", thesisBasicInfo);
             return "s_apply_basic_info";
         } else {
+            // 2表示‘查看’
+            ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
+            model.addAttribute("thesisBasicInfo", thesisBasicInfo);
+            // 返回只读页面
             return "s_apply_basic_info_view";
         }
     }
