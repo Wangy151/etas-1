@@ -6,7 +6,7 @@ $(document).ready(function () {
     basic_info_validate();
     basicInfoSubmit();
     fileUpload();
-//    inputDisableToAble();
+//  inputDisableToAble();
 });
 
 function basicInfoSubmit()  {
@@ -27,9 +27,10 @@ function basicInfoSubmit()  {
         else
             studentType = "硕士";
         //开始保存
+        var requestUrl = "/home/student/thesis/apply/save/basicInfoTable";
         $.ajax({
             type: "POST",
-            url: "/home/student/apply/save/basicInfoTable",
+            url: requestUrl,
             contentType: "application/json",
             data: JSON.stringify({
                 "studentType":studentType,
@@ -132,9 +133,9 @@ function fileUpload1(){
     $("#savedUserId").val(getUserIdFromPage());
 
     // 3.上传文件
-
+    var requestUrl = "/home/student/thesis/apply/basicInfoTable/pdf/upload";
     $("#file_submit_form").ajaxSubmit({
-        url: "/home/student/apply/basicInfoTable/pdf/upload",
+        url: requestUrl,
         type: "post",
         success: function (data) { //服务器回调函数
             //200:成功  300:论文中含有敏感字符(如华中科技大学字样) 500:失败
