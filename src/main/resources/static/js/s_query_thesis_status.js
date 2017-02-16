@@ -2,6 +2,7 @@
  * Created by Administrator on 2017/1/5.
  */
     $(document).ready(function () {
+        changeApplyStatus();
         submitApply();
         checkDetail();
         modifyApply();
@@ -9,6 +10,17 @@
         newApplyThesis();
     });
 
+
+function changeApplyStatus(){
+        var applyStatus = $("td.apply_status").text();
+        if(applyStatus == "待学生提交"){
+            $("#applyThesis_btn").addClass("btn-primary");
+            $("#applyThesis_btn").removeAttr("disabled");
+        }else{
+            $("#applyThesis_btn").removeClass("btn-primary");
+            $("#applyThesis_btn").attr("disabled","disabled");
+        }
+}
 
 //新增申请按钮
 function newApplyThesis(){
@@ -29,7 +41,7 @@ function submitApply(){
             model_tip_show('model_tip','model_tip_content','请选择要提交的申请');
         }else{ //选中了1个
             //1.确定是否提交申请
-            model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",applyThesis1);
+            model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",submitApply1);
 
         } //else
 
