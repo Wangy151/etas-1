@@ -16,9 +16,11 @@ function changeApplyStatus(){
         if(applyStatus == "待学生提交"){
             $("#applyThesis_btn").addClass("btn-primary");
             $("#applyThesis_btn").removeAttr("disabled");
+
         }else{
             $("#applyThesis_btn").removeClass("btn-primary");
             $("#applyThesis_btn").attr("disabled","disabled");
+            $("#applyThesis_btn").text("已提交");
         }
 }
 
@@ -90,9 +92,13 @@ function submitApply1(){
 function deleteApply(){
     //delete_btn
     $("#delete_btn").click(function(){
-        //确定是否删除
-        model_ok_show("model_ok","model_ok_content","确认是否要删除申请","model_ok_btn",deleteApply1);
-
+        //删除前判断状态是否可以删除
+        var applyStatus = $(this).parent().parent().children("td.apply_status").text();
+        if(applyStatus == "待学生提交" || applyStatus == "待学院上报")
+        //确认是否删除
+            model_ok_show("model_ok","model_ok_content","确认是否要删除申请","model_ok_btn",deleteApply1);
+        else
+            model_tip_show('model_tip','model_tip_content','申请已经提交, 不能删除');
     });//click
 }
 
@@ -154,7 +160,7 @@ function modifyApply(){
         //1.检查论文状态，如果为“待学生提交”，则允许修改，并跳转到修改页面，否则不允许修改
         var applyStatus = $(this).parent().parent().children("td.apply_status").text();
         var userId = $(this).parent().parent().children("td.userId").text();
-        if(applyStatus == "待学生提交")
+        if(applyStatus == "待学生提交" || applyStatus == "待学院上报")
             refreshToApplyThesisPage(userId,'1');
         else
             model_tip_show('model_tip','model_tip_content','论文已提交，不允许修改');
