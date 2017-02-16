@@ -5,7 +5,6 @@ import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.User;
-import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
 import cn.edu.hust.model.request.LoadBasicInfoTableRequest;
 import cn.edu.hust.model.request.StudentTypeRequest;
 import cn.edu.hust.model.response.CommonResponse;
@@ -27,9 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -177,26 +173,49 @@ public class StudentThesisApplyController {
         String userId = user.getUserId();
 
         String studentType = studentTypeRequest.getStudentType();
+        // pageType(0表示'新增申请',1表示‘编辑’,2表示‘查看’)
+        String pageType = studentTypeRequest.getPageType();
+
         if ("master".equalsIgnoreCase(studentType)) {
-            MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
+            // 硕士
 
-            // 第一次进入页面没有数据, 防止空指针
-            if (null == masterThesisApply) {
-                masterThesisApply = new MasterThesisApply();
+            if ("0".equalsIgnoreCase(pageType)) {
+                // 新增申请
+                MasterThesisApply masterThesisApply = new MasterThesisApply();
                 masterThesisApply.setZzxh(userId);
+                model.addAttribute("masterThesisApply", masterThesisApply);
+                return "s_master_thesis_apply";
+            } else if ("1".equalsIgnoreCase(pageType)) {
+                // 编辑
+                MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
+                model.addAttribute("masterThesisApply", masterThesisApply);
+                return "s_master_thesis_apply";
+            } else {
+                // 查看
+                MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
+                model.addAttribute("masterThesisApply", masterThesisApply);
+                return "s_master_thesis_apply_view";
             }
-            model.addAttribute("masterThesisApply", masterThesisApply);
-            return "s_master_thesis_apply";
         } else if ("doctor".equalsIgnoreCase(studentType)) {
-            DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
+            // 博士
 
-            // 第一次进入页面没有数据, 防止空指针
-            if (null == doctorThesisApply) {
-                doctorThesisApply = new DoctorThesisApply();
+            if ("0".equalsIgnoreCase(pageType)) {
+                // 新增申请
+                DoctorThesisApply doctorThesisApply = new DoctorThesisApply();
                 doctorThesisApply.setZzxh(userId);
+                model.addAttribute("doctorThesisApply", doctorThesisApply);
+                return "s_doctor_thesis_apply";
+            } else if ("1".equalsIgnoreCase(pageType)) {
+                // 编辑
+                DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
+                model.addAttribute("doctorThesisApply", doctorThesisApply);
+                return "s_doctor_thesis_apply";
+            } else {
+                // 查看
+                DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
+                model.addAttribute("doctorThesisApply", doctorThesisApply);
+                return "s_doctor_thesis_apply_view";
             }
-            model.addAttribute("doctorThesisApply", doctorThesisApply);
-            return "s_doctor_thesis_apply";
         } else {
             throw new Exception("error");
         }
@@ -263,12 +282,11 @@ public class StudentThesisApplyController {
         User user = (User) session.getAttribute("user");
         String userId = user.getUserId();
 
-        if (!studentService.hasPermissionDeleteThesisApply(userId)) {
-            return new CommonResponse().withCode(300).withMsg("学院教务员已审核通过,不能删除");
-        }
+//        if (!studentService.hasPermissionDeleteThesisApply(userId)) {
+//            return new CommonResponse().withCode(300).withMsg("学院教务员已审核通过,不能删除");
+//        }
 
         try {
-            // TODO 测试
             studentService.deleteThesisApplyRecords(userId);
         } catch (Exception e) {
             // 异常情况
