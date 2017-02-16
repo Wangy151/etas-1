@@ -142,10 +142,6 @@ function d_form2_validate(){
                 required:true,
                 maxlength:800,
             },
-            dwtjyy:{ //单位推荐意见
-                required:true,
-                maxlength:200,
-            },
             tbrq:{ //填表日期
                 required:true,
                 maxlength:8,
@@ -168,10 +164,6 @@ function d_form2_validate(){
             lwdzycxd:{  //论文的主要创新点
                 required:"论文的主要创新点不能为空",
                 maxlength:"论文的主要创新点长度不超过800",
-            },
-            dwtjyy:{ //单位推荐意见
-                required:"单位推荐意见不能为空",
-                maxlength:"单位推荐意见长度不超过200",
             },
             tbrq:{ //填表日期
                 required:"填表日期不能为空",
@@ -319,7 +311,6 @@ function  checkForm2IfValid() {
     if($("#cbzz").valid() == false) return false;
     if($("#hjxm").valid() == false) return false;
     if($("#lwdzycxd").valid() == false) return false;
-    if($("#dwtjyy").valid() == false) return false;
     if($("#tbrq").valid() == false) return false;
     return true;
 }
