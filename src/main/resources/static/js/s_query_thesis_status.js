@@ -6,6 +6,7 @@
         checkDetail();
         modifyApply();
         deleteApply();
+        newApplyThesis();
     });
 
 

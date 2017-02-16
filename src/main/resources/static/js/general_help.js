@@ -34,7 +34,7 @@ function refreshToApplyThesisPage(userId,pageType){
     saveUserIdToPage(userId);
     saveThesisPageTypeToPage(pageType);
     var wrapLocation = ".mid_body";
-    var requestUrl = "/home/student/apply/index";
+    var requestUrl = "/home/student/thesis/apply/main";
     $.ajax({
         type: "POST",
         url: requestUrl,
@@ -166,24 +166,24 @@ function refreshToDoctorTjbPage(userId,pageType){
 ////////////     保存临时值到页面中       //////////////
 function saveUserIdToPage(userId){
     // savedThesisApplyUserId
-    $("#savedThesisApplyUserId").val(userId);
+    $("#savedThesisApplyUserId").text(userId);
 }
 
 function getUserIdFromPage(){
     // savedThesisApplyUserId
-    var userId = $("#savedThesisApplyUserId").val();
+    var userId = $("#savedThesisApplyUserId").text();
     return userId;
 }
 
 // thesisPageType    0代表新增   1代表编辑   2代表查看
 function saveThesisPageTypeToPage(thesisPageType){
     //  #savedThesisPageType
-    $("#savedThesisPageType").val(thesisPageType);
+    $("#savedThesisPageType").text(thesisPageType);
 }
 
 function getThesisPageTypeFromPage(){
     //  #savedThesisPageType
-    return $("#savedThesisPageType").val();
+    return $("#savedThesisPageType").text();
 }
 
 function getMyUserIdFromPage(){
