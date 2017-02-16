@@ -64,7 +64,7 @@ function refreshToApplyThesisPage(userId,pageType){
 
 function refreshToBasicInfoPage(){
     var wrapLocation = "#apply_form_wrap";
-    var requestUrl = "/home/student/apply/load/basicInfoTable";
+    var requestUrl = "/home/student/thesis/apply/load/basicInfoTable";
     $.ajax({
         type: "POST",
         url: requestUrl,
@@ -89,7 +89,7 @@ function refreshToBasicInfoPage(){
 
 function refreshToTjbFramePage(){
     var wrapLocation = "#apply_form_wrap";
-    var requestUrl = "/home/student/apply/load/tjbFrame";
+    var requestUrl = "/home/student/thesis/apply/load/tjbFrame";
     $.ajax({
         type: "POST",
         url: requestUrl,
@@ -112,7 +112,7 @@ function refreshToTjbFramePage(){
 
 function refreshToMasterTjbPage(){
     var wrapLocation = "#tjb_wrap";
-    var requestUrl = "/home/student/apply/load/tjb";
+    var requestUrl = "/home/student/thesis/apply/load/tjb";
     $.ajax({
         type: "POST",
         url: requestUrl,
@@ -138,7 +138,7 @@ function refreshToMasterTjbPage(){
 
 function refreshToDoctorTjbPage(userId,pageType){
     var wrapLocation = "#tjb_wrap";
-    var requestUrl = "/home/student/apply/load/tjb";
+    var requestUrl = "/home/student/thesis/apply/load/tjb";
     $.ajax({
         type: "POST",
         url: requestUrl,
