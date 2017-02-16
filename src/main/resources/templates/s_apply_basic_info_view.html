@@ -235,7 +235,6 @@
             <tr>
                 <td class="td_key"><span class="font_star">*</span>论文上传（pdf格式）</td>
                 <td colspan="3">
-                    <button type="button" id="file_btn">上传论文</button>
                     <input type="text" id="fileUplodStatus" hidden="hidden" value="0" th:value="${thesisBasicInfo.uploadStatus}"/>
                     <a href="" th:if="${thesisBasicInfo.uploadStatus} == 1" th:href="'/home/student/apply/basicInfoTable/pdf/download?fileName=' + ${thesisBasicInfo.lwywlj} + '.pdf'" th:text="${thesisBasicInfo.lwywlj} + '.pdf'"></a>
                 </td>
