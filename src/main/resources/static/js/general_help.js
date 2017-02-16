@@ -33,7 +33,7 @@ function closeModal(modalId){
 function refreshToApplyThesisPage(userId,pageType){
     saveUserIdToPage(userId);
     saveThesisPageTypeToPage(pageType);
-    var wrapLocation = ".mid_body";
+    var wrapLocation = "#home_right_wrap";
     var requestUrl = "/home/student/thesis/apply/main";
     $.ajax({
         type: "POST",
