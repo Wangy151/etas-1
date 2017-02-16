@@ -93,41 +93,13 @@
         })
 
         function loadStudentModalPage(){
-            // 学生模块 --> 申请优秀论文
+            // 学生模块 --> 申请优秀论文|查询论文审核状态
             $("#s_thesis_apply_btn").click(function(){
                 var savedUserId = $("#homeUserId").text();
-                //新增申请
+
                 $.ajax({
                     type: "POST",
-                    url: "/home/student/thesis/manage/index",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-
-                    }),
-
-                    beforeSend: function(XMLHttpRequest){
-                    },
-
-                    success: function(data){
-                        $("#home_right_wrap").html(data);
-                    },
-                    error: function(XMLHttpRequest, textStatus) {
-                        if (XMLHttpRequest.status == 401) {
-                            $("#home_right_wrap").html("您没有访问权限 ~");
-                        } else {
-                            $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-                        }
-                    },
-                    complete: function(XMLHttpRequest, textStatus){
-                    }
-                }); // end ajax
-            });
-
-            // 学生模块 --> 查询论文审核状态
-            $("#s_query_thesis_btn").click(function(){
-                $.ajax({
-                    type: "POST",
-                    url: "/home/student/thesis/manage/index",
+                    url: "/home/student/thesis/apply/index",
                     contentType: "application/json",
                     data: JSON.stringify({
 

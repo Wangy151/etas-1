@@ -35,20 +35,19 @@ import java.io.IOException;
  * Created by xiaolei03 on 16/12/6.
  */
 @Controller
-@RequestMapping(value = "/home/student/apply")
+@RequestMapping(value = "/home/student/thesis/apply")
 public class StudentThesisApplyController {
 
     @Autowired
     private StudentService studentService;
 
     /**
-     * 进入申请页面
-     *
+     * 【优秀论文申请】主页
      * @return
      */
     @RequestMapping(value = "/index")
     public String index() {
-        return "s_thesis_apply_frame";
+        return "s_query_thesis_status";
     }
 
 
@@ -59,15 +58,23 @@ public class StudentThesisApplyController {
     public String loadBasicInfoTablePage(@RequestBody LoadBasicInfoTableRequest loadBasicInfoTableRequest, Model model) {
         // 接收学号
         String userId = loadBasicInfoTableRequest.getUserId();
+        String pageType = loadBasicInfoTableRequest.getPageType();
 
-        ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
-        // 第一次进入页面没有数据, 页面需要填充导入信息
-        if (null == thesisBasicInfo) {
-            thesisBasicInfo = studentService.getInitThesisBasicInfo(userId);
+        // pageType(0表示'新增申请',1表示‘编辑’,2表示‘查看’)
+
+        if ("0".equalsIgnoreCase(pageType) || "1".equalsIgnoreCase(pageType)) {
+
+            ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
+            // 第一次进入页面没有数据, 页面需要填充导入信息
+            if (null == thesisBasicInfo) {
+                thesisBasicInfo = studentService.getInitThesisBasicInfo(userId);
+            }
+
+            model.addAttribute("thesisBasicInfo", thesisBasicInfo);
+            return "s_apply_basic_info";
+        } else {
+            return "s_apply_basic_info_view";
         }
-
-        model.addAttribute("thesisBasicInfo", thesisBasicInfo);
-        return "s_apply_basic_info";
     }
 
 
