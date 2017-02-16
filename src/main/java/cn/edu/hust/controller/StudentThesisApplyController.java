@@ -5,7 +5,6 @@ import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.User;
-import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
 import cn.edu.hust.model.request.LoadBasicInfoTableRequest;
 import cn.edu.hust.model.request.StudentTypeRequest;
 import cn.edu.hust.model.response.CommonResponse;
@@ -27,9 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -263,12 +259,11 @@ public class StudentThesisApplyController {
         User user = (User) session.getAttribute("user");
         String userId = user.getUserId();
 
-        if (!studentService.hasPermissionDeleteThesisApply(userId)) {
-            return new CommonResponse().withCode(300).withMsg("学院教务员已审核通过,不能删除");
-        }
+//        if (!studentService.hasPermissionDeleteThesisApply(userId)) {
+//            return new CommonResponse().withCode(300).withMsg("学院教务员已审核通过,不能删除");
+//        }
 
         try {
-            // TODO 测试
             studentService.deleteThesisApplyRecords(userId);
         } catch (Exception e) {
             // 异常情况

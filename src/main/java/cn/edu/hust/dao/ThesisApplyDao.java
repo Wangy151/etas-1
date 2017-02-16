@@ -52,7 +52,7 @@ public interface ThesisApplyDao {
     @Update(" UPDATE thesis_basic_info SET apply_status = #{applyStatus} WHERE zzxh = #{zzxh} ")
     int updateThesisApplyStatus(@Param("applyStatus") String applyStatus, @Param("zzxh") String zzxh);
 
-    @Delete(" DELETE FROM thesis_basic_info WHERE WHERE zzxh = #{zzxh} ")
+    @Delete(" DELETE FROM thesis_basic_info WHERE zzxh = #{zzxh} ")
     int deleteThesisBasicInfoRecord(@Param("zzxh") String zzxh);
 
     @Update( "update thesis_basic_info set upload_status = #{uploadStatus} where zzxh = #{zzxh}")
@@ -99,7 +99,7 @@ public interface ThesisApplyDao {
             " WHERE zzxh = #{model.zzxh} ")
     int saveMasterTjb4(@Param("model") MasterThesisApply model);
 
-    @Delete(" DELETE FROM master_thesis_apply WHERE WHERE zzxh = #{zzxh} ")
+    @Delete(" DELETE FROM master_thesis_apply WHERE zzxh = #{zzxh} ")
     int deleteMasterTjbRecord(@Param("zzxh") String zzxh);
 
     /**
@@ -129,7 +129,7 @@ public interface ThesisApplyDao {
             " WHERE zzxh = #{model.zzxh} ")
     int saveDoctorTjb2(@Param("model") DoctorThesisApply model);
 
-    @Delete(" DELETE FROM doctor_thesis_apply WHERE WHERE zzxh = #{zzxh} ")
+    @Delete(" DELETE FROM doctor_thesis_apply WHERE zzxh = #{zzxh} ")
     int deleteDoctorTjbRecord(@Param("zzxh") String zzxh);
 
 }

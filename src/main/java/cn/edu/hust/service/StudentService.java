@@ -8,15 +8,9 @@ import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.StudentInfoImport;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.User;
-import cn.edu.hust.model.request.DoctorThesisApplyInfoRequest;
-import cn.edu.hust.model.request.MasterThesisApplyInfoRequest;
-import cn.edu.hust.model.response.AdminImportResponse;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,8 +27,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by xiaolei03 on 16/12/6.
