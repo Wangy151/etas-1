@@ -42,12 +42,26 @@ public class StudentThesisApplyController {
     private StudentService studentService;
 
     /**
-     * 【优秀论文申请】主页
+     * 【优秀论文申请】状态主页面
      * @return
      */
     @RequestMapping(value = "/index")
-    public String index() {
+    public String index(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        String userId = user.getUserId();
+
+        ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
+        model.addAttribute("thesisBasicInfo", thesisBasicInfo);
         return "s_query_thesis_status";
+    }
+
+    /**
+     *  申请页主页
+     * @return
+     */
+    @RequestMapping(value = "/main")
+    public String main() {
+        return "s_thesis_apply_frame";
     }
 
 
