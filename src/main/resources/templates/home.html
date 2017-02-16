@@ -78,6 +78,10 @@
             color: #ff0000;
             font-weight: 600;
         }
+        .websit_speci_content{
+            min-height: 100px;
+            margin-left:30px;
+        }
 
     </style>
 
@@ -297,18 +301,9 @@
                     一、您的学号/工号是 <span id="homeUserId" th:text="${session.user.userId}">M201476136</span>，邮箱为 <span th:text="${session.user.email}">meihao_private@126.com</span>，请牢记登录信息。<br/>
                     二、您可以点击<span>【管理个人信息】</span>修改自己的个人基本信息以及登录密码。<br/>
                     三、特别注意：申请前请阅读以下注意事项:<br/>
- &nbsp;&nbsp;&nbsp;
- &nbsp;&nbsp;&nbsp;&nbsp;1、<span class="key_word">务必保证填写的信息真实</span>，如果填写的信息不真实，将会导致申请失败。<br/>
- &nbsp;&nbsp;&nbsp;&nbsp;2、湖北省优秀博士、硕士学位论文申报需要填写系统中的《基本信息表》和《优秀论文推荐表》，并上传电子版论文全文（PDF格式）到系统中，见系统【学生模块】--【申请优秀论文】。<br/>
-     3、《基本信息表》和《优秀论文推荐表》中很多字段由<span class="key_word">系统自动填充的，不可更改，</span>如果信息有误，请联系学院教务员。<br/>
- &nbsp;&nbsp;&nbsp;&nbsp;4、上传论文前，请<span class="key_word">检查论文页眉页脚和内容，论文中不能出现作者姓名、学号、导师姓名和学校名称等关键信息，论文不得存在加密、损坏等情况</span>。<br/>
-     5、各院（系）要对提交的PDF电子文档认真检查验收，尤其注意以下几点：
-        a.插（附）图、表是否完整、完好；
-        b.总页码与目录是否一致，中间是否缺页；
-        c.封面页、目录、摘要及关键词（中英文）、正文、参考文献、文献综述，各项内容是否齐全。
-        d.为保证作者论文版权，请在转换成PDF过程中应用哦个安全属性（如禁止复制等），但不得加密
-    <br/>
-     6、申请状态的过程为： 待学生提交-->待学院上报-->待学校审核-->通过审核
+                       <div class="websit_speci_content">
+                           <img src="../static/imgs/website_spec_content.png" th:src="@{/imgs/website_spec_content.png}" />
+                       </div>
 
                 </div>
 
