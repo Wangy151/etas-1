@@ -46,7 +46,7 @@
             <tr>
                 <td class="td_key"><span class="font_star">*</span>参评类型</td>
                 <td>
-                    <select id="cplx" name="cplx">
+                    <select id="cplx" name="cplx" disabled="disabled">
                         <option value="">请选择</option>
                         <option value="湖北省优秀硕士论文评选（已授学位）" th:if="${thesisBasicInfo.cplx} == '湖北省优秀硕士论文评选（已授学位）'" th:selected="selected">湖北省优秀硕士论文评选（已授学位）</option>
                         <option value="湖北省优秀硕士论文评选（已授学位）" th:unless="${thesisBasicInfo.cplx} == '湖北省优秀硕士论文评选（已授学位）'">湖北省优秀硕士论文评选（已授学位）</option>
@@ -56,7 +56,7 @@
                 </td>
                 <td class="td_key"><span class="font_star">*</span>攻读方式</td>
                 <td>
-                    <select id="gdfs" name="gdfs">
+                    <select id="gdfs" name="gdfs" disabled="disabled">
                         <option value="">请选择</option>
                         <option value="统招生" th:if="${thesisBasicInfo.gdfs} == '统招生'" th:selected="selected">统招生</option>
                         <option value="统招生" th:unless="${thesisBasicInfo.gdfs} == '统招生'">统招生</option>
@@ -71,10 +71,10 @@
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>作者姓名</td>
-                <td><input type="text" id="zzxm" name="zzxm" placeholder="姓名中间不允许有空格" th:value="${thesisBasicInfo.zzxm}" /></td>
+                <td><input type="text" id="zzxm" name="zzxm" placeholder="姓名中间不允许有空格" th:value="${thesisBasicInfo.zzxm}" disabled="disabled" /></td>
                 <td class="td_key"><span class="font_star">*</span>作者性别</td>
                 <td>
-                    <select id="xb" name="xb">
+                    <select id="xb" name="xb" disabled="disabled">
                         <option value="">请选择</option>
                         <option value="男" th:if="${thesisBasicInfo.xb} == '男'" th:selected="selected">男</option>
                         <option value="男" th:unless="${thesisBasicInfo.xb} == '男'">男</option>
@@ -89,7 +89,7 @@
                 <td><input type="text" id="csny" name="csny" disabled="disabled" placeholder="如199109" th:value="${thesisBasicInfo.csny}" /></td>
                 <td class="td_key"><span class="font_star">*</span>民族</td>
                 <td>
-                    <select name="mz" id="mz">
+                    <select name="mz" id="mz" disabled="disabled">
                         <option selected="selected" value="">请选择</option>
                         <option value="汉族">汉族</option>
                         <option value="蒙古族">蒙古族</option>
@@ -163,22 +163,22 @@
 
             <tr>
                 <td class="td_key"><span class="font_star">*</span>论文英文题目</td>
-                <td colspan="3"><input type="text" id="lwywtm" name="lwywtm" placeholder="论文英文题目，最大长度200" th:value="${thesisBasicInfo.lwywtm}" /></td>
+                <td colspan="3"><input type="text" id="lwywtm" name="lwywtm" disabled="disabled" placeholder="论文英文题目，最大长度200" th:value="${thesisBasicInfo.lwywtm}" /></td>
             </tr>
 
             <tr>
                 <td class="td_key"><span class="font_star">*</span>研究方向</td>
-                <td><input type="text" id="yjfx" name="yjfx" placeholder="研究方向,最大长度100" th:value="${thesisBasicInfo.yjfx}" /></td>
+                <td><input type="text" id="yjfx" name="yjfx" disabled="disabled" placeholder="研究方向,最大长度100" th:value="${thesisBasicInfo.yjfx}" /></td>
                 <td class="td_key"><span class="font_star">*</span>中文关键字</td>
-                <td><input type="text" id="lwzwgjz" name="lwzwgjz" placeholder="中文关键字" th:value="${thesisBasicInfo.lwzwgjz}" /></td>
+                <td><input type="text" id="lwzwgjz" name="lwzwgjz" disabled="disabled" placeholder="中文关键字" th:value="${thesisBasicInfo.lwzwgjz}" /></td>
             </tr>
 
             <tr>
                 <td class="td_key"><span class="font_star">*</span>论文页数</td>
-                <td><input type="text" id="lwys" name="lwys" placeholder="论文页数，为数字，如72" th:value="${thesisBasicInfo.lwys}" /></td>
+                <td><input type="text" id="lwys" name="lwys" disabled="disabled" placeholder="论文页数，为数字，如72" th:value="${thesisBasicInfo.lwys}" /></td>
                 <td class="td_key"><span class="font_star">*</span>攻读类别</td>
                 <td>
-                    <select id="gdlb" name="gdlb">
+                    <select id="gdlb" name="gdlb" disabled="disabled">
                         <option value="">请选择</option>
                         <option value="硕士学位" th:if="${thesisBasicInfo.gdlb} == '硕士学位'" th:selected="selected">硕士学位</option>
                         <option value="硕士学位" th:unless="${thesisBasicInfo.gdlb} == '硕士学位'">硕士学位</option>
@@ -201,7 +201,7 @@
 
             <tr>
                 <td class="td_key"><span class="font_star">*</span>入学年月(格式如201609)</td><td>
-                <input type="text" id="rxny" name="rxny" placeholder="入学年月,如201609" th:value="${thesisBasicInfo.rxny}"/></td>
+                <input type="text" id="rxny" name="rxny" disabled="disabled" placeholder="入学年月,如201609" th:value="${thesisBasicInfo.rxny}"/></td>
                 <td class="td_key">获学位日期</td>
                 <td><input type="text" id="hdxwrq" name="hdxwrq" disabled="disabled" placeholder="获学位日期,如20160606" th:value="${thesisBasicInfo.hdxwrq}"/></td>
             </tr>
@@ -222,14 +222,14 @@
 
             <tr>
                 <td class="td_key"><span class="font_star">*</span>作者职称(没有 填无)</td>
-                <td><input type="text" id="zzzc" name="zzzc" placeholder="作者职称，长度不超过10" th:value="${thesisBasicInfo.zzzc}"/></td>
+                <td><input type="text" id="zzzc" name="zzzc" disabled="disabled" placeholder="作者职称，长度不超过10" th:value="${thesisBasicInfo.zzzc}"/></td>
                 <td class="td_key">学校联系人</td>
                 <td><input type="text" id="xxlxr" name="xxlxr" disabled="disabled" value="王老师"/></td>
             </tr>
 
             <tr>
                 <td class="td_key"><span class="font_star">*</span>备注(没有 填无)</td>
-                <td colspan="3"><input type="text" id="bz" name="bz" placeholder="长度不超过100，只标注特殊情况，如论文为非中文撰写，如英语撰写的，请备注“英文撰写”" th:value="${thesisBasicInfo.bz}"/></td>
+                <td colspan="3"><input type="text" id="bz" name="bz" disabled="disabled" placeholder="长度不超过100，只标注特殊情况，如论文为非中文撰写，如英语撰写的，请备注“英文撰写”" th:value="${thesisBasicInfo.bz}"/></td>
 
             </tr>
             <tr>
@@ -238,18 +238,14 @@
                     <input type="text" id="fileUplodStatus" hidden="hidden" value="0" th:value="${thesisBasicInfo.uploadStatus}"/>
                     <a href="" th:if="${thesisBasicInfo.uploadStatus} == 1" th:href="'/home/student/apply/basicInfoTable/pdf/download?fileName=' + ${thesisBasicInfo.lwywlj} + '.pdf'" th:text="${thesisBasicInfo.lwywlj} + '.pdf'"></a>
                 </td>
-
-
             </tr>
 
             <script>
                 $(document).ready(function () {
                     $("#file_btn").click(function () {
-
                         $("#fileUploadModal").modal();
                     })
                 })
-
             </script>
 
             </tbody>

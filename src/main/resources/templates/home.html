@@ -97,7 +97,30 @@
             $("#s_thesis_apply_btn").click(function(){
                 var savedUserId = $("#homeUserId").text();
                 //新增申请
-                refreshToApplyThesisPage(savedUserId,'0');
+                $.ajax({
+                    type: "POST",
+                    url: "/home/student/thesis/manage/index",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+
+                    }),
+
+                    beforeSend: function(XMLHttpRequest){
+                    },
+
+                    success: function(data){
+                        $("#home_right_wrap").html(data);
+                    },
+                    error: function(XMLHttpRequest, textStatus) {
+                        if (XMLHttpRequest.status == 401) {
+                            $("#home_right_wrap").html("您没有访问权限 ~");
+                        } else {
+                            $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
+                        }
+                    },
+                    complete: function(XMLHttpRequest, textStatus){
+                    }
+                }); // end ajax
             });
 
             // 学生模块 --> 查询论文审核状态
@@ -258,8 +281,10 @@
         欢迎您: <span th:text="${session.user.realName}">用户</span>&nbsp;&nbsp;&nbsp;
         <a href="/home/index">主页</a>&nbsp;&nbsp;
         <a href="/home/logout">安全退出</a>
+        <span id="savedMyUserId" hidden="hidden" th:text="${session.user.userId}"></span>
         <input type="text" value="" id="savedThesisApplyUserId" hidden="hidden"/>
         <input type="text" value="" id="savedThesisPageType" hidden="hidden"/>
+
     </div>
 
 </div>
@@ -269,8 +294,7 @@
             <div id="firstpane" class="menu_list">
                 <h3 class="menu_head">学生模块</h3>
                 <div style="display:none" class="menu_body">
-                    <a id="s_thesis_apply_btn" href="javascript:void(0)">申请优秀论文</a>
-                    <a id="s_query_thesis_btn" href="javascript:void(0)">查询论文审核状态</a>
+                    <a id="s_thesis_apply_btn" href="javascript:void(0)">优秀论文申请</a>
                     <a id="s_personal_info_btn" href="javascript:void(0)">管理个人信息</a>
                 </div>
                 <h3 class="menu_head">学院教务员模块</h3>

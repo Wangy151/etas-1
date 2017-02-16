@@ -2,13 +2,23 @@
  * Created by Administrator on 2017/1/5.
  */
     $(document).ready(function () {
-        applyThesis();
+        submitApply();
         checkDetail();
         modifyApply();
         deleteApply();
     });
 
-function applyThesis(){
+
+//新增申请按钮
+function newApplyThesis(){
+    $("#applyThesisBtn").click(function () {
+        var userId = getMyUserIdFromPage();
+        refreshToApplyThesisPage(userId,"0");
+    })
+}
+
+// 提交申请
+function submitApply(){
     //applyThesis_btn   name="checkboxStatus"
     $("#applyThesis_btn").click(function () {
         var length = $("input[name='checkboxStatus']:checked").length;
@@ -25,7 +35,7 @@ function applyThesis(){
     }) //click
 }
 
-function applyThesis1(){
+function submitApply1(){
     $("#model_ok").modal("hide");
     $.ajax({
         type: "POST",

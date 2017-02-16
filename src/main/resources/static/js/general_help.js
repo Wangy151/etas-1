@@ -185,3 +185,7 @@ function getThesisPageTypeFromPage(){
     //  #savedThesisPageType
     return $("#savedThesisPageType").val();
 }
+
+function getMyUserIdFromPage(){
+    return $("#savedMyUserId").text();
+}
