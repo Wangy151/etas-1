@@ -52,7 +52,7 @@ function submitApply1(){
     $("#model_ok").modal("hide");
     $.ajax({
         type: "POST",
-        url: "/home/student/thesis/manage/submit",
+        url: "/home/student/thesis/apply/submit",
         contentType: "application/json",
         data: JSON.stringify({
 
@@ -103,7 +103,7 @@ function deleteApply1(){
     //删除论文申请    200 成功    300 学院教务员已审核通过, 不能删除     500 失败
     $.ajax({
         type: "POST",
-        url: "/home/student/thesis/manage/delete",
+        url: "/home/student/thesis/apply/delete",
         contentType: "application/json",
         data: JSON.stringify({
 

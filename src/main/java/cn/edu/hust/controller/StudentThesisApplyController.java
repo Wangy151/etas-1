@@ -1,5 +1,6 @@
 package cn.edu.hust.controller;
 
+import cn.edu.hust.common.ThesisApplyStatus;
 import cn.edu.hust.model.DoctorThesisApply;
 import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
@@ -249,6 +250,55 @@ public class StudentThesisApplyController {
             return commonResponse.withCode(200).withMsg("保存成功");
         }
         return commonResponse.withCode(500).withMsg("失败");
+    }
+
+    /**
+     * 删除论文申请
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/delete")
+    @ResponseBody
+    public CommonResponse deleteThesisApply(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        String userId = user.getUserId();
+
+        if (!studentService.hasPermissionDeleteThesisApply(userId)) {
+            return new CommonResponse().withCode(300).withMsg("学院教务员已审核通过,不能删除");
+        }
+
+        try {
+            // TODO 测试
+            studentService.deleteThesisApplyRecords(userId);
+        } catch (Exception e) {
+            // 异常情况
+            e.printStackTrace();
+            return new FailResponse();
+        }
+
+        return new SuccessResponse();
+    }
+
+    /**
+     * 提交申请
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/submit")
+    @ResponseBody
+    public CommonResponse submitThesisApply(HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        String userId = user.getUserId();
+
+        if (studentService.hasThesisApply(userId)) {
+            return new CommonResponse().withCode(300).withMsg("重复提交");
+        }
+
+        boolean isSuccess = studentService.updateThesisApplyStatus(ThesisApplyStatus.TO_REPORT, userId);
+        if (isSuccess) {
+            return new SuccessResponse();
+        }
+        return new FailResponse();
     }
 
 }
