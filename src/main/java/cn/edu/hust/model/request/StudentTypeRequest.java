@@ -4,8 +4,17 @@ package cn.edu.hust.model.request;
  * Created by xiaolei03 on 16/12/25.
  */
 public class StudentTypeRequest {
+    private String userId;
     private String studentType;
     private String pageType;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getStudentType() {
         return studentType;
@@ -26,7 +35,8 @@ public class StudentTypeRequest {
     @Override
     public String toString() {
         return "StudentTypeRequest{" +
-                "studentType='" + studentType + '\'' +
+                "userId='" + userId + '\'' +
+                ", studentType='" + studentType + '\'' +
                 ", pageType='" + pageType + '\'' +
                 '}';
     }

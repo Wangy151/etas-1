@@ -169,9 +169,7 @@ public class StudentThesisApplyController {
      */
     @RequestMapping(value = "/load/tjb", method = RequestMethod.POST)
     public String loadTjb(@RequestBody StudentTypeRequest studentTypeRequest, Model model, HttpSession session) throws Exception {
-        User user = (User) session.getAttribute("user");
-        String userId = user.getUserId();
-
+        String userId = studentTypeRequest.getUserId();
         String studentType = studentTypeRequest.getStudentType();
         // pageType(0表示'新增申请',1表示‘编辑’,2表示‘查看’)
         String pageType = studentTypeRequest.getPageType();
@@ -188,11 +186,21 @@ public class StudentThesisApplyController {
             } else if ("1".equalsIgnoreCase(pageType)) {
                 // 编辑
                 MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
+                // 防止空指针
+                if (null == masterThesisApply) {
+                    masterThesisApply = new MasterThesisApply();
+                    masterThesisApply.setZzxh(userId);
+                }
                 model.addAttribute("masterThesisApply", masterThesisApply);
                 return "s_master_thesis_apply";
             } else {
                 // 查看
                 MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
+                // 防止空指针
+                if (null == masterThesisApply) {
+                    masterThesisApply = new MasterThesisApply();
+                    masterThesisApply.setZzxh(userId);
+                }
                 model.addAttribute("masterThesisApply", masterThesisApply);
                 return "s_master_thesis_apply_view";
             }
@@ -208,11 +216,21 @@ public class StudentThesisApplyController {
             } else if ("1".equalsIgnoreCase(pageType)) {
                 // 编辑
                 DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
+                // 防止空指针
+                if (null == doctorThesisApply) {
+                    doctorThesisApply = new DoctorThesisApply();
+                    doctorThesisApply.setZzxh(userId);
+                }
                 model.addAttribute("doctorThesisApply", doctorThesisApply);
                 return "s_doctor_thesis_apply";
             } else {
                 // 查看
                 DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
+                // 防止空指针
+                if (null == doctorThesisApply) {
+                    doctorThesisApply = new DoctorThesisApply();
+                    doctorThesisApply.setZzxh(userId);
+                }
                 model.addAttribute("doctorThesisApply", doctorThesisApply);
                 return "s_doctor_thesis_apply_view";
             }
@@ -308,9 +326,9 @@ public class StudentThesisApplyController {
         User user = (User) session.getAttribute("user");
         String userId = user.getUserId();
 
-        if (studentService.hasThesisApply(userId)) {
-            return new CommonResponse().withCode(300).withMsg("重复提交");
-        }
+//        if (studentService.hasThesisApply(userId)) {
+//            return new CommonResponse().withCode(300).withMsg("重复提交");
+//        }
 
         boolean isSuccess = studentService.updateThesisApplyStatus(ThesisApplyStatus.TO_REPORT, userId);
         if (isSuccess) {
