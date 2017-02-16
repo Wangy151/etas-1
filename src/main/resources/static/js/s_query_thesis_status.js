@@ -88,7 +88,30 @@ function submitApply1(){
 }
 
 
-//删除申请按钮事件
+//查看按钮事件
+function checkDetail(){
+    //checke_btn
+    $("#checke_btn").click(function(){
+        var userId = $(this).parent().parent().children("td.userId").text();
+        refreshToApplyThesisPage(userId,'2');
+    });//click
+}
+
+//修改按钮事件
+function modifyApply(){
+    //modify_btn
+    $("#modify_btn").click(function(){
+        //1.检查论文状态，如果为“待学生提交”，则允许修改，并跳转到修改页面，否则不允许修改
+        var applyStatus = $(this).parent().parent().children("td.apply_status").text();
+        var userId = $(this).parent().parent().children("td.userId").text();
+        if(applyStatus == "待学生提交" || applyStatus == "待学院上报")
+            refreshToApplyThesisPage(userId,'1');
+        else
+            model_tip_show('model_tip','model_tip_content','论文已提交，不允许修改');
+    });//click
+}
+
+//删除按钮事件
 function deleteApply(){
     //delete_btn
     $("#delete_btn").click(function(){
@@ -141,56 +164,4 @@ function deleteApply1(){
 
     //2.页面重新刷新
     refreshToStudentQueryStatus();
-}
-
-
-//查看详情按钮事件
-function checkDetail(){
-    //checke_btn
-    $("#checke_btn").click(function(){
-        var userId = $(this).parent().parent().children("td.userId").text();
-        refreshToApplyThesisPage(userId,'2');
-    });//click
-}
-
-//修改申请按钮事件
-function modifyApply(){
-    //modify_btn
-    $("#modify_btn").click(function(){
-        //1.检查论文状态，如果为“待学生提交”，则允许修改，并跳转到修改页面，否则不允许修改
-        var applyStatus = $(this).parent().parent().children("td.apply_status").text();
-        var userId = $(this).parent().parent().children("td.userId").text();
-        if(applyStatus == "待学生提交" || applyStatus == "待学院上报")
-            refreshToApplyThesisPage(userId,'1');
-        else
-            model_tip_show('model_tip','model_tip_content','论文已提交，不允许修改');
-    });//click
-}
-
-
-function refreshToStudentQueryStatus(){
-    $.ajax({
-        type: "POST",
-        url: "/home/student/thesis/manage/index",
-        contentType: "application/json",
-        data: JSON.stringify({
-
-        }),
-
-        beforeSend: function(XMLHttpRequest){
-        },
-
-        success: function(data){
-            $("#home_right_wrap").html(data);
-        },
-        error: function(XMLHttpRequest, textStatus) {
-            if (XMLHttpRequest.status == 401) {
-                $("#home_right_wrap").html("您没有访问权限 ~");
-            } else {
-                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-            }
-        },
-        complete: function(XMLHttpRequest, textStatus){
-        }
-    }); // end ajax
 }

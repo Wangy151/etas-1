@@ -25,6 +25,9 @@ function closeModal(modalId){
 }
 
 
+
+
+///     刷新页面                ////
 //  mid_body         -->  ApplyThesisPage
 // apply_form_wrap   -->  BasicInfoPage   TjbFramePage
 //  tjb_wrap         -->  MasterTjbPage   DoctorTjbPage
@@ -156,6 +159,35 @@ function refreshToDoctorTjbPage(userId,pageType){
             $(wrapLocation).html(data);
         },
         error: function(XMLHttpRequest, textStatus) {
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        }
+    }); // end ajax
+}
+
+function refreshToStudentQueryStatus(){
+    var requestUrl = "/home/student/thesis/apply/index"
+    var wrapLocation = "#home_right_wrap";
+    $.ajax({
+        type: "POST",
+        url: requestUrl,
+        contentType: "application/json",
+        data: JSON.stringify({
+
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $("#home_right_wrap").html("您没有访问权限 ~");
+            } else {
+                $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
+            }
         },
         complete: function(XMLHttpRequest, textStatus){
         }
