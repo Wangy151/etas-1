@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <script src="js/jquery-3.1.1.js"></script>
+</head>
+<body>
+    <script>
+        var a1 = 5,a2;
+        a2 = a1;
+        a1 = 4;
+        $(document).ready(function(){
+            a1 = 10;
+            a2 =a1;
+            fun1();
+        });
+        a1 = 20;
+        function fun1(){
+            a1 = 12;
+        }
+    </script>
+    <label>hello world</label>
+
+
+</body>
+</html>

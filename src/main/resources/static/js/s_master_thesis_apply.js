@@ -2,6 +2,8 @@
  * Created by jason on 2017/1/13.
  */
 
+var infoSubmitUrl = "";
+
 $(document).ready(function () {
     m_apply_form1_validate();
     m_apply_form2_validate();
@@ -14,6 +16,224 @@ $(document).ready(function () {
     m_apply_form4_submit();
 });
 
+
+function m_apply_form1_submit(){
+    // m_form1  m_form1_submit_btn  m_form1_warn
+    // zzxh  zzxm  xb  csny  mz  lwtm  lwywtm  rxny
+    // dbrq  hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc  lwsjdyjfx
+    $("#m_form1_submit_btn").click(function () {
+        var status = checkForm1IfValid();
+        if(status == false) return;
+        /////       URL                      /////
+        $.ajax({
+            type: "POST",
+            url: "/home/student/apply/master/save",
+            contentType: "application/json",
+            data: JSON.stringify({
+                //  zzxh  zzxm  xb  csny  mz  lwtm  lwywtm  rxny
+                "zzxh":$("#zzxh").val(),
+                "zzxm":$("#zzxm").val(),
+                "xb":$("#xb").val(),
+                "csny":$("#csny").val(),
+                "mz":$("#mz").val(),
+                "lwtm":$("#lwtm").val(),
+                "lwywtm":$("#lwywtm").val(),
+                "rxny":$("#rxny").val(),
+
+                // dbrq  hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc  lwsjdyjfx
+                "dbrq":$("#dbrq").val(),
+                "hdxwrq":$("#hdxwrq").val(),
+                "yjxkdm":$("#yjxkdm").val(),
+                "yjxkmc":$("#yjxkmc").val(),
+                "ejxkdm":$("#ejxkdm").val(),
+                "ejxkmc":$("#ejxkmc").val(),
+                "lwsjdyjfx":$("#lwsjdyjfx").val(),
+
+                "part":"part1",
+
+            }),
+
+            beforeSend: function(XMLHttpRequest){
+            },
+
+            success: function(data){
+                var status = data.code;
+                var msg = data.msg;
+                if(status == "200")  //信息保存成功
+                    model_tip_show('model_tip','model_tip_content','保存成功');
+                else if(status == "500")  //服务器繁忙
+                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
+                else
+                    var empty = "";
+            },
+
+            error: function(XMLHttpRequest, textStatus) {
+            },
+
+            complete: function(XMLHttpRequest, textStatus){
+            }
+
+        });
+
+    })
+}
+
+function m_apply_form2_submit(){
+    //  m_form2   m_form2_submit_btn  m_form2_warn
+    // dyzz  dezz  sci  ei  ssci  istp  zls  cgjx
+    $("#m_form2_submit_btn").click(function () {
+        var status = checkForm2IfValid();
+        if(status == false)  return;
+        /////          URL           ///////////
+        $.ajax({
+            type: "POST",
+            url: "/home/student/apply/master/save",
+            contentType: "application/json",
+            data: JSON.stringify({
+                //  dyzz  dezz  sci  ei  ssci  istp  zls  cgjx
+                "dyzz":$("#dyzz").val(),
+                "dezz":$("#dezz").val(),
+                "sci":$("#sci").val(),
+                "ei":$("#ei").val(),
+                "ssci":$("#ssci").val(),
+                "istp":$("#istp").val(),
+                "zls":$("#zls").val(),
+                "cgjx":$("#cgjx").val(),
+
+                "part":"part2",
+
+
+            }),
+
+            beforeSend: function(XMLHttpRequest){
+            },
+
+            success: function(data){
+                var status = data.code;
+                var msg = data.msg;
+                if(status == "200")  //信息保存成功
+                    model_tip_show('model_tip','model_tip_content','保存成功');
+                else if(status == "500")  //服务器繁忙
+                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
+                else
+                    var empty = "";
+            },
+
+            error: function(XMLHttpRequest, textStatus) {
+            },
+
+            complete: function(XMLHttpRequest, textStatus){
+            }
+
+        });
+    })
+}
+
+function m_apply_form3_submit(){
+    // m_form3  m_form3_submit_btn  m_form3_warn
+    // gdxwfs  bkjdxx  gdssxwdw  zzdw  zzdz
+    // zzyb  zzdh  zc  zw  zdjsxm  zdjsyjfx
+    $("#m_form3_submit_btn").click(function(){
+        var status = checkForm3IfValid();
+        if(status == false)   return;
+        /////          URL           ///////////
+        $.ajax({
+            type: "POST",
+            url: "/home/student/apply/master/save",
+            contentType: "application/json",
+            data: JSON.stringify({
+                // gdxwfs  bkjdxx  gdssxwdw  zzdw  zzdz
+                "gdxwfs":$("#gdxwfs").val(),
+                "bkjdxx":$("#bkjdxx").val(),
+                "gdssxwdw":$("#gdssxwdw").val(),
+                "zzdw":$("#zzdw").val(),
+                "zzdz":$("#zzdz").val(),
+
+                // zzyb  zzdh  zc  zw  zdjsxm  zdjsyjfx
+                "zzyb":$("#zzyb").val(),
+                "zzdh":$("#zzdh").val(),
+                "zc":$("#zc").val(),
+                "zw":$("#zw").val(),
+                "zdjsxm":$("#zdjsxm").val(),
+                "zdjsyjfx":$("#zdjsyjfx").val(),
+
+                "part":"part3",
+
+            }),
+
+            beforeSend: function(XMLHttpRequest){
+            },
+
+            success: function(data){
+                var status = data.code;
+                var msg = data.msg;
+                if(status == "200")  //信息保存成功
+                    model_tip_show('model_tip','model_tip_content','保存成功');
+                else if(status == "500")  //服务器繁忙
+                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
+                else
+                    var empty = "";
+            },
+
+            error: function(XMLHttpRequest, textStatus) {
+            },
+
+            complete: function(XMLHttpRequest, textStatus){
+            }
+
+        });
+    })
+}
+
+function m_apply_form4_submit(){
+    //  m_form4  m_form4_submit_btn  m_form4_warn
+    //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+    $("#m_form4_submit_btn").click(function(){
+        var status = checkForm4IfValid();
+        if(status == false)  return;
+        $.ajax({
+            type: "POST",
+            url: "/home/student/apply/master/save",
+            contentType: "application/json",
+            data: JSON.stringify({
+                //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+                "fbxslw":$("#fbxslw").val(),
+                "cbzz":$("#cbzz").val(),
+                "hjxm":$("#hjxm").val(),
+                "lwdzycxd":$("#lwdzycxd").val(),
+                "dwtjyy":$("#dwtjyy").val(),
+                "tbrq":$("#tbrq").val(),
+
+                "part":"part4",
+
+            }),
+
+            beforeSend: function(XMLHttpRequest){
+            },
+
+            success: function(data){
+                var status = data.code;
+                var msg = data.msg;
+                if(status == "200")  //信息保存成功
+                    model_tip_show('model_tip','model_tip_content','保存成功');
+                else if(status == "500")  //服务器繁忙
+                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
+                else
+                    var empty = "";
+            },
+
+            error: function(XMLHttpRequest, textStatus) {
+            },
+
+            complete: function(XMLHttpRequest, textStatus){
+            }
+
+        });
+    }); //click
+}
+
+
+//验证
 function m_apply_form1_validate(){
     // m_form1  m_form1_submit_btn  m_form1_warn
     // zzxh  zzxm  xb  csny  mz  lwtm  lwywtm  rxny
@@ -381,221 +601,6 @@ function m_apply_form4_validate(){
         }, //errorPlacement
 
     }); //validate
-}
-
-function m_apply_form1_submit(){
-    // m_form1  m_form1_submit_btn  m_form1_warn
-    // zzxh  zzxm  xb  csny  mz  lwtm  lwywtm  rxny
-    // dbrq  hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc  lwsjdyjfx
-    $("#m_form1_submit_btn").click(function () {
-        var status = checkForm1IfValid();
-        if(status == false) return;
-        /////       URL                      /////
-        $.ajax({
-            type: "POST",
-            url: "/home/student/apply/master/save",
-            contentType: "application/json",
-            data: JSON.stringify({
-                //  zzxh  zzxm  xb  csny  mz  lwtm  lwywtm  rxny
-                "zzxh":$("#zzxh").val(),
-                "zzxm":$("#zzxm").val(),
-                "xb":$("#xb").val(),
-                "csny":$("#csny").val(),
-                "mz":$("#mz").val(),
-                "lwtm":$("#lwtm").val(),
-                "lwywtm":$("#lwywtm").val(),
-                "rxny":$("#rxny").val(),
-
-                // dbrq  hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc  lwsjdyjfx
-                "dbrq":$("#dbrq").val(),
-                "hdxwrq":$("#hdxwrq").val(),
-                "yjxkdm":$("#yjxkdm").val(),
-                "yjxkmc":$("#yjxkmc").val(),
-                "ejxkdm":$("#ejxkdm").val(),
-                "ejxkmc":$("#ejxkmc").val(),
-                "lwsjdyjfx":$("#lwsjdyjfx").val(),
-
-                "part":"part1",
-
-            }),
-
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //信息保存成功
-                    model_tip_show('model_tip','model_tip_content','保存成功');
-                else if(status == "500")  //服务器繁忙
-                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-                else
-                    var empty = "";
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        });
-
-    })
-}
-
-function m_apply_form2_submit(){
-    //  m_form2   m_form2_submit_btn  m_form2_warn
-    // dyzz  dezz  sci  ei  ssci  istp  zls  cgjx
-    $("#m_form2_submit_btn").click(function () {
-        var status = checkForm2IfValid();
-        if(status == false)  return;
-        /////          URL           ///////////
-        $.ajax({
-            type: "POST",
-            url: "/home/student/apply/master/save",
-            contentType: "application/json",
-            data: JSON.stringify({
-                //  dyzz  dezz  sci  ei  ssci  istp  zls  cgjx
-                "dyzz":$("#dyzz").val(),
-                "dezz":$("#dezz").val(),
-                "sci":$("#sci").val(),
-                "ei":$("#ei").val(),
-                "ssci":$("#ssci").val(),
-                "istp":$("#istp").val(),
-                "zls":$("#zls").val(),
-                "cgjx":$("#cgjx").val(),
-
-                "part":"part2",
-
-
-            }),
-
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //信息保存成功
-                    model_tip_show('model_tip','model_tip_content','保存成功');
-                else if(status == "500")  //服务器繁忙
-                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-                else
-                    var empty = "";
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        });
-    })
-}
-
-function m_apply_form3_submit(){
-    // m_form3  m_form3_submit_btn  m_form3_warn
-    // gdxwfs  bkjdxx  gdssxwdw  zzdw  zzdz
-    // zzyb  zzdh  zc  zw  zdjsxm  zdjsyjfx
-    $("#m_form3_submit_btn").click(function(){
-        var status = checkForm3IfValid();
-        if(status == false)   return;
-        /////          URL           ///////////
-        $.ajax({
-            type: "POST",
-            url: "/home/student/apply/master/save",
-            contentType: "application/json",
-            data: JSON.stringify({
-                // gdxwfs  bkjdxx  gdssxwdw  zzdw  zzdz
-                "gdxwfs":$("#gdxwfs").val(),
-                "bkjdxx":$("#bkjdxx").val(),
-                "gdssxwdw":$("#gdssxwdw").val(),
-                "zzdw":$("#zzdw").val(),
-                "zzdz":$("#zzdz").val(),
-
-                // zzyb  zzdh  zc  zw  zdjsxm  zdjsyjfx
-                "zzyb":$("#zzyb").val(),
-                "zzdh":$("#zzdh").val(),
-                "zc":$("#zc").val(),
-                "zw":$("#zw").val(),
-                "zdjsxm":$("#zdjsxm").val(),
-                "zdjsyjfx":$("#zdjsyjfx").val(),
-
-                "part":"part3",
-
-            }),
-
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //信息保存成功
-                    model_tip_show('model_tip','model_tip_content','保存成功');
-                else if(status == "500")  //服务器繁忙
-                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-                else
-                    var empty = "";
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        });
-    })
-}
-
-function m_apply_form4_submit(){
-    //  m_form4  m_form4_submit_btn  m_form4_warn
-    //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
-    $("#m_form4_submit_btn").click(function(){
-        var status = checkForm4IfValid();
-        if(status == false)  return;
-        $.ajax({
-            type: "POST",
-            url: "/home/student/apply/master/save",
-            contentType: "application/json",
-            data: JSON.stringify({
-                //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
-                "fbxslw":$("#fbxslw").val(),
-                "cbzz":$("#cbzz").val(),
-                "hjxm":$("#hjxm").val(),
-                "lwdzycxd":$("#lwdzycxd").val(),
-                "dwtjyy":$("#dwtjyy").val(),
-                "tbrq":$("#tbrq").val(),
-
-                "part":"part4",
-
-            }),
-
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //信息保存成功
-                    model_tip_show('model_tip','model_tip_content','保存成功');
-                else if(status == "500")  //服务器繁忙
-                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-                else
-                    var empty = "";
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        });
-    }); //click
 }
 
 function checkForm1IfValid(){

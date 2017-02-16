@@ -2,6 +2,8 @@
  * Created by jason on 2017/1/13.
  */
 
+var submitInfoUrl = "";
+
 $(document).ready(function () {
     d_form1_validate();
     d_form2_validate();
@@ -9,6 +11,119 @@ $(document).ready(function () {
     d_form2_submit();
 });
 
+
+function d_form1_submit(){
+    // d_form1  d_form1_submit_btn  d_form1_warn
+    // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
+    // yjxkdm  yjxkmc  ejxkdm  ejxkmc  zdjsxm  zdjsyjfx
+    $("#d_form1_submit_btn").click(function () {
+        //1.验证表单是否合法
+        var status = checkForm1IfValid();
+        if(status == false)  return;
+        // 2.开始提交
+        $.ajax({
+            type: "POST",
+            url: "/home/student/apply/doctor/save",
+            contentType: "application/json",
+            data: JSON.stringify({
+                // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
+
+                "lwtm":$("#lwtm").val(),
+                "lwywtm":$("#lwywtm").val(),
+                "zzxm":$("#zzxm").val(),
+                "dbrq":$("#dbrq").val(),
+                "hdxwrq":$("#hdxwrq").val(),
+                "lwsjdyjfx":$("#lwsjdyjfx").val(),
+
+                // yjxkdm  yjxkmc  ejxkdm  ejxkmc  zdjsxm  zdjsyjfx
+                "yjxkdm":$("#yjxkdm").val(),
+                "yjxkmc":$("#yjxkmc").val(),
+                "ejxkdm":$("#ejxkdm").val(),
+                "ejxkmc":$("#ejxkmc").val(),
+                "zdjsxm":$("#zdjsxm").val(),
+                "zdjsyjfx":$("#zdjsyjfx").val(),
+
+                "part":"part1",
+
+            }),
+
+            beforeSend: function(XMLHttpRequest){
+            },
+
+            success: function(data){
+                var status = data.code;
+                var msg = data.msg;
+                if(status == "200")  //信息保存成功
+                    model_tip_show('model_tip','model_tip_content','保存成功');
+                else if(status == "500")  //服务器繁忙
+                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
+                else
+                    var empty = "";
+            },
+
+            error: function(XMLHttpRequest, textStatus) {
+            },
+
+            complete: function(XMLHttpRequest, textStatus){
+            }
+
+        }); //ajax
+    });
+};
+
+function d_form2_submit(){
+    //  d_form2  d_form2_submit_btn  d_form2_warn
+    // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+
+    $("#d_form2_submit_btn").click(function () {
+        //1.验证表单是否合法
+        var status = checkForm2IfValid();
+        if(status == false)  return;
+        //2.提交表单2
+        $.ajax({
+            type: "POST",
+            url: "/home/student/apply/doctor/save",
+            contentType: "application/json",
+            data: JSON.stringify({
+                // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+
+                "fbxslw":$("#fbxslw").val(),
+                "cbzz":$("#cbzz").val(),
+                "hjxm":$("#hjxm").val(),
+                "lwdzycxd":$("#lwdzycxd").val(),
+                "dwtjyy":$("#dwtjyy").val(),
+                "tbrq":$("#tbrq").val(),
+
+                "part":"part2",
+
+            }),
+
+            beforeSend: function(XMLHttpRequest){
+            },
+
+            success: function(data){
+                var status = data.code;
+                var msg = data.msg;
+                if(status == "200")  //信息保存成功
+                    model_tip_show('model_tip','model_tip_content','保存成功');
+                else if(status == "500")  //服务器繁忙
+                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
+                else
+                    var empty = "";
+            },
+
+            error: function(XMLHttpRequest, textStatus) {
+            },
+
+            complete: function(XMLHttpRequest, textStatus){
+            }
+
+        }); //ajax
+    });
+};
+
+
+//验证表单
 function d_form1_validate(){
     // d_form1  d_form1_submit_btn  d_form1_warn
     // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
@@ -177,112 +292,7 @@ function d_form2_validate(){
     })
 };
 
-function d_form1_submit(){
-    // d_form1  d_form1_submit_btn  d_form1_warn
-    // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
-    // yjxkdm  yjxkmc  ejxkdm  ejxkmc  zdjsxm  zdjsyjfx
-    $("#d_form1_submit_btn").click(function () {
-        var status = checkForm1IfValid();
-        if(status == false)  return;
-        $.ajax({
-            type: "POST",
-            url: "/home/student/apply/doctor/save",
-            contentType: "application/json",
-            data: JSON.stringify({
-                // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
-
-                "lwtm":$("#lwtm").val(),
-                "lwywtm":$("#lwywtm").val(),
-                "zzxm":$("#zzxm").val(),
-                "dbrq":$("#dbrq").val(),
-                "hdxwrq":$("#hdxwrq").val(),
-                "lwsjdyjfx":$("#lwsjdyjfx").val(),
-
-                // yjxkdm  yjxkmc  ejxkdm  ejxkmc  zdjsxm  zdjsyjfx
-                "yjxkdm":$("#yjxkdm").val(),
-                "yjxkmc":$("#yjxkmc").val(),
-                "ejxkdm":$("#ejxkdm").val(),
-                "ejxkmc":$("#ejxkmc").val(),
-                "zdjsxm":$("#zdjsxm").val(),
-                "zdjsyjfx":$("#zdjsyjfx").val(),
-
-                "part":"part1",
-
-            }),
-
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //信息保存成功
-                    model_tip_show('model_tip','model_tip_content','保存成功');
-                else if(status == "500")  //服务器繁忙
-                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-                else
-                    var empty = "";
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        }); //ajax
-    });
-};
-
-function d_form2_submit(){
-    //  d_form2  d_form2_submit_btn  d_form2_warn
-    // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
-
-    $("#d_form2_submit_btn").click(function () {
-        var status = checkForm2IfValid();
-        if(status == false)  return;
-        $.ajax({
-            type: "POST",
-            url: "/home/student/apply/doctor/save",
-            contentType: "application/json",
-            data: JSON.stringify({
-                // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
-
-                "fbxslw":$("#fbxslw").val(),
-                "cbzz":$("#cbzz").val(),
-                "hjxm":$("#hjxm").val(),
-                "lwdzycxd":$("#lwdzycxd").val(),
-                "dwtjyy":$("#dwtjyy").val(),
-                "tbrq":$("#tbrq").val(),
-
-                "part":"part2",
-
-            }),
-
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //信息保存成功
-                    model_tip_show('model_tip','model_tip_content','保存成功');
-                else if(status == "500")  //服务器繁忙
-                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');
-                else
-                    var empty = "";
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        }); //ajax
-    });
-};
-
+//验证表单1是否合法
 function  checkForm1IfValid() {
     // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
     // yjxkdm  yjxkmc  ejxkdm  ejxkmc  zdjsxm  zdjsyjfx
@@ -304,7 +314,7 @@ function  checkForm1IfValid() {
     return true;
 
 }
-
+//验证表单2是否合法
 function  checkForm2IfValid() {
     // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
     if($("#fbxslw").valid() == false) return false;

@@ -1,6 +1,9 @@
 /**
  * Created by jason on 2017/1/12.
  */
+var submitUrl = "/home/student/thesis/apply/save/basicInfoTable";
+var fileUploadUrl = "/home/student/thesis/apply/basicInfoTable/pdf/upload";
+
 
 $(document).ready(function () {
     basic_info_validate();
@@ -9,6 +12,7 @@ $(document).ready(function () {
 //  inputDisableToAble();
 });
 
+//保存基本信息
 function basicInfoSubmit()  {
     //  basic_info_form   basic_info_submit_btn
     //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
@@ -27,10 +31,9 @@ function basicInfoSubmit()  {
         else
             studentType = "硕士";
         //开始保存
-        var requestUrl = "/home/student/thesis/apply/save/basicInfoTable";
         $.ajax({
             type: "POST",
-            url: requestUrl,
+            url: submitUrl,
             contentType: "application/json",
             data: JSON.stringify({
                 "studentType":studentType,
@@ -94,6 +97,8 @@ function basicInfoSubmit()  {
 
 }
 
+
+//上传文件
 function fileUpload(){
     // article_file    fileUpload_btn   file_status_warn
     $("#fileUpload_btn").click(function () {
@@ -127,15 +132,14 @@ function fileUpload1(){
         $("#file_status_warn").html("学号或者二级学科代码为空，不能上传文件");
         return;
     }
-    // 2.组装数据
+    // 2.组装数据到文件上传表单中
     var fileName = "10487"+"_"+getEjxkdmFromPage()+"_"+$("#zzxh").val()+"_LW.pdf";
-    $("#savedFileName").val(fileName);
-    $("#savedUserId").val(getUserIdFromPage());
+    $("#FileUploadFileName").val(fileName);
+    $("#FileUploadUserId").val(getUserIdFromPage());
 
     // 3.上传文件
-    var requestUrl = "/home/student/thesis/apply/basicInfoTable/pdf/upload";
     $("#file_submit_form").ajaxSubmit({
-        url: requestUrl,
+        url: fileUploadUrl,
         type: "post",
         success: function (data) { //服务器回调函数
             //200:成功  300:论文中含有敏感字符(如华中科技大学字样) 500:失败
@@ -165,6 +169,7 @@ function fileUpload1(){
 
 }
 
+//检查表单验证状态
 function checkFormValidateStatus(){
     //  basic_info_form   basic_info_submit_btn  m_table1_warn
     //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
@@ -445,14 +450,6 @@ function inputDisableToAble(){
     $('select[disabled="disabled"]').removeAttr('disabled');
 }
 
-
-function getUserIdFromPage(){
-    return $("#savedThesisApplyUserId").val();
-}
-
-function setUserIdToPage(userId){
-    $("#savedThesisApplyUserId").val(userId);
-}
 
 function getEjxkdmFromPage(){
     return $("#ejxkdm").val();
