@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>硕士学位论文推荐表</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
+    <link href="../static/css/master_thesis_apply_sheet.css" th:href="@{/css/master_thesis_apply_sheet.css}" rel="stylesheet" />
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
+    <script type="text/javascript" src="../static/js/s_master_thesis_apply.js" th:src="@{/js/s_master_thesis_apply.js}"></script>
+    <script type="text/javascript">
+
+    </script>
+
+</head>
+<body>
+
+<div id="sheet_wrap">
+
+    <div class="table_title">
+        <span>湖北省优秀<span style="font-weight: 900;color: red">硕士</span>学位论文推荐表--新增</span>
+    </div>
+
+    <form id="m_form1" class="border_top">
+        <table class="table" id="table1">
+            <tbody>
+            <tr>
+                <td class="td_key">作者学号</td>
+                <td><input type="text" id="zzxh" name="zzxh" disabled="disabled" placeholder="作者学号" th:value="${masterThesisApply.zzxh}"/></td>
+                <td class="td_key"><span class="font_star">*</span>作者姓名</td>
+                <td><input type="text" id="zzxm" name="zzxm" placeholder="中间不能有空格" th:value="${masterThesisApply.zzxm}"/></td>
+                <td class="td_key"><span class="font_star">*</span>性别</td>
+                <td>
+                    <select id="xb" name="xb">
+                        <option value="">请选择</option>
+                        <option value="男" th:if="${masterThesisApply.xb} == '男'" th:selected="selected">男</option>
+                        <option value="男" th:unless="${masterThesisApply.xb} == '男'">男</option>
+                        <option value="女" th:if="${masterThesisApply.xb} == '女'" th:selected="selected">女</option>
+                        <option value="女" th:unless="${masterThesisApply.xb} == '女'">女</option>
+                    </select>
+                </td>
+                <td class="td_key">出生年月</td>
+                <td><input type="text" id="csny" name="csny" disabled="disabled" placeholder="出生年月,如199109" th:value="${masterThesisApply.csny}"/></td>
+
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>民族</td>
+                <td>
+                    <select name="mz" id="mz">
+                        <option selected="selected" value="">请选择</option>
+                        <option value="汉族">汉族</option>
+                        <option value="蒙古族">蒙古族</option>
+                        <option value="彝族">彝族</option>
+                        <option value="侗族">侗族</option>
+                        <option value="哈萨克族">哈萨克族</option>
+                        <option value="畲族">畲族</option>
+                        <option value="纳西族">纳西族</option>
+                        <option value="仫佬族">仫佬族</option>
+                        <option value="仡佬族">仡佬族</option>
+                        <option value="怒族">怒族</option>
+                        <option value="保安族">保安族</option>
+                        <option value="鄂伦春族">鄂伦春族</option>
+                        <option value="回族">回族</option>
+                        <option value="壮族">壮族</option>
+                        <option value="瑶族">瑶族</option>
+                        <option value="傣族">傣族</option>
+                        <option value="高山族">高山族</option>
+                        <option value="景颇族">景颇族</option>
+                        <option value="羌族">羌族</option>
+                        <option value="锡伯族">锡伯族</option>
+                        <option value="乌孜别克族">乌孜别克族</option>
+                        <option value="裕固族">裕固族</option>
+                        <option value="赫哲族">赫哲族</option>
+                        <option value="藏族">藏族</option>
+                        <option value="布依族">布依族</option>
+                        <option value="白族">白族</option>
+                        <option value="黎族">黎族</option>
+                        <option value="拉祜族">拉祜族</option>
+                        <option value="柯尔克孜族">柯尔克孜族</option>
+                        <option value="布朗族">布朗族</option>
+                        <option value="阿昌族">阿昌族</option>
+                        <option value="俄罗斯族">俄罗斯族</option>
+                        <option value="京族">京族</option>
+                        <option value="门巴族">门巴族</option>
+                        <option value="维吾尔族">维吾尔族</option>
+                        <option value="朝鲜族">朝鲜族</option>
+                        <option value="土家族">土家族</option>
+                        <option value="傈僳族">傈僳族</option>
+                        <option value="水族">水族</option>
+                        <option value="土族">土族</option>
+                        <option value="撒拉族">撒拉族</option>
+                        <option value="普米族">普米族</option>
+                        <option value="鄂温克族">鄂温克族</option>
+                        <option value="塔塔尔族">塔塔尔族</option>
+                        <option value="珞巴族">珞巴族</option>
+                        <option value="苗族">苗族</option>
+                        <option value="满族">满族</option>
+                        <option value="哈尼族">哈尼族</option>
+                        <option value="佤族">佤族</option>
+                        <option value="东乡族">东乡族</option>
+                        <option value="达斡尔族">达斡尔族</option>
+                        <option value="毛南族">毛南族</option>
+                        <option value="塔吉克族">塔吉克族</option>
+                        <option value="德昂族">德昂族</option>
+                        <option value="独龙族">独龙族</option>
+                        <option value="基诺族">基诺族</option>
+                    </select>
+                </td>
+                <td class="td_key">论文题目</td>
+                <td colspan="5"><input type="text" id="lwtm" name="lwtm" disabled="disabled" placeholder="论文题目"/></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>论文英文题目</td>
+                <td colspan="7"><input type="text" id="lwywtm" name="lwywtm" placeholder="论文英文题目" th:value="${masterThesisApply.lwywtm}"/></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>入学年月</td>
+                <td><input type="text" id="rxny" name="rxny" placeholder="入学年月"/></td>
+
+                <td class="td_key" colspan="2">论文答辩日期</td>
+                <td><input type="text" id="dbrq" name="dbrq" disabled="disabled" placeholder="论文答辩日期" th:value="${masterThesisApply.dbrq}"/></td>
+                <td class="td_key">获得硕士学位日期</td>
+                <td colspan="2"><input type="text" id="hdxwrq" name="hdxwrq" disabled="disabled" placeholder="获得硕士学位日期"/></td>
+            </tr>
+            <tr>
+                <td class="td_key">一级学科代码</td>
+                <td><input type="text" id="yjxkdm" name="yjxkdm" disabled="disabled" placeholder="一级学科代码"/></td>
+
+                <td class="td_key" colspan="2">一级学科名称</td>
+                <td colspan="4"><input type="text" id="yjxkmc" name="yjxkmc" disabled="disabled" placeholder="一级学科名称"/></td>
+            </tr>
+            <tr>
+                <td class="td_key">二级学科代码</td>
+                <td><input type="text" id="ejxkdm" name="ejxkdm" disabled="disabled" placeholder="二级学科代码"/></td>
+
+                <td class="td_key" colspan="2">二级学科名称</td>
+                <td colspan="4"><input type="text" id="ejxkmc" name="ejxkmc" disabled="disabled" placeholder="二级学科名称"/></td>
+            </tr>
+            <tr>
+                <td class="td_key" colspan="2"><span class="font_star">*</span>论文涉及的研究方向</td>
+                <td colspan="6"><input type="text" id="lwsjdyjfx" name="lwsjdyjfx" placeholder="论文涉及的研究方向" th:value="${masterThesisApply.lwsjdyjfx}"/></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <div class="checkTure">
+
+        <div class="checkTure_btn_div">
+
+            <button type="button" id="m_form1_submit_btn" class="btn btn-primary">此部分信息确认无误，提交保存</button>
+            <label class="check_msg validate_warn" id="m_form1_warn"></label>
+        </div>
+
+    </div>
+
+
+    <form id="m_form2" class="border_top">
+        <table class="table" id="table2">
+            <tbody>
+            <tr>
+                <td rowspan="4" class="td_key"><span class="font_star">*</span><br />攻硕期间<br />及获得硕<br />士学位后<br />一年内</td>
+                <td colspan="4" class="td_key"><span class="font_star">*</span>发表学术论文数</td>
+                <td colspan="8" class="td_key"><span class="font_star">*</span>论文被检索数</td>
+                <td class="td_key"><span class="font_star">*</span>获发明或实用新型专利数</td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>第一作者</td>
+                <td><input type="text" id="dyzz" name="dyzz" placeholder="第一作者" th:value="${masterThesisApply.dyzz}"/></td>
+
+                <td class="td_key"><span class="font_star">*</span>第二作者</td>
+                <td><input type="text" id="dezz" name="dezz" placeholder="第二作者" th:value="${masterThesisApply.dezz}"/></td>
+
+                <td class="td_key"><span class="font_star">*</span>SCI</td><td>
+                <input type="text" id="sci" name="sci" placeholder="SCI" th:value="${masterThesisApply.sci}"/></td>
+
+                <td class="td_key"><span class="font_star">*</span>EI</td>
+                <td><input type="text" id="ei" name="ei" placeholder="EI" th:value="${masterThesisApply.ei}"/></td>
+
+                <td class="td_key"><span class="font_star">*</span>SSCI</td>
+                <td><input type="text" id="ssci" name="ssci" placeholder="SSCI" th:value="${masterThesisApply.ssci}"/></td>
+
+                <td class="td_key"><span class="font_star">*</span>ISTP</td>
+                <td><input type="text" id="istp" name="istp" placeholder="ISTP" th:value="${masterThesisApply.istp}"/></td>
+                <td><input type="text" id="zls" name="zls" placeholder="获发明或实用新型专利数" th:value="${masterThesisApply.zls}"/></td>
+
+            </tr>
+            <tr>
+                <td colspan="13" class="td_key"><span class="font_star">*</span>出国进修的时间、国名、内容、(本栏信息不输入到数据库中)</td>
+            </tr>
+            <tr>
+                <td colspan="13"><textarea rows="5" id="cgjx" name="cgjx" placeholder="出国进修的时间、国名、内容、(本栏信息不输入到数据库中)" th:field="${masterThesisApply.cgjx}"></textarea></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <div class="checkTure">
+
+        <div class="checkTure_btn_div">
+            <button type="button" id="m_form2_submit_btn" class="btn btn-primary">此部分信息确认无误，提交保存</button>
+            <label class="check_msg validate_warn" id="m_form2_warn"></label>
+        </div>
+
+    </div>
+
+
+    <form id="m_form3" class="border_top">
+        <table class="table" id="table3">
+            <tbody>
+            <tr>
+                <td class="td_key" colspan="2"><span class="font_star">*</span>攻读硕士学位方式</td>
+                <td colspan="5" class="td_key">
+                    <select id="gdxwfs" name="gdxwfs">
+                        <option value="">请选择</option>
+                        <option value="统招生" th:if="${masterThesisApply.gdxwfs} == '统招生'" th:selected="selected">统招生</option>
+                        <option value="统招生" th:unless="${masterThesisApply.gdxwfs} == '统招生'">统招生</option>
+                        <option value="联合培养" th:if="${masterThesisApply.gdxwfs} == '联合培养'" th:selected="selected">联合培养</option>
+                        <option value="联合培养" th:unless="${masterThesisApply.gdxwfs} == '联合培养'">联合培养</option>
+                        <option value="在职攻读" th:if="${masterThesisApply.gdxwfs} == '在职攻读'" th:selected="selected">在职攻读</option>
+                        <option value="在职攻读" th:unless="${masterThesisApply.gdxwfs} == '在职攻读'">在职攻读</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_key" colspan="2"><span class="font_star">*</span>本科就读学校</td>
+                <td colspan="5"><input type="text" id="bkjdxx" name="bkjdxx" placeholder="本科就读学校" th:value="${masterThesisApply.bkjdxx}"/></td>
+
+            </tr>
+            <tr>
+                <td class="td_key" colspan="2">攻读硕士学位单位</td>
+                <td colspan="5"><input type="text" id="gdssxwdw" name="gdssxwdw" value="华中科技大学" disabled="disabled"/></td>
+            </tr>
+            <tr>
+                <td class="td_key" rowspan="3">作者<br />现工<br />作情<br />况</td>
+                <td class="td_key"><span class="font_star">*</span>作者单位</td>
+                <td colspan="4"><input type="text" id="zzdw" name="zzdw" placeholder="作者单位" th:value="${masterThesisApply.zzdw}"/></td>
+                <td class="td_key"><span class="font_star">*</span>作者邮编</td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>作者地址</td>
+                <td colspan="4"><input type="text" id="zzdz" name="zzdz" placeholder="作者地址" th:value="${masterThesisApply.zzdz}"/></td>
+                <td><input type="text" id="zzyb" name="zzyb" placeholder="作者邮编" th:value="${masterThesisApply.zzyb}"/></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>作者电话</td>
+                <td><input type="text" id="zzdh" name="zzdh" placeholder="作者电话" th:value="${masterThesisApply.zzdh}"/></td>
+                <td class="td_key"><span class="font_star">*</span>职称</td>
+                <td><input type="text" id="zc" name="zc" placeholder="职称" th:value="${masterThesisApply.zc}"/></td>
+                <td class="td_key"><span class="font_star">*</span>职务</td>
+                <td><input type="text" id="zw" name="zw" placeholder="职务" th:value="${masterThesisApply.zw}"/></td>
+            </tr>
+            <tr>
+                <td class="td_key" colspan="2"><span class="font_star">*</span>指导教师姓名（限填1人）</td>
+                <td><input type="text" id="zdjsxm" name="zdjsxm" placeholder="指导教师姓名（限填1人）" th:value="${masterThesisApply.zdjsxm}"/></td>
+                <td class="td_key" colspan="2"><span class="font_star">*</span>指导教师研究方向</td>
+                <td colspan="2"><input type="text" id="zdjsyjfx" name="zdjsyjfx" placeholder="指导教师研究方向" th:value="${masterThesisApply.zdjsyjfx}"/></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="checkTure">
+
+            <div class="checkTure_btn_div">
+                <button type="button" id="m_form3_submit_btn" class="btn btn-primary">此部分信息确认无误，提交保存</button>
+                <label class="check_msg validate_warn" id="m_form3_warn"></label>
+            </div>
+
+        </div>
+
+    </form>
+
+    <form id="m_form4" class="border_top">
+        <table class="table" id="table4">
+            <thead>
+            <tr><td class="t4_c1"></td><td class="t4_c2"></td><td class="t4_c3"></td></tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td rowspan="3" class="td_key"><span class="font_star">*</span>攻硕期间及获得硕士学位后一年内获得与硕士学位论文有关的成果</td>
+                <td class="td_key"><span class="font_star">*</span>发表学术论文（题目、刊物名称、时间）（限填5篇）</td>
+                <td><textarea rows="6" id="fbxslw" class="td_key" name="fbxslw" placeholder="发表学术论文（题目、刊物名称、时间）（限填5篇）" th:field="${masterThesisApply.fbxslw}"></textarea></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>出版专著（名称、出版社、出版时间）</td>
+                <td><textarea rows="6" id="cbzz" name="cbzz" placeholder="出版专著（名称、出版社、出版时间）" th:field="${masterThesisApply.cbzz}"></textarea></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>获奖项目（名称、等级及时间，（限填3项））及专利</td>
+                <td><textarea rows="6" id="hjxm" name="hjxm" placeholder="获奖项目（名称、等级及时间，（限填3项））及专利" th:field="${masterThesisApply.hjxm}"></textarea></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>论文的主要创新点</td>
+                <td colspan="2"><textarea rows="8" id="lwdzycxd" name="lwdzycxd" placeholder="论文的主要创新点" th:field="${masterThesisApply.lwdzycxd}"></textarea></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>单位推荐意见</td>
+                <td colspan="2">
+                    <textarea rows="8" id="dwtjyy" name="dwtjyy" placeholder="单位推荐意见" th:field="${masterThesisApply.dwtjyy}">
+                    </textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="td_key"><span class="font_star">*</span>填表日期</td>
+                <td><input type="text" id="tbrq" name="tbrq" placeholder="填表日期，格式YYYYMMDD,如20161206" th:value="${masterThesisApply.tbrq}"/></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="checkTure">
+
+            <div class="checkTure_btn_div">
+                <button type="button" id="m_form4_submit_btn" class="btn btn-primary">此部分信息确认无误，提交保存</button>
+                <label class="check_msg validate_warn" id="m_form4_warn"></label>
+            </div>
+
+        </div>
+    </form>
+
+    <!--<div class="submit_btn_div">-->
+    <!--<button type="button" class="btn btn-primary btn-block">以上信息确认无误，提交到系统</button>-->
+    <!--</div>-->
+
+</div>
+
+
+<!-- Model  -->
+<!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model  -->
+
+</body>
+</html>
