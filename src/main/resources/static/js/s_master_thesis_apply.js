@@ -2,7 +2,7 @@
  * Created by jason on 2017/1/13.
  */
 
-var infoSubmitUrl = "";
+var masterTjbSubmitUrl = "/home/student/thesis/apply/tjb/master/save";
 
 $(document).ready(function () {
     m_apply_form1_validate();
@@ -27,7 +27,7 @@ function m_apply_form1_submit(){
         /////       URL                      /////
         $.ajax({
             type: "POST",
-            url: "/home/student/thesis/apply/master/save",
+            url: masterTjbSubmitUrl,
             contentType: "application/json",
             data: JSON.stringify({
                 //  zzxh  zzxm  xb  csny  mz  lwtm  lwywtm  rxny
@@ -87,7 +87,7 @@ function m_apply_form2_submit(){
         /////          URL           ///////////
         $.ajax({
             type: "POST",
-            url: "/home/student/thesis/apply/master/save",
+            url: masterTjbSubmitUrl,
             contentType: "application/json",
             data: JSON.stringify({
                 //  dyzz  dezz  sci  ei  ssci  istp  zls  cgjx
@@ -140,7 +140,7 @@ function m_apply_form3_submit(){
         /////          URL           ///////////
         $.ajax({
             type: "POST",
-            url: "/home/student/thesis/apply/master/save",
+            url: masterTjbSubmitUrl,
             contentType: "application/json",
             data: JSON.stringify({
                 // gdxwfs  bkjdxx  gdssxwdw  zzdw  zzdz
@@ -195,7 +195,7 @@ function m_apply_form4_submit(){
         if(status == false)  return;
         $.ajax({
             type: "POST",
-            url: "/home/student/thesis/apply/master/save",
+            url: masterTjbSubmitUrl,
             contentType: "application/json",
             data: JSON.stringify({
                 //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq

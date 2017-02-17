@@ -2,7 +2,7 @@
  * Created by jason on 2017/1/13.
  */
 
-var submitInfoUrl = "";
+var doctorTjbSubmitUrl = "/home/student/thesis/apply/tjb/doctor/save";
 
 $(document).ready(function () {
     d_form1_validate();
@@ -23,7 +23,7 @@ function d_form1_submit(){
         // 2.开始提交
         $.ajax({
             type: "POST",
-            url: "/home/student/apply/doctor/save",
+            url: doctorTjbSubmitUrl,
             contentType: "application/json",
             data: JSON.stringify({
                 // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
@@ -82,7 +82,7 @@ function d_form2_submit(){
         //2.提交表单2
         $.ajax({
             type: "POST",
-            url: "/home/student/apply/doctor/save",
+            url: doctorTjbSubmitUrl,
             contentType: "application/json",
             data: JSON.stringify({
                 // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
