@@ -4,6 +4,11 @@
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+.table_body td{
+    text-align: center;
+}
+
 .table_body thead{
     background-color:rgb(224,224,224) ;
     font-weight: 800;
@@ -13,6 +18,6 @@
 }
 
 .apply_btn_div{
-    width:150px;
     margin:0 auto;
+    text-align: center;
 }

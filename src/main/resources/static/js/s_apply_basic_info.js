@@ -7,12 +7,100 @@ var fileUploadUrl = "/home/student/thesis/apply/basicInfoTable/pdf/upload";
 
 $(document).ready(function () {
     basic_info_validate();
+    basicInfoSave();
     basicInfoSubmit();
     fileUpload();
 //  inputDisableToAble();
 });
 
 //保存基本信息
+function basicInfoSave()  {
+    //  basic_info_form   basic_info_submit_btn
+    //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
+    // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
+    // lwywlj  rxny  hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc  zzzc  xxlxr  bz
+    $("#basic_info_save_btn").click(function(){
+        if(checkFormValidateStatus() == false){
+            return;
+        }
+        $("#m_table1_warn").html("");
+        var studentType;
+        if($("#cplx").val() == "湖北省优秀硕士论文评选（已授学位）")
+            studentType = "硕士";
+        else if($("#cplx").val() == "湖北省优秀博士论文评选（已授学位）")
+            studentType = "博士";
+        else
+            studentType = "硕士";
+        //把学生类型保存到网页中
+        saveApplyTypeToPage(studentType);
+        //开始保存
+        $.ajax({
+            type: "POST",
+            url: submitUrl,
+            contentType: "application/json",
+            data: JSON.stringify({
+                "studentType":studentType,
+                //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
+                "ssdm":$("#ssdm").val(),
+                "ssmc":$("#ssmc").val(),
+                "xxdm":$("#xxdm").val(),
+                "xxmc":$("#xxmc").val(),
+                "zzxh":$("#zzxh").val(),
+                "xh":$("#xh").val(),
+                "cplx":$("#cplx").val(),
+                "gdfs":$("#gdfs").val(),
+                "zzxm":$("#zzxm").val(),
+                "xb":$("#xb").val(),
+                // csny  mz  dsxm  lwtm  lwywtm  yjfx  lwzwgjz  lwys  gdlb  lwtjblj
+                "csny":$("#csny").val(),
+                "mz":$("#mz").val(),
+                "dsxm":$("#dsxm").val(),
+                "lwtm":$("#lwtm").val(),
+                "lwywtm":$("#lwywtm").val(),
+                "yjfx":$("#yjfx").val(),
+                "lwzwgjz":$("#lwzwgjz").val(),
+                "lwys":$("#lwys").val(),
+                "gdlb":$("#gdlb").val(),
+                "lwtjblj":$("#lwtjblj").val(),
+                // lwywlj  rxny  hdxwrq  yjxkdm  yjxkmc  ejxkdm  ejxkmc  zzzc  xxlxr  bz
+                "lwywlj":$("#lwywlj").val(),
+                "rxny":$("#rxny").val(),
+                "hdxwrq":$("#hdxwrq").val(),
+                "yjxkdm":$("#yjxkdm").val(),
+                "yjxkmc":$("#yjxkmc").val(),
+                "ejxkdm":$("#ejxkdm").val(),
+                "ejxkmc":$("#ejxkmc").val(),
+                "zzzc":$("#zzzc").val(),
+                "xxlxr":$("#xxlxr").val(),
+                "bz":$("#bz").val(),
+            }),
+
+            beforeSend: function(XMLHttpRequest){
+            },
+
+            success: function(data){
+                var status = data.code;
+                var msg = data.msg;
+                if(status == "200")  //信息保存成功，进入下一步
+                    model_tip_show('model_tip','model_tip_content','信息保存成功');
+                else if(status == "500")  //服务器繁忙
+                    model_tip_show('model_tip','model_tip_content','系统繁忙，请稍后再试!');
+                else
+                    var empty = "";
+            },
+
+            error: function(XMLHttpRequest, textStatus) {
+            },
+
+            complete: function(XMLHttpRequest, textStatus){
+            }
+
+        });
+    }) //click
+
+}
+
+//新增基本信息
 function basicInfoSubmit()  {
     //  basic_info_form   basic_info_submit_btn
     //  ssdm   ssmc  xxdm   xxmc  zzxh  xh  cplx  gdfs  zzxm  xb
@@ -174,6 +262,17 @@ function fileUpload1(){
 //信息保存成功，进入下一步
 function nextStepAfterSave(){
     refreshToTjbFramePage();
+    var studentType = getApplyTypeFromPage();
+    if(studentType == '硕士'){
+        $("#student_type").val('master');
+        refreshToMasterTjbPage();
+    }else if(studentType == '博士'){
+        $("#student_type").val('doctor');
+        refreshToDoctorTjbPage();
+    }else{
+        alert("系统繁忙，请重新刷新页面");
+    }
+
 }
 
 //检查表单验证状态

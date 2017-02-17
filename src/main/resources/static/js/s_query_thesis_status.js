@@ -24,6 +24,102 @@ function changeApplyStatus(){
         }
 }
 
+///////////////
+////   basicTable_create_btn  basicTable_edit_btn   basicTable_view_btn
+///     tjb_create_btn   tjb_edit_btn    tjb_view_btn
+/////   deleteApply_btn    submitApply_btn
+
+function basicInfoCreateBtn(){
+    $("#basicTable_create_btn").click(function () {
+        //1.判断是否可以新增
+        var isFinish = "";
+        if(isFinish == "未完成")
+            refreshToBasicInfoCreatePage(getMyUserIdFromPage());
+        else if(isFinish == "完成")
+            model_tip_show('model_tip','model_tip_content','基本信息表已经存在，不能再新增');
+        else
+            alert("System inner error :"+" iSFinish "+isFinish);
+    })
+}
+function basicInfoEditBtn(){
+    $("#basicTable_edit_btn").click(function () {
+        //1.判断是否可以编辑
+        var isFinish = "";
+        if(isFinish == "完成")
+            refreshToBasicInfoEditPage(getMyUserIdFromPage());
+        else if(isFinish == "未完成")
+            model_tip_show('model_tip','model_tip_content','基本信息表不存在，请先新增');
+        else
+            alert("System inner error :"+" iSFinish "+isFinish);
+    })
+}
+function basicInfoViewBtn(){
+    $("#basicTable_view_btn").click(function () {
+        //1.判断是否可以预览
+        var isFinish = "";
+        if(isFinish == "完成")
+            refreshToBasicInfoViewPage(getMyUserIdFromPage());
+        else if(isFinish == "未完成")
+            model_tip_show('model_tip','model_tip_content','基本信息表不存在，请先新增');
+        else
+            alert("System inner error :"+" iSFinish "+isFinish);
+    })
+
+}
+
+function tjbCreateBtn(){
+    $("#tjb_create_btn").click(function () {
+        //1.判断是否可以新增
+        var isFinish = "";
+        if(isFinish == "未完成")
+            refreshToTjbFramePage("0");
+        else if(isFinish == "完成")
+            model_tip_show('model_tip','model_tip_content','论文推荐表已经存在，不能再新增');
+        else
+            alert("System inner error :"+" iSFinish "+isFinish);
+    })
+}
+function tjbEditBtn(){
+    $("#tjb_edit_btn").click(function () {
+        //1.判断是否可以修改
+        var isFinish = "";
+        if(isFinish == "完成")
+            refreshToTjbFramePage("1");
+        else if(isFinish == "未完成")
+            model_tip_show('model_tip','model_tip_content','论文推荐表不存在，请先新增');
+        else
+            alert("System inner error :"+" iSFinish "+isFinish);
+    })
+}
+function tjbViewBtn(){
+    $("#tjb_view_btn").click(function () {
+        //1.判断是否可以修改
+        var isFinish = "";
+        if(isFinish == "完成")
+            refreshToTjbFramePage("2");
+        else if(isFinish == "未完成")
+            model_tip_show('model_tip','model_tip_content','论文推荐表不存在，请先新增');
+        else
+            alert("System inner error :"+" iSFinish "+isFinish);
+    })
+}
+
+function deleteApplyBtn(){
+    //delete_btn
+    $("#deleteApply_btn").click(function(){
+        //删除前判断状态是否可以删除
+        var applyStatus = "";
+        if(applyStatus == "待学生提交" || applyStatus == "待学院上报")
+        //确认是否删除
+            model_ok_show("model_ok","model_ok_content","确认是否要删除申请","model_ok_btn",deleteApply1);
+        else
+            model_tip_show('model_tip','model_tip_content','申请已经提交, 不能删除');
+    });//click
+}
+
+function submitApplyBtn(){}
+
+
 //新增申请按钮
 function newApplyThesis(){
     $("#applyThesisBtn").click(function () {
