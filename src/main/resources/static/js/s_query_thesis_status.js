@@ -1,15 +1,21 @@
 /**
  * Created by Administrator on 2017/1/5.
  */
-    $(document).ready(function () {
+$(document).ready(function () {
         changeApplyStatus();
-        submitApply();
-        checkDetail();
-        modifyApply();
-        deleteApply();
-        newApplyThesis();
+        basicInfoCreateBtn();
+        basicInfoEditBtn();
+        basicInfoViewBtn();
+        tjbCreateBtn();
+        tjbEditBtn();
+        tjbViewBtn();
+        deleteApplyBtn();
+        submitApplyBtn();
     });
 
+// var basicInfoStatus = $("#basicInfoStatus").text();
+// var tjbStatus = $("#tjbStatus").text();
+// var applyStatus = $("#applyStatus").text();
 
 function changeApplyStatus(){
         var applyStatus = $("td.apply_status").text();
@@ -24,7 +30,6 @@ function changeApplyStatus(){
         }
 }
 
-///////////////
 ////   basicTable_create_btn  basicTable_edit_btn   basicTable_view_btn
 ///     tjb_create_btn   tjb_edit_btn    tjb_view_btn
 /////   deleteApply_btn    submitApply_btn
@@ -32,37 +37,39 @@ function changeApplyStatus(){
 function basicInfoCreateBtn(){
     $("#basicTable_create_btn").click(function () {
         //1.判断是否可以新增
-        var isFinish = "";
-        if(isFinish == "未完成")
+        var basicInfoStatus = $("#basicInfoStatus").text();
+        if(basicInfoStatus == "未完成")
             refreshToBasicInfoCreatePage(getMyUserIdFromPage());
-        else if(isFinish == "完成")
+        else if(basicInfoStatus == "完成")
             model_tip_show('model_tip','model_tip_content','基本信息表已经存在，不能再新增');
         else
-            alert("System inner error :"+" iSFinish "+isFinish);
+            alert("System inner error :"+" basicInfoStatus "+basicInfoStatus);
     })
 }
+
 function basicInfoEditBtn(){
     $("#basicTable_edit_btn").click(function () {
         //1.判断是否可以编辑
-        var isFinish = "";
-        if(isFinish == "完成")
+        var basicInfoStatus = $("#basicInfoStatus").text();
+        if(basicInfoStatus == "完成")
             refreshToBasicInfoEditPage(getMyUserIdFromPage());
-        else if(isFinish == "未完成")
+        else if(basicInfoStatus == "未完成")
             model_tip_show('model_tip','model_tip_content','基本信息表不存在，请先新增');
         else
-            alert("System inner error :"+" iSFinish "+isFinish);
+            alert("System inner error :"+" basicInfoStatus "+basicInfoStatus);
     })
 }
+
 function basicInfoViewBtn(){
     $("#basicTable_view_btn").click(function () {
         //1.判断是否可以预览
-        var isFinish = "";
-        if(isFinish == "完成")
+        var basicInfoStatus = $("#basicInfoStatus").text();
+        if(basicInfoStatus == "完成")
             refreshToBasicInfoViewPage(getMyUserIdFromPage());
-        else if(isFinish == "未完成")
+        else if(basicInfoStatus == "未完成")
             model_tip_show('model_tip','model_tip_content','基本信息表不存在，请先新增');
         else
-            alert("System inner error :"+" iSFinish "+isFinish);
+            alert("System inner error :"+" basicInfoStatus "+basicInfoStatus);
     })
 
 }
@@ -70,37 +77,39 @@ function basicInfoViewBtn(){
 function tjbCreateBtn(){
     $("#tjb_create_btn").click(function () {
         //1.判断是否可以新增
-        var isFinish = "";
-        if(isFinish == "未完成")
+        var tjbStatus = $("#tjbStatus").text();
+        if(tjbStatus == "未完成")
             refreshToTjbFramePage("0");
-        else if(isFinish == "完成")
+        else if(tjbStatus == "完成")
             model_tip_show('model_tip','model_tip_content','论文推荐表已经存在，不能再新增');
         else
-            alert("System inner error :"+" iSFinish "+isFinish);
+            alert("System inner error :"+" tjbStatus "+tjbStatus);
     })
 }
+
 function tjbEditBtn(){
     $("#tjb_edit_btn").click(function () {
         //1.判断是否可以修改
-        var isFinish = "";
-        if(isFinish == "完成")
+        var tjbStatus = $("#tjbStatus").text();
+        if(tjbStatus == "完成")
             refreshToTjbFramePage("1");
-        else if(isFinish == "未完成")
+        else if(tjbStatus == "未完成")
             model_tip_show('model_tip','model_tip_content','论文推荐表不存在，请先新增');
         else
-            alert("System inner error :"+" iSFinish "+isFinish);
+            alert("System inner error :"+" tjbStatus "+tjbStatus);
     })
 }
+
 function tjbViewBtn(){
     $("#tjb_view_btn").click(function () {
         //1.判断是否可以修改
-        var isFinish = "";
-        if(isFinish == "完成")
+        var tjbStatus = $("#tjbStatus").text();
+        if(tjbStatus == "完成")
             refreshToTjbFramePage("2");
-        else if(isFinish == "未完成")
+        else if(tjbStatus == "未完成")
             model_tip_show('model_tip','model_tip_content','论文推荐表不存在，请先新增');
         else
-            alert("System inner error :"+" iSFinish "+isFinish);
+            alert("System inner error :"+" tjbStatus "+tjbStatus);
     })
 }
 
@@ -108,111 +117,7 @@ function deleteApplyBtn(){
     //delete_btn
     $("#deleteApply_btn").click(function(){
         //删除前判断状态是否可以删除
-        var applyStatus = "";
-        if(applyStatus == "待学生提交" || applyStatus == "待学院上报")
-        //确认是否删除
-            model_ok_show("model_ok","model_ok_content","确认是否要删除申请","model_ok_btn",deleteApply1);
-        else
-            model_tip_show('model_tip','model_tip_content','申请已经提交, 不能删除');
-    });//click
-}
-
-function submitApplyBtn(){}
-
-
-//新增申请按钮
-function newApplyThesis(){
-    $("#applyThesisBtn").click(function () {
-        var userId = getMyUserIdFromPage();
-        refreshToApplyThesisPage(userId,"0");
-    })
-}
-
-// 提交申请
-function submitApply(){
-    //applyThesis_btn   name="checkboxStatus"
-    $("#applyThesis_btn").click(function () {
-        var length = $("input[name='checkboxStatus']:checked").length;
-        if(length>1){//选中了多个
-            model_tip_show('model_tip','model_tip_content','一次只能提交一个申请');
-        }else if(length<=0){//未选中
-            model_tip_show('model_tip','model_tip_content','请选择要提交的申请');
-        }else{ //选中了1个
-            //1.确定是否提交申请
-            model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",submitApply1);
-
-        } //else
-
-    }) //click
-}
-
-function submitApply1(){
-    $("#model_ok").modal("hide");
-    $.ajax({
-        type: "POST",
-        url: "/home/student/thesis/apply/submit",
-        contentType: "application/json",
-        data: JSON.stringify({
-
-        }),
-
-        beforeSend: function(XMLHttpRequest){
-        },
-
-        success: function(data){
-            // 200 成功    300 重复申请  500 失败
-            var status = data.code;
-            var msg = data.msg;
-            if(status == "200"){//200 成功
-                model_tip_show('model_tip','model_tip_content','提交申请成功',refreshToStudentQueryStatus);
-            }
-            else if(status == "300")  //300 重复申请
-                model_tip_show('model_tip','model_tip_content','您已提交申请, 请关注申请状态');
-            else if(status == "500")  //服务器繁忙
-                model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
-            else
-                var empty = "";
-        },
-
-        error: function(XMLHttpRequest, textStatus) {
-        },
-
-        complete: function(XMLHttpRequest, textStatus){
-        }
-
-    });
-}
-
-
-//查看按钮事件
-function checkDetail(){
-    //checke_btn
-    $("#checke_btn").click(function(){
-        var userId = $(this).parent().parent().children("td.userId").text();
-        refreshToApplyThesisPage(userId,'2');
-    });//click
-}
-
-//修改按钮事件
-function modifyApply(){
-    //modify_btn
-    $("#modify_btn").click(function(){
-        //1.检查论文状态，如果为“待学生提交”，则允许修改，并跳转到修改页面，否则不允许修改
-        var applyStatus = $(this).parent().parent().children("td.apply_status").text();
-        var userId = $(this).parent().parent().children("td.userId").text();
-        if(applyStatus == "待学生提交" || applyStatus == "待学院上报")
-            refreshToApplyThesisPage(userId,'1');
-        else
-            model_tip_show('model_tip','model_tip_content','论文已提交，不允许修改');
-    });//click
-}
-
-//删除按钮事件
-function deleteApply(){
-    //delete_btn
-    $("#delete_btn").click(function(){
-        //删除前判断状态是否可以删除
-        var applyStatus = $(this).parent().parent().children("td.apply_status").text();
+        var applyStatus = $("#applyStatus").text();
         if(applyStatus == "待学生提交" || applyStatus == "待学院上报")
         //确认是否删除
             model_ok_show("model_ok","model_ok_content","确认是否要删除申请","model_ok_btn",deleteApply1);
@@ -261,3 +166,60 @@ function deleteApply1(){
     //2.页面重新刷新
     refreshToStudentQueryStatus();
 }
+
+function submitApplyBtn(){
+    $("#submitApply_btn").click(function () {
+        var basicInfoStatus = $("#basicInfoStatus").text();
+        var tjbStatus = $("#tjbStatus").text();
+        var applyStatus = $("#applyStatus").text();
+        if(basicInfoStatus == "未完成" || tjbStatus == "未完成")
+            model_tip_show('model_tip','model_tip_content','基本信息表或推荐表有未完成，请先完成');
+        else{ //两个表都完成了
+            if(applyStatus == "待学生提交")
+                submitApply1();
+            else
+                model_tip_show('model_tip','model_tip_content','申请已提交，不能再重复提交');
+        }
+
+    }) //click
+}
+function submitApply1(){
+    $("#model_ok").modal("hide");
+    $.ajax({
+        type: "POST",
+        url: "/home/student/thesis/apply/submit",
+        contentType: "application/json",
+        data: JSON.stringify({
+
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            // 200 成功    300 重复申请  500 失败
+            var status = data.code;
+            var msg = data.msg;
+            if(status == "200"){//200 成功
+                model_tip_show('model_tip','model_tip_content','提交申请成功',refreshToStudentQueryStatus);
+            }
+            else if(status == "300")  //300 重复申请
+                model_tip_show('model_tip','model_tip_content','您已提交申请, 请关注申请状态');
+            else if(status == "500")  //服务器繁忙
+                model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+            else
+                var empty = "";
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+        }
+
+    });
+}
+
+
+
+
