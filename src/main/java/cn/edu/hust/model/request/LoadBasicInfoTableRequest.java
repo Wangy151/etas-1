@@ -5,7 +5,6 @@ package cn.edu.hust.model.request;
  */
 public class LoadBasicInfoTableRequest {
     private String userId;
-    private String pageType;
 
     public String getUserId() {
         return userId;
@@ -15,19 +14,10 @@ public class LoadBasicInfoTableRequest {
         this.userId = userId;
     }
 
-    public String getPageType() {
-        return pageType;
-    }
-
-    public void setPageType(String pageType) {
-        this.pageType = pageType;
-    }
-
     @Override
     public String toString() {
         return "LoadBasicInfoTableRequest{" +
                 "userId='" + userId + '\'' +
-                ", pageType='" + pageType + '\'' +
                 '}';
     }
 }

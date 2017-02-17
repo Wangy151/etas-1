@@ -6,7 +6,6 @@ package cn.edu.hust.model.request;
 public class StudentTypeRequest {
     private String userId;
     private String studentType;
-    private String pageType;
 
     public String getUserId() {
         return userId;
@@ -24,20 +23,11 @@ public class StudentTypeRequest {
         this.studentType = studentType;
     }
 
-    public String getPageType() {
-        return pageType;
-    }
-
-    public void setPageType(String pageType) {
-        this.pageType = pageType;
-    }
-
     @Override
     public String toString() {
         return "StudentTypeRequest{" +
                 "userId='" + userId + '\'' +
                 ", studentType='" + studentType + '\'' +
-                ", pageType='" + pageType + '\'' +
                 '}';
     }
 }

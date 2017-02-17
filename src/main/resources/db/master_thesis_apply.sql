@@ -51,6 +51,15 @@ tbrq varchar(20) NOT NULL DEFAULT '' COMMENT '填表日期',
 
 dwdm varchar(20) NOT NULL DEFAULT '' COMMENT '单位代码',
 dwmc varchar(50) NOT NULL DEFAULT '' COMMENT '单位名称',
-student_type varchar(20) NOT NULL DEFAULT '' COMMENT '学生类型'
+student_type varchar(20) NOT NULL DEFAULT '' COMMENT '学生类型',
+
+part1 int(1) NOT NULL DEFAULT 0 COMMENT '第1部分是否填写',
+part2 int(1) NOT NULL DEFAULT 0 COMMENT '第2部分是否填写',
+part3 int(1) NOT NULL DEFAULT 0 COMMENT '第3部分是否填写',
+part4 int(1) NOT NULL DEFAULT 0 COMMENT '第4部分是否填写'
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='硕士学位论文推荐表';
+
+
+
+
