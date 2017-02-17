@@ -5,10 +5,10 @@
 var basicInfoCreateUrl = "/home/student/thesis/apply/basicInfoTable/create";
 var basicInfoEditUrl = "/home/student/thesis/apply/basicInfoTable/edit";
 var basicInfoViewUrl = "/home/student/thesis/apply/basicInfoTable/view";
-var tjbFrameUrl = "";
-var tjbCreateUrl = "";
-var tjbEditUrl = "";
-var tjbViewUrl = "";
+var tjbFrameUrl = "/home/student/thesis/apply/tjb/frame";
+var tjbCreateUrl = "/home/student/thesis/apply/tjb/create";
+var tjbEditUrl = "/home/student/thesis/apply/tjb/edit";
+var tjbViewUrl = "/home/student/thesis/apply/tjb/view";
 
 
 ///     刷新页面                ////
@@ -102,7 +102,8 @@ function refreshToBasicInfoViewPage(userId){
     }); // end ajax
 }
 
-function refreshToTjbFramePage(pageType){
+function refreshToTjbFramePage(userId,pageType){
+    saveUserIdToPage(userId);
     saveTjbPageTypeToPage(pageType);
     var wrapLocation = "#home_right_wrap";
     $.ajax({
@@ -130,11 +131,92 @@ function refreshToTjbFramePage(pageType){
     }); // end ajax
 }
 
-function refreshToTjbCreatePage(studentType,userId){}
+function refreshToTjbCreatePage(studentType,userId){
+    var wrapLocation = "#tjb_wrap";
+    $.ajax({
+        type: "POST",
+        url: tjbCreateUrl,
+        contentType: "application/json",
+        data: JSON.stringify({
+            "studentType":studentType,
+            "userId":userId,
+        }),
 
-function refreshToTjbEditPage(studentType,userId){}
+        beforeSend: function(XMLHttpRequest){
+        },
 
-function refreshToTjbViewPage(studentType,userId){}
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        }
+    }); // end ajax
+}
+
+function refreshToTjbEditPage(studentType,userId){
+    var wrapLocation = "#tjb_wrap";
+    $.ajax({
+        type: "POST",
+        url: tjbEditUrl,
+        contentType: "application/json",
+        data: JSON.stringify({
+            "studentType":studentType,
+            "userId":userId,
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        }
+    }); // end ajax
+}
+
+function refreshToTjbViewPage(studentType,userId){
+    var wrapLocation = "#tjb_wrap";
+    $.ajax({
+        type: "POST",
+        url: tjbViewUrl,
+        contentType: "application/json",
+        data: JSON.stringify({
+            "studentType":studentType,
+            "userId":userId,
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        }
+    }); // end ajax
+}
 
 
 
@@ -156,7 +238,7 @@ function saveTjbPageTypeToPage(thesisPageType){
     $("#savedThesisPageType").text(thesisPageType);
 }
 
-function getThesisPageTypeFromPage(){
+function getTjbPageTypeFromPage(){
     //  #savedThesisPageType
     return $("#savedThesisPageType").text();
 }

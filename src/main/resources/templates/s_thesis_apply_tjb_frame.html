@@ -30,10 +30,30 @@
 
             $("#student_type").bind("change",function(){
                 var studentType = $("#student_type").val();
-                if(studentType == 'doctor')
-                    refreshToDoctorTjbPage();
+                var tjbPageType = getTjbPageTypeFromPage();
+                if(studentType == 'doctor'){  //博士
+                    if(tjbPageType == "0")
+                        refreshToTjbCreatePage("doctor",getUserIdFromPage());
+                    else if(tjbPageType == "1")
+                        refreshToTjbEditPage("doctor",getUserIdFromPage());
+                    else if(tjbPageType == "2")
+                        refreshToTjbViewPage("doctor",getUserIdFromPage());
+                    else
+                        alert("Inner system error : "+ "tjbPageType "+tjbPageType);
+                }
+                else if(studentType == 'master'){ //硕士
+                    if(tjbPageType == "0")
+                        refreshToTjbCreatePage("master",getUserIdFromPage());
+                    else if(tjbPageType == "1")
+                        refreshToTjbEditPage("master",getUserIdFromPage());
+                    else if(tjbPageType == "2")
+                        refreshToTjbViewPage("master",getUserIdFromPage());
+                    else
+                        alert("Inner system error : "+ "tjbPageType "+tjbPageType);
+                }
                 else
-                    refreshToMasterTjbPage();
+                    alert("Inner system error : "+ "studentType "+studentType);
+
             });
         });
     </script>

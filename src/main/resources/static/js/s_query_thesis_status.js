@@ -79,7 +79,7 @@ function tjbCreateBtn(){
         //1.判断是否可以新增
         var tjbStatus = $("#tjbStatus").text();
         if(tjbStatus == "未完成")
-            refreshToTjbFramePage("0");
+            refreshToTjbFramePage(getMyUserIdFromPage(),"0");
         else if(tjbStatus == "完成")
             model_tip_show('model_tip','model_tip_content','论文推荐表已经存在，不能再新增');
         else
@@ -92,7 +92,7 @@ function tjbEditBtn(){
         //1.判断是否可以修改
         var tjbStatus = $("#tjbStatus").text();
         if(tjbStatus == "完成")
-            refreshToTjbFramePage("1");
+            refreshToTjbFramePage(getMyUserIdFromPage(),"1");
         else if(tjbStatus == "未完成")
             model_tip_show('model_tip','model_tip_content','论文推荐表不存在，请先新增');
         else
@@ -105,7 +105,7 @@ function tjbViewBtn(){
         //1.判断是否可以修改
         var tjbStatus = $("#tjbStatus").text();
         if(tjbStatus == "完成")
-            refreshToTjbFramePage("2");
+            refreshToTjbFramePage(getMyUserIdFromPage(),"2");
         else if(tjbStatus == "未完成")
             model_tip_show('model_tip','model_tip_content','论文推荐表不存在，请先新增');
         else

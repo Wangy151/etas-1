@@ -1,7 +1,7 @@
 /**
  * Created by jason on 2017/1/12.
  */
-var submitUrl = "/home/student/thesis/apply/save/basicInfoTable";
+var submitUrl = "/home/student/thesis/apply/basicInfoTable/save";
 var fileUploadUrl = "/home/student/thesis/apply/basicInfoTable/pdf/upload";
 
 
