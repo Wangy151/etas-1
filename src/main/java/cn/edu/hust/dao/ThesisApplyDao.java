@@ -1,8 +1,6 @@
 package cn.edu.hust.dao;
 
-import cn.edu.hust.model.DoctorThesisApply;
-import cn.edu.hust.model.MasterThesisApply;
-import cn.edu.hust.model.ThesisBasicInfo;
+import cn.edu.hust.model.*;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -62,11 +60,14 @@ public interface ThesisApplyDao {
      * @param userId
      * @return
      */
-    @Select( "select count(*) from master_thesis_apply where zzxh = #{userId} ")
+    @Select( " select count(*) from master_thesis_apply where zzxh = #{userId} ")
     int hasMasterUser(@Param("userId") String userId);
 
     @Insert(" INSERT INTO master_thesis_apply(zzxh) VALUES (#{userId}) ")
     int initMasterTjb(@Param("userId") String userId);
+
+    @Select(" select part1, part2, part3, part4 from master_thesis_apply where zzxh = #{userId}")
+    MasterThesisApplyPartStatus getMasterThesisApplyPartStatus(@Param("userId") String userId);
 
     @Select(" SELECT * FROM master_thesis_apply WHERE zzxh = #{userId} ")
     MasterThesisApply getMasterTjb(@Param("userId") String userId);
@@ -74,13 +75,15 @@ public interface ThesisApplyDao {
     @Update(" UPDATE master_thesis_apply SET " +
             " zzxh = #{model.zzxh}, zzxm = #{model.zzxm}, xb = #{model.xb}, csny = #{model.csny}, mz = #{model.mz}, " +
             " lwtm = #{model.lwtm}, lwywtm = #{model.lwywtm}, rxny = #{model.rxny}, dbrq = #{model.dbrq}, hdxwrq = #{model.hdxwrq}, " +
-            " yjxkdm = #{model.yjxkdm}, yjxkmc = #{model.yjxkmc}, ejxkdm = #{model.ejxkdm}, ejxkmc = #{model.ejxkmc}, lwsjdyjfx = #{model.lwsjdyjfx} " +
+            " yjxkdm = #{model.yjxkdm}, yjxkmc = #{model.yjxkmc}, ejxkdm = #{model.ejxkdm}, ejxkmc = #{model.ejxkmc}, lwsjdyjfx = #{model.lwsjdyjfx}, " +
+            " part1 = 1 " +
             " WHERE zzxh = #{model.zzxh} ")
     int saveMasterTjb1(@Param("model") MasterThesisApply model);
 
     @Update(" UPDATE master_thesis_apply SET " +
             " dyzz = #{model.dyzz}, dezz = #{model.dezz}, sci = #{model.sci}, ei = #{model.ei}, ssci = #{model.ssci}, " +
             " istp = #{model.istp}, zls = #{model.zls}, cgjx = #{model.cgjx} " +
+            " part2 = 1 " +
             " WHERE zzxh = #{model.zzxh} ")
     int saveMasterTjb2(@Param("model") MasterThesisApply model);
 
@@ -88,12 +91,14 @@ public interface ThesisApplyDao {
             " gdxwfs = #{model.gdxwfs}, bkjdxx = #{model.bkjdxx}, gdssxwdw = #{model.gdssxwdw}, zzdw = #{model.zzdw}, zzdz = #{model.zzdz}, " +
             " zzyb = #{model.zzyb}, zzdh = #{model.zzdh}, zc = #{model.zc}, zw = #{model.zw}, zdjsxm = #{model.zdjsxm}, " +
             " zdjsyjfx = #{model.zdjsyjfx} " +
+            " part3 = 1 " +
             " WHERE zzxh = #{model.zzxh} ")
     int saveMasterTjb3(@Param("model") MasterThesisApply model);
 
     @Update(" UPDATE master_thesis_apply SET " +
             " fbxslw = #{model.fbxslw}, cbzz = #{model.cbzz}, hjxm = #{model.hjxm}, lwdzycxd = #{model.lwdzycxd}, dwtjyy = #{model.dwtjyy}, " +
             " tbrq = #{model.tbrq} " +
+            " part4 = 1 " +
             " WHERE zzxh = #{model.zzxh} ")
     int saveMasterTjb4(@Param("model") MasterThesisApply model);
 
@@ -110,6 +115,9 @@ public interface ThesisApplyDao {
 
     @Insert(" INSERT INTO doctor_thesis_apply(zzxh) VALUES (#{userId}) ")
     int initDoctorThesisApply(@Param("userId") String userId);
+
+    @Select(" select part1, part2 from doctor_thesis_apply where zzxh = #{userId}")
+    DoctorThesisApplyPartStatus getDoctorThesisApplyPartStatus(@Param("userId") String userId);
 
     @Select(" SELECT * FROM doctor_thesis_apply WHERE zzxh = #{userId} ")
     DoctorThesisApply getDoctorTjb(@Param("userId") String userId);

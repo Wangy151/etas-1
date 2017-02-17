@@ -3,14 +3,11 @@ package cn.edu.hust.service;
 import cn.edu.hust.common.ThesisApplyStatus;
 import cn.edu.hust.dao.StudentInfoImportDao;
 import cn.edu.hust.dao.ThesisApplyDao;
-import cn.edu.hust.model.DoctorThesisApply;
-import cn.edu.hust.model.MasterThesisApply;
-import cn.edu.hust.model.StudentInfoImport;
-import cn.edu.hust.model.ThesisBasicInfo;
-import cn.edu.hust.model.User;
+import cn.edu.hust.model.*;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
+import cn.edu.hust.model.response.ThesisApplyAbstractResponse;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,9 +41,30 @@ public class StudentService {
 
     /**
      * 基本信息表
-     * @param
-     * @return
      */
+    public ThesisApplyAbstractResponse getThesisApplyAbstrac(String userId) {
+        ThesisApplyAbstractResponse thesisApplyAbstractResponse = new ThesisApplyAbstractResponse();
+
+        ThesisBasicInfo thesisBasicInfo = thesisApplyDao.getThesisBasicInfo(userId);
+        if (null == thesisBasicInfo) {
+            thesisApplyAbstractResponse.setBasicTableFinish("未完成");
+            thesisApplyAbstractResponse.setApplyStatus("待学生提交");
+        } else {
+            thesisApplyAbstractResponse.setBasicTableFinish("已完成");
+            thesisApplyAbstractResponse.setApplyStatus(thesisBasicInfo.getApplyStatus());
+        }
+
+        if (this.isFinishMasterTjb(userId) || this.isFinishDoctorTjb(userId)) {
+            thesisApplyAbstractResponse.setTjbFinish("已完成");
+        } else {
+            thesisApplyAbstractResponse.setTjbFinish("未完成");
+        }
+
+        return thesisApplyAbstractResponse;
+    }
+
+
+
     public void initThesisBasicInfoTable(String userId) {
         if (thesisApplyDao.hasApplyBasicInfoTable(userId) <= 0) {
             thesisApplyDao.initThesisBasicInfoTable(userId);
@@ -204,6 +222,18 @@ public class StudentService {
         }
     }
 
+    public boolean isFinishMasterTjb(String userId) {
+        MasterThesisApplyPartStatus masterThesisApplyPartStatus = thesisApplyDao.getMasterThesisApplyPartStatus(userId);
+        if (null != masterThesisApplyPartStatus
+                && 1 == masterThesisApplyPartStatus.getPart1()
+                && 1 == masterThesisApplyPartStatus.getPart2()
+                && 1 == masterThesisApplyPartStatus.getPart3()
+                && 1 == masterThesisApplyPartStatus.getPart4()) {
+            return true;
+        }
+        return false;
+    }
+
     public MasterThesisApply getMasterTjb(String userId) {
         return thesisApplyDao.getMasterTjb(userId);
     }
@@ -232,6 +262,16 @@ public class StudentService {
         if (thesisApplyDao.hasDoctorUser(userId) <= 0) {
             thesisApplyDao.initDoctorThesisApply(userId);
         }
+    }
+
+    public boolean isFinishDoctorTjb(String userId) {
+        DoctorThesisApplyPartStatus doctorThesisApplyPartStatus = thesisApplyDao.getDoctorThesisApplyPartStatus(userId);
+        if (null != doctorThesisApplyPartStatus
+                && 1 == doctorThesisApplyPartStatus.getPart1()
+                && 1 == doctorThesisApplyPartStatus.getPart2()) {
+            return true;
+        }
+        return false;
     }
 
 

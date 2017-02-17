@@ -7,6 +7,7 @@ import cn.edu.hust.model.request.StudentTypeRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
+import cn.edu.hust.model.response.ThesisApplyAbstractResponse;
 import cn.edu.hust.service.StudentService;
 import cn.edu.hust.service.UserService;
 import org.joda.time.DateTime;
@@ -42,7 +43,7 @@ public class StudentThesisApplyController {
     private UserService userService;
 
     /**
-     * 【优秀论文申请】状态主页面
+     * 【优秀论文申请】主页面
      * @return
      */
     @RequestMapping(value = "/index")
@@ -50,61 +51,48 @@ public class StudentThesisApplyController {
         User user = (User) session.getAttribute("user");
         String userId = user.getUserId();
 
-        ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
-        model.addAttribute("thesisBasicInfo", thesisBasicInfo);
+        ThesisApplyAbstractResponse thesisApplyAbstractResponse = studentService.getThesisApplyAbstrac(userId);
+        model.addAttribute("thesisApplyAbstractResponse", thesisApplyAbstractResponse);
         return "s_query_thesis_status";
     }
 
     /**
-     *  申请页主页
-     * @return
+     * 基本信息表
      */
-    @RequestMapping(value = "/main")
-    public String main() {
-        return "s_thesis_apply_frame";
-    }
-
-
-    /**
-     * 加载基本信息表
-     */
-    @RequestMapping(value = "/load/basicInfoTable")
-    public String loadBasicInfoTablePage(@RequestBody LoadBasicInfoTableRequest loadBasicInfoTableRequest, Model model) {
-        // 接收学号 和 pageType
+    @RequestMapping(value = "/basicInfoTable/create")
+    public String createBasicInfoTable(@RequestBody LoadBasicInfoTableRequest loadBasicInfoTableRequest, Model model) {
         String userId = loadBasicInfoTableRequest.getUserId();
-        String pageType = loadBasicInfoTableRequest.getPageType();
 
-        if ("0".equalsIgnoreCase(pageType)) {
-            // 0表示'新增申请'
-            ThesisBasicInfo  thesisBasicInfo = studentService.getInitThesisBasicInfo(userId);
-            model.addAttribute("thesisBasicInfo", thesisBasicInfo);
-            return "s_apply_basic_info_create";
-        } else if ("1".equalsIgnoreCase(pageType)) {
-            // 1表示‘修改’
-            ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
-            model.addAttribute("thesisBasicInfo", thesisBasicInfo);
-            return "s_apply_basic_info_edit";
-        } else {
-            // 2表示‘查看’
-            ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
-            model.addAttribute("thesisBasicInfo", thesisBasicInfo);
-            // 返回只读页面
-            return "s_apply_basic_info_view";
-        }
+        ThesisBasicInfo  thesisBasicInfo = studentService.getInitThesisBasicInfo(userId);
+        model.addAttribute("thesisBasicInfo", thesisBasicInfo);
+        return "s_apply_basic_info_create";
     }
 
-    /**
-     * 修改 基本信息表
-     * @param thesisBasicInfo
-     * @return 200:保存成功 500:保存失败
-     */
-    @RequestMapping(value = "/save/basicInfoTable", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResponse createThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
+    @RequestMapping(value = "/basicInfoTable/edit")
+    public String editBasicInfoTable(@RequestBody LoadBasicInfoTableRequest loadBasicInfoTableRequest, Model model) {
+        String userId = loadBasicInfoTableRequest.getUserId();
+
+        ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
+        model.addAttribute("thesisBasicInfo", thesisBasicInfo);
+        return "s_apply_basic_info_edit";
+    }
+
+    @RequestMapping(value = "/basicInfoTable/view")
+    public String viewBasicInfoTable(@RequestBody LoadBasicInfoTableRequest loadBasicInfoTableRequest, Model model) {
+        String userId = loadBasicInfoTableRequest.getUserId();
+
+        ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
+        model.addAttribute("thesisBasicInfo", thesisBasicInfo);
+        // 返回只读页面
+        return "s_apply_basic_info_view";
+    }
+
+    @RequestMapping(value = "/basicInfoTable/save")
+    public CommonResponse saveBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
         // 初始数据库
         studentService.initThesisBasicInfoTable(thesisBasicInfo.getZzxh());
 
-        // 初始化数据 applyYear applyStatus department;
+        // 初始数据 applyYear applyStatus department;
         String applyYear = String.valueOf(DateTime.now().getYear());
         String applyStatus = ThesisApplyStatus.TO_SUBMIT.getValue();
 
@@ -169,101 +157,93 @@ public class StudentThesisApplyController {
     /**
      * 加载优秀论文推荐表: 主页面
      */
-    @RequestMapping(value = "/load/tjbFrame")
+    @RequestMapping(value = "/tjb/frame")
     public String loadTjbFrame() {
         return "s_thesis_apply_tjb_frame";
     }
 
-    /**
-     * 根据 [硕士]或[博士] load 不同推荐表
-     *
-     * @return
-     */
-    @RequestMapping(value = "/load/tjb", method = RequestMethod.POST)
-    public String loadTjb(@RequestBody StudentTypeRequest studentTypeRequest, Model model, HttpSession session) throws Exception {
+    @RequestMapping(value = "/tjb/create")
+    public String createTjb(@RequestBody StudentTypeRequest studentTypeRequest, Model model) {
         String userId = studentTypeRequest.getUserId();
         String studentType = studentTypeRequest.getStudentType();
-        // pageType(0表示'新增申请',1表示‘编辑’,2表示‘查看’)
-        String pageType = studentTypeRequest.getPageType();
 
         if ("master".equalsIgnoreCase(studentType)) {
-            // 硕士
-
-            if ("0".equalsIgnoreCase(pageType)) {
-                // 新增申请  填充导入信息
-                StudentInfoImport studentInfoImport = studentService.getStudentInfoImport(userId);
-                if (null == studentInfoImport) {
-                    // 找不到导入信息
-                    studentInfoImport = new StudentInfoImport();
-                    studentInfoImport.setXh(userId);
-                }
-
-                model.addAttribute("studentInfoImport", studentInfoImport);
-                return "s_master_thesis_apply_create";
-            } else if ("1".equalsIgnoreCase(pageType)) {
-                // 编辑
-                MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
-                // 防止空指针
-                if (null == masterThesisApply) {
-                    masterThesisApply = new MasterThesisApply();
-                    masterThesisApply.setZzxh(userId);
-                }
-                model.addAttribute("masterThesisApply", masterThesisApply);
-                return "s_master_thesis_apply_edit";
-            } else {
-                // 查看
-                MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
-                // 防止空指针
-                if (null == masterThesisApply) {
-                    masterThesisApply = new MasterThesisApply();
-                    masterThesisApply.setZzxh(userId);
-                }
-                model.addAttribute("masterThesisApply", masterThesisApply);
-                return "s_master_thesis_apply_view";
+            StudentInfoImport studentInfoImport = studentService.getStudentInfoImport(userId);
+            if (null == studentInfoImport) {
+                // 找不到导入信息
+                studentInfoImport = new StudentInfoImport();
+                studentInfoImport.setXh(userId);
             }
-        } else if ("doctor".equalsIgnoreCase(studentType)) {
-            // 博士
 
-            if ("0".equalsIgnoreCase(pageType)) {
-                // 新增申请
-                DoctorThesisApply doctorThesisApply = new DoctorThesisApply();
-                doctorThesisApply.setZzxh(userId);
-                model.addAttribute("doctorThesisApply", doctorThesisApply);
-                return "s_doctor_thesis_apply_create";
-            } else if ("1".equalsIgnoreCase(pageType)) {
-                // 编辑
-                DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
-                // 防止空指针
-                if (null == doctorThesisApply) {
-                    doctorThesisApply = new DoctorThesisApply();
-                    doctorThesisApply.setZzxh(userId);
-                }
-                model.addAttribute("doctorThesisApply", doctorThesisApply);
-                return "s_doctor_thesis_apply_edit";
-            } else {
-                // 查看
-                DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
-                // 防止空指针
-                if (null == doctorThesisApply) {
-                    doctorThesisApply = new DoctorThesisApply();
-                    doctorThesisApply.setZzxh(userId);
-                }
-                model.addAttribute("doctorThesisApply", doctorThesisApply);
-                return "s_doctor_thesis_apply_view";
-            }
+            model.addAttribute("studentInfoImport", studentInfoImport);
+            return "s_master_thesis_apply_create";
         } else {
-            throw new Exception("error");
+            DoctorThesisApply doctorThesisApply = new DoctorThesisApply();
+            doctorThesisApply.setZzxh(userId);
+            model.addAttribute("doctorThesisApply", doctorThesisApply);
+            return "s_doctor_thesis_apply_create";
+        }
+    }
+
+    @RequestMapping(value = "/tjb/edit")
+    public String editTjb(@RequestBody StudentTypeRequest studentTypeRequest, Model model) {
+        String userId = studentTypeRequest.getUserId();
+        String studentType = studentTypeRequest.getStudentType();
+
+        if ("master".equalsIgnoreCase(studentType)) {
+            MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
+            // 防止空指针
+            if (null == masterThesisApply) {
+                masterThesisApply = new MasterThesisApply();
+                masterThesisApply.setZzxh(userId);
+            }
+            model.addAttribute("masterThesisApply", masterThesisApply);
+            return "s_master_thesis_apply_edit";
+        } else {
+            DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
+            // 防止空指针
+            if (null == doctorThesisApply) {
+                doctorThesisApply = new DoctorThesisApply();
+                doctorThesisApply.setZzxh(userId);
+            }
+            model.addAttribute("doctorThesisApply", doctorThesisApply);
+            return "s_doctor_thesis_apply_edit";
+        }
+    }
+
+    @RequestMapping(value = "/tjb/view")
+    public String viewTjb(@RequestBody StudentTypeRequest studentTypeRequest, Model model) {
+        String userId = studentTypeRequest.getUserId();
+        String studentType = studentTypeRequest.getStudentType();
+
+        if ("master".equalsIgnoreCase(studentType)) {
+            MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
+            // 防止空指针
+            if (null == masterThesisApply) {
+                masterThesisApply = new MasterThesisApply();
+                masterThesisApply.setZzxh(userId);
+            }
+            model.addAttribute("masterThesisApply", masterThesisApply);
+            return "s_master_thesis_apply_view";
+        } else {
+            DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
+            // 防止空指针
+            if (null == doctorThesisApply) {
+                doctorThesisApply = new DoctorThesisApply();
+                doctorThesisApply.setZzxh(userId);
+            }
+            model.addAttribute("doctorThesisApply", doctorThesisApply);
+            return "s_doctor_thesis_apply_view";
         }
 
     }
-
 
     /**
      * 保存申请表[硕士]
      *
      * @return
      */
-    @RequestMapping(value = "/master/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/tjb/master/save", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse saveMasterTjb(@RequestBody MasterThesisApply masterThesisApply) {
         CommonResponse commonResponse = new CommonResponse();
@@ -283,7 +263,7 @@ public class StudentThesisApplyController {
      *
      * @return
      */
-    @RequestMapping(value = "/doctor/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/tjb/doctor/save", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse saveDoctorTjb(@RequestBody DoctorThesisApply doctorThesisApply, HttpSession session) {
         User user = (User) session.getAttribute("user");
