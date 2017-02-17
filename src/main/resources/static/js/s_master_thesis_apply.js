@@ -91,6 +91,7 @@ function m_apply_form2_submit(){
             contentType: "application/json",
             data: JSON.stringify({
                 //  dyzz  dezz  sci  ei  ssci  istp  zls  cgjx
+                "zzxh":getUserIdFromPage(),
                 "dyzz":$("#dyzz").val(),
                 "dezz":$("#dezz").val(),
                 "sci":$("#sci").val(),
@@ -143,6 +144,7 @@ function m_apply_form3_submit(){
             contentType: "application/json",
             data: JSON.stringify({
                 // gdxwfs  bkjdxx  gdssxwdw  zzdw  zzdz
+                "zzxh":getUserIdFromPage(),
                 "gdxwfs":$("#gdxwfs").val(),
                 "bkjdxx":$("#bkjdxx").val(),
                 "gdssxwdw":$("#gdssxwdw").val(),
@@ -197,6 +199,7 @@ function m_apply_form4_submit(){
             contentType: "application/json",
             data: JSON.stringify({
                 //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+                "zzxh":getUserIdFromPage(),
                 "fbxslw":$("#fbxslw").val(),
                 "cbzz":$("#cbzz").val(),
                 "hjxm":$("#hjxm").val(),

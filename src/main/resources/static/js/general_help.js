@@ -221,3 +221,11 @@ function getThesisPageTypeFromPage(){
 function getMyUserIdFromPage(){
     return $("#savedMyUserId").text();
 }
+// 硕士\博士
+function saveApplyTypeToPage(applyType){
+    $("#savedApplyType").text(applyType)
+}
+
+function getApplyTypeFromPage(){
+    return $("#savedApplyType").text();
+}

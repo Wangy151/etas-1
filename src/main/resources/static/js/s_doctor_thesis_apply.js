@@ -27,7 +27,7 @@ function d_form1_submit(){
             contentType: "application/json",
             data: JSON.stringify({
                 // lwtm  lwywtm  zzxm  dbrq  hdxwrq  lwsjdyjfx
-
+                "zzxh":getUserIdFromPage(),
                 "lwtm":$("#lwtm").val(),
                 "lwywtm":$("#lwywtm").val(),
                 "zzxm":$("#zzxm").val(),
@@ -86,7 +86,7 @@ function d_form2_submit(){
             contentType: "application/json",
             data: JSON.stringify({
                 // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
-
+                "zzxh":getUserIdFromPage(),
                 "fbxslw":$("#fbxslw").val(),
                 "cbzz":$("#cbzz").val(),
                 "hjxm":$("#hjxm").val(),
