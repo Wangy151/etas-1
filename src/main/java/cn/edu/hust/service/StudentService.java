@@ -190,6 +190,10 @@ public class StudentService {
     }
 
 
+    public StudentInfoImport getStudentInfoImport(String userId) {
+        return studentInfoImportDao.getStudentInfoImport(userId);
+    }
+
     /**
      * 硕士推荐表
      * @param userId

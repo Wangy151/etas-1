@@ -51,7 +51,7 @@
                 <td class="td_key"><span class="font_star">*</span>民族</td>
                 <td>
                     <select name="mz" id="mz">
-                        <option selected="selected" value="">请选择</option>
+                        <option selected="selected" value="" th:value="${masterThesisApply.mz}" th:text="${masterThesisApply.mz}"></option>
                         <option value="汉族">汉族</option>
                         <option value="蒙古族">蒙古族</option>
                         <option value="彝族">彝族</option>
@@ -111,34 +111,34 @@
                     </select>
                 </td>
                 <td class="td_key">论文题目</td>
-                <td colspan="5"><input type="text" id="lwtm" name="lwtm" disabled="disabled" placeholder="论文题目"/></td>
+                <td colspan="5"><input type="text" id="lwtm" name="lwtm" disabled="disabled" placeholder="论文题目" th:value="${masterThesisApply.lwtm}"/></td>
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>论文英文题目</td>
                 <td colspan="7"><input type="text" id="lwywtm" name="lwywtm" placeholder="论文英文题目" th:value="${masterThesisApply.lwywtm}"/></td>
             </tr>
             <tr>
-                <td class="td_key"><span class="font_star">*</span>入学年月</td>
-                <td><input type="text" id="rxny" name="rxny" placeholder="入学年月"/></td>
+                <td class="td_key"><span class="font_star">*</span>入学年月(如201409)</td>
+                <td><input type="text" id="rxny" name="rxny" placeholder="入学年月" th:value="${masterThesisApply.rxny}"/></td>
 
                 <td class="td_key" colspan="2">论文答辩日期</td>
                 <td><input type="text" id="dbrq" name="dbrq" disabled="disabled" placeholder="论文答辩日期" th:value="${masterThesisApply.dbrq}"/></td>
                 <td class="td_key">获得硕士学位日期</td>
-                <td colspan="2"><input type="text" id="hdxwrq" name="hdxwrq" disabled="disabled" placeholder="获得硕士学位日期"/></td>
+                <td colspan="2"><input type="text" id="hdxwrq" name="hdxwrq" disabled="disabled" placeholder="获得硕士学位日期" th:value="${masterThesisApply.hdxwrq}"/></td>
             </tr>
             <tr>
                 <td class="td_key">一级学科代码</td>
-                <td><input type="text" id="yjxkdm" name="yjxkdm" disabled="disabled" placeholder="一级学科代码"/></td>
+                <td><input type="text" id="yjxkdm" name="yjxkdm" disabled="disabled" placeholder="一级学科代码" th:value="${masterThesisApply.yjxkdm}"/></td>
 
                 <td class="td_key" colspan="2">一级学科名称</td>
-                <td colspan="4"><input type="text" id="yjxkmc" name="yjxkmc" disabled="disabled" placeholder="一级学科名称"/></td>
+                <td colspan="4"><input type="text" id="yjxkmc" name="yjxkmc" disabled="disabled" placeholder="一级学科名称" th:value="${masterThesisApply.yjxkmc}"/></td>
             </tr>
             <tr>
                 <td class="td_key">二级学科代码</td>
-                <td><input type="text" id="ejxkdm" name="ejxkdm" disabled="disabled" placeholder="二级学科代码"/></td>
+                <td><input type="text" id="ejxkdm" name="ejxkdm" disabled="disabled" placeholder="二级学科代码" th:value="${masterThesisApply.ejxkdm}"/></td>
 
                 <td class="td_key" colspan="2">二级学科名称</td>
-                <td colspan="4"><input type="text" id="ejxkmc" name="ejxkmc" disabled="disabled" placeholder="二级学科名称"/></td>
+                <td colspan="4"><input type="text" id="ejxkmc" name="ejxkmc" disabled="disabled" placeholder="二级学科名称" th:value="${masterThesisApply.ejxkmc}"/></td>
             </tr>
             <tr>
                 <td class="td_key" colspan="2"><span class="font_star">*</span>论文涉及的研究方向</td>

@@ -1,10 +1,7 @@
 package cn.edu.hust.controller;
 
 import cn.edu.hust.common.ThesisApplyStatus;
-import cn.edu.hust.model.DoctorThesisApply;
-import cn.edu.hust.model.MasterThesisApply;
-import cn.edu.hust.model.ThesisBasicInfo;
-import cn.edu.hust.model.User;
+import cn.edu.hust.model.*;
 import cn.edu.hust.model.request.LoadBasicInfoTableRequest;
 import cn.edu.hust.model.request.StudentTypeRequest;
 import cn.edu.hust.model.response.CommonResponse;
@@ -193,11 +190,16 @@ public class StudentThesisApplyController {
             // 硕士
 
             if ("0".equalsIgnoreCase(pageType)) {
-                // 新增申请
-                MasterThesisApply masterThesisApply = new MasterThesisApply();
-                masterThesisApply.setZzxh(userId);
-                model.addAttribute("masterThesisApply", masterThesisApply);
-                return "s_master_thesis_apply";
+                // 新增申请  填充导入信息
+                StudentInfoImport studentInfoImport = studentService.getStudentInfoImport(userId);
+                if (null == studentInfoImport) {
+                    // 找不到导入信息
+                    studentInfoImport = new StudentInfoImport();
+                    studentInfoImport.setXh(userId);
+                }
+
+                model.addAttribute("studentInfoImport", studentInfoImport);
+                return "s_master_thesis_apply_create";
             } else if ("1".equalsIgnoreCase(pageType)) {
                 // 编辑
                 MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
@@ -207,7 +209,7 @@ public class StudentThesisApplyController {
                     masterThesisApply.setZzxh(userId);
                 }
                 model.addAttribute("masterThesisApply", masterThesisApply);
-                return "s_master_thesis_apply";
+                return "s_master_thesis_apply_edit";
             } else {
                 // 查看
                 MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
@@ -227,7 +229,7 @@ public class StudentThesisApplyController {
                 DoctorThesisApply doctorThesisApply = new DoctorThesisApply();
                 doctorThesisApply.setZzxh(userId);
                 model.addAttribute("doctorThesisApply", doctorThesisApply);
-                return "s_doctor_thesis_apply";
+                return "s_doctor_thesis_apply_create";
             } else if ("1".equalsIgnoreCase(pageType)) {
                 // 编辑
                 DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
@@ -237,7 +239,7 @@ public class StudentThesisApplyController {
                     doctorThesisApply.setZzxh(userId);
                 }
                 model.addAttribute("doctorThesisApply", doctorThesisApply);
-                return "s_doctor_thesis_apply";
+                return "s_doctor_thesis_apply_edit";
             } else {
                 // 查看
                 DoctorThesisApply doctorThesisApply = studentService.getDoctorTjb(userId);
@@ -263,15 +265,11 @@ public class StudentThesisApplyController {
      */
     @RequestMapping(value = "/master/save", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse saveMasterTjb(@RequestBody MasterThesisApply masterThesisApply, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        String userId = user.getUserId();
-        masterThesisApply.setZzxh(userId);
-
+    public CommonResponse saveMasterTjb(@RequestBody MasterThesisApply masterThesisApply) {
         CommonResponse commonResponse = new CommonResponse();
 
         // 初始化
-        studentService.initMasterTjb(userId);
+        studentService.initMasterTjb(masterThesisApply.getZzxh());
 
         boolean isSuccess = studentService.saveMasterTjb(masterThesisApply);
         if (isSuccess) {
