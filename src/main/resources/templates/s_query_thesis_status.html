@@ -23,20 +23,20 @@
             <tbody>
                 <tr>
                     <td>基本信息表</td>
-                    <td>完成</td>
+                    <td th:text="${thesisApplyAbstractResponse.basicTableFinish}">完成</td>
                     <td>
                         <a href="#" id="basicTable_create_btn">新增</a>&nbsp;|&nbsp;
                         <a href="#" id="basicTable_edit_btn">编辑</a>&nbsp;|&nbsp;
                         <a href="#" id="basicTable_view_btn">查看</a>
                     </td>
-                    <td rowspan="2">
-                        待编辑
+                    <td rowspan="2" th:text="${thesisApplyAbstractResponse.applyStatus}">
+                        待学生提交
                     </td>
 
                 </tr>
                 <tr>
                     <td>推荐表</td>
-                    <td>未完成</td>
+                    <td th:text="${thesisApplyAbstractResponse.tjbFinish}">未完成</td>
                     <td>
                         <a href="#" id="tjb_create_btn">新增</a>&nbsp;|&nbsp;
                         <a href="#" id="tjb_edit_btn">编辑</a>&nbsp;|&nbsp;
