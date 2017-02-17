@@ -39,7 +39,8 @@ public interface ThesisApplyDao {
             " yjxkdm = #{thesisBasicInfo.yjxkdm}, yjxkmc = #{thesisBasicInfo.yjxkmc}, ejxkdm = #{thesisBasicInfo.ejxkdm}, " +
             " ejxkmc = #{thesisBasicInfo.ejxkmc}, gdlb = #{thesisBasicInfo.gdlb}, gdfs = #{thesisBasicInfo.gdfs}, " +
             " zzzc = #{thesisBasicInfo.zzzc}, xxlxr = #{thesisBasicInfo.xxlxr}, bz = #{thesisBasicInfo.bz}, " +
-            " student_type = #{thesisBasicInfo.studentType} " +
+            " apply_year = #{thesisBasicInfo.applyYear}, student_type = #{thesisBasicInfo.studentType}, apply_status = #{thesisBasicInfo.applyStatus}, " +
+            " department = #{thesisBasicInfo.department}, upload_status = #{thesisBasicInfo.uploadStatus} " +
             " WHERE zzxh = #{thesisBasicInfo.zzxh}" )
     int saveThesisBasicInfoTable(@Param("thesisBasicInfo") ThesisBasicInfo thesisBasicInfo);
 

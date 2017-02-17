@@ -47,8 +47,10 @@ public class StudentService {
      * @param
      * @return
      */
-    public boolean initThesisBasicInfoTable(String userId) {
-        return thesisApplyDao.initThesisBasicInfoTable(userId) > 0;
+    public void initThesisBasicInfoTable(String userId) {
+        if (thesisApplyDao.hasApplyBasicInfoTable(userId) <= 0) {
+            thesisApplyDao.initThesisBasicInfoTable(userId);
+        }
     }
 
     public ThesisBasicInfo getThesisBasicInfo(String userId) {

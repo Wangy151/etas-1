@@ -81,10 +81,6 @@ public class StudentThesisApplyController {
             // 0表示'新增申请'
             ThesisBasicInfo  thesisBasicInfo = studentService.getInitThesisBasicInfo(userId);
             model.addAttribute("thesisBasicInfo", thesisBasicInfo);
-
-            // 初始数据库
-            studentService.initThesisBasicInfoTable(userId);
-
             return "s_apply_basic_info_create";
         } else if ("1".equalsIgnoreCase(pageType)) {
             // 1表示‘修改’
@@ -101,13 +97,16 @@ public class StudentThesisApplyController {
     }
 
     /**
-     * 新增 基本信息表
+     * 修改 基本信息表
      * @param thesisBasicInfo
      * @return 200:保存成功 500:保存失败
      */
-    @RequestMapping(value = "/basicInfoTable/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/save/basicInfoTable", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse createThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
+        // 初始数据库
+        studentService.initThesisBasicInfoTable(thesisBasicInfo.getZzxh());
+
         // 初始化数据 applyYear applyStatus department;
         String applyYear = String.valueOf(DateTime.now().getYear());
         String applyStatus = ThesisApplyStatus.TO_SUBMIT.getValue();
@@ -118,21 +117,8 @@ public class StudentThesisApplyController {
         thesisBasicInfo.setApplyYear(applyYear);
         thesisBasicInfo.setApplyStatus(applyStatus);
         thesisBasicInfo.setDepartment(department);
+        thesisBasicInfo.setUploadStatus(1);
 
-        if (studentService.saveThesisBasicInfoTable(thesisBasicInfo)) {
-            return new SuccessResponse();
-        }
-        return new FailResponse();
-    }
-
-    /**
-     * 修改 基本信息表
-     * @param thesisBasicInfo
-     * @return 200:保存成功 500:保存失败
-     */
-    @RequestMapping(value = "/basicInfoTable/edit", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResponse editThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
         if (studentService.saveThesisBasicInfoTable(thesisBasicInfo)) {
             return new SuccessResponse();
         }
