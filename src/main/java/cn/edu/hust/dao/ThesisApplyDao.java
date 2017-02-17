@@ -23,11 +23,8 @@ public interface ThesisApplyDao {
     @Select(" SELECT COUNT(*) FROM thesis_basic_info WHERE zzxh = #{userId} ")
     int hasApplyBasicInfoTable(@Param("userId") String userId);
 
-    @Insert(" INSERT INTO thesis_basic_info(apply_year, apply_status, department, zzxh) VALUES (#{applyYear}, #{applyStatus}, #{department}, #{userId}) ")
-    int initThesisBasicInfoTable(@Param("applyYear") String applyYear,
-                                 @Param("applyStatus") String applyStatus,
-                                 @Param("department") String department,
-                                 @Param("userId") String userId);
+    @Insert(" INSERT INTO thesis_basic_info(zzxh) VALUES (#{userId}) ")
+    int initThesisBasicInfoTable(@Param("userId") String userId);
 
     @Select(" SELECT * FROM thesis_basic_info WHERE zzxh = #{userId} ")
     ThesisBasicInfo getThesisBasicInfo(@Param("userId") String userId);

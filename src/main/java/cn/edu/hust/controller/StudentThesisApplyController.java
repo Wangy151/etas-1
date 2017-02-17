@@ -11,12 +11,15 @@ import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
 import cn.edu.hust.service.StudentService;
+import cn.edu.hust.service.UserService;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +40,9 @@ public class StudentThesisApplyController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 【优秀论文申请】状态主页面
@@ -75,12 +81,16 @@ public class StudentThesisApplyController {
             // 0表示'新增申请'
             ThesisBasicInfo  thesisBasicInfo = studentService.getInitThesisBasicInfo(userId);
             model.addAttribute("thesisBasicInfo", thesisBasicInfo);
-            return "s_apply_basic_info";
+
+            // 初始数据库
+            studentService.initThesisBasicInfoTable(userId);
+
+            return "s_apply_basic_info_create";
         } else if ("1".equalsIgnoreCase(pageType)) {
             // 1表示‘修改’
             ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
             model.addAttribute("thesisBasicInfo", thesisBasicInfo);
-            return "s_apply_basic_info";
+            return "s_apply_basic_info_edit";
         } else {
             // 2表示‘查看’
             ThesisBasicInfo thesisBasicInfo = studentService.getThesisBasicInfo(userId);
@@ -90,20 +100,39 @@ public class StudentThesisApplyController {
         }
     }
 
-
     /**
-     * 保存基本信息表
-     *
-     * @param thesisBasicInfo 前台参数
+     * 新增 基本信息表
+     * @param thesisBasicInfo
      * @return 200:保存成功 500:保存失败
      */
-    @RequestMapping(value = "/save/basicInfoTable", method = RequestMethod.POST)
+    @RequestMapping(value = "/basicInfoTable/create", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResponse saveThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo, HttpSession session) {
-        // TODO 前端传studentType
-        // 初始化
-        studentService.initThesisBasicInfoTable(thesisBasicInfo.getZzxh(), session);
+    public CommonResponse createThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
+        // 初始化数据 applyYear applyStatus department;
+        String applyYear = String.valueOf(DateTime.now().getYear());
+        String applyStatus = ThesisApplyStatus.TO_SUBMIT.getValue();
 
+        User user = userService.getUserInfo(thesisBasicInfo.getZzxh());
+        String department = user.getDepartment();
+
+        thesisBasicInfo.setApplyYear(applyYear);
+        thesisBasicInfo.setApplyStatus(applyStatus);
+        thesisBasicInfo.setDepartment(department);
+
+        if (studentService.saveThesisBasicInfoTable(thesisBasicInfo)) {
+            return new SuccessResponse();
+        }
+        return new FailResponse();
+    }
+
+    /**
+     * 修改 基本信息表
+     * @param thesisBasicInfo
+     * @return 200:保存成功 500:保存失败
+     */
+    @RequestMapping(value = "/basicInfoTable/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResponse editThesisBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
         if (studentService.saveThesisBasicInfoTable(thesisBasicInfo)) {
             return new SuccessResponse();
         }

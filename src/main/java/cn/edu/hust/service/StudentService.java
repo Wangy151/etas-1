@@ -34,6 +34,9 @@ import java.io.IOException;
 @Service
 public class StudentService {
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private ThesisApplyDao thesisApplyDao;
 
     @Autowired
@@ -41,20 +44,11 @@ public class StudentService {
 
     /**
      * 基本信息表
-     * @param userId
+     * @param
      * @return
      */
-    public void initThesisBasicInfoTable(String userId, HttpSession session) {
-        if (thesisApplyDao.hasApplyBasicInfoTable(userId) <= 0) {
-            // 初始化数据 applyYear applyStatus department;
-            String applyYear = String.valueOf(DateTime.now().getYear());
-            String applyStatus = ThesisApplyStatus.TO_SUBMIT.getValue();
-
-            User user = (User)session.getAttribute("user");
-            String department = user.getDepartment();
-
-            thesisApplyDao.initThesisBasicInfoTable(applyYear, applyStatus, department, userId);
-        }
+    public boolean initThesisBasicInfoTable(String userId) {
+        return thesisApplyDao.initThesisBasicInfoTable(userId) > 0;
     }
 
     public ThesisBasicInfo getThesisBasicInfo(String userId) {

@@ -145,7 +145,7 @@
             <tr>
                 <td class="td_key"><span class="font_star">*</span>论文上传（pdf格式）</td>
                 <td colspan="3">
-                    <input type="text" id="fileUplodStatus" hidden="hidden" value="0" th:value="${thesisBasicInfo.uploadStatus}"/>
+                    <span th:if="${thesisBasicInfo.uploadStatus} == 0" th:text="您还未上传文件"></span>
                     <a href="" th:if="${thesisBasicInfo.uploadStatus} == 1" th:href="'/home/student/thesis/apply/basicInfoTable/pdf/download?fileName=' + ${thesisBasicInfo.lwywlj} + '.pdf'" th:text="${thesisBasicInfo.lwywlj} + '.pdf'"></a>
                 </td>
             </tr>
