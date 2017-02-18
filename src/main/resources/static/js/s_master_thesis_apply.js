@@ -676,20 +676,20 @@ function checkForm4IfValid(){
 
 function clearMasterTjbForm1ValidateMsg(){
     //#m_form1_warn
-    $("#m_form4_warn").text();
+    $("#m_form1_warn").html("");
 }
 
 function clearMasterTjbForm2ValidateMsg(){
     //m_form2_warn
-    $("#m_form2_warn").text();
+    $("#m_form2_warn").html("");
 }
 
 function clearMasterTjbForm3ValidateMsg(){
     //m_form3_warn
-    $("#m_form3_warn").text();
+    $("#m_form3_warn").html("");
 }
 
 function clearMasterTjbForm4ValidateMsg(){
     //m_form4_warn
-    $("#m_form4_warn").text();
+    $("#m_form4_warn").html("");
 }

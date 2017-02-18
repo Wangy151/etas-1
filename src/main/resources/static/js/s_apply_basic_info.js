@@ -567,5 +567,5 @@ function checkIfCanUploadFile(){
 }
 
 function clearBasicInfoFormValidateMsg(){
-    $("#m_table1_warn").text();
+    $("#m_table1_warn").html("");
 }

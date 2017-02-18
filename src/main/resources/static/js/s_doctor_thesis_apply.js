@@ -329,10 +329,10 @@ function  checkForm2IfValid() {
 
 function clearDoctorTjbForm1ValidateMsg(){
     //d_form1_warn
-    $("#d_form1_warn").text();
+    $("#d_form1_warn").html("");
 }
 
 function clearDoctorTjbForm2ValidateMsg(){
     //d_form2_warn
-    $("#d_form2_warn").text();
+    $("#d_form2_warn").html("");
 }

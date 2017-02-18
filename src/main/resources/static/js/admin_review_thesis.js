@@ -16,7 +16,7 @@ function search(){
             url: "/home/admin/thesis/search",
             contentType: "application/json",
             data: JSON.stringify({
-                "department":$("#school").text(),
+                "department":$("#department").val(),
                 "applyYear":$("#year").val(),
                 "applyStatus":$("#apply_status").val(),
                 "studentType":$("#student_type").val(),
