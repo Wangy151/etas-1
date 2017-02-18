@@ -20,8 +20,8 @@ public interface AdminThesisManageDao {
     @SelectProvider(type = AdminThesisManageService.class, method = "getSearchSql")
     List<ThesisBasicInfo> getThesisBasicInfoList(AdminSearchRequest adminSearchRequest);
 
-    @UpdateProvider(type = TeacherThesisManageService.class, method = "getUpdateSql")
+    @UpdateProvider(type = AdminThesisManageService.class, method = "getUpdateSql")
     int updateApplyStatus(@Param("applyStatus") String applyStatus,
-                          @Param("userIdsForSql") String userIdsForSql);
+                          @Param("whereInSql") String whereInSql);
 
 }

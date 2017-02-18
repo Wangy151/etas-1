@@ -101,7 +101,7 @@ public class AdminThesisManageService {
     public String getUpdateSql(Map<String, String> param) {
         String updateSql = "UPDATE thesis_basic_info SET apply_status = '";
         updateSql += param.get("applyStatus") + "' WHERE zzxh IN (";
-        updateSql += param.get("userIdsForSql") + ")";
+        updateSql += param.get("whereInSql") + ")";
 
         return updateSql;
     }
