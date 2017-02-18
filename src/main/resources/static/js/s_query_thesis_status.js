@@ -16,7 +16,6 @@ $(document).ready(function () {
 // var tjbStatus = $("#tjbStatus").text();
 // var applyStatus = $("#applyStatus").text();
 
-
 ////   basicTable_create_btn  basicTable_edit_btn   basicTable_view_btn
 ///     tjb_create_btn   tjb_edit_btn    tjb_view_btn
 /////   deleteApply_btn    submitApply_btn
@@ -206,6 +205,8 @@ function submitApply1(){
 
     });
 }
+
+
 
 
 

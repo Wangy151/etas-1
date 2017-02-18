@@ -9,7 +9,7 @@ var tjbFrameUrl = "/home/student/thesis/apply/tjb/frame";
 var tjbCreateUrl = "/home/student/thesis/apply/tjb/create";
 var tjbEditUrl = "/home/student/thesis/apply/tjb/edit";
 var tjbViewUrl = "/home/student/thesis/apply/tjb/view";
-
+var studentQueryThesisStatusUrl = "/home/student/thesis/apply/index";
 
 ///     刷新页面                ////
 //  mid_body         -->  ApplyThesisPage
@@ -218,6 +218,32 @@ function refreshToTjbViewPage(studentType,userId){
     }); // end ajax
 }
 
+function refreshToStudentQueryStatus() {
+    var wrapLocation = "#home_right_wrap";
+    $.ajax({
+        type: "POST",
+        url: studentQueryThesisStatusUrl,
+        contentType: "application/json",
+        data: JSON.stringify({
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        }
+    }); // end ajax
+}
 
 
 ////////////     保存临时值到页面中       //////////////

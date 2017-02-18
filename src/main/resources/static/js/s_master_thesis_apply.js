@@ -24,6 +24,7 @@ function m_apply_form1_submit(){
     $("#m_form1_submit_btn").click(function () {
         var status = checkForm1IfValid();
         if(status == false) return;
+        clearMasterTjbForm1ValidateMsg();
         /////       URL                      /////
         $.ajax({
             type: "POST",
@@ -84,6 +85,7 @@ function m_apply_form2_submit(){
     $("#m_form2_submit_btn").click(function () {
         var status = checkForm2IfValid();
         if(status == false)  return;
+        clearMasterTjbForm2ValidateMsg();
         /////          URL           ///////////
         $.ajax({
             type: "POST",
@@ -137,6 +139,7 @@ function m_apply_form3_submit(){
     $("#m_form3_submit_btn").click(function(){
         var status = checkForm3IfValid();
         if(status == false)   return;
+        clearMasterTjbForm3ValidateMsg();
         /////          URL           ///////////
         $.ajax({
             type: "POST",
@@ -193,6 +196,7 @@ function m_apply_form4_submit(){
     $("#m_form4_submit_btn").click(function(){
         var status = checkForm4IfValid();
         if(status == false)  return;
+        clearMasterTjbForm4ValidateMsg();
         $.ajax({
             type: "POST",
             url: masterTjbSubmitUrl,
@@ -668,4 +672,24 @@ function checkForm4IfValid(){
     if($("#lwdzycxd").valid() == false) return false;
     if($("#tbrq").valid() == false) return false;
     return true;
+}
+
+function clearMasterTjbForm1ValidateMsg(){
+    //#m_form1_warn
+    $("#m_form4_warn").text();
+}
+
+function clearMasterTjbForm2ValidateMsg(){
+    //m_form2_warn
+    $("#m_form2_warn").text();
+}
+
+function clearMasterTjbForm3ValidateMsg(){
+    //m_form3_warn
+    $("#m_form3_warn").text();
+}
+
+function clearMasterTjbForm4ValidateMsg(){
+    //m_form4_warn
+    $("#m_form4_warn").text();
 }
