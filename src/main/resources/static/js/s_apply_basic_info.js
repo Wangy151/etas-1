@@ -23,7 +23,7 @@ function basicInfoSave()  {
         if(checkFormValidateStatus() == false){
             return;
         }
-        $("#m_table1_warn").html("");
+        clearBasicInfoFormValidateMsg();
         var studentType;
         if($("#cplx").val() == "湖北省优秀硕士论文评选（已授学位）")
             studentType = "硕士";
@@ -110,7 +110,7 @@ function basicInfoSubmit()  {
         if(checkFormValidateStatus() == false){
             return;
         }
-        $("#m_table1_warn").html("");
+        clearBasicInfoFormValidateMsg();
         var studentType;
         if($("#cplx").val() == "湖北省优秀硕士论文评选（已授学位）")
             studentType = "硕士";
@@ -564,4 +564,8 @@ function getEjxkdmFromPage(){
 function checkIfCanUploadFile(){
     if(getEjxkdmFromPage()==""||$("#zzxh").val()=="") return false;
     return true;
+}
+
+function clearBasicInfoFormValidateMsg(){
+    $("#m_table1_warn").text();
 }

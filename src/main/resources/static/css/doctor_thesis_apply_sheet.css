@@ -55,14 +55,12 @@ table textarea{
 }
 
 .check_msg{
-    float: right;
-    width:350px;
-    margin-top: -25px;
+    margin-left: 20px;
     text-align: center;
 }
 .checkTure_btn_div{
+    text-align: center;
     margin:0 auto;
-    width:250px;
 }
 .d_t2_c1{
     width:12.5%;

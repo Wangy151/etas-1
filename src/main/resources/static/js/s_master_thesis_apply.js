@@ -669,3 +669,5 @@ function checkForm4IfValid(){
     if($("#tbrq").valid() == false) return false;
     return true;
 }
+
+function clearMasterTjbForm1ValidateMsg(){}
