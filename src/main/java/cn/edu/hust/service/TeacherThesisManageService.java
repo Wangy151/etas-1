@@ -25,7 +25,7 @@ public class TeacherThesisManageService {
     }
 
     public String getTeacherSearchSql(TeacherSearchRequest teacherSearchRequest) {
-        String querySql = " SELECT apply_year, zzxh, zzxm, student_type, dsxm, lwtm, apply_status FROM thesis_basic_info ";
+        String querySql = " SELECT apply_year, zzxh, zzxm, student_type, dsxm, lwtm, apply_status, department FROM thesis_basic_info ";
 
         String department = teacherSearchRequest.getDepartment();
         String applyYear = teacherSearchRequest.getApplyYear();
