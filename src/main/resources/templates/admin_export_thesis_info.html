@@ -10,27 +10,6 @@
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <style rel="stylesheet">
-        .mid{
-            min-height: 200px;
-            border: 1px solid rgb(224,224,224);
-        }
-        .mid_body{
-            height: auto;
-            margin:0 auto;
-        }
-        .left{
-            width:15%;
-            min-height: 100px;
-            float:left;
-            border: 1px solid rgb(224,224,224);
-        }
-        .right{
-            width:84%;
-            min-height: 300px;
-            float:right;
-            border: 1px solid rgb(224,224,224);
-        }
-
         .search{
             background-color: rgb(245,245,245);
         }
@@ -67,6 +46,7 @@
     </style>
 
     <script>
+        var adminExportSearchUrl = "/home/admin/export/search";
         $(document).ready(function () {
             search();
             select_all();
@@ -82,14 +62,14 @@
             $("#search_btn").click(function(){
                 $.ajax({
                     type: "POST",
-                    url: "/home/admin/thesis/search",
+                    url: adminExportSearchUrl,
                     contentType: "application/json",
                     data: JSON.stringify({
-//                        "department":$("#school").text(),
-//                        "applyYear":$("#year").val(),
-//                        "applyStatus":$("#apply_status").val(),
-//                        "studentType":$("#student_type").val(),
-//                        "zzxm":$("#realName").val(),
+                        "department":$("#school").text(),
+                        "applyYear":$("#year").val(),
+                        "applyStatus":$("#apply_status").val(),
+                        "studentType":$("#student_type").val(),
+                        "zzxm":$("#realName").val(),
                     }),
 
                     beforeSend: function(XMLHttpRequest){
