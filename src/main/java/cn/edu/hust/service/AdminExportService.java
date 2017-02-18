@@ -30,7 +30,7 @@ public class AdminExportService {
         String studentType = adminExportSearchRequest.getStudentType();
         String department = adminExportSearchRequest.getDepartment();
 
-        querySql += " AND apply_status = '" + applyStatus + "' ";
+        querySql += " WHERE apply_status = '" + applyStatus + "' ";
 
         if (!StringUtils.isEmpty(applyYear)) {
             querySql += " AND apply_year = '" + applyYear + "' ";

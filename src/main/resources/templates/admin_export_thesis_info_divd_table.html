@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>管理员导出结果页面</title>
     <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
     <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
@@ -35,16 +35,20 @@
             <td>选择</td><td>申请年份</td><td>学院</td><td>学生类型</td><td>姓名</td><td>学号</td><td>论文题目</td><td>导师姓名</td><td>状态</td>
             </thead>
             <tbody>
-            <tr>
+            <tr th:if="${#lists.isEmpty(thesisBasicInfoList)}">
+                <td colspan="9" align="center">暂无数据, 请尝试输入其他条件重新查询~</td>
+            </tr>
+
+            <tr th:each="item : ${thesisBasicInfoList}">
                 <td><input type="checkbox" name="checkboxStatus" /></td>
-                <td>2017</td>
-                <td>计算机科学与技术学院</td>
-                <td>硕士</td>
-                <td>吴耀武</td>
-                <td>M201376136</td>
-                <td>基于HTTP协议的电力智能锁控系统设计与研究</td>
-                <td>刘晓军</td>
-                <td>同意</td>
+                <td th:text="${item.applyYear}">2017</td>
+                <td th:text="${item.department}">计算机科学与技术学院</td>
+                <td th:text="${item.studentType}">硕士</td>
+                <td th:text="${item.zzxm}">吴耀武</td>
+                <td th:text="${item.zzxh}">M201376136</td>
+                <td th:text="${item.lwtm}">基于HTTP协议的电力智能锁控系统设计与研究</td>
+                <td th:text="${item.dsxm}">刘晓军</td>
+                <td th:text="${item.applyStatus}">同意</td>
             </tr>
             </tbody>
         </table>

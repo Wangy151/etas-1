@@ -26,7 +26,7 @@ function search(){
                 "applyYear":$("#apply_year").val(),
                 "applyStatus":$("#apply_status").val(),
                 "studentType":$("#student_type").val(),
-                "department":$("#department").text(),
+                "department":$("#department").val(),
             }),
 
             beforeSend: function(XMLHttpRequest){
