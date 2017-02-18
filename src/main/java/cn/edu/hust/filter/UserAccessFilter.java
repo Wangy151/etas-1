@@ -40,17 +40,23 @@ public class UserAccessFilter implements Filter {
         String role = user.getRole();
         String uri = request.getRequestURI();
 
-        if ((uri.startsWith("/home/student") && (!"学生".equals(role))) ||
-                (uri.startsWith("/home/teacher") && (!"学院教务员".equals(role))) ||
-                (uri.startsWith("/home/admin") && (!"管理员".equals(role)))) {
-            System.out.println("没有权限, role: " + role + " uri: " + uri);
-            response.sendError(401, "无权限");
-//            response.sendRedirect("/no_access_rights.html");
+        if (uri.startsWith("/home/index") ||
+                (uri.startsWith("/home/student") && ("学生".equals(role))) ||
+                (uri.startsWith("/home/teacher") && ("学院教务员".equals(role))) ||
+                (uri.startsWith("/home/student/thesis/apply/basicInfoTable") && ("学院教务员".equals(role))) ||
+                (uri.startsWith("/home/student/thesis/apply/tjb") && ("学院教务员".equals(role))) ||
+                (uri.startsWith("/home/admin") && ("管理员".equals(role))) ||
+                (uri.startsWith("/home/student/thesis/apply/basicInfoTable") && ("管理员".equals(role))) ||
+                (uri.startsWith("/home/student/thesis/apply/tjb") && ("管理员".equals(role)))) {
+
+            System.out.println("权限验证通过, role: " + role + " uri: " + uri);
+            filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
 
-        System.out.println("权限验证通过, role: " + role + " uri: " + uri);
-        filterChain.doFilter(servletRequest, servletResponse);
+        System.out.println("没有权限, role: " + role + " uri: " + uri);
+        response.sendError(401, "无权限");
+//            response.sendRedirect("/no_access_rights.html");
     }
 
     @Override
