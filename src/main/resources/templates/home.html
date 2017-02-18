@@ -230,10 +230,10 @@
 <div class="head">
     <a href="/home/index"><img src="../static/imgs/top_banner.png" th:src="@{/imgs/top_banner.png}" /></a>
     <div class="welcome_exit">
-        欢迎您: <span th:text="${session.user.realName}">用户</span>&nbsp;
-        身份: <span th:text="${session.user.role}">身份</span>&nbsp;&nbsp;
-        <a href="/home/index">返回主页</a>|
-        <a href="/home/logout">安全退出</a>
+        <img src="../static/imgs/user.png" th:src="@{/imgs/user.png}" /><span th:text="${session.user.realName}">用户</span>&nbsp;
+        <img src="../static/imgs/role.png" th:src="@{/imgs/role.png}" /><span th:text="${session.user.role}">身份</span>&nbsp;&nbsp;
+        <a href="/home/index"><img src="../static/imgs/home.png" th:src="@{/imgs/home.png}" />返回主页</a>|
+        <a href="/home/logout"><img src="../static/imgs/exit.png" th:src="@{/imgs/exit.png}" />安全退出</a>
         <span id="savedMyUserId" hidden="hidden" th:text="${session.user.userId}"></span>
         <span id="savedThesisApplyUserId" hidden="hidden"></span>
         <span id="savedApplyType" hidden="hidden"></span>
