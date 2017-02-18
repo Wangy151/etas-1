@@ -30,9 +30,11 @@
         .position ol{
             background-color: white;
         }
+        table td{
+            text-align: center;
+        }
 
     </style>
-
 
 </head>
 <body>
@@ -54,7 +56,7 @@
     </div>
     <table class="table table-bordered table-striped">
         <thead>
-        <td>选择</td><td>申请年份</td><td>学号</td><td>姓名</td><td>学生类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>操作</td>
+        <td>选择</td><td>申请年份</td><td>学号</td><td>姓名</td><td>学生类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>基本信息表操作</td><td>论文推荐表操作</td>
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(thesisBasicInfoList)}">
@@ -70,7 +72,14 @@
             <td th:text="${item.dsxm}">付海文</td>
             <td th:text="${item.lwtm}">基于HTTP协议的电力智能锁控系统设计与实现</td>
             <td class="apply_status" th:text="${item.applyStatus}">待学院上报</td>
-            <td><a class="t_review_check_detail_btn" href="#">查看</a>&nbsp;|&nbsp;<a class="t_review_modify_btn" href="#">修改</a></td>
+            <td>
+                <a class="basicInfoViewBtn" href="#">查看</a>&nbsp;|&nbsp;
+                <a class="basicInfoEditBtn" href="#">修改</a>
+            </td>
+            <td>
+                <a class="tjbViewBtn" href="#">查看</a>&nbsp;|&nbsp;
+                <a class="tjbEditBtn" href="#">修改</a>
+            </td>
         </tr>
         </tbody>
     </table>

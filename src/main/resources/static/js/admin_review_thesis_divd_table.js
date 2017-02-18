@@ -5,12 +5,14 @@
 // .apply_status  .t_report_check_detail_btn   .t_report_modify_btn
 // #report_btn   #cancel_report_btn
 $(document).ready(function () {
-    checkDetail();
-    modifyInfo();
     select_all();
     no_select_all();
     review();
     cancel_review();
+    basicInfoEditBtn();
+    basicInfoViewBtn();
+    tjbEditBtn();
+    tjbViewBtn();
 });
 
 //全选按钮事件
@@ -200,24 +202,47 @@ function checkBeforeCancelReport(){
         return false;
 }
 
-//表格里面每行记录的  查看详情 按钮事件
-function checkDetail(){
-    $(".t_review_check_detail_btn").click(function () {
-        var userId = $(this).parent().parent().children("td.userId").text();
-        refreshToApplyThesisPage(userId,'2');
-    })
-};
 
-//表格里面每行记录的  修改 按钮事件
-function modifyInfo(){
-    $(".t_review_modify_btn").click(function () {
-        var applyStatus = $(this).parent().parent().children("td.apply_status").text();
+//查看和编辑按钮
+
+function basicInfoViewBtn(){
+    $(".basicInfoViewBtn").click(function () {
         var userId = $(this).parent().parent().children("td.userId").text();
-        if(applyStatus == '待学校审核')
-            refreshToApplyThesisPage(userId,'2');
-        else
-            model_tip_show('model_tip1','model_tip_content1','该申请已经通过，不能修改');
+        refreshToBasicInfoViewPage(userId);
     })
-};
+}
+
+function basicInfoEditBtn(){
+    $(".basicInfoEditBtn").click(function () {
+        var userId = $(this).parent().parent().children("td.userId").text();
+        var applyStatus = $(this).parent().parent().children("td.apply_status").text();
+        if(applyStatus == "待学校审核")
+            refreshToBasicInfoEditPage(userId);
+        else if(applyStatus == "通过审核")
+            model_tip_show('model_tip1','model_tip_content1','该申请已经通过，不能修改');
+        else
+            paramErrorAlert("applyStatus",applyStatus);
+    })
+}
+
+function tjbViewBtn(){
+    $(".tjbViewBtn").click(function () {
+        var userId = $(this).parent().parent().children("td.userId").text();
+        refreshToTjbFramePage(userId,"2");
+    })
+}
+
+function tjbEditBtn(){
+    $(".tjbEditBtn").click(function () {
+        var userId = $(this).parent().parent().children("td.userId").text();
+        var applyStatus = $(this).parent().parent().children("td.apply_status").text();
+        if(applyStatus == "待学校审核")
+            refreshToTjbFramePage(userId,"1");
+        else if(applyStatus == "通过审核")
+            model_tip_show('model_tip1','model_tip_content1','该申请已经通过，不能修改');
+        else
+            paramErrorAlert("applyStatus",applyStatus);
+    })
+}
 
 

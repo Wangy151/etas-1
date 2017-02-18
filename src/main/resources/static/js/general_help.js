@@ -277,3 +277,7 @@ function model_ok_show(model_id,content_id,content,ok_btn_id,success_func){
 function closeModal(modalId){
     $("#"+modalId).modal('hide');
 }
+
+function paramErrorAlert(paramName,paramValue){
+    alert("system param invalid error: "+ paramName + "  " + paramValue);
+}

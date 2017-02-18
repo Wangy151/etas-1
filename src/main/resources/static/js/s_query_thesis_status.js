@@ -2,7 +2,6 @@
  * Created by Administrator on 2017/1/5.
  */
 $(document).ready(function () {
-        changeApplyStatus();
         basicInfoCreateBtn();
         basicInfoEditBtn();
         basicInfoViewBtn();
@@ -17,18 +16,6 @@ $(document).ready(function () {
 // var tjbStatus = $("#tjbStatus").text();
 // var applyStatus = $("#applyStatus").text();
 
-function changeApplyStatus(){
-        var applyStatus = $("td.apply_status").text();
-        if(applyStatus == "待学生提交"){
-            $("#applyThesis_btn").addClass("btn-primary");
-            $("#applyThesis_btn").removeAttr("disabled");
-
-        }else{
-            $("#applyThesis_btn").removeClass("btn-primary");
-            $("#applyThesis_btn").attr("disabled","disabled");
-            $("#applyThesis_btn").text("已提交");
-        }
-}
 
 ////   basicTable_create_btn  basicTable_edit_btn   basicTable_view_btn
 ///     tjb_create_btn   tjb_edit_btn    tjb_view_btn
