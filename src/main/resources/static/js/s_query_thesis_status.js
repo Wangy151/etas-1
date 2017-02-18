@@ -133,6 +133,7 @@ function deleteApply1(){
             var status = data.code;
             var msg = data.msg;
             if(status == "200"){//200 成功
+                refreshToStudentQueryStatus();
                 model_tip_show('model_tip','model_tip_content','删除申请成功',refreshToStudentQueryStatus);
             }
             else if(status == "300")  //300 学院教务员已审核通过, 不能删除
@@ -187,6 +188,7 @@ function submitApply1(){
             var status = data.code;
             var msg = data.msg;
             if(status == "200"){//200 成功
+                refreshToStudentQueryStatus();
                 model_tip_show('model_tip','model_tip_content','提交申请成功',refreshToStudentQueryStatus);
             }
             else if(status == "300")  //300 重复申请

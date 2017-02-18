@@ -67,7 +67,7 @@ function review1(){
     var xh_array = new Array();
     //2.如果选中的是正确，准备将数据发往服务器
     checked.each(function(){ //将选中的学号放到xh_array数组中
-        var value = $(this).parent().next().next().html();
+        var value = $(this).parent().parent().children("td.userId").text();
         xh_array.push(value);
     })
     $.ajax({
@@ -87,7 +87,7 @@ function review1(){
             var status = data.code;
             var msg = data.msg;
             if(status == "200")  //200 成功
-                model_tip_show('model_tip1','model_tip_content1','审核成功');
+                model_tip_show('model_tip1','model_tip_content1','审核成功',refreshToAdminSearchThesisPage);
             else if(status == "500")  //服务器繁忙
                 model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
             else
@@ -132,7 +132,7 @@ function cancelReview1(){
     var xh_array = new Array();
     //3.组装数据发给后台服务器处理
     checked.each(function(){ //将选中的学号放到xh_array数组中
-        var value = $(this).parent().next().next().html();
+        var value = $(this).parent().parent().children("td.userId").text();
         xh_array.push(value);
     })
     $.ajax({
@@ -152,7 +152,7 @@ function cancelReview1(){
             var status = data.code;
             var msg = data.msg;
             if(status == "200")  //200 成功
-                model_tip_show('model_tip1','model_tip_content1','取消审核成功');
+                model_tip_show('model_tip1','model_tip_content1','取消审核成功',refreshToAdminSearchThesisPage);
             else if(status == "500")  //服务器繁忙
                 model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
             else
@@ -245,4 +245,32 @@ function tjbEditBtn(){
     })
 }
 
+function refreshToAdminSearchThesisPage(){
+    $.ajax({
+        type: "POST",
+        url: "/home/admin/thesis/search",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "department":$("#department").val(),
+            "applyYear":$("#year").val(),
+            "applyStatus":$("#apply_status").val(),
+            "studentType":$("#student_type").val(),
+            "zzxm":$("#realName").val(),
+        }),
 
+        beforeSend: function(XMLHttpRequest){
+            $("#talbe_wrap").empty();
+        },
+
+        success: function(data){
+            $("#talbe_wrap").html(data);
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+        }
+
+    }); //ajax
+}

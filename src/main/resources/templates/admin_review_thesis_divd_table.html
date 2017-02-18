@@ -56,29 +56,37 @@
     </div>
     <table class="table table-bordered table-striped">
         <thead>
-        <td>选择</td><td>申请年份</td><td>学号</td><td>姓名</td><td>学生类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>基本信息表操作</td><td>论文推荐表操作</td>
+        <td>选择</td><td>申请年份</td><td>学院</td><td>学号</td><td>姓名</td><td>学生类型</td><td>导师姓名</td><td>状态</td><td>基本信息表操作</td><td>论文推荐表操作</td>
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(thesisBasicInfoList)}">
-            <td colspan="9" align="center">暂无数据, 请尝试输入其他条件重新查询~</td>
+            <td colspan="10" align="center">暂无数据, 请尝试输入其他条件重新查询~</td>
         </tr>
 
         <tr th:each="item : ${thesisBasicInfoList}">
             <td><input type="checkbox" name="checkboxStatus"/></td>
             <td th:text="${item.applyYear}">2017</td>
+            <td th:text="${item.department}">计算机科学与技术学院</td>
             <td class="userId" th:text="${item.zzxh}">M201476130</td>
             <td th:text="${item.zzxm}">刘杰</td>
             <td th:text="${item.studentType}">硕士</td>
             <td th:text="${item.dsxm}">付海文</td>
-            <td th:text="${item.lwtm}">基于HTTP协议的电力智能锁控系统设计与实现</td>
             <td class="apply_status" th:text="${item.applyStatus}">待学院上报</td>
             <td>
-                <a class="basicInfoViewBtn" href="#">查看</a>&nbsp;|&nbsp;
-                <a class="basicInfoEditBtn" href="#">修改</a>
+                <a class="basicInfoViewBtn" href="#">
+                    <img src="../static/imgs/view.png" th:src="@{/imgs/view.png}" />查看
+                </a>&nbsp;|&nbsp;
+                <a class="basicInfoEditBtn" href="#">
+                    <img src="../static/imgs/edit.png" th:src="@{/imgs/edit.png}" />修改
+                </a>
             </td>
             <td>
-                <a class="tjbViewBtn" href="#">查看</a>&nbsp;|&nbsp;
-                <a class="tjbEditBtn" href="#">修改</a>
+                <a class="tjbViewBtn" href="#">
+                    <img src="../static/imgs/view.png" th:src="@{/imgs/view.png}" />查看
+                </a>&nbsp;|&nbsp;
+                <a class="tjbEditBtn" href="#">
+                    <img src="../static/imgs/edit.png" th:src="@{/imgs/edit.png}" />修改
+                </a>
             </td>
         </tr>
         </tbody>

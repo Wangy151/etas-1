@@ -599,8 +599,8 @@ function m_apply_form4_validate(){
             },
             tbrq:{ //单位推荐日期
                 required:"单位推荐日期不能为空",
-                minlength:"单位推荐日期长度为8",
-                maxlength:"单位推荐日期长度为8",
+                minlength:"填表日期长度为8",
+                maxlength:"填表日期长度为8",
             },
         }, //messages
         errorPlacement : function(error, element){
