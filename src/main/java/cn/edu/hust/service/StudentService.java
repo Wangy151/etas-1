@@ -50,12 +50,12 @@ public class StudentService {
             thesisApplyAbstractResponse.setBasicTableFinish("未完成");
             thesisApplyAbstractResponse.setApplyStatus("待学生提交");
         } else {
-            thesisApplyAbstractResponse.setBasicTableFinish("已完成");
+            thesisApplyAbstractResponse.setBasicTableFinish("完成");
             thesisApplyAbstractResponse.setApplyStatus(thesisBasicInfo.getApplyStatus());
         }
 
         if (this.isFinishMasterTjb(userId) || this.isFinishDoctorTjb(userId)) {
-            thesisApplyAbstractResponse.setTjbFinish("已完成");
+            thesisApplyAbstractResponse.setTjbFinish("完成");
         } else {
             thesisApplyAbstractResponse.setTjbFinish("未完成");
         }
@@ -120,9 +120,9 @@ public class StudentService {
      *
      * @return
      */
-    @Transactional
-    public CommonResponse uploadThesisPdf(MultipartFile file, String fileName, String zzxh) throws IOException {
-        if (null == file || StringUtils.isEmpty(fileName) || StringUtils.isEmpty(zzxh)) {
+//    @Transactional
+    public CommonResponse uploadThesisPdf(MultipartFile file, String fileName) throws IOException {
+        if (null == file || StringUtils.isEmpty(fileName)) {
             return new FailResponse();
         }
 
@@ -141,7 +141,7 @@ public class StudentService {
         out.close();
 
         // update column: upload_status
-        thesisApplyDao.updateUploadStatus(1, zzxh);
+//        thesisApplyDao.updateUploadStatus(1, zzxh);
 
         return new SuccessResponse();
     }

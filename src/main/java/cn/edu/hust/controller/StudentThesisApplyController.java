@@ -88,6 +88,7 @@ public class StudentThesisApplyController {
     }
 
     @RequestMapping(value = "/basicInfoTable/save")
+    @ResponseBody
     public CommonResponse saveBasicInfoTable(@RequestBody ThesisBasicInfo thesisBasicInfo) {
         // 初始数据库
         studentService.initThesisBasicInfoTable(thesisBasicInfo.getZzxh());
@@ -119,10 +120,9 @@ public class StudentThesisApplyController {
     @RequestMapping(value = "/basicInfoTable/pdf/upload", method = RequestMethod.POST)
     @ResponseBody
     public CommonResponse updateThesisPdf(@RequestParam("file") MultipartFile file,
-                                          @RequestParam("fileName") String fileName,
-                                          @RequestParam("userId") String userId) {
+                                          @RequestParam("fileName") String fileName) {
         try {
-            return studentService.uploadThesisPdf(file, fileName, userId);
+            return studentService.uploadThesisPdf(file, fileName);
         } catch (IOException e) {
             e.printStackTrace();
             return new FailResponse();

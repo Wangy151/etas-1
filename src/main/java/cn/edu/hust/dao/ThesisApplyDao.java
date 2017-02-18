@@ -82,7 +82,7 @@ public interface ThesisApplyDao {
 
     @Update(" UPDATE master_thesis_apply SET " +
             " dyzz = #{model.dyzz}, dezz = #{model.dezz}, sci = #{model.sci}, ei = #{model.ei}, ssci = #{model.ssci}, " +
-            " istp = #{model.istp}, zls = #{model.zls}, cgjx = #{model.cgjx} " +
+            " istp = #{model.istp}, zls = #{model.zls}, cgjx = #{model.cgjx}, " +
             " part2 = 1 " +
             " WHERE zzxh = #{model.zzxh} ")
     int saveMasterTjb2(@Param("model") MasterThesisApply model);
@@ -90,14 +90,14 @@ public interface ThesisApplyDao {
     @Update(" UPDATE master_thesis_apply SET " +
             " gdxwfs = #{model.gdxwfs}, bkjdxx = #{model.bkjdxx}, gdssxwdw = #{model.gdssxwdw}, zzdw = #{model.zzdw}, zzdz = #{model.zzdz}, " +
             " zzyb = #{model.zzyb}, zzdh = #{model.zzdh}, zc = #{model.zc}, zw = #{model.zw}, zdjsxm = #{model.zdjsxm}, " +
-            " zdjsyjfx = #{model.zdjsyjfx} " +
+            " zdjsyjfx = #{model.zdjsyjfx}, " +
             " part3 = 1 " +
             " WHERE zzxh = #{model.zzxh} ")
     int saveMasterTjb3(@Param("model") MasterThesisApply model);
 
     @Update(" UPDATE master_thesis_apply SET " +
             " fbxslw = #{model.fbxslw}, cbzz = #{model.cbzz}, hjxm = #{model.hjxm}, lwdzycxd = #{model.lwdzycxd}, dwtjyy = #{model.dwtjyy}, " +
-            " tbrq = #{model.tbrq} " +
+            " tbrq = #{model.tbrq}, " +
             " part4 = 1 " +
             " WHERE zzxh = #{model.zzxh} ")
     int saveMasterTjb4(@Param("model") MasterThesisApply model);
