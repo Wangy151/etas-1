@@ -20,6 +20,7 @@ function d_form1_submit(){
         //1.验证表单是否合法
         var status = checkForm1IfValid();
         if(status == false)  return;
+        clearDoctorTjbForm1ValidateMsg();
         // 2.开始提交
         $.ajax({
             type: "POST",
@@ -79,6 +80,7 @@ function d_form2_submit(){
         //1.验证表单是否合法
         var status = checkForm2IfValid();
         if(status == false)  return;
+        clearDoctorTjbForm2ValidateMsg();
         //2.提交表单2
         $.ajax({
             type: "POST",
@@ -323,4 +325,14 @@ function  checkForm2IfValid() {
     if($("#lwdzycxd").valid() == false) return false;
     if($("#tbrq").valid() == false) return false;
     return true;
+}
+
+function clearDoctorTjbForm1ValidateMsg(){
+    //d_form1_warn
+    $("#d_form1_warn").text();
+}
+
+function clearDoctorTjbForm2ValidateMsg(){
+    //d_form2_warn
+    $("#d_form2_warn").text();
 }
