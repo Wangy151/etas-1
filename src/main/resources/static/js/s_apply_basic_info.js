@@ -261,18 +261,7 @@ function fileUpload1(){
 
 //信息保存成功，进入下一步
 function nextStepAfterSave(){
-    refreshToTjbFramePage();
-    var studentType = getApplyTypeFromPage();
-    if(studentType == '硕士'){
-        $("#student_type").val('master');
-        refreshToMasterTjbPage();
-    }else if(studentType == '博士'){
-        $("#student_type").val('doctor');
-        refreshToDoctorTjbPage();
-    }else{
-        alert("系统繁忙，请重新刷新页面");
-    }
-
+    refreshToTjbFramePage(getMyUserIdFromPage(),"0");
 }
 
 //检查表单验证状态

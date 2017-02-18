@@ -68,7 +68,7 @@ function report1(){
     var checked = $("input[name='checkboxStatus']:checked");
     var xh_array = new Array();
     checked.each(function(){ //将选中的学号放到xh_array数组中
-        var value = $(this).parent().next().next().html();
+        var value = $(this).parent().parent().children("td.userId").text();
         xh_array.push(value);
     });
     $.ajax({
@@ -88,7 +88,7 @@ function report1(){
             var status = data.code;
             var msg = data.msg;
             if(status == "200")  //200 成功
-                model_tip_show('model_tip1','model_tip_content1','上报成功, 待学校审核');
+                model_tip_show('model_tip1','model_tip_content1','上报成功, 待学校审核',refreshTeacherSearchPage);
             else if(status == "500")  //服务器繁忙
                 model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
             else
@@ -132,7 +132,7 @@ function cancelReoprt1(){
     var xh_array = new Array();
     //3.组装数据发给后台服务器处理
     checked.each(function(){ //将选中的学号放到xh_array数组中
-        var value = $(this).parent().next().next().html();
+        var value = $(this).parent().parent().children("td.userId").text();
         xh_array.push(value);
     });
     $.ajax({
@@ -152,7 +152,7 @@ function cancelReoprt1(){
             var status = data.code;
             var msg = data.msg;
             if(status == "200")  //200 成功
-                model_tip_show('model_tip1','model_tip_content1','取消上报成功');
+                model_tip_show('model_tip1','model_tip_content1','取消上报成功',refreshTeacherSearchPage);
             else if(status == "500")  //服务器繁忙
                 model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
             else
@@ -236,6 +236,36 @@ function tjbEditBtn(){
         else
             model_tip_show('model_tip1','model_tip_content1','该申请已经通过，不能修改');
     })
+}
+
+function refreshTeacherSearchPage(){
+    $.ajax({
+        type: "POST",
+        url: "/home/teacher/thesis/search",
+        contentType: "application/json",
+        data: JSON.stringify({
+            "department":$("#school").text(),
+            "applyYear":$("#year").val(),
+            "applyStatus":$("#apply_status").val(),
+            "studentType":$("#student_type").val(),
+            "zzxm":$("#realName").val(),
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+            $("#talbe_wrap").empty();
+        },
+
+        success: function(data){
+            $("#talbe_wrap").html(data);
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+        }
+
+    }); //ajax
 }
 
 
