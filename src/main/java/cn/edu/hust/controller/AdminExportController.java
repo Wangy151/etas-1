@@ -4,6 +4,7 @@ import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.AdminExportRequest;
 import cn.edu.hust.model.request.AdminExportSearchRequest;
 import cn.edu.hust.service.AdminExportService;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -51,15 +54,14 @@ public class AdminExportController {
      * 导出Excel文件
      */
     @RequestMapping(value = "/excel")
-    public ResponseEntity<byte[]> exportExcel(@RequestParam String userIds) {
-        byte[] buf = adminExportService.exportExcel(userIds.split(","));
+    public void exportExcel(@RequestParam String userIds, HttpServletResponse response) throws IOException {
+        String fileName = "basic_info_table.xls";
 
-        String exportExcelFileName = "basic_info_table.xls";
+        response.reset();
+        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+        response.setHeader("Content-Disposition", "attachment;filename="+ new String((fileName).getBytes(), "iso-8859-1"));
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        httpHeaders.setContentDispositionFormData("attachment", exportExcelFileName);
-
-        return new ResponseEntity<byte[]>(buf, httpHeaders, HttpStatus.CREATED);
+        HSSFWorkbook wb = adminExportService.exportExcel(userIds.split(","));
+        wb.write(response.getOutputStream());
     }
 }

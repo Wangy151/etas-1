@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -63,7 +62,7 @@ public class AdminExportService {
      * @param userIds
      * @return
      */
-    public byte[] exportExcel(String[] userIds) {
+    public HSSFWorkbook exportExcel(String[] userIds) {
         String[] excelTitle = {"SSDM", "SSMC", "XXDM", "XXMC", "SZYX"
                 , "XH", "ZZXH", "XM", "XB", "CSNY"
                 , "MZ", "DSXM", "LWTM", "LWYWTM", "YJFX"
@@ -119,7 +118,7 @@ public class AdminExportService {
             rowObj.createCell(29).setCellValue(model.getBz());
         }
 
-        return wb.getBytes();
+        return wb;
     }
 
     public String getAdminExportExcelSql(String whereInSql) {
