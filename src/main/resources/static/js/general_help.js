@@ -363,6 +363,10 @@ function closeModal(modalId){
     $("#"+modalId).modal('hide');
 }
 
+function openModalWindow(modalId){
+    $("#"+modalId).modal('show');
+}
+
 function paramErrorAlert(paramName,paramValue){
     alert("system param invalid error: "+ paramName + "  " + paramValue);
 }

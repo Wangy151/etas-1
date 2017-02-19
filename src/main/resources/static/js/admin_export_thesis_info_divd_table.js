@@ -13,6 +13,7 @@ $(document).ready(function () {
     exportExeclFile();
     exportLwtjbFile();
     exportThesisPdfFile();
+    updateStudentsXH();
 })
 
 //全选按钮事件
@@ -43,7 +44,7 @@ function exportExeclFile(){
         var checked = $("input[name='checkboxStatus']:checked");
         var checked_length = checked.length;
         if(checked_length <= 0){ //如果没有选中申请
-            model_tip_show('model_tip1','model_tip_content1','未选择申请');
+            model_tip_show('model_tip','model_tip_content','未选择申请');
             return;
         }
         //2.确认是否导出Execl文件
@@ -74,10 +75,9 @@ function exportExeclFile1(){
     $(".table_body").append(form);//将表单放置在web中
     form.append(input1);
 
-    var a = form;
-    // alert("组装form结束，准备提交");
-
     form.submit();//表单提交
+
+    closeModal("model_ok");
 
 }
 
@@ -88,7 +88,7 @@ function exportLwtjbFile(){
         var checked = $("input[name='checkboxStatus']:checked");
         var checked_length = checked.length;
         if(checked_length <= 0){ //如果没有选中申请
-            model_tip_show('model_tip1','model_tip_content1','未选择申请');
+            model_tip_show('model_tip','model_tip_content','未选择申请');
             return;
         }
         //2.确认是否导出论文推荐表
@@ -105,37 +105,23 @@ function exportLwtjbFile1(){
         xh_array.push(value);
     })
     //2.开始向后台发送数据
-    $.ajax({
-        type: "POST",
-        url: exportLwtjbFileUrl,
-        contentType: "application/json",
-        data: JSON.stringify({
-            "userIds":xh_array,
-        }),
+    //2.开始向后台发送数据
+    var form=$("<form>");//定义一个form表单
+    form.attr("style","display:none");
+    form.attr("enctype","multipart/form-data")
+    form.attr("target","_self");
+    form.attr("method","post");
+    form.attr("action",exportLwtjbFileUrl);
+    var input1=$("<input>");
+    input1.attr("type","hidden");
+    input1.attr("name","userIds");
+    input1.attr("value",xh_array);
+    $(".table_body").append(form);//将表单放置在web中
+    form.append(input1);
 
-        beforeSend: function(XMLHttpRequest){
-        },
+    form.submit();//表单提交
 
-        success: function(data){
-            // 200 成功    300 重复申请  500 失败
-            closeModal("model_ok");
-            var status = data.code;
-            var msg = data.msg;
-            if(status == "200")  //200 成功
-                model_tip_show('model_tip1','model_tip_content1','取消审核成功',refreshToAdminSearchThesisPage);
-            else if(status == "500")  //服务器繁忙
-                model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
-            else
-                model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
-        },
-
-        error: function(XMLHttpRequest, textStatus) {
-        },
-
-        complete: function(XMLHttpRequest, textStatus){
-        }
-
-    }); //ajax
+    closeModal("model_ok");
 }
 //导出论文PDF文件
 function exportThesisPdfFile(){
@@ -144,7 +130,7 @@ function exportThesisPdfFile(){
         var checked = $("input[name='checkboxStatus']:checked");
         var checked_length = checked.length;
         if(checked_length <= 0){ //如果没有选中申请
-            model_tip_show('model_tip1','model_tip_content1','未选择申请');
+            model_tip_show('model_tip','model_tip_content','未选择申请');
             return;
         }
         //2.确认是否导出论文推荐表
@@ -160,29 +146,72 @@ function exportThesisPdfFile1(){
         var value = $(this).parent().parent().children("td.userId").text();
         xh_array.push(value);
     })
+
     //2.开始向后台发送数据
+    var form=$("<form>");//定义一个form表单
+    form.attr("style","display:none");
+    form.attr("enctype","multipart/form-data")
+    form.attr("target","_self");
+    form.attr("method","post");
+    form.attr("action",exportThesisPdfFileUrl);
+    var input1=$("<input>");
+    input1.attr("type","hidden");
+    input1.attr("name","userIds");
+    input1.attr("value",xh_array);
+    $(".table_body").append(form);//将表单放置在web中
+    form.append(input1);
+
+    form.submit();//表单提交
+
+    closeModal("model_ok");
+}
+
+function updateStudentsXH(){
+    //1.检查年份是否为空
+    //2.弹出确认框
+    //3.发送数据给后台处理
+    //4.弹出浮动进度框
+    //5.显示最后处理结果
+
+    //1.检查年份是否为空
+    var applyYear = $("#apply_year").val();
+    if(applyYear == ""){
+        model_tip_show('model_tip','model_tip_content','请选择学生的申请年份');
+        return;
+    }
+
+    //2.弹出确认框
+    var confirmMsg = "确认是否更新"+applyYear+"年所有通过审核学生的序号";
+    model_ok_show("model_ok","model_ok_content",confirmMsg,"model_ok_btn",updateStudentsXH1);
+}
+
+function updateStudentsXH1(){
+    //3.发送数据给后台处理
     $.ajax({
         type: "POST",
-        url: exportThesisPdfFileUrl,
+        url: updateStudentsXhUrl,
         contentType: "application/json",
+
         data: JSON.stringify({
-            "userIds":xh_array,
+            "applyYear":$("#apply_year").val(),
         }),
 
         beforeSend: function(XMLHttpRequest){
+            //4.弹出浮动进度框
+            openModalWindow("model_update_xh");
         },
 
         success: function(data){
-            // 200 成功    300 重复申请  500 失败
-            closeModal("model_ok");
             var status = data.code;
             var msg = data.msg;
-            if(status == "200")  //200 成功
-                model_tip_show('model_tip1','model_tip_content1','取消审核成功',refreshToAdminSearchThesisPage);
-            else if(status == "500")  //服务器繁忙
+            closeModal("model_update_xh");
+            if(status == "200"){
+                model_tip_show('model_tip','model_tip_content','更新学生序号成功');
+            }
+            else if(status == "500")  //服务器原因失败
                 model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
             else
-                model_tip_show('model_tip','model_tip_content','服务器开小差了, 请稍后再试');
+                model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
         },
 
         error: function(XMLHttpRequest, textStatus) {
@@ -191,5 +220,6 @@ function exportThesisPdfFile1(){
         complete: function(XMLHttpRequest, textStatus){
         }
 
-    }); //ajax
+    });
+
 }
