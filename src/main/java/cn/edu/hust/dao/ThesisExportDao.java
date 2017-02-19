@@ -15,4 +15,7 @@ import java.util.List;
 public interface ThesisExportDao {
     @SelectProvider(type = AdminExportService.class, method = "getAdminExportSearchSql")
     List<ThesisBasicInfo> getThesisBasicInfoList(AdminExportSearchRequest adminExportSearchRequest);
+
+    @SelectProvider(type = AdminExportService.class, method = "getAdminExportExcelSql")
+    List<ThesisBasicInfo> getExportExcel(String whereInSql);
 }

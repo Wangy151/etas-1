@@ -4,7 +4,7 @@ import cn.edu.hust.dao.TeacherThesisManageDao;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.TeacherReportRequest;
 import cn.edu.hust.model.request.TeacherSearchRequest;
-import cn.edu.hust.model.response.FailResponse;
+import cn.edu.hust.utils.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -68,7 +68,7 @@ public class TeacherThesisManageService {
             return false;
         }
 
-        return teacherThesisManageDao.updateApplyStatus("待学校审核", this.arrayToSql(userIds)) > 0;
+        return teacherThesisManageDao.updateApplyStatus("待学校审核", SqlUtil.arrayToSql(userIds)) > 0;
     }
 
     public boolean cancelReport(TeacherReportRequest teacherReportRequest) {
@@ -77,18 +77,7 @@ public class TeacherThesisManageService {
             return false;
         }
 
-        return teacherThesisManageDao.updateApplyStatus("待学院上报", this.arrayToSql(userIds)) > 0;
-    }
-
-    private String arrayToSql(String[] arr) {
-        String sql = "";
-        for (int i = 0; i < arr.length; i++) {
-            sql += "'" + arr[i] + "'";
-            if (i < arr.length - 1) {
-                sql += ", ";
-            }
-        }
-        return sql;
+        return teacherThesisManageDao.updateApplyStatus("待学院上报", SqlUtil.arrayToSql(userIds)) > 0;
     }
 
     /**
