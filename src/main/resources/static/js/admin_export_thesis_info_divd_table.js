@@ -2,7 +2,7 @@
  * Created by jason on 2017/2/18.
  */
 
-var exportExeclFileUrl = "";
+var exportExeclFileUrl = "/home/admin/export/excel";
 var exportLwtjbFileUrl = "";
 var exportThesisPdfFileUrl = "";
 
