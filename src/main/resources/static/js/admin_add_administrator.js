@@ -2,10 +2,12 @@
  * Created by jason on 2017/2/15.
  */
 
+var addAdimistratorUrl = ""
+
 $(document).ready(function () {
     validateForm();
-    sendEmailValidateCode();
-    addAdministrator();
+    sendEmailValidateCodeBtn();
+    addAdministratorBtn();
 });
 
 
@@ -86,40 +88,16 @@ function validateForm(){
     })
 }
 
-function sendEmailValidateCode(){
+function sendEmailValidateCodeBtn(){
     //emailVerify_btn
     $("#emailVerify_btn").click(function(){
         if($("#email").valid() == false) return;
         var email = $("#email").val();
-        $.ajax({
-            type: "GET",
-            url: "/sendVerifyCodeMail?emailTo="+email,
-
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")
-                    model_tip_show('model_tip','model_tip_content','系统已发送邮箱验证码，请查收');
-                else if(status ==  "500")
-                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
-                else
-                    model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        });
+        sendEmailVerifyCode(email);
     })
 }
 
-function addAdministrator(){
+function addAdministratorBtn(){
     // role   userId   realName   contactNumber   password  repeatPassword
     // email  email_validate_code   add_administrator_btn
     $("#add_administrator_btn").click(function(){
@@ -127,7 +105,7 @@ function addAdministrator(){
         if(status == false) return;
         $.ajax({
             type: "POST",
-            url: "../static/testHttpDate.json",
+            url: addAdimistratorUrl,
             contentType: "application/json",
 
             data: JSON.stringify({
@@ -149,7 +127,7 @@ function addAdministrator(){
                 var status = data.code;
                 var msg = data.msg;
                 if(status == "200")  //学生注册成功
-                    model_tip_show('model_tip','model_tip_content','信息保存成功',refreshToBaseInfoModifyPage);
+                    model_tip_show('model_tip','model_tip_content','信息保存成功',refreshToAdminAddAdministratorPage);
                 else if(status == "500")  //服务器原因失败
                     model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                 else
@@ -166,7 +144,3 @@ function addAdministrator(){
     })
 }
 
-
-function refreshToBaseInfoModifyPage(){
-
-}

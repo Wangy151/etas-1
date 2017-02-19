@@ -3,6 +3,13 @@
  */
 $(function () {
     validateForm ();
+
+    //更换验证码
+    ChangeValidateCode();
+    //发送邮箱验证码
+    sendEmailVerifyCodeBtn();
+    //注册
+    register();
 })
 
 function validateForm () {
@@ -123,5 +130,72 @@ function validateForm () {
                 ;
         }
     });
+}
+
+function register(){
+    $("#register_btn").click(function(){
+        var status = $("#register_form").valid();
+        if(status){  //注册前验证表单
+            $.ajax({
+                type: "POST",
+                url: "/register/submit",
+                contentType: "application/json",
+
+                data: JSON.stringify({
+                    "userId": $("#userId").val(),
+                    "password": $("#passwd").val(),
+                    "repeatPassword": $("#repasswd").val(),
+                    "department": $("#college").val(),
+                    "realName": $("#realName").val(),
+                    "phoneNumber": $("#contactNumber").val(),
+                    "email": $("#email").val(),
+                    "role": $("#role").val(),
+                    "mailVerifyCode": $("#validateCode").val(),
+                }),
+
+                beforeSend: function(XMLHttpRequest){
+                },
+
+                success: function(data){
+                    var status = data.code;
+                    var msg = data.msg;
+                    if(status == "200")  //学生注册成功
+                        location.assign("/studentSuccessRegister.html");
+                    else if(status == "201")  //教务员注册成功
+                        location.assign("/teacherSuccessRegister.html");
+                    else if(status == "300")  //邮箱验证码错误
+                        $("#v_validateCode").html(msg);
+                    else if(status == "500")  //服务器原因失败
+                        $("#validateWarn").html("系统繁忙请稍后再试");
+                    else
+                        var empty = "";
+                },
+
+                error: function(XMLHttpRequest, textStatus) {
+                },
+
+                complete: function(XMLHttpRequest, textStatus){
+                }
+
+            });
+        } //if valid
+    }); //click
+} //register function
+
+function ChangeValidateCode() {
+    $("#validateCode_btn").click(function(){
+        $("#validateCodeImg").attr("src", $("#validateCodeImg").attr("src") + 1);
+    });
+
+}
+
+function sendEmailVerifyCodeBtn() {
+    $("#emailVerify_btn").click(function () {
+        if($("#email").valid()){  //发送邮箱验证码前验证表单验证码是否合法
+            var email = $("#email").val();
+            sendEmailVerifyCode(email);
+        } //valid
+    });
+
 }
 

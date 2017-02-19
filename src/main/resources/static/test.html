@@ -6,14 +6,14 @@
     <link href="css/bootstrap.css"></link>
     <script src="js/jquery-3.1.1.js"></script>
     <script>
-        function add(a,b){
-            var sum = a+b;
-            alert(sum);
-        }
-        add(2,3);
+        var mydate = new Date();
+        document.writeln(mydate.getFullYear());
+        document.writeln(mydate.getYear());
+        document.writeln(mydate.getMonth());
     </script>
 </head>
 <body>
+    <br/>
     <script>
         var a1 = 5,a2;
         a2 = a1;
@@ -31,6 +31,65 @@
     <label>hello world</label>
     <button type="button">aaa</button>
     <lable>dddd</lable>
+    <br/><br/><br/><br/>
+
+    <script type="text/javascript">
+        var mydate=new Date();
+        document.write("当前时间："+mydate+"<br>");
+        mydate.setTime(mydate.getTime() + 60 * 60 * 1000);
+        document.write("推迟一小时时间：" + mydate);
+    </script>
+
+
+    <!-- Model  -->
+    <!--调用方法:model_tip_show('model_tip1','model_tip_content1','系统繁忙请稍后再试!');-->
+
+    <div id="model_tip1" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="myModalLabel1" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_body" id="model_tip_content1">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_btn_close">
+                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
+
+    <!-- 确定/取消 Model  -->
+    <!--调用方法:model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",success_func)-->
+    <div id="model_ok" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_ok_body" id="model_ok_content">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_ok_btn_close">
+                        <button type="button" id="model_ok_btn" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" style=" float:right;margin-right:5px">取&nbsp;&nbsp;消</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
 
 
 </body>

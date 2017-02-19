@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2016/12/25.
  */
-
+var sendEmailVerifyCodeUrl = "/sendVerifyCodeMail?emailTo=";
 var basicInfoCreateUrl = "/home/student/thesis/apply/basicInfoTable/create";
 var basicInfoEditUrl = "/home/student/thesis/apply/basicInfoTable/edit";
 var basicInfoViewUrl = "/home/student/thesis/apply/basicInfoTable/view";
@@ -10,14 +10,12 @@ var tjbCreateUrl = "/home/student/thesis/apply/tjb/create";
 var tjbEditUrl = "/home/student/thesis/apply/tjb/edit";
 var tjbViewUrl = "/home/student/thesis/apply/tjb/view";
 var studentQueryThesisStatusUrl = "/home/student/thesis/apply/index";
+var adminAddAdministratorUrl = "";
+var adminActiveTeacherUrl = "";
 
-///     刷新页面                ////
-//  mid_body         -->  ApplyThesisPage
-// apply_form_wrap   -->  BasicInfoPage   TjbFramePage
-//  tjb_wrap         -->  MasterTjbPage   DoctorTjbPage
-//  savedThesisApplyUserId
-
-
+///////////////////////////////////////////
+///////// 页面刷新开始       ///////////
+////////////////////////////////////
 function refreshToBasicInfoCreatePage(userId){
     var wrapLocation = "#home_right_wrap";
     $.ajax({
@@ -245,6 +243,66 @@ function refreshToStudentQueryStatus() {
     }); // end ajax
 }
 
+function refreshToAdminAddAdministratorPage(){
+    var wrapLocation = "#home_right_wrap";
+    $.ajax({
+        type: "POST",
+        url: adminAddAdministratorUrl,
+        contentType: "application/json",
+        data: JSON.stringify({
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        }
+    }); // end ajax
+}
+
+function refreshToAdminActiveTeacherPage(){
+    var wrapLocation = "#home_right_wrap";
+    $.ajax({
+        type: "POST",
+        url: adminActiveTeacherUrl,
+        contentType: "application/json",
+        data: JSON.stringify({
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        }
+    }); // end ajax
+}
+
+///////////////////////////////////////////
+///////// 页面刷新结束       ///////////
+////////////////////////////////////
+
+
+
 
 ////////////     保存临时值到页面中       //////////////
 function saveUserIdToPage(userId){
@@ -307,4 +365,32 @@ function closeModal(modalId){
 
 function paramErrorAlert(paramName,paramValue){
     alert("system param invalid error: "+ paramName + "  " + paramValue);
+}
+
+function sendEmailVerifyCode(email){
+    //emailVerify_btn
+    $.ajax({
+        type: "GET",
+        url: sendEmailVerifyCodeUrl+email,
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            var status = data.code;
+            var msg = data.msg;
+            if(status == "200")
+                model_tip_show('model_tip','model_tip_content','系统已发送邮箱验证码，请查收');
+            else if(status ==  "500")
+                model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
+            else
+                model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+        }
+
+    });
 }
