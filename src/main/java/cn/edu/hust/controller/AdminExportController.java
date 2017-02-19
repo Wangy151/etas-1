@@ -51,8 +51,8 @@ public class AdminExportController {
      * 导出Excel文件
      */
     @RequestMapping(value = "/excel")
-    public ResponseEntity<byte[]> exportExcel(@RequestBody AdminExportRequest adminExportRequest) {
-        byte[] buf = adminExportService.exportExcel(adminExportRequest.getUserIds());
+    public ResponseEntity<byte[]> exportExcel(@RequestParam String userIds) {
+        byte[] buf = adminExportService.exportExcel(userIds.split(","));
 
         String exportExcelFileName = "basic_info_table.xls";
 
