@@ -63,6 +63,7 @@ function exportExeclFile1(){
     //2.开始向后台发送数据
     var form=$("<form>");//定义一个form表单
     form.attr("style","display:none");
+    form.attr("enctype","multipart/form-data")
     form.attr("target","_self");
     form.attr("method","post");
     form.attr("action",exportExeclFileUrl);
