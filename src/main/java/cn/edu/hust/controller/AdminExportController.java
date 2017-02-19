@@ -4,6 +4,7 @@ import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.AdminExportRequest;
 import cn.edu.hust.model.request.AdminExportSearchRequest;
 import cn.edu.hust.service.AdminExportService;
+import cn.edu.hust.utils.SqlUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class AdminExportController {
      */
     @RequestMapping(value = "/excel")
     public void exportExcel(@RequestParam String userIds, HttpServletResponse response) throws IOException {
-        String fileName = "basic_info_table.xls";
+        String fileName = "基本信息表.xls";
 
         response.reset();
         response.setContentType("application/vnd.ms-excel;charset=utf-8");
@@ -63,5 +65,21 @@ public class AdminExportController {
 
         HSSFWorkbook wb = adminExportService.exportExcel(userIds.split(","));
         wb.write(response.getOutputStream());
+    }
+
+    /**
+     * 导出PDF文件
+     */
+    @RequestMapping(value = "/pdf")
+    public void exportPdf(@RequestParam String userIds, HttpServletResponse response) throws IOException {
+        String fileName = "论文pdf文件打包.zip";
+
+        response.reset();
+        response.setContentType("application/octet-stream;charset=utf-8");
+        response.setHeader("Content-Disposition", "attachment;filename="+ new String((fileName).getBytes(), "iso-8859-1"));
+
+        OutputStream outputStream = response.getOutputStream();
+
+        adminExportService.exportPdf(userIds.split(","), outputStream);
     }
 }

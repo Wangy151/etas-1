@@ -18,4 +18,7 @@ public interface ThesisExportDao {
 
     @SelectProvider(type = AdminExportService.class, method = "getAdminExportExcelSql")
     List<ThesisBasicInfo> getExportExcel(String whereInSql);
+
+    @SelectProvider(type=AdminExportService.class, method = "getAdminExportPdfSql")
+    String[] getExportPdf(String whereInSql);
 }

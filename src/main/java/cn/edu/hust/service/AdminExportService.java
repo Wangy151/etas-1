@@ -4,6 +4,7 @@ import cn.edu.hust.dao.ThesisExportDao;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.AdminExportSearchRequest;
 import cn.edu.hust.utils.SqlUtil;
+import cn.edu.hust.utils.ZipUtil;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -132,5 +134,24 @@ public class AdminExportService {
                 " WHERE zzxh IN (" + whereInSql + ")";
 
         return querySql;
+    }
+
+    /**
+     * 到处pdf
+     * @param userIds
+     * @param outputStream
+     * @throws IOException
+     */
+    public void exportPdf(String[] userIds, OutputStream outputStream) throws IOException {
+        String[] thesisPaths = thesisExportDao.getExportPdf(SqlUtil.arrayToSql(userIds));
+        List<String> srcFileList = new ArrayList<String>();
+        for (String thesisPath : thesisPaths) {
+            srcFileList.add(thesisPath + ".pdf");
+        }
+        ZipUtil.doCompress(srcFileList, outputStream);
+    }
+
+    public String getAdminExportPdfSql(String whereInSql) {
+        return " SELECT lwywlj FROM thesis_basic_info WHERE zzxh IN (" + whereInSql + ")";
     }
 }
