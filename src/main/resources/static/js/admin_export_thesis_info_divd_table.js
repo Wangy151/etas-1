@@ -3,8 +3,8 @@
  */
 
 var exportExeclFileUrl = "/home/admin/export/excel";
-var exportLwtjbFileUrl = "";
-var exportThesisPdfFileUrl = "";
+var exportLwtjbFileUrl = "/home/admin/export/tjb";
+var exportThesisPdfFileUrl = "/home/admin/export/pdf";
 
 
 $(document).ready(function () {
