@@ -10,6 +10,9 @@
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
     <script>
+        var adminSearchTeacherUrl = "";
+        var adminActiveTeacherUrl = "";
+        var adminCancelActiveTeacherUrl = "";
         $(document).ready(function () {
             select_all();
             no_select_all();
@@ -17,26 +20,6 @@
             cancelActive();
         })
 
-        //全选按钮事件
-        function select_all(){
-            //select_all_btn
-            $("#select_all_btn").click(function () {
-                // name="checkboxStatus"
-                $("input[name='checkboxStatus']").prop("checked",true);
-            })
-        }
-
-        //反选按钮事件
-        function no_select_all(){
-            //no_select_all_btn
-            $("#no_select_all_btn").click(function () {
-                // name="checkboxStatus"
-                var checkbox = $("input[name='checkboxStatus']");
-                checkbox.each(function () {
-                    $(this).prop("checked", !$(this).prop("checked"));
-                })
-            })
-        }
 
         //激活按钮事件  cancel_active_btn
         function active(){
@@ -47,18 +30,17 @@
                 var checked_length = checked.length;
 
                 if(checked_length <= 0){ //如果没有选中激活
-                    model_tip_show('model_tip1','model_tip_content1','未选择激活');
+                    model_tip_show('model_tip','model_tip_content','未选择');
                     return;
                 }
-                //如果选中了
 
                 //2.检查选中的申请的状态是否有不可激活状态
                 if(checkBeforeActive()==false){
-                    model_tip_show('model_tip1','model_tip_content1','只能激活状态为【未激活】, 请重新选择');
+                    model_tip_show('model_tip','model_tip_content','只能激活状态为【未激活】, 请重新选择');
                     return;
                 }
                 //3. 确认是否审核通过
-                model_ok_show("model_ok","model_ok_content","确认是否激活该账户","model_ok_btn",active1);
+                model_ok_show("model_ok","model_ok_content","确认是否激活选中的账户","model_ok_btn",active1);
 
             }) //click
         } //function
@@ -68,12 +50,12 @@
             var xh_array = new Array();
             //2.组装数据，准备将数据发往服务器
             checked.each(function(){ //将选中的学号放到xh_array数组中
-                var value = $(this).parent().next().next().html();
+                var value = $(this).parent().parent().children("td.userId").text();
                 xh_array.push(value);
             })
             $.ajax({
                 type: "POST",
-                url: "/home/admin/thesis/review",   //url
+                url: adminActiveTeacherUrl,   //url
                 contentType: "application/json",
                 data: JSON.stringify({
                     "userIds":xh_array,
@@ -88,7 +70,7 @@
                     var status = data.code;
                     var msg = data.msg;
                     if(status == "200")  //200 成功
-                        model_tip_show('model_tip1','model_tip_content1','激活成功');
+                        model_tip_show('model_tip','model_tip_content','激活成功',refreshSearchResult);
                     else if(status == "500")  //服务器繁忙
                         model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                     else
@@ -112,12 +94,12 @@
                 var checked = $("input[name='checkboxStatus']:checked");
                 var checked_length = checked.length;
                 if(checked_length <= 0){ //如果没有选中申请
-                    model_tip_show('model_tip1','model_tip_content1','未选择激活');
+                    model_tip_show('model_tip','model_tip_content','未选择激活');
                     return;
                 }
                 //2.检查选中的状态是否正确
                 if(checkBeforeCancelActive()==false){
-                    model_tip_show('model_tip1','model_tip_content1','只能取消状态为【已激活】的账户, 请重新选择');
+                    model_tip_show('model_tip','model_tip_content','只能取消状态为【已激活】的账户, 请重新选择');
                     return;
                 }
                 //确认是否取消审核
@@ -131,12 +113,12 @@
             var xh_array = new Array();
             //3.组装数据发给后台服务器处理
             checked.each(function(){ //将选中的学号放到xh_array数组中
-                var value = $(this).parent().next().next().html();
+                var value = $(this).parent().parent().children("td.userId").text();
                 xh_array.push(value);
             })
             $.ajax({
                 type: "POST",
-                url: "/home/admin/thesis/cancelReview",
+                url: adminCancelActiveTeacherUrl,
                 contentType: "application/json",
                 data: JSON.stringify({
                     "userIds":xh_array,
@@ -151,7 +133,7 @@
                     var status = data.code;
                     var msg = data.msg;
                     if(status == "200")  //200 成功
-                        model_tip_show('model_tip1','model_tip_content1','取消激活成功');
+                        model_tip_show('model_tip','model_tip_content','取消激活成功',refreshSearchResult);
                     else if(status == "500")  //服务器繁忙
                         model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                     else
@@ -167,15 +149,44 @@
             }); //ajax
         }
 
-        function refreshSearchResult(){}
+        function refreshSearchResult(){
+            var wrapLocation = "#table_wrap";
+            $.ajax({
+                type: "POST",
+                url: adminSearchTeacherUrl,
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "department":$("#department").val(),
+                    "activeStatus":$("#activeStatus").val(),
+                    "realName":$("#realName").val(),
+                    "userID":$("#userId").val(),
+                }),
+
+                beforeSend: function(XMLHttpRequest){
+                    $(wrapLocation).empty();
+                },
+
+                success: function(data){
+                    $(wrapLocation).html(data);
+                },
+
+                error: function(XMLHttpRequest, textStatus) {
+                },
+
+                complete: function(XMLHttpRequest, textStatus){
+                }
+
+            }); //ajax
+        }
 
         //激活前检查
         function checkBeforeActive(){
             var _checked = $("input[name='checkboxStatus']:checked");
-            var _status =  _checked.parent().parent().children("td.active_status");
+
             var inspectV = 1;
-            _status.each(function(){
-                if($(this).text() !='未激活'){
+            _checked.each(function(){
+                var status =  $(this).parent().parent().children("td.active_status").text();
+                if(status!='未激活'){
                     inspectV = 0;
                     return;
                 }
@@ -189,10 +200,10 @@
         //取消激活前检查
         function checkBeforeCancelActive(){
             var _checked = $("input[name='checkboxStatus']:checked");
-            var _status =  _checked.parent().parent().children("td.active_status");
             var inspectV = 1;
-            _status.each(function(){
-                if($(this).text() !='已激活'){
+            _checked.each(function(){
+                var status = $(this).parent().parent().children("td.active_status").text();
+                if(status !='已激活'){
                     inspectV = 0;
                     return;
                 }
@@ -201,6 +212,27 @@
                 return true;
             else
                 return false;
+        }
+
+        //全选按钮事件
+        function select_all(){
+            //select_all_btn
+            $("#select_all_btn").click(function () {
+                // name="checkboxStatus"
+                $("input[name='checkboxStatus']").prop("checked",true);
+            })
+        }
+
+        //反选按钮事件
+        function no_select_all(){
+            //no_select_all_btn
+            $("#no_select_all_btn").click(function () {
+                // name="checkboxStatus"
+                var checkbox = $("input[name='checkboxStatus']");
+                checkbox.each(function () {
+                    $(this).prop("checked", !$(this).prop("checked"));
+                })
+            })
         }
 
     </script>
@@ -230,9 +262,9 @@
         <tbody>
         <tr>
             <td><input type="checkbox" name='checkboxStatus' /></td>
-            <td>计算机科学与技术学院</td>
-            <td>0185263</td>
-            <td>张辉耀</td>
+            <td>软件学院</td>
+            <td class="userId">0185211</td>
+            <td>程咬金</td>
             <td>18855661122</td>
             <td>zhyxhk@hust.mail.edu.cn</td>
             <td class="active_status">未激活</td>
@@ -240,38 +272,11 @@
         <tr>
             <td><input type="checkbox" name='checkboxStatus'/></td>
             <td>计算机科学与技术学院</td>
-            <td>0185263</td>
+            <td class="userId">0185212</td>
             <td>张辉耀</td>
             <td>18855661122</td>
             <td>zhyxhk@hust.mail.edu.cn</td>
             <td class="active_status">已激活</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" name='checkboxStatus'/></td>
-            <td>计算机科学与技术学院</td>
-            <td>0185263</td>
-            <td>张辉耀</td>
-            <td>18855661122</td>
-            <td>zhyxhk@hust.mail.edu.cn</td>
-            <td class="active_status">未激活</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" name='checkboxStatus'/></td>
-            <td>计算机科学与技术学院</td>
-            <td>0185263</td>
-            <td>张辉耀</td>
-            <td>18855661122</td>
-            <td>zhyxhk@hust.mail.edu.cn</td>
-            <td class="active_status">已激活</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" name='checkboxStatus'/></td>
-            <td>计算机科学与技术学院</td>
-            <td>0185263</td>
-            <td>张辉耀</td>
-            <td>18855661122</td>
-            <td>zhyxhk@hust.mail.edu.cn</td>
-            <td class="active_status">未激活</td>
         </tr>
 
         </tbody>
