@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8" />
-    <title>管理员个人信息中心</title>
+    <title>学生个人信息中心</title>
     <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
     <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
     <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
@@ -35,12 +35,13 @@
     </style>
 
     <script type="application/javascript">
-        var modifyAdminInfoUrl = "";
-        var modifyAdminPasswdUrl = "";
+        var modifyBasicInfoUrl = "";
+        var modifyPasswordUrl = "";
+
 
         $(document).ready(function () {
             initTabShow();
-            changeTabShow();
+            changeTabDiv();
             validateForm1();
             validateForm2();
             sendEmailValidateCode();
@@ -48,12 +49,8 @@
             submitPasswordInfo();
         });
 
-        function initTabShow(){
-            $("#basic_info_model").show();
-            $("#password_model").hide();
-        }
-
-        function changeTabShow(){
+        function changeTabDiv(){
+            //
             $("#modify_basic_info_href").click(function(){
                 $("#basic_info_model").show();
                 $("#password_model").hide();
@@ -65,13 +62,24 @@
             });
         }
 
+        function initTabShow(){
+            $("#basic_info_model").show();
+            $("#password_model").hide();
+        }
+
         function validateForm1(){
             $("#basic_info_model_form").validate({
-                //realName   contactNumber   email  email_validate_code
+                // basic_info_model_form   realName   college  contactNumber   email  email_validate_code   modify_basic_info_btn
                 rules:{
-                    realName:{
+                    studentType:{
                       required:true,
-                      maxlength:30,
+                    },
+                    realName:{
+                        required:true,
+                        maxlength:30,
+                    },
+                    college:{
+                        required:true,
                     },
                     contactNumber:{
                         required:true,
@@ -88,9 +96,15 @@
                     },
                 },
                 messages:{
+                    studentType:{
+                        required:"学生类型不能为空",
+                    },
                     realName:{
                         required:"姓名不能为空",
                         maxlength:"姓名长度不能超过30",
+                    },
+                    college:{
+                        required:"学院不能为空",
                     },
                     contactNumber:{
                         required:"联系电话不能为空",
@@ -110,6 +124,10 @@
                 errorPlacement : function(error, element) {
                     if(element.is("#realName"))
                         error.appendTo($("#v_realName"));
+                    else if(element.is("#college"))
+                        error.appendTo($("#v_college"));
+                    else if(element.is("#studentType"))
+                        error.appendTo($("#v_studentType"));
                     else if(element.is("#contactNumber"))
                         error.appendTo($("#v_contactNumber"));
                     else if(element.is("#email"))
@@ -167,24 +185,29 @@
         function sendEmailValidateCode(){
             //emailVerify_btn
             $("#emailVerify_btn").click(function(){
-                if($("#email").valid() == false) return;
                 var email = $("#email").val();
+
+                //检验邮箱输入框是否合法
+                if($("#email").valid()) return;
+
                 sendEmailVerifyCode(email);
             })
         }
 
         function submitBasicInfo(){
-            //  realName   contactNumber   email  email_validate_code   modify_basic_info_btn
+            // basic_info_model_form   realName   college  contactNumber   email  email_validate_code   modify_basic_info_btn
             $("#modify_basic_info_btn").click(function(){
                 var status = $("#basic_info_model_form").valid();
                 if(status == false) return;
                 $.ajax({
                     type: "POST",
-                    url: modifyAdminInfoUrl,
+                    url: modifyBasicInfoUrl,
                     contentType: "application/json",
 
                     data: JSON.stringify({
+                        "studentType":$("#studentType").val(),
                         "realName": $("#realName").val(),
+                        "department": $("#college").val(),
                         "phoneNumber": $("#contactNumber").val(),
                         "email": $("#email").val(),
                         "mailVerifyCode": $("#email_validate_code").val(),
@@ -197,9 +220,9 @@
                     success: function(data){
                         var status = data.code;
                         var msg = data.msg;
-                        if(status == "200")  //学生注册成功
-                            model_tip_show('model_tip','model_tip_content','信息修改成功',refreshToAdminPersonInfoPage);
-                        else if(status == "500")  //服务器原因失败
+                        if(status == "200")  //成功
+                            model_tip_show('model_tip','model_tip_content','信息保存成功',refreshToStudentPersonInfoPage);
+                        else if(status == "500")  //失败
                             model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                         else
                             model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
@@ -211,18 +234,18 @@
                     complete: function(XMLHttpRequest, textStatus){
                     }
 
-                });
+                });//end ajax
             })
         }
 
         function submitPasswordInfo(){
-            // new_password  repassword   modify_passwd_btn
+            // password_model_form   new_password  repassword   modify_passwd_btn
             $("#modify_passwd_btn").click(function(){
                 var status = $("#password_model_form").valid();
                 if(status == false) return;
                 $.ajax({
                     type: "POST",
-                    url: modifyAdminPasswdUrl,
+                    url: modifyPasswordUrl,
                     contentType: "application/json",
 
                     data: JSON.stringify({
@@ -237,9 +260,9 @@
                     success: function(data){
                         var status = data.code;
                         var msg = data.msg;
-                        if(status == "200")  //学生注册成功
-                            model_tip_show('model_tip','model_tip_content','密码成功',refreshToAdminPersonInfoPage);
-                        else if(status == "500")  //服务器原因失败
+                        if(status == "200")  //信息保存成功
+                            model_tip_show('model_tip','model_tip_content','密码修改成功',refreshToStudentPersonInfoPage);
+                        else if(status == "500")  //保存失败
                             model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                         else
                             model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
@@ -258,10 +281,11 @@
 
     </script>
 
+
 </head>
 <body>
 
-<div class="info_form">
+    <div class="info_form">
     <div class="modify_btn_div">
         <div class="row">
             <div class="col-md-2 col-md-offset-5">
@@ -273,15 +297,15 @@
         </div>
     </div>
 
-
     <div id="modify_info_frame">
 
         <div id="basic_info_model">
             <form class="form-horizontal" id="basic_info_model_form" role="form" style="margin-top: 20px">
                 <div class="form-group">
+
                     <div class="col-sm-3 _text_right input_tip"><label>身份:</label></div>
                     <div class="col-sm-5" style="margin-left: -12px">
-                        <select disabled="disabled" class="form-control" id="role" name="role">
+                        <select disabled="disabled" class="form-control" name="role">
                             <option value="" selected="selected">请选择</option>
                             <option value="学生">学生</option>
                             <option value="学院教务员">学院教务员</option>
@@ -294,11 +318,26 @@
 
                 <div class="form-group">
 
-                    <div class="col-sm-3 _text_right input_tip"><label>学号/教职工号:</label></div>
+                    <div class="col-sm-3 _text_right input_tip"><label>学号:</label></div>
                     <div class="col-sm-5" style="margin-left: -12px">
-                        <input type="text" disabled="disabled" class="form-control" id="userId" name="userId" placeholder="学号/教职工号">
+                        <input type="text" disabled="disabled" class="form-control" placeholder="学号/教职工号">
                     </div>
-                    <div class="col-sm-4 validate_warn" id="v_idnumber"></div>
+                    <div class="col-sm-4 validate_warn" id="v_userId"></div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip">
+                        <label for="studentType">学生类型:</label>
+                    </div>
+                    <div class="col-sm-5" style="margin-left: -12px">
+                        <select class="form-control" id="studentType" name="studentType">
+                            <option value="" selected="selected">请选择</option>
+                            <option value="硕士">硕士</option>
+                            <option value="博士">博士</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4 validate_warn" id="v_studentType"></div>
                 </div>
 
 
@@ -311,6 +350,60 @@
                     <div class="col-sm-4 validate_warn" id="v_realName"></div>
                 </div>
 
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>所在院系:</label></div>
+                    <div class="col-sm-5" style="margin-left: -12px">
+                        <select class="form-control" id="college" name="college">
+                            <option value="" selected="selected">请选择</option>
+                            <option value="机械科学与工程学院">机械科学与工程学院</option>
+                            <option value="计算机科学与技术学院">计算机科学与技术学院</option>
+                            <option value="生命科学与技术学院">生命科学与技术学院</option>
+                            <option value="电气与电子工程学院">电气与电子工程学院</option>
+                            <option value="材料科学与工程学院">材料科学与工程学院</option>
+                            <option value="船舶与海洋工程学院">船舶与海洋工程学院</option>
+                            <option value="能源与动力工程学院">能源与动力工程学院</option>
+                            <option value="自动化学院">自动化学院</option>
+                            <option value="光学与电子信息学院">光学与电子信息学院</option>
+                            <option value="水电与数字化工程学院">水电与数字化工程学院</option>
+                            <option value="软件学院">软件学院</option>
+                            <option value="环境科学与工程学院">环境科学与工程学院</option>
+                            <option value="电子信息与通信学院">电子信息与通信学院</option>
+                            <option value="建筑与城市规划学院">建筑与城市规划学院</option>
+                            <option value="土木工程与力学学院">土木工程与力学学院</option>
+                            <option value="化学与化工学院">化学与化工学院</option>
+                            <option value="数学与统计学院">数学与统计学院</option>
+                            <option value="物理学院">物理学院</option>
+                            <option value="公共管理学院">公共管理学院</option>
+                            <option value="经济学院">经济学院</option>
+                            <option value="管理学院">管理学院</option>
+                            <option value="人文学院">人文学院</option>
+                            <option value="新闻与信息传播学院">新闻与信息传播学院</option>
+                            <option value="马克思主义学院">马克思主义学院</option>
+                            <option value="社会学院">社会学院</option>
+                            <option value="法学院">法学院</option>
+                            <option value="外国语学院">外国语学院</option>
+                            <option value="基础医学院（含法医学系）">基础医学院（含法医学系）</option>
+                            <option value="药学院">药学院</option>
+                            <option value="医药卫生管理学院">医药卫生管理学院</option>
+                            <option value="公共卫生学院">公共卫生学院</option>
+                            <option value="附属协和医院">附属协和医院</option>
+                            <option value="附属同济医院（含附属梨园医院、计划生育研究所、护理学系）">附属同济医院（含附属梨园医院、计划生育研究所、护理学系）</option>
+                            <option value="教育科学研究院">教育科学研究院</option>
+                            <option value="中欧清洁与可再生能源学院">中欧清洁与可再生能源学院</option>
+                            <option value="国学研究院">国学研究院</option>
+                            <option value="体育部">体育部</option>
+                            <option value="武汉光电国家实验室">武汉光电国家实验室</option>
+                            <option value="工程科学学院">工程科学学院</option>
+                            <option value="武汉国际微电子学院">武汉国际微电子学院</option>
+
+
+                        </select>
+
+                    </div>
+                    <div class="col-sm-4 validate_warn" id="v_college"></div>
+                </div>
 
                 <div class="form-group">
 
@@ -342,7 +435,6 @@
                     <div class="col-sm-4 validate_warn" id="v_email_validate_code"></div>
                 </div>
 
-
                 <div class="form-group" style="margin-top: 30px">
                     <div class="col-sm-offset-3 col-sm-5">
                         <button type="button" id="modify_basic_info_btn" class="btn btn-primary btn-lg btn-block">保存以上基本信息</button>
@@ -373,7 +465,6 @@
                     <div class="col-sm-4 validate_warn" id="v_repassword"></div>
                 </div>
 
-
                 <div class="form-group" style="margin-top: 30px">
                     <div class="col-sm-offset-3 col-sm-5">
                         <button type="button" id="modify_passwd_btn" class="btn btn-primary btn-lg btn-block">保存以上基本信息</button>
@@ -385,9 +476,8 @@
 
     </div>
 
-
-
 </div>
+
 
 <!-- Model  -->
 <!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->

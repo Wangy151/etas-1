@@ -1,6 +1,8 @@
 /**
  * Created by Administrator on 2017/1/5.
  */
+var studentDeleteThesisApplyUrl = "/home/student/thesis/apply/delete";
+var studentSubmitThesisApplyUrl = "/home/student/thesis/apply/submit";
 $(document).ready(function () {
         basicInfoCreateBtn();
         basicInfoEditBtn();
@@ -12,13 +14,9 @@ $(document).ready(function () {
         submitApplyBtn();
     });
 
-// var basicInfoStatus = $("#basicInfoStatus").text();
-// var tjbStatus = $("#tjbStatus").text();
-// var applyStatus = $("#applyStatus").text();
-
-////   basicTable_create_btn  basicTable_edit_btn   basicTable_view_btn
-///     tjb_create_btn   tjb_edit_btn    tjb_view_btn
-/////   deleteApply_btn    submitApply_btn
+// basicTable_create_btn  basicTable_edit_btn   basicTable_view_btn
+//  tjb_create_btn   tjb_edit_btn    tjb_view_btn
+//  deleteApply_btn    submitApply_btn
 
 function basicInfoCreateBtn(){
     $("#basicTable_create_btn").click(function () {
@@ -65,7 +63,7 @@ function tjbCreateBtn(){
         //1.判断是否可以新增
         var tjbStatus = $("#tjbStatus").text();
         if(tjbStatus == "未完成")
-            refreshToTjbFramePage(getMyUserIdFromPage(),"0");
+            refreshToTjbCreatePage(getMyUserIdFromPage());
         else if(tjbStatus == "完成")
             model_tip_show('model_tip','model_tip_content','论文推荐表已经存在，不能再新增');
         else
@@ -78,7 +76,7 @@ function tjbEditBtn(){
         //1.判断是否可以修改
         var tjbStatus = $("#tjbStatus").text();
         if(tjbStatus == "完成")
-            refreshToTjbFramePage(getMyUserIdFromPage(),"1");
+            refreshToTjbEditPage(getMyUserIdFromPage());
         else if(tjbStatus == "未完成")
             model_tip_show('model_tip','model_tip_content','论文推荐表不存在，请先新增');
         else
@@ -91,11 +89,11 @@ function tjbViewBtn(){
         //1.判断是否可以修改
         var tjbStatus = $("#tjbStatus").text();
         if(tjbStatus == "完成")
-            refreshToTjbFramePage(getMyUserIdFromPage(),"2");
+            refreshToTjbEditPage(getMyUserIdFromPage());
         else if(tjbStatus == "未完成")
             model_tip_show('model_tip','model_tip_content','论文推荐表不存在，请先新增');
         else
-            alert("System inner error :"+" tjbStatus "+tjbStatus);
+            paramErrorAlert("tjbStatus",tjbStatus);
     })
 }
 
@@ -119,7 +117,7 @@ function deleteApply1(){
     //删除论文申请    200 成功    300 学院教务员已审核通过, 不能删除     500 失败
     $.ajax({
         type: "POST",
-        url: "/home/student/thesis/apply/delete",
+        url: studentDeleteThesisApplyUrl,
         contentType: "application/json",
         data: JSON.stringify({
 
@@ -174,7 +172,7 @@ function submitApply1(){
     $("#model_ok").modal("hide");
     $.ajax({
         type: "POST",
-        url: "/home/student/thesis/apply/submit",
+        url: studentSubmitThesisApplyUrl,
         contentType: "application/json",
         data: JSON.stringify({
 

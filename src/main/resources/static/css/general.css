@@ -91,3 +91,8 @@ a{
 .border_top{
     border-top: 1px solid black;
 }
+
+.key_word{
+    color: #ff0000;
+    font-weight: 600;
+}

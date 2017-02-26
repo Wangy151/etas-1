@@ -5,6 +5,8 @@
 //select_all_btn  no_select_all_btn  report_btn  cancel_report_btn
 // .apply_status  .t_report_check_detail_btn   .t_report_modify_btn
 // #report_btn   #cancel_report_btn
+var teacherReportThesisUrl = "/home/teacher/thesis/report";
+var teacherCancelReportThesisUrl = "/home/teacher/thesis/cancelReport";
 $(document).ready(function () {
     select_all();
     no_select_all();
@@ -16,27 +18,6 @@ $(document).ready(function () {
     tjbViewBtn();
 });
 
-
-//全选按钮事件
-function select_all(){
-    //select_all_btn
-    $("#select_all_btn").click(function () {
-        // name="checkboxStatus"
-        $("input[name='checkboxStatus']").prop("checked",true);
-    })
-}
-
-//反选按钮事件
-function no_select_all(){
-    //no_select_all_btn
-    $("#no_select_all_btn").click(function () {
-        // name="checkboxStatus"
-        var checkbox = $("input[name='checkboxStatus']");
-        checkbox.each(function () {
-            $(this).prop("checked", !$(this).prop("checked"));
-        })
-    })
-}
 
 //上报按钮事件
 function report(){
@@ -73,7 +54,7 @@ function report1(){
     });
     $.ajax({
         type: "POST",
-        url: "/home/teacher/thesis/report",
+        url: teacherReportThesisUrl,
         contentType: "application/json",
         data: JSON.stringify({
             "userIds":xh_array,
@@ -137,7 +118,7 @@ function cancelReoprt1(){
     });
     $.ajax({
         type: "POST",
-        url: "/home/teacher/thesis/cancelReport",
+        url: teacherCancelReportThesisUrl,
         contentType: "application/json",
         data: JSON.stringify({
             "userIds":xh_array,
@@ -202,6 +183,7 @@ function checkBeforeCancelReport(){
         return false;
 }
 
+
 function basicInfoViewBtn(){
     $(".basicInfoViewBtn").click(function () {
         var userId = $(this).parent().parent().children("td.userId").text();
@@ -223,7 +205,7 @@ function basicInfoEditBtn(){
 function tjbViewBtn(){
     $(".tjbViewBtn").click(function () {
         var userId = $(this).parent().parent().children("td.userId").text();
-        refreshToTjbFramePage(userId,"2");
+        refreshToTjbViewPage(userId);
     })
 }
 
@@ -232,9 +214,30 @@ function tjbEditBtn(){
         var userId = $(this).parent().parent().children("td.userId").text();
         var applyStatus = $(this).parent().parent().children("td.apply_status").text();
         if(applyStatus == "待学院上报" || applyStatus == "待学校审核")
-            refreshToTjbFramePage(userId,"1");
+            refreshToTjbEditPage(userId);
         else
             model_tip_show('model_tip1','model_tip_content1','该申请已经通过，不能修改');
+    })
+}
+
+//全选按钮事件
+function select_all(){
+    //select_all_btn
+    $("#select_all_btn").click(function () {
+        // name="checkboxStatus"
+        $("input[name='checkboxStatus']").prop("checked",true);
+    })
+}
+
+//反选按钮事件
+function no_select_all(){
+    //no_select_all_btn
+    $("#no_select_all_btn").click(function () {
+        // name="checkboxStatus"
+        var checkbox = $("input[name='checkboxStatus']");
+        checkbox.each(function () {
+            $(this).prop("checked", !$(this).prop("checked"));
+        })
     })
 }
 

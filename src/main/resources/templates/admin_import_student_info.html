@@ -6,7 +6,6 @@
     <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
     <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
     <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
-    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/MyAjaxForm.js" th:src="@{/js/MyAjaxForm.js}"></script>
@@ -22,8 +21,14 @@
             font-size: larger;
             margin-top:20px;
         }
+        .wrap_body{
+            margin-left: 30px;
+            margin-top: 50px;
+        }
     </style>
     <script>
+        var downloadFileModelUrl = "";
+        var uploadStudentFileUrl = "/home/admin/import/upload"
         $(document).ready(function () {
             downloadFileModel();
             uploadStudentInfoFile();
@@ -32,7 +37,17 @@
         function downloadFileModel(){
             //#downloadFile_btn
             $("#downloadFile_btn").click(function () {
+                //下载文件模板
+                //1.ajax组装form表单  下载文件
+                var form=$("<form>");//定义一个form表单
+                form.attr("style","display:none");
+                form.attr("enctype","multipart/form-data")
+                form.attr("target","_self");
+                form.attr("method","post");
+                form.attr("action",uploadStudentFileUrl);
+                $(".wrap_body").append(form);//将表单放置在web中
 
+                form.submit();//表单提交
             })
         };
 
@@ -61,7 +76,7 @@
 
         function uploadStudentInfoFile1(){
             $("#form1").ajaxSubmit({
-                url: "/home/admin/import/upload",
+                url: uploadStudentFileUrl,
                 type: "post",
                 success: function (data) { //服务器回调函数
                     //1.关闭文件提示浮层
@@ -96,20 +111,24 @@
 </head>
 <body>
 
-    <div style="margin-left: 30px;margin-top: 50px">
+    <div class="wrap_body">
         <div style="margin-bottom: 30px">
-            注意：上传的Excel文件的字段必须包含 作者学号、作者姓名、性别、出生年月、民族、导师姓名、论文题目、
-            中文关键字、入学年月、获学位日期、一级学科代码、一级学科名称、二级学科代码、二级学科名称等字段。
+            <span class="key_word">上传毕业生学生信息到系统前请注意以下几点：</span><br/>
+            一、只需上传今年毕业生的数据<br/>
+            二、上传的数据文件格式为Execl文件格式<br/>
+            三、上传前请先下载文件模板，将今年毕业生的数据复制到模板中，然后再上传。文件模板中包括学号、姓名、出生日期、二级学科码、二级学科名称、导师、论文中文题目、入学年份、获取学位时间、答辩时间字段信息。<br/>
+            四、文件上传的数据会覆盖掉以前上传的数据，如果遗漏学生信息，下次上传需重新全部上传。<br/>
+            五、系统会自动填充学生的一级学科代码和一级学科名称，如以一级学科码和一级学科名称发生变化，需联系系统开发人员。
         </div>
         <div style="margin-bottom: 30px">
-            <span style="color: red">上传Excel文件前可以先下载Excel文件模版，确保Excel文件的字段是正确的</span>
-            <button type="button" id="downloadFile_btn" class="btn btn-primary">下载文件模版</button>
+            <span style="color: red">上传毕业生信息前请先下载毕业生信息文件模版，确保字段一致</span>
+            <button type="button" id="downloadFile_btn" class="btn btn-primary">下载文件模板</button>
         </div>
 
         <div class="row">
             <form id="form1" name="form1">
                 <div class="col-md-4"><input class="form-control" id="student_info_file" name="file" type="file" enctype="multipart/form-data" value="选择EXECL文件"/></div>
-                <div class="col-md-4"><button type="button" id="uploadFile_btn" class="btn btn-primary">上传学生信息库</button></div>
+                <div class="col-md-4"><button type="button" id="uploadFile_btn" class="btn btn-primary">上传毕业生信息</button></div>
             </form>
 
         </div>
