@@ -63,8 +63,24 @@ public class AdminExportController {
         response.setContentType("application/vnd.ms-excel;charset=utf-8");
         response.setHeader("Content-Disposition", "attachment;filename="+ new String((fileName).getBytes(), "iso-8859-1"));
 
-        HSSFWorkbook wb = adminExportService.exportExcel(userIds.split(","));
-        wb.write(response.getOutputStream());
+        adminExportService.exportExcel(userIds.split(","), response.getOutputStream());
+    }
+
+    /**
+     * 导出推荐表
+     * @param userIds
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/tjb")
+    public void exportTjb(@RequestParam String userIds, HttpServletResponse response) throws IOException {
+        String fileName = "优秀论文推荐表.zip";
+
+        response.reset();
+        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+        response.setHeader("Content-Disposition", "attachment;filename="+ new String((fileName).getBytes(), "iso-8859-1"));
+
+        adminExportService.exportTjbPackage(userIds.split(","), response.getOutputStream());
     }
 
     /**
@@ -72,7 +88,7 @@ public class AdminExportController {
      */
     @RequestMapping(value = "/pdf")
     public void exportPdf(@RequestParam String userIds, HttpServletResponse response) throws IOException {
-        String fileName = "论文pdf文件打包.zip";
+        String fileName = "论文pdf文件包.zip";
 
         response.reset();
         response.setContentType("application/octet-stream;charset=utf-8");
@@ -80,6 +96,6 @@ public class AdminExportController {
 
         OutputStream outputStream = response.getOutputStream();
 
-        adminExportService.exportPdf(userIds.split(","), outputStream);
+        adminExportService.exportPdfPackage(userIds.split(","), outputStream);
     }
 }

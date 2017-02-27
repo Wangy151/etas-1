@@ -106,4 +106,6 @@ public class AdminThesisManageService {
         return updateSql;
     }
 
+//    public String getUpdate
+
 }

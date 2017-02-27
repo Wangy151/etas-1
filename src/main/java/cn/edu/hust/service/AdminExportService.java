@@ -1,20 +1,29 @@
 package cn.edu.hust.service;
 
 import cn.edu.hust.dao.ThesisExportDao;
+import cn.edu.hust.model.DoctorThesisApply;
+import cn.edu.hust.model.MasterThesisApply;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.AdminExportSearchRequest;
 import cn.edu.hust.utils.SqlUtil;
+import cn.edu.hust.utils.VelocityUtil;
 import cn.edu.hust.utils.ZipUtil;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiaolei03 on 17/1/5.
@@ -24,6 +33,9 @@ import java.util.List;
 public class AdminExportService {
     @Autowired
     private ThesisExportDao thesisExportDao;
+
+    @Autowired
+    VelocityEngine velocityEngine;
 
     /**
      * 查询
@@ -64,7 +76,7 @@ public class AdminExportService {
      * @param userIds
      * @return
      */
-    public HSSFWorkbook exportExcel(String[] userIds) {
+    public void exportExcel(String[] userIds, OutputStream outputStream) throws IOException {
         String[] excelTitle = {"SSDM", "SSMC", "XXDM", "XXMC", "SZYX"
                 , "XH", "ZZXH", "XM", "XB", "CSNY"
                 , "MZ", "DSXM", "LWTM", "LWYWTM", "YJFX"
@@ -120,7 +132,7 @@ public class AdminExportService {
             rowObj.createCell(29).setCellValue(model.getBz());
         }
 
-        return wb;
+        wb.write(outputStream);
     }
 
     public String getAdminExportExcelSql(String whereInSql) {
@@ -137,12 +149,83 @@ public class AdminExportService {
     }
 
     /**
-     * 到处pdf
+     * 导出word压缩包
+     * @param userIds
+     * @param outputStream
+     */
+    public void exportTjbPackage(String[] userIds, OutputStream outputStream) throws FileNotFoundException {
+        List<ThesisBasicInfo> thesisBasicInfoList = thesisExportDao.getLwtjbljList(SqlUtil.arrayToSql(userIds));
+
+        List<String> masterUserIds = new ArrayList<String>();
+        List<String> doctorUserIds = new ArrayList<String>();
+        Map<String, String> tjbPathMap = new HashMap<String, String>();
+        for (ThesisBasicInfo thesisBasicInfo : thesisBasicInfoList) {
+            tjbPathMap.put(thesisBasicInfo.getZzxh(), thesisBasicInfo.getLwtjblj());
+            if ("硕士".equalsIgnoreCase(thesisBasicInfo.getStudentType())) {
+                masterUserIds.add(thesisBasicInfo.getZzxh());
+            } else if ("博士".equalsIgnoreCase(thesisBasicInfo.getStudentType())) {
+                doctorUserIds.add(thesisBasicInfo.getZzxh());
+            }
+        }
+
+        // 硕士
+        if (masterUserIds.size() > 0) {
+            List<MasterThesisApply> masterThesisApplyList = thesisExportDao.getMasterTjbList(SqlUtil.listToSql(masterUserIds));
+            for (MasterThesisApply model : masterThesisApplyList) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("model", model);
+
+                String docFileName = tjbPathMap.get(model.getZzxh()) + ".doc";
+                PrintWriter writer = new PrintWriter(new File(docFileName));
+                VelocityEngineUtils.mergeTemplate(velocityEngine, "tjb_template_master.vm", "UTF-8", map, writer);
+                writer.flush();
+                writer.close();
+            }
+        }
+
+        // 博士
+        if (doctorUserIds.size() > 0) {
+            List<DoctorThesisApply> doctorThesisApplyList = thesisExportDao.getDoctorTjbList(SqlUtil.listToSql(doctorUserIds));
+            for (DoctorThesisApply model : doctorThesisApplyList) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("model", model);
+
+                String docFileName = tjbPathMap.get(model.getZzxh()) + ".doc";
+                PrintWriter writer = new PrintWriter(new File(docFileName));
+                VelocityEngineUtils.mergeTemplate(velocityEngine, "tjb_template_doctor.vm", "UTF-8", map, writer);
+                writer.flush();
+                writer.close();
+            }
+        }
+
+    }
+
+    public String getLwtjbSql(String whereInSql) {
+        String querySql = " SELECT zzxh, lwtjblj, student_type FROM thesis_basic_info " +
+                " WHERE zzxh IN (" + whereInSql + ")";
+
+        return querySql;
+    }
+
+    public String getMasterTjbSql(String whereInSql) {
+        String querySql = " SELECT * FROM master_thesis_apply " +
+                " WHERE zzxh IN (" + whereInSql + ")";
+        return querySql;
+    }
+
+    public String getDoctorTjbSql(String whereInSql) {
+        String querySql = " SELECT * FROM doctor_thesis_apply " +
+                " WHERE zzxh IN (" + whereInSql + ")";
+        return querySql;
+    }
+
+    /**
+     * 导出pdf
      * @param userIds
      * @param outputStream
      * @throws IOException
      */
-    public void exportPdf(String[] userIds, OutputStream outputStream) throws IOException {
+    public void exportPdfPackage(String[] userIds, OutputStream outputStream) throws IOException {
         String[] thesisPaths = thesisExportDao.getExportPdf(SqlUtil.arrayToSql(userIds));
         List<String> srcFileList = new ArrayList<String>();
         for (String thesisPath : thesisPaths) {

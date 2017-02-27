@@ -23,8 +23,9 @@ public class DoctorThesisApply {
     private String cbzz;
     private String hjxm;
     private String lwdzycxd;
-    private String dwtjyy;
+    private String dwtjyj;
     private String tbrq;
+    private String reviewDate;
 
     private String dwdm;
     private String dwmc;
@@ -168,12 +169,12 @@ public class DoctorThesisApply {
         this.lwdzycxd = lwdzycxd;
     }
 
-    public String getDwtjyy() {
-        return dwtjyy;
+    public String getDwtjyj() {
+        return dwtjyj;
     }
 
-    public void setDwtjyy(String dwtjyy) {
-        this.dwtjyy = dwtjyy;
+    public void setDwtjyj(String dwtjyj) {
+        this.dwtjyj = dwtjyj;
     }
 
     public String getTbrq() {
@@ -182,6 +183,14 @@ public class DoctorThesisApply {
 
     public void setTbrq(String tbrq) {
         this.tbrq = tbrq;
+    }
+
+    public String getReviewDate() {
+        return reviewDate;
+    }
+
+    public void setReviewDate(String reviewDate) {
+        this.reviewDate = reviewDate;
     }
 
     public String getDwdm() {
@@ -236,8 +245,9 @@ public class DoctorThesisApply {
                 ", cbzz='" + cbzz + '\'' +
                 ", hjxm='" + hjxm + '\'' +
                 ", lwdzycxd='" + lwdzycxd + '\'' +
-                ", dwtjyy='" + dwtjyy + '\'' +
+                ", dwtjyj='" + dwtjyj + '\'' +
                 ", tbrq='" + tbrq + '\'' +
+                ", reviewDate='" + reviewDate + '\'' +
                 ", dwdm='" + dwdm + '\'' +
                 ", dwmc='" + dwmc + '\'' +
                 ", studentType='" + studentType + '\'' +

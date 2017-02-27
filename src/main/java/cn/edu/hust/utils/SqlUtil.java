@@ -1,5 +1,7 @@
 package cn.edu.hust.utils;
 
+import java.util.List;
+
 /**
  * Created by lxiao on 2017/2/19.
  * sql工具类
@@ -19,5 +21,15 @@ public class SqlUtil {
             }
         }
         return sql;
+    }
+
+    public static String listToSql(List<String> list) {
+        String[] arr = new String[list.size()];
+        int i = 0;
+        for (String ss : list) {
+            arr[i++] = ss;
+        }
+
+        return arrayToSql(arr);
     }
 }
