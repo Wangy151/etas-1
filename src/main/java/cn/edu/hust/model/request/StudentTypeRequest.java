@@ -5,7 +5,6 @@ package cn.edu.hust.model.request;
  */
 public class StudentTypeRequest {
     private String userId;
-    private String studentType;
 
     public String getUserId() {
         return userId;
@@ -15,19 +14,10 @@ public class StudentTypeRequest {
         this.userId = userId;
     }
 
-    public String getStudentType() {
-        return studentType;
-    }
-
-    public void setStudentType(String studentType) {
-        this.studentType = studentType;
-    }
 
     @Override
     public String toString() {
         return "StudentTypeRequest{" +
-                "userId='" + userId + '\'' +
-                ", studentType='" + studentType + '\'' +
-                '}';
+                "userId='" + userId + '\'' + '}';
     }
 }

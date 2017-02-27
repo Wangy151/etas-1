@@ -141,6 +141,7 @@ function refreshToBasicInfoViewPage(userId){
 // }
 
 function refreshToTjbCreatePage(userId){
+    saveUserIdToPage(userId);
     var wrapLocation = "#home_right_wrap";
     $.ajax({
         type: "POST",
@@ -169,6 +170,7 @@ function refreshToTjbCreatePage(userId){
 }
 
 function refreshToTjbEditPage(userId){
+    saveUserIdToPage(userId);
     var wrapLocation = "#home_right_wrap";
     $.ajax({
         type: "POST",
@@ -531,27 +533,10 @@ function getUserIdFromPage(){
     return userId;
 }
 
-// thesisPageType    0代表新增   1代表编辑   2代表查看
-function saveTjbPageTypeToPage(thesisPageType){
-    //  #savedThesisPageType
-    $("#savedThesisPageType").text(thesisPageType);
-}
 
-function getTjbPageTypeFromPage(){
-    //  #savedThesisPageType
-    return $("#savedThesisPageType").text();
-}
 
 function getMyUserIdFromPage(){
     return $("#savedMyUserId").text();
-}
-// 硕士\博士
-function saveApplyTypeToPage(applyType){
-    $("#savedApplyType").text(applyType)
-}
-
-function getApplyTypeFromPage(){
-    return $("#savedApplyType").text();
 }
 
 

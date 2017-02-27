@@ -20,4 +20,10 @@ public interface UserDao {
     @Update(" update user set password = #{newPassword} WHERE user_id = #{username} OR email = #{username} ")
     int updateUserPassword(@Param("newPassword") String newPassword,
                            @Param("username") String username);
+
+    //created by jason
+    @Select(" SELECT student_type FROM user WHERE user_id = #{userId} ")
+    String getStudentType(@Param("userId") String userId);
 }
+
+

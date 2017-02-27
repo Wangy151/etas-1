@@ -50,8 +50,8 @@ dwtjyj varchar(256) DEFAULT '同意推荐' COMMENT '单位推荐意见',
 tbrq varchar(20) DEFAULT '' COMMENT '填表日期',
 review_date varchar(20) DEFAULT '' COMMENT '审核通过日期',
 
-dwdm varchar(20) NOT NULL DEFAULT '' COMMENT '单位代码',
-dwmc varchar(50) NOT NULL DEFAULT '' COMMENT '单位名称',
+dwdm varchar(20) DEFAULT '10487' COMMENT '单位代码',
+dwmc varchar(50) DEFAULT '华中科技大学' COMMENT '单位名称',
 student_type varchar(20) NOT NULL DEFAULT '' COMMENT '学生类型',
 
 part1 int(1) NOT NULL DEFAULT 0 COMMENT '第1部分是否填写',

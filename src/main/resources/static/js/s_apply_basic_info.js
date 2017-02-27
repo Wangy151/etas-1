@@ -31,8 +31,7 @@ function basicInfoSave()  {
             studentType = "博士";
         else
             studentType = "硕士";
-        //把学生类型保存到网页中
-        saveApplyTypeToPage(studentType);
+
         //开始保存
         $.ajax({
             type: "POST",
@@ -118,8 +117,7 @@ function basicInfoSubmit()  {
             studentType = "博士";
         else
             studentType = "硕士";
-        //把学生类型保存到网页中
-        saveApplyTypeToPage(studentType);
+
         //开始保存
         $.ajax({
             type: "POST",

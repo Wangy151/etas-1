@@ -27,6 +27,9 @@ public interface ThesisApplyDao {
     @Select(" SELECT * FROM thesis_basic_info WHERE zzxh = #{userId} ")
     ThesisBasicInfo getThesisBasicInfo(@Param("userId") String userId);
 
+
+
+
     @Update(" UPDATE thesis_basic_info SET ssdm = #{thesisBasicInfo.ssdm}, ssmc = #{thesisBasicInfo.ssmc}, " +
             " xxdm = #{thesisBasicInfo.xxdm}, xxmc = #{thesisBasicInfo.xxmc}, cplx = #{thesisBasicInfo.cplx}, " +
             " xh = #{thesisBasicInfo.xh}, zzxm = #{thesisBasicInfo.zzxm}, xb = #{thesisBasicInfo.xb}, " +

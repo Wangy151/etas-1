@@ -11,10 +11,60 @@ $(document).ready(function () {
 });
 
 
+function addAdministratorBtn(){
+    // role   userId   realName   contactNumber   password  repeatPassword
+    // email  email_validate_code   add_administrator_btn
+    $("#add_administrator_btn").click(function(){
+        var status = $("#basic_info_model_form").valid();
+        if(status == false) return;
+        $.ajax({
+            type: "POST",
+            url: addAdimistratorUrl,
+            contentType: "application/json",
+
+            data: JSON.stringify({
+                "role":$("#role").val(),
+                "userId":$("#userId").val(),
+                "realName": $("#realName").val(),
+                "contactNumber": $("#contactNumber").val(),
+                "password":$("#password").val(),
+                "repeatPassword":$("#repeatPassword").val(),
+                "email": $("#email").val(),
+                "mailVerifyCode": $("#email_validate_code").val(),
+
+            }),
+
+            beforeSend: function(XMLHttpRequest){
+            },
+
+            success: function(data){
+                var status = data.code;
+                var msg = data.msg;
+                if(status == "200")  //学生注册成功
+                    model_tip_show('model_tip','model_tip_content','管理员添加成功');
+                else if(status == "500")  //服务器原因失败
+                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+                else
+                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+            },
+
+            error: function(XMLHttpRequest, textStatus) {
+            },
+
+            complete: function(XMLHttpRequest, textStatus){
+            }
+
+        });
+    })
+}
+
 function validateForm(){
     $("#basic_info_model_form").validate({
         //realName   contactNumber   email  email_validate_code
         rules:{
+            userId:{
+                required:true,
+            },
             realName:{
                 required:true,
                 maxlength:30,
@@ -42,6 +92,9 @@ function validateForm(){
             },
         },
         messages:{
+            userId:{
+                required:"教工号不能为空",
+            },
             realName:{
                 required:"姓名不能为空",
                 maxlength:"姓名长度不能超过30",
@@ -74,6 +127,8 @@ function validateForm(){
                 error.appendTo($("#v_realName"));
             else if(element.is("#contactNumber"))
                 error.appendTo($("#v_contactNumber"));
+            else if(element.is("#userId"))
+                error.appendTo($("#v_userId"));
             else if(element.is("#password"))
                 error.appendTo($("#v_password"));
             else if(element.is("#repeatPassword"))
@@ -94,53 +149,6 @@ function sendEmailValidateCodeBtn(){
         if($("#email").valid() == false) return;
         var email = $("#email").val();
         sendEmailVerifyCode(email);
-    })
-}
-
-function addAdministratorBtn(){
-    // role   userId   realName   contactNumber   password  repeatPassword
-    // email  email_validate_code   add_administrator_btn
-    $("#add_administrator_btn").click(function(){
-        var status = $("#basic_info_model_form").valid();
-        if(status == false) return;
-        $.ajax({
-            type: "POST",
-            url: addAdimistratorUrl,
-            contentType: "application/json",
-
-            data: JSON.stringify({
-                "role":$("#role").val(),
-                "userId":$("#userId").val(),
-                "realName": $("#realName").val(),
-                "contactNumber": $("#contactNumber").val(),
-                "password":$("#password").val(),
-                "repeatPassword":$("#repeatPassword").val(),
-                "email": $("#email").val(),
-                "mailVerifyCode": $("#email_validate_code").val(),
-
-            }),
-
-            beforeSend: function(XMLHttpRequest){
-            },
-
-            success: function(data){
-                var status = data.code;
-                var msg = data.msg;
-                if(status == "200")  //学生注册成功
-                    model_tip_show('model_tip','model_tip_content','信息保存成功',refreshToAdminAddAdministratorPage);
-                else if(status == "500")  //服务器原因失败
-                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
-                else
-                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
-            },
-
-            error: function(XMLHttpRequest, textStatus) {
-            },
-
-            complete: function(XMLHttpRequest, textStatus){
-            }
-
-        });
     })
 }
 

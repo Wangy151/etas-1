@@ -162,12 +162,14 @@ public class StudentThesisApplyController {
         return "s_thesis_apply_tjb_frame";
     }
 
+    //created by jason
     @RequestMapping(value = "/tjb/create")
     public String createTjb(@RequestBody StudentTypeRequest studentTypeRequest, Model model) {
         String userId = studentTypeRequest.getUserId();
-        String studentType = studentTypeRequest.getStudentType();
+        String studentType = userService.getStudentType(userId);
+        System.out.println("userId is " + userId + ";  studentType is " + studentType);
 
-        if ("master".equalsIgnoreCase(studentType)) {
+        if ("硕士".equalsIgnoreCase(studentType)) {
             StudentInfoImport studentInfoImport = studentService.getStudentInfoImport(userId);
             if (null == studentInfoImport) {
                 // 找不到导入信息
@@ -178,19 +180,24 @@ public class StudentThesisApplyController {
             model.addAttribute("studentInfoImport", studentInfoImport);
             return "s_master_thesis_apply_create";
         } else {
-            DoctorThesisApply doctorThesisApply = new DoctorThesisApply();
-            doctorThesisApply.setZzxh(userId);
-            model.addAttribute("doctorThesisApply", doctorThesisApply);
+            StudentInfoImport studentInfoImport = studentService.getStudentInfoImport(userId);
+            if (null == studentInfoImport) {
+                // 找不到导入信息
+                studentInfoImport = new StudentInfoImport();
+                studentInfoImport.setXh(userId);
+            }
+            model.addAttribute("studentInfoImport", studentInfoImport);
             return "s_doctor_thesis_apply_create";
         }
     }
 
+
     @RequestMapping(value = "/tjb/edit")
     public String editTjb(@RequestBody StudentTypeRequest studentTypeRequest, Model model) {
         String userId = studentTypeRequest.getUserId();
-        String studentType = studentTypeRequest.getStudentType();
+        String studentType = userService.getStudentType(userId);
 
-        if ("master".equalsIgnoreCase(studentType)) {
+        if ("硕士".equalsIgnoreCase(studentType)) {
             MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
             // 防止空指针
             if (null == masterThesisApply) {
@@ -214,9 +221,9 @@ public class StudentThesisApplyController {
     @RequestMapping(value = "/tjb/view")
     public String viewTjb(@RequestBody StudentTypeRequest studentTypeRequest, Model model) {
         String userId = studentTypeRequest.getUserId();
-        String studentType = studentTypeRequest.getStudentType();
+        String studentType = userService.getStudentType(userId);
 
-        if ("master".equalsIgnoreCase(studentType)) {
+        if ("硕士".equalsIgnoreCase(studentType)) {
             MasterThesisApply masterThesisApply = studentService.getMasterTjb(userId);
             // 防止空指针
             if (null == masterThesisApply) {

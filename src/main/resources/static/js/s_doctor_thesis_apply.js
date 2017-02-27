@@ -93,9 +93,8 @@ function d_form2_submit(){
                 "cbzz":$("#cbzz").val(),
                 "hjxm":$("#hjxm").val(),
                 "lwdzycxd":$("#lwdzycxd").val(),
-                "dwtjyy":$("#dwtjyy").val(),
                 "tbrq":$("#tbrq").val(),
-
+                "dwtjyj":$("#dwtjyy").val(),
                 "part":"part2",
 
             }),

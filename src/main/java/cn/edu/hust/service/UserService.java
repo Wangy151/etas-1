@@ -20,4 +20,8 @@ public class UserService {
     public boolean updateUserPassword(String newPassword, String username) {
         return userDao.updateUserPassword(newPassword, username) > 0;
     }
+
+    public String getStudentType(String userId){
+        return userDao.getStudentType(userId);
+    }
 }
