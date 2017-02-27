@@ -13,6 +13,7 @@ public class User {
     private String phoneNumber;
     private String email;
     private String role;
+    private String studentType;
     private int active;
     private Date updateTime;
     private Date loginTime;
@@ -74,6 +75,14 @@ public class User {
         this.role = role;
     }
 
+    public String getStudentType() {
+        return studentType;
+    }
+
+    public void setStudentType(String studentType) {
+        this.studentType = studentType;
+    }
+
     public int getActive() {
         return active;
     }
@@ -104,5 +113,23 @@ public class User {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
+                ", department='" + department + '\'' +
+                ", realName='" + realName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                ", studentType='" + studentType + '\'' +
+                ", active=" + active +
+                ", updateTime=" + updateTime +
+                ", loginTime=" + loginTime +
+                ", remark='" + remark + '\'' +
+                '}';
     }
 }

@@ -18,10 +18,10 @@ public interface RegisterDao {
     @Select(" SELECT count(*) FROM user WHERE email = #{email}")
     int checkEmailExists(@Param("email") String email);
 
-    @Insert(" INSERT INTO user(role, user_id, password, real_name, department, phone_number, email, active) " +
+    @Insert(" INSERT INTO user(role, user_id, password, real_name, department, phone_number, email, active, student_type) " +
             " VALUES (#{registerRequest.role}, #{registerRequest.userId}, #{registerRequest.password}, " +
             " #{registerRequest.realName}, #{registerRequest.department}, #{registerRequest.phoneNumber}, " +
-            " #{registerRequest.email}, #{registerRequest.active}) ")
+            " #{registerRequest.email}, #{registerRequest.active}, #{registerRequest.studentType}) ")
     int insertUserInfo(@Param("registerRequest") RegisterRequest registerRequest);
 
 }

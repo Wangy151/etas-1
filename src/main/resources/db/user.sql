@@ -9,12 +9,14 @@ create table user(
 id int not null primary key auto_increment,
 user_id varchar(50) NOT NULL UNIQUE COMMENT '学号',
 password varchar(256) NOT NULL COMMENT '密码',
-department varchar(128) COMMENT '所在院系',
-real_name varchar(50) COMMENT '真实姓名',
-phone_number varchar(50) COMMENT '联系电话',
+department varchar(128) DEFAULT '' COMMENT '所在院系',
+real_name varchar(50) DEFAULT '' COMMENT '真实姓名',
+phone_number varchar(50) DEFAULT '' COMMENT '联系电话',
 email varchar(50) NOT NULL unique COMMENT '电子邮件',
 role varchar(20) NOT NULL COMMENT '用户类型',
-active tinyint(1) NOT NULL COMMENT '是否激活',
+student_type varchar(20) DEFAULT '' COMMENT '当用户类型为学生时，此字段显示硕士或博士',
+active tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否激活 适用于身份为教务员',
+
 update_time datetime COMMENT '更新时间',
 login_time datetime COMMENT '登录时间',
 remark varchar(512) COMMENT '备注'

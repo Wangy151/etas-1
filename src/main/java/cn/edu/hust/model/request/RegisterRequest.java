@@ -17,6 +17,24 @@ public class RegisterRequest {
     private String email;
     private String mailVerifyCode;
     private int active;
+    private String studentType;
+
+    @Override
+    public String toString() {
+        return "RegisterRequest{" +
+                "role='" + role + '\'' +
+                ", userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
+                ", repeatPassword='" + repeatPassword + '\'' +
+                ", realName='" + realName + '\'' +
+                ", department='" + department + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", mailVerifyCode='" + mailVerifyCode + '\'' +
+                ", active=" + active +
+                ", studentType='" + studentType + '\'' +
+                '}';
+    }
 
     public String getRole() {
         return role;
@@ -96,5 +114,13 @@ public class RegisterRequest {
 
     public void setActive(int active) {
         this.active = active;
+    }
+
+    public String getStudentType() {
+        return studentType;
+    }
+
+    public void setStudentType(String studentType) {
+        this.studentType = studentType;
     }
 }
