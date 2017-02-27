@@ -15,6 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.util.StringUtils;
@@ -35,7 +36,10 @@ public class AdminExportService {
     private ThesisExportDao thesisExportDao;
 
     @Autowired
-    VelocityEngine velocityEngine;
+    private VelocityEngine velocityEngine;
+
+    @Value("$tjb_save_path")
+    private String TJB_SAVE_PATH;
 
     /**
      * 查询
@@ -153,7 +157,7 @@ public class AdminExportService {
      * @param userIds
      * @param outputStream
      */
-    public void exportTjbPackage(String[] userIds, OutputStream outputStream) throws FileNotFoundException {
+    public void exportTjbPackage(String[] userIds, OutputStream outputStream) throws IOException {
         List<ThesisBasicInfo> thesisBasicInfoList = thesisExportDao.getLwtjbljList(SqlUtil.arrayToSql(userIds));
 
         List<String> masterUserIds = new ArrayList<String>();
@@ -180,6 +184,12 @@ public class AdminExportService {
                 VelocityEngineUtils.mergeTemplate(velocityEngine, "tjb_template_master.vm", "UTF-8", map, writer);
                 writer.flush();
                 writer.close();
+
+                File file = new File(docFileName);
+                FileInputStream fileInputStream = new FileInputStream(file);
+                ZipUtil.doCompress(fileInputStream, docFileName, outputStream);
+                fileInputStream.close();
+                file.delete();
             }
         }
 
@@ -195,6 +205,12 @@ public class AdminExportService {
                 VelocityEngineUtils.mergeTemplate(velocityEngine, "tjb_template_doctor.vm", "UTF-8", map, writer);
                 writer.flush();
                 writer.close();
+
+                File file = new File(docFileName);
+                FileInputStream fileInputStream = new FileInputStream(file);
+                ZipUtil.doCompress(fileInputStream, docFileName, outputStream);
+                fileInputStream.close();
+                file.delete();
             }
         }
 

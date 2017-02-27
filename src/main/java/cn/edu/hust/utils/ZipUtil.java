@@ -41,4 +41,20 @@ public class ZipUtil {
         }
     }
 
-}
+    public static void doCompress(FileInputStream fileInputStream, String fileName, OutputStream outputStream) throws IOException{
+        ZipOutputStream out = new ZipOutputStream(outputStream);
+
+        InputStream fis = fileInputStream;
+        out.putNextEntry(new ZipEntry(fileName));
+
+        byte[] buffer = new byte[1024];
+        int len = 0 ;
+        // 读取文件的内容,打包到zip文件
+        while ((len = fis.read(buffer)) > 0) {
+            out.write(buffer, 0, len);
+        }
+        out.flush();
+        out.closeEntry();
+        fis.close();
+        }
+    }
