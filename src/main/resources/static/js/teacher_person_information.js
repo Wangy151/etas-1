@@ -7,6 +7,8 @@ var modifyTeacherPasswdUrl = "";
 
 $(document).ready(function () {
     initTabShow();
+    initEmailVerifyCodeDivShow();
+    changeEmailVerifyCodeDivShow();
     changeTabDiv();
     validateForm1();
     validateForm2();
@@ -14,6 +16,16 @@ $(document).ready(function () {
     submitBasicInfo();
     submitPasswordInfo();
 });
+
+function initEmailVerifyCodeDivShow(){
+    $("#email_div_show").hide();
+}
+
+function changeEmailVerifyCodeDivShow(){
+    $("#email").keyup(function(){
+        $("#email_div_show").show();
+    });
+}
 
 function changeTabDiv(){
 

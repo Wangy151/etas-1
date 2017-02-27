@@ -107,5 +107,4 @@ bce-osp-datacenter.Rproj
 .DS_Store
 *.log*
 output/
-*.pdf
 *.zip
