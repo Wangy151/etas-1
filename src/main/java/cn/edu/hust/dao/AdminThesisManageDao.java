@@ -2,12 +2,10 @@ package cn.edu.hust.dao;
 
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.AdminSearchRequest;
+import cn.edu.hust.service.AdminExportService;
 import cn.edu.hust.service.AdminThesisManageService;
 import cn.edu.hust.service.TeacherThesisManageService;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.SelectProvider;
-import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -24,4 +22,11 @@ public interface AdminThesisManageDao {
     int updateApplyStatus(@Param("applyStatus") String applyStatus,
                           @Param("whereInSql") String whereInSql);
 
+    @Update("<script>UPDATE master_thesis_apply SET review_date = #{reviewDate} WHERE zzxh in <foreach collection='userIdList' item='item' open='(' separator=',' close=')'>#{item}</foreach></script>")
+    int updateMasterThesisApply(@Param("reviewDate") String reviewDate,
+                                @Param("userIdList") List<String> userIdList);
+
+    @Update("<script>UPDATE doctor_thesis_apply SET review_date = #{reviewDate} WHERE zzxh in <foreach collection='userIdList' item='item' open='(' separator=',' close=')'>#{item}</foreach></script>")
+    int updateDoctorThesisApply(@Param("reviewDate") String reviewDate,
+                                @Param("userIdList") List<String> userIdList);
 }
