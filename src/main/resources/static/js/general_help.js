@@ -10,19 +10,19 @@ var tjbCreateUrl = "/home/student/thesis/apply/tjb/create";
 var tjbEditUrl = "/home/student/thesis/apply/tjb/edit";
 var tjbViewUrl = "/home/student/thesis/apply/tjb/view";
 var studentQueryThesisStatusUrl = "/home/student/thesis/apply/index";
-var studentPersonInfoUrl = "";
+var studentPersonInfoUrl = "/home/student/personInfo/index";
 
+var teacherReportThesisApplyUrl = "/home/teacher/thesis/index";
+var teacherPersonInfoUrl = "/home/teacher/personInfo/index";
 
 var adminReviewThesisApplyUrl = "/home/admin/thesis/index";
 var adminImportStudentInfoUrl = "/home/admin/import/index";
 var adminExportThesisApplyUrl = "/home/admin/export/index";
-var adminAddAdministratorUrl = "";
-var adminActiveTeacherUrl = "";
-var adminPersonInfoUrl = "";
+var adminAddAdministratorUrl = "/home/admin/addAdministrator/index";
+var adminActiveTeacherUrl = "/home/admin/activeTeacher/index";
+var adminPersonInfoUrl = "/home/admin/personInfo/index";
 
 
-var teacherReportThesisApplyUrl = "/home/teacher/thesis/index";
-var teacherPersonInfoUrl = "";
 
 ///////////////////////////////////////////
 ///////// 页面刷新开始       ///////////

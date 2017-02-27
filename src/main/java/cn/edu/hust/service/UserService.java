@@ -2,6 +2,7 @@ package cn.edu.hust.service;
 
 import cn.edu.hust.dao.UserDao;
 import cn.edu.hust.model.User;
+import cn.edu.hust.model.response.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +25,11 @@ public class UserService {
     public String getStudentType(String userId){
         return userDao.getStudentType(userId);
     }
+
+    public CommonResponse insertUserInfo(User user){
+        CommonResponse commonResponse = new CommonResponse();
+
+        return commonResponse;
+    }
+
 }
