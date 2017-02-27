@@ -2,10 +2,8 @@ package cn.edu.hust.controller;
 
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
-import cn.edu.hust.model.response.SuccessResponse;
 import cn.edu.hust.service.AdminImportService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -27,9 +24,6 @@ import java.io.IOException;
 public class AdminImportController {
     @Autowired
     private AdminImportService adminImportService;
-
-    @Value("")
-    private String FILE_UPLOAD_DIRECTORY;
 
     /**
      * 进入主页

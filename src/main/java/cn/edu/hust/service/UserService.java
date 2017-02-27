@@ -6,6 +6,8 @@ import cn.edu.hust.model.response.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by xiaolei03 on 16/12/4.
  */
@@ -24,6 +26,10 @@ public class UserService {
 
     public String getStudentType(String userId){
         return userDao.getStudentType(userId);
+    }
+
+    public List<User> getBatchStudentType(List<String> userIdList) {
+        return userDao.getBatchStudentType(userIdList);
     }
 
     public CommonResponse insertUserInfo(User user){

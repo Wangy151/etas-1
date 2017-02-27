@@ -1,6 +1,5 @@
 package cn.edu.hust.controller;
 
-import cn.edu.hust.model.User;
 import cn.edu.hust.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
