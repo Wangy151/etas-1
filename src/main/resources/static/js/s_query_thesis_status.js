@@ -89,7 +89,7 @@ function tjbViewBtn(){
         //1.判断是否可以修改
         var tjbStatus = $("#tjbStatus").text();
         if(tjbStatus == "完成")
-            refreshToTjbEditPage(getMyUserIdFromPage());
+            refreshToTjbViewPage(getMyUserIdFromPage());
         else if(tjbStatus == "未完成")
             model_tip_show('model_tip','model_tip_content','论文推荐表不存在，请先新增');
         else

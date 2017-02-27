@@ -63,7 +63,7 @@ public class MasterThesisApplyInfoRequest {
     private String cbzz; // 出版专著
     private String hjxm; // 获奖项目
     private String lwdzycxd; // 论文的主要创新点
-    private String dwtjyy; // 单位推荐意见
+    private String dwtjyj; // 单位推荐意见
 
     private String tbrq; // 填表日期
 
@@ -485,12 +485,12 @@ public class MasterThesisApplyInfoRequest {
         this.lwdzycxd = lwdzycxd;
     }
 
-    public String getDwtjyy() {
-        return dwtjyy;
+    public String getDwtjyj() {
+        return dwtjyj;
     }
 
-    public void setDwtjyy(String dwtjyy) {
-        this.dwtjyy = dwtjyy;
+    public void setDwtjyj(String dwtjyj) {
+        this.dwtjyj = dwtjyj;
     }
 
     public String getTbrq() {

@@ -74,7 +74,7 @@ function d_form1_submit(){
 
 function d_form2_submit(){
     //  d_form2  d_form2_submit_btn  d_form2_warn
-    // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+    // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyj  tbrq
 
     $("#d_form2_submit_btn").click(function () {
         //1.验证表单是否合法
@@ -87,14 +87,14 @@ function d_form2_submit(){
             url: doctorTjbSubmitUrl,
             contentType: "application/json",
             data: JSON.stringify({
-                // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+                // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyj  tbrq
                 "zzxh":getUserIdFromPage(),
                 "fbxslw":$("#fbxslw").val(),
                 "cbzz":$("#cbzz").val(),
                 "hjxm":$("#hjxm").val(),
                 "lwdzycxd":$("#lwdzycxd").val(),
                 "tbrq":$("#tbrq").val(),
-                "dwtjyj":$("#dwtjyy").val(),
+                "dwtjyj":"同意推荐",
                 "part":"part2",
 
             }),
@@ -239,7 +239,7 @@ function d_form1_validate(){
 
 function d_form2_validate(){
     //  d_form2  d_form2_submit_btn  d_form2_warn
-    // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+    // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyj  tbrq
     $("#d_form2").validate({
         rules:{
             fbxslw:{ //发表学术论文
@@ -317,7 +317,7 @@ function  checkForm1IfValid() {
 }
 //验证表单2是否合法
 function  checkForm2IfValid() {
-    // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+    // fbxslw  cbzz  hjxm  lwdzycxd  dwtjyj  tbrq
     if($("#fbxslw").valid() == false) return false;
     if($("#cbzz").valid() == false) return false;
     if($("#hjxm").valid() == false) return false;

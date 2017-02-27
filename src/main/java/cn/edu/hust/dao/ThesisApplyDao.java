@@ -79,7 +79,7 @@ public interface ThesisApplyDao {
             " zzxh = #{model.zzxh}, zzxm = #{model.zzxm}, xb = #{model.xb}, csny = #{model.csny}, mz = #{model.mz}, " +
             " lwtm = #{model.lwtm}, lwywtm = #{model.lwywtm}, rxny = #{model.rxny}, dbrq = #{model.dbrq}, hdxwrq = #{model.hdxwrq}, " +
             " yjxkdm = #{model.yjxkdm}, yjxkmc = #{model.yjxkmc}, ejxkdm = #{model.ejxkdm}, ejxkmc = #{model.ejxkmc}, lwsjdyjfx = #{model.lwsjdyjfx}, " +
-            " part1 = 1 " +
+            " part1 = 1 , dwdm = '10487' , dwmc = '华中科技大学'" +
             " WHERE zzxh = #{model.zzxh} ")
     int saveMasterTjb1(@Param("model") MasterThesisApply model);
 
@@ -99,7 +99,7 @@ public interface ThesisApplyDao {
     int saveMasterTjb3(@Param("model") MasterThesisApply model);
 
     @Update(" UPDATE master_thesis_apply SET " +
-            " fbxslw = #{model.fbxslw}, cbzz = #{model.cbzz}, hjxm = #{model.hjxm}, lwdzycxd = #{model.lwdzycxd}, dwtjyy = #{model.dwtjyy}, " +
+            " fbxslw = #{model.fbxslw}, cbzz = #{model.cbzz}, hjxm = #{model.hjxm}, lwdzycxd = #{model.lwdzycxd}, dwtjyj = #{model.dwtjyj}, " +
             " tbrq = #{model.tbrq}, " +
             " part4 = 1 " +
             " WHERE zzxh = #{model.zzxh} ")
@@ -128,13 +128,13 @@ public interface ThesisApplyDao {
     @Update(" UPDATE doctor_thesis_apply SET " +
             " lwtm = #{model.lwtm}, lwywtm = #{model.lwywtm}, zzxm = #{model.zzxm}, dbrq = #{model.dbrq}, hdxwrq = #{model.hdxwrq}, " +
             " lwsjdyjfx = #{model.lwsjdyjfx}, yjxkdm = #{model.yjxkdm}, yjxkmc = #{model.yjxkmc}, ejxkdm = #{model.ejxkdm}, ejxkmc = #{model.ejxkmc}, " +
-            " zdjsxm = #{model.zdjsxm}, zdjsyjfx = #{model.zdjsyjfx} " +
+            " zdjsxm = #{model.zdjsxm}, zdjsyjfx = #{model.zdjsyjfx}, part1 = 1 ,dwdm = '10487' ,dwmc = '华中科技大学' " +
             " WHERE zzxh = #{model.zzxh} ")
     int saveDoctorTjb1(@Param("model") DoctorThesisApply model);
 
     @Update(" UPDATE doctor_thesis_apply SET " +
-            " fbxslw = #{model.fbxslw}, cbzz = #{model.cbzz}, hjxm = #{model.hjxm}, lwdzycxd = #{model.lwdzycxd}, dwtjyy = #{model.dwtjyy}, " +
-            " tbrq = #{model.tbrq} " +
+            " fbxslw = #{model.fbxslw}, cbzz = #{model.cbzz}, hjxm = #{model.hjxm}, lwdzycxd = #{model.lwdzycxd}, dwtjyj = #{model.dwtjyj}, " +
+            " tbrq = #{model.tbrq}, part2 = 1 " +
             " WHERE zzxh = #{model.zzxh} ")
     int saveDoctorTjb2(@Param("model") DoctorThesisApply model);
 

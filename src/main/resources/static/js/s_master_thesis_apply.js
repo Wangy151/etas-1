@@ -192,7 +192,7 @@ function m_apply_form3_submit(){
 
 function m_apply_form4_submit(){
     //  m_form4  m_form4_submit_btn  m_form4_warn
-    //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+    //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyj  tbrq
     $("#m_form4_submit_btn").click(function(){
         var status = checkForm4IfValid();
         if(status == false)  return;
@@ -202,14 +202,14 @@ function m_apply_form4_submit(){
             url: masterTjbSubmitUrl,
             contentType: "application/json",
             data: JSON.stringify({
-                //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+                //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyj  tbrq
                 "zzxh":getUserIdFromPage(),
                 "fbxslw":$("#fbxslw").val(),
                 "cbzz":$("#cbzz").val(),
                 "hjxm":$("#hjxm").val(),
                 "lwdzycxd":$("#lwdzycxd").val(),
                 "tbrq":$("#tbrq").val(),
-                "dwtjyj":$("#dwtjyy").val(),
+                "dwtjyj":"同意推荐",
                 "part":"part4",
 
             }),
@@ -554,7 +554,7 @@ function m_apply_form3_validate(){
 
 function m_apply_form4_validate(){
     //  m_form4  m_form4_submit_btn  m_form4_warn
-    //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+    //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyj  tbrq
     $("#m_form4").validate({
         rules:{
             fbxslw:{ //发表学术论文
@@ -664,7 +664,7 @@ function checkForm3IfValid(){
 }
 
 function checkForm4IfValid(){
-    //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyy  tbrq
+    //  fbxslw  cbzz  hjxm  lwdzycxd  dwtjyj  tbrq
     if($("#fbxslw").valid() == false) return false;
     if($("#cbzz").valid() == false) return false;
     if($("#hjxm").valid() == false) return false;

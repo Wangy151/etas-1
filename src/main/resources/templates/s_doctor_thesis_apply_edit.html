@@ -27,7 +27,7 @@
             <tbody>
             <tr>
                 <td class="td_key">论文题目</td>
-                <td colspan="3"><input type="text" id="lwtm" name="lwtm" placeholder="论文题目" disabled="disabled"/></td>
+                <td colspan="3"><input type="text" id="lwtm" name="lwtm" th:value="${doctorThesisApply.lwtm}" placeholder="论文题目" disabled="disabled"/></td>
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>论文英文题目</td>
@@ -42,8 +42,8 @@
             <tr>
                 <td><input type="text" id="zzxm" name="zzxm" placeholder="作者姓名"  th:value="${doctorThesisApply.zzxm}"/></td>
                 <td><input type="text" id="dbrq" name="dbrq" disabled="disabled" placeholder="论文答辩日期" th:value="${doctorThesisApply.dbrq}"/></td>
-                <td><input type="text" id="hdxwrq" name="hdxwrq" placeholder="获得博士学位日期" disabled="disabled"/></td>
-                <td><input type="text" id="lwsjdyjfx" name="lwsjdyjfx" placeholder="论文涉及的研究方向" th:value="${doctorThesisApply.lwsjdyjfx}"/></td>
+                <td><input type="text" id="hdxwrq" name="hdxwrq" th:value="${doctorThesisApply.hdxwrq}" placeholder="获得博士学位日期" disabled="disabled"/></td>
+                <td><input type="text" id="lwsjdyjfx" name="lwsjdyjfx" th:value="${doctorThesisApply.lwsjdyjfx}" placeholder="论文涉及的研究方向"/></td>
             </tr>
             <tr>
                 <td class="td_key">一级学科代码</td>
@@ -52,16 +52,16 @@
                 <td class="td_key">二级学科名称</td>
             </tr>
             <tr>
-                <td><input type="text" id="yjxkdm" name="yjxkdm" placeholder="一级学科代码" disabled="disabled"/></td>
-                <td><input type="text" id="yjxkmc" name="yjxkmc" placeholder="一级学科名称" disabled="disabled"/></td>
-                <td><input type="text" id="ejxkdm" name="ejxkdm" placeholder="二级学科代码" disabled="disabled"/></td>
-                <td><input type="text" id="ejxkmc" name="ejxkmc" placeholder="二级学科名称" disabled="disabled"/></td>
+                <td><input type="text" id="yjxkdm" name="yjxkdm" placeholder="一级学科代码" th:value="${doctorThesisApply.yjxkdm}" disabled="disabled"/></td>
+                <td><input type="text" id="yjxkmc" name="yjxkmc" placeholder="一级学科名称" th:value="${doctorThesisApply.yjxkmc}" disabled="disabled"/></td>
+                <td><input type="text" id="ejxkdm" name="ejxkdm" placeholder="二级学科代码" th:value="${doctorThesisApply.ejxkdm}" disabled="disabled"/></td>
+                <td><input type="text" id="ejxkmc" name="ejxkmc" placeholder="二级学科名称" th:value="${doctorThesisApply.ejxkmc}" disabled="disabled"/></td>
             </tr>
             <tr>
                 <td class="td_key">指导教师姓名（限填1人）</td>
-                <td><input type="text" id="zdjsxm" name="zdjsxm" disabled="disabled" placeholder="指导教师姓名（限填1人）" th:value="${doctorThesisApply.zdjsxm}"/></td>
+                <td><input type="text" id="zdjsxm" name="zdjsxm" disabled="disabled" th:value="${doctorThesisApply.zdjsxm}" placeholder="指导教师姓名（限填1人）"/></td>
                 <td class="td_key"><span class="font_star">*</span>指导教师研究方向</td>
-                <td><input type="text" id="zdjsyjfx" name="zdjsyjfx" placeholder="指导教师研究方向" th:value="${doctorThesisApply.zdjsyjfx}"/></td>
+                <td><input type="text" id="zdjsyjfx" name="zdjsyjfx" th:value="${doctorThesisApply.zdjsyjfx}" placeholder="指导教师研究方向"/></td>
             </tr>
             </tbody>
         </table>
@@ -84,7 +84,7 @@
             <tr>
                 <td rowspan="3" class="td_key"><br /><br /><br /><span class="font_star">*</span>攻博期间及获得博士学位后一年内获得与博士学位论文有关的成果</td>
                 <td class="td_key"><span class="font_star">*</span>发表学术论文（题目、刊物名称、时间）（限填5篇）</td>
-                <td><textarea rows="10" id="fbxslw" name="fbxslw" placeholder="发表学术论文" th:field="${doctorThesisApply.fbxslw}"></textarea></td>
+                <td><textarea rows="10" id="fbxslw" name="fbxslw" th:field="${doctorThesisApply.fbxslw}" placeholder="发表学术论文"></textarea></td>
             </tr>
             <tr>
                 <td class="td_key"><span class="font_star">*</span>出版专著（名称、出版社、出版时间）</td>
@@ -108,7 +108,7 @@
             <tr>
                 <td class="td_key"><span class="font_star">*</span>单位推荐意见</td>
                 <td colspan="2">
-                    <textarea rows="10" id="dwtjyy" name="dwtjyy" placeholder="单位推荐意见，由学校负责人填写" disabled="disabled"></textarea>
+                    <textarea rows="10" id="dwtjyj" name="dwtjyj" placeholder="单位推荐意见，由学校负责人填写" disabled="disabled"></textarea>
                 </td>
             </tr>
             <tr>
