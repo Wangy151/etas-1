@@ -13,6 +13,7 @@
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
     <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
     <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
+    <script type="text/javascript" src="../static/js/home.js" th:src="@{/js/home.js}"></script>
     <style rel="stylesheet">
         .mid{
             min-height: 200px;
@@ -74,10 +75,7 @@
             font-weight: 600;
 
         }
-        .key_word{
-            color: #ff0000;
-            font-weight: 600;
-        }
+
         .websit_speci_content{
             min-height: 100px;
             margin-left:30px;
@@ -85,169 +83,6 @@
 
     </style>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-//        t_report_thesis_btn   t_personal_info_btn
-//        a_review_thesis_btn    a_export_thesis_info_btn    a_import_student_info_btn
-//        a_active_teacher_btn   a_add_admin_account_btn   a_personal_info_btn
-            loadStudentModalPage();
-            loadTeacherModalPage();
-            loadAdminModalPage();
-
-        })
-
-        function loadStudentModalPage(){
-            // 学生模块 --> 申请优秀论文|查询论文审核状态
-            $("#s_thesis_apply_btn").click(function(){
-                var savedUserId = $("#homeUserId").text();
-                refreshToStudentQueryStatus();
-            });
-
-            // 学生模块 --> 管理个人信息
-            $("#s_personal_info_btn").click(function () {
-                $("#home_right_wrap").load("s_t_person_information.html");
-
-            });
-        };
-
-        function loadTeacherModalPage(){
-            //学院教务员模块
-            $("#t_report_thesis_btn").click(function(){
-                // $("#home_right_wrap").load("teacher_report_thesis.html");
-
-                $.ajax({
-                    type: "POST",
-                    url: "/home/teacher/thesis/index",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-
-                    }),
-
-                    beforeSend: function(XMLHttpRequest){
-                    },
-
-                    success: function(data){
-                        $("#home_right_wrap").html(data);
-                    },
-                    error: function(XMLHttpRequest, textStatus) {
-                        if (XMLHttpRequest.status == 401) {
-                            $("#home_right_wrap").html("您没有访问权限 ~");
-                        } else {
-                            $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-                        }
-                    },
-                    complete: function(XMLHttpRequest, textStatus){
-                    }
-                }); // end ajax
-            });
-
-            $("#t_personal_info_btn").click(function(){
-                $("#home_right_wrap").load("s_t_person_information.html");
-            });
-        };
-
-        function loadAdminModalPage(){
-            //管理员模块
-            $("#a_review_thesis_btn").click(function(){
-                // $("#home_right_wrap").load("admin_review_thesis.html");
-
-                $.ajax({
-                    type: "POST",
-                    url: "/home/admin/thesis/index",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-
-                    }),
-
-                    beforeSend: function(XMLHttpRequest){
-                    },
-
-                    success: function(data){
-                        $("#home_right_wrap").html(data);
-                    },
-                    error: function(XMLHttpRequest, textStatus) {
-                        if (XMLHttpRequest.status == 401) {
-                            $("#home_right_wrap").html("您没有访问权限 ~");
-                        } else {
-                            $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-                        }
-                    },
-                    complete: function(XMLHttpRequest, textStatus){
-                    }
-                }); // end ajax
-            });
-
-            $("#a_export_thesis_info_btn").click(function(){
-                // $("#home_right_wrap").load("admin_export_thesis_info.html");
-
-                $.ajax({
-                    type: "POST",
-                    url: "/home/admin/export/index",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-
-                    }),
-
-                    beforeSend: function(XMLHttpRequest){
-                    },
-
-                    success: function(data){
-                        $("#home_right_wrap").html(data);
-                    },
-                    error: function(XMLHttpRequest, textStatus) {
-                        if (XMLHttpRequest.status == 401) {
-                            $("#home_right_wrap").html("您没有访问权限 ~");
-                        } else {
-                            $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-                        }
-                    },
-                    complete: function(XMLHttpRequest, textStatus){
-                    }
-                }); // end ajax
-            });
-
-            $("#a_import_student_info_btn").click(function(){
-                // $("#home_right_wrap").load("admin_import_student_info.html");
-
-                $.ajax({
-                    type: "POST",
-                    url: "/home/admin/import/index",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-
-                    }),
-
-                    beforeSend: function(XMLHttpRequest){
-                    },
-
-                    success: function(data){
-                        $("#home_right_wrap").html(data);
-                    },
-                    error: function(XMLHttpRequest, textStatus) {
-                        if (XMLHttpRequest.status == 401) {
-                            $("#home_right_wrap").html("您没有访问权限 ~");
-                        } else {
-                            $("#home_right_wrap").html("服务器繁忙, 请稍后再试 ~");
-                        }
-                    },
-                    complete: function(XMLHttpRequest, textStatus){
-                    }
-                }); // end ajax
-            });
-
-            $("#a_active_teacher_btn").click(function(){
-                $("#home_right_wrap").load("admin_active_teacher_account.html");
-            });
-
-            $("#a_add_admin_account_btn").click(function(){
-
-            });
-
-            $("#a_personal_info_btn").click(function(){
-                $("#home_right_wrap").load("admin_person_information.html");
-            });
-        };
-    </script>
 
 </head>
 <body>

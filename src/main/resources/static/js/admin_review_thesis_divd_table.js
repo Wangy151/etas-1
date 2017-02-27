@@ -4,6 +4,9 @@
 
 // .apply_status  .t_report_check_detail_btn   .t_report_modify_btn
 // #report_btn   #cancel_report_btn
+var adminReviewThesisUrl = "/home/admin/thesis/review";
+var adminCancelReviewThesisUrl = "/home/admin/thesis/cancelReview";
+
 $(document).ready(function () {
     select_all();
     no_select_all();
@@ -72,7 +75,7 @@ function review1(){
     })
     $.ajax({
         type: "POST",
-        url: "/home/admin/thesis/review",   //url
+        url: adminReviewThesisUrl,
         contentType: "application/json",
         data: JSON.stringify({
             "userIds":xh_array,
@@ -137,7 +140,7 @@ function cancelReview1(){
     })
     $.ajax({
         type: "POST",
-        url: "/home/admin/thesis/cancelReview",
+        url: adminCancelReviewThesisUrl,
         contentType: "application/json",
         data: JSON.stringify({
             "userIds":xh_array,
@@ -228,7 +231,7 @@ function basicInfoEditBtn(){
 function tjbViewBtn(){
     $(".tjbViewBtn").click(function () {
         var userId = $(this).parent().parent().children("td.userId").text();
-        refreshToTjbFramePage(userId,"2");
+        refreshToTjbViewPage(userId);
     })
 }
 
@@ -237,7 +240,7 @@ function tjbEditBtn(){
         var userId = $(this).parent().parent().children("td.userId").text();
         var applyStatus = $(this).parent().parent().children("td.apply_status").text();
         if(applyStatus == "待学校审核")
-            refreshToTjbFramePage(userId,"1");
+            refreshToTjbEditPage(userId);
         else if(applyStatus == "通过审核")
             model_tip_show('model_tip1','model_tip_content1','该申请已经通过，不能修改');
         else

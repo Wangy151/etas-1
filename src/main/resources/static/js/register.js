@@ -1,6 +1,8 @@
 /**
  * Created by Administrator on 2016/12/2.
  */
+var registerUrl = "/register/submit";
+
 $(function () {
     validateForm ();
 
@@ -10,12 +12,21 @@ $(function () {
     sendEmailVerifyCodeBtn();
     //注册
     register();
+    //初始化学生类型下拉框div
+    initStudentTypeDiv();
+    //学生类型下拉框div变化
+    changeStudentTypeDiv();
 })
 
+
+// 注册表单验证
 function validateForm () {
     $("#register_form").validate({
         rules: {
             role:{
+                required:true,
+            },
+            studentType:{
                 required:true,
             },
             userId:{
@@ -67,6 +78,9 @@ function validateForm () {
             role:{
                 required:"身份不能为空",
             },
+            studentType:{
+                required:"学生类型不能为空",
+            },
             passwd: {
                 required: "密码不能为空",
                 rangelength:"长度在6-20之间",
@@ -108,6 +122,8 @@ function validateForm () {
         errorPlacement : function(error, element) {
             if(element.is("#username"))
                 error.appendTo($("#v_username"));
+            else if(element.is("#studentType"))
+                error.appendTo($("#v_studentType"));
             else if(element.is("#passwd"))
                 error.appendTo($("#v_passwd"));
             else if(element.is("#repasswd"))
@@ -132,13 +148,14 @@ function validateForm () {
     });
 }
 
+//注册按钮
 function register(){
     $("#register_btn").click(function(){
         var status = $("#register_form").valid();
         if(status){  //注册前验证表单
             $.ajax({
                 type: "POST",
-                url: "/register/submit",
+                url: registerUrl,
                 contentType: "application/json",
 
                 data: JSON.stringify({
@@ -150,6 +167,7 @@ function register(){
                     "phoneNumber": $("#contactNumber").val(),
                     "email": $("#email").val(),
                     "role": $("#role").val(),
+                    "studentType": $("#studentType").val(),
                     "mailVerifyCode": $("#validateCode").val(),
                 }),
 
@@ -182,6 +200,7 @@ function register(){
     }); //click
 } //register function
 
+//改变验证码
 function ChangeValidateCode() {
     $("#validateCode_btn").click(function(){
         $("#validateCodeImg").attr("src", $("#validateCodeImg").attr("src") + 1);
@@ -189,6 +208,7 @@ function ChangeValidateCode() {
 
 }
 
+//发送验证码
 function sendEmailVerifyCodeBtn() {
     $("#emailVerify_btn").click(function () {
         if($("#email").valid()){  //发送邮箱验证码前验证表单验证码是否合法
@@ -197,5 +217,36 @@ function sendEmailVerifyCodeBtn() {
         } //valid
     });
 
+}
+
+
+// 隐藏或者显示学生类型Div
+function changeStudentTypeDiv(){
+    $("#role").change(function () {
+        var role = $("#role").val();
+        if(role == "")
+            initStudentTypeDiv();
+        else if(role == "学生")
+            showStudentTypeDiv();
+        else if(role == "学院教务员")
+            hideStudentTypeDiv();
+        else
+            paramErrorAlert("role",role);
+    })
+}
+
+function hideStudentTypeDiv(){
+    //studentType_hide
+    $("#studentType_hide").hide();
+}
+
+function showStudentTypeDiv(){
+    //studentType_hide
+    $("#studentType_hide").show();
+}
+
+function initStudentTypeDiv(){
+    //studentType_hide
+    $("#studentType_hide").hide();
 }
 

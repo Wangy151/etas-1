@@ -2,11 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8" />
-    <title>个人信息中心</title>
+    <title>学院教务员个人信息中心</title>
     <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
     <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
     <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
-    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
     <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
     <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
@@ -36,8 +35,12 @@
     </style>
 
     <script type="application/javascript">
+        var modifyTeacherInfoUrl = "" ;
+        var modifyTeacherPasswdUrl = "";
+
         $(document).ready(function () {
-            changeModelDiv();
+            initTabShow();
+            changeTabDiv();
             validateForm1();
             validateForm2();
             sendEmailValidateCode();
@@ -45,9 +48,7 @@
             submitPasswordInfo();
         });
 
-        function changeModelDiv(){
-            $("#basic_info_model").show();
-            $("#password_model").hide();
+        function changeTabDiv(){
 
             $("#modify_basic_info_href").click(function(){
                 $("#basic_info_model").show();
@@ -58,6 +59,11 @@
                 $("#basic_info_model").hide();
                 $("#password_model").show();
             });
+        }
+
+        function initTabShow(){
+            $("#basic_info_model").show();
+            $("#password_model").hide();
         }
 
         function validateForm1(){
@@ -174,31 +180,7 @@
                 if($("#email").valid()==false) return;
                 // 邮箱合法后
                 var email = $("#email").val();
-                $.ajax({
-                    type: "GET",
-                    url: "/sendVerifyCodeMail?emailTo="+email,
-
-                    beforeSend: function(XMLHttpRequest){
-                    },
-
-                    success: function(data){
-                        var status = data.code;
-                        var msg = data.msg;
-                        if(status == "200")
-                            model_tip_show('model_tip','model_tip_content','系统已发送邮箱验证码，请查收');
-                        else if(status ==  "500")
-                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
-                        else
-                            model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
-                    },
-
-                    error: function(XMLHttpRequest, textStatus) {
-                    },
-
-                    complete: function(XMLHttpRequest, textStatus){
-                    }
-
-                });
+                sendEmailVerifyCode(email);
             })
         }
 
@@ -209,7 +191,7 @@
                 if(status == false) return;
                 $.ajax({
                     type: "POST",
-                    url: "../static/testHttpDate.json",
+                    url: modifyTeacherInfoUrl,
                     contentType: "application/json",
 
                     data: JSON.stringify({
@@ -228,7 +210,7 @@
                         var status = data.code;
                         var msg = data.msg;
                         if(status == "200")  //成功
-                            model_tip_show('model_tip','model_tip_content','信息保存成功',refreshToBaseInfoModifyPage());
+                            model_tip_show('model_tip','model_tip_content','信息修改成功',refreshToTeacherPersonInfoPage);
                         else if(status == "500")  //失败
                             model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                         else
@@ -252,7 +234,7 @@
                 if(status == false) return;
                 $.ajax({
                     type: "POST",
-                    url: "../static/testHttpDate.json",
+                    url: modifyTeacherPasswdUrl,
                     contentType: "application/json",
 
                     data: JSON.stringify({
@@ -268,7 +250,7 @@
                         var status = data.code;
                         var msg = data.msg;
                         if(status == "200")  //信息保存成功
-                            model_tip_show('model_tip','model_tip_content','信息保存成功',refreshToBaseInfoModifyPage());
+                            model_tip_show('model_tip','model_tip_content','密码修改成功',refreshToTeacherPersonInfoPage);
                         else if(status == "500")  //保存失败
                             model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                         else
@@ -285,9 +267,6 @@
             })
         }
 
-        function refreshToBaseInfoModifyPage(){
-
-        }
 
     </script>
 
@@ -328,7 +307,7 @@
 
                 <div class="form-group">
 
-                    <div class="col-sm-3 _text_right input_tip"><label>学号/教职工号:</label></div>
+                    <div class="col-sm-3 _text_right input_tip"><label>教职工号:</label></div>
                     <div class="col-sm-5" style="margin-left: -12px">
                         <input type="text" disabled="disabled" class="form-control" placeholder="学号/教职工号">
                     </div>

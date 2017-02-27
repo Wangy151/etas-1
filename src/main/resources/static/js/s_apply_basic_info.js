@@ -261,7 +261,7 @@ function fileUpload1(){
 
 //信息保存成功，进入下一步
 function nextStepAfterSave(){
-    refreshToTjbFramePage(getMyUserIdFromPage(),"0");
+    refreshToTjbCreatePage(getMyUserIdFromPage());
 }
 
 //检查表单验证状态

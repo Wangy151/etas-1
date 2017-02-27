@@ -10,8 +10,19 @@ var tjbCreateUrl = "/home/student/thesis/apply/tjb/create";
 var tjbEditUrl = "/home/student/thesis/apply/tjb/edit";
 var tjbViewUrl = "/home/student/thesis/apply/tjb/view";
 var studentQueryThesisStatusUrl = "/home/student/thesis/apply/index";
+var studentPersonInfoUrl = "";
+
+
+var adminReviewThesisApplyUrl = "/home/admin/thesis/index";
+var adminImportStudentInfoUrl = "/home/admin/import/index";
+var adminExportThesisApplyUrl = "/home/admin/export/index";
 var adminAddAdministratorUrl = "";
 var adminActiveTeacherUrl = "";
+var adminPersonInfoUrl = "";
+
+
+var teacherReportThesisApplyUrl = "/home/teacher/thesis/index";
+var teacherPersonInfoUrl = "";
 
 ///////////////////////////////////////////
 ///////// 页面刷新开始       ///////////
@@ -100,43 +111,42 @@ function refreshToBasicInfoViewPage(userId){
     }); // end ajax
 }
 
-function refreshToTjbFramePage(userId,pageType){
-    saveUserIdToPage(userId);
-    saveTjbPageTypeToPage(pageType);
+// function refreshToTjbFramePage(userId,pageType){
+//     saveUserIdToPage(userId);
+//     saveTjbPageTypeToPage(pageType);
+//     var wrapLocation = "#home_right_wrap";
+//     $.ajax({
+//         type: "POST",
+//         url: tjbFrameUrl,
+//         contentType: "application/json",
+//         data: JSON.stringify({
+//         }),
+//
+//         beforeSend: function(XMLHttpRequest){
+//         },
+//
+//         success: function(data){
+//             $(wrapLocation).html(data);
+//         },
+//         error: function(XMLHttpRequest, textStatus) {
+//             if (XMLHttpRequest.status == 401) {
+//                 $(wrapLocation).html("您没有访问权限 ~");
+//             } else {
+//                 $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+//             }
+//         },
+//         complete: function(XMLHttpRequest, textStatus){
+//         }
+//     }); // end ajax
+// }
+
+function refreshToTjbCreatePage(userId){
     var wrapLocation = "#home_right_wrap";
-    $.ajax({
-        type: "POST",
-        url: tjbFrameUrl,
-        contentType: "application/json",
-        data: JSON.stringify({
-        }),
-
-        beforeSend: function(XMLHttpRequest){
-        },
-
-        success: function(data){
-            $(wrapLocation).html(data);
-        },
-        error: function(XMLHttpRequest, textStatus) {
-            if (XMLHttpRequest.status == 401) {
-                $(wrapLocation).html("您没有访问权限 ~");
-            } else {
-                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
-            }
-        },
-        complete: function(XMLHttpRequest, textStatus){
-        }
-    }); // end ajax
-}
-
-function refreshToTjbCreatePage(studentType,userId){
-    var wrapLocation = "#tjb_wrap";
     $.ajax({
         type: "POST",
         url: tjbCreateUrl,
         contentType: "application/json",
         data: JSON.stringify({
-            "studentType":studentType,
             "userId":userId,
         }),
 
@@ -158,14 +168,13 @@ function refreshToTjbCreatePage(studentType,userId){
     }); // end ajax
 }
 
-function refreshToTjbEditPage(studentType,userId){
-    var wrapLocation = "#tjb_wrap";
+function refreshToTjbEditPage(userId){
+    var wrapLocation = "#home_right_wrap";
     $.ajax({
         type: "POST",
         url: tjbEditUrl,
         contentType: "application/json",
         data: JSON.stringify({
-            "studentType":studentType,
             "userId":userId,
         }),
 
@@ -187,14 +196,13 @@ function refreshToTjbEditPage(studentType,userId){
     }); // end ajax
 }
 
-function refreshToTjbViewPage(studentType,userId){
-    var wrapLocation = "#tjb_wrap";
+function refreshToTjbViewPage(userId){
+    var wrapLocation = "#home_right_wrap";
     $.ajax({
         type: "POST",
         url: tjbViewUrl,
         contentType: "application/json",
         data: JSON.stringify({
-            "studentType":studentType,
             "userId":userId,
         }),
 
@@ -221,6 +229,121 @@ function refreshToStudentQueryStatus() {
     $.ajax({
         type: "POST",
         url: studentQueryThesisStatusUrl,
+        contentType: "application/json",
+        data: JSON.stringify({
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        }
+    }); // end ajax
+}
+
+function refreshToStudentPersonInfoPage(){
+    var wrapLocation = "#home_right_wrap";
+    $.ajax({
+        type: "POST",
+        url: studentPersonInfoUrl,
+        contentType: "application/json",
+
+        data: JSON.stringify({
+
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+        }
+
+    });//end ajax
+}
+
+
+
+function refreshToAdminReviewThesisApplyPage(){
+    var wrapLocation = "#home_right_wrap";
+    $.ajax({
+        type: "POST",
+        url: adminReviewThesisApplyUrl,
+        contentType: "application/json",
+        data: JSON.stringify({
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        }
+    }); // end ajax
+}
+
+function refreshToAdminExportThesisApplyPage(){
+    var wrapLocation = "#home_right_wrap";
+    $.ajax({
+        type: "POST",
+        url: adminExportThesisApplyUrl,
+        contentType: "application/json",
+        data: JSON.stringify({
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        }
+    }); // end ajax
+}
+
+function refreshToAdminImportStudentInfoPage(){
+    var wrapLocation = "#home_right_wrap";
+    $.ajax({
+        type: "POST",
+        url: adminImportStudentInfoUrl,
         contentType: "application/json",
         data: JSON.stringify({
         }),
@@ -297,11 +420,103 @@ function refreshToAdminActiveTeacherPage(){
     }); // end ajax
 }
 
+function refreshToAdminPersonInfoPage(){
+    var wrapLocation = "#home_right_wrap";
+    $.ajax({
+        type: "POST",
+        url: adminPersonInfoUrl,
+        contentType: "application/json",
+
+        data: JSON.stringify({
+
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+        }
+
+    });//end ajax
+}
+
+
+
+function refreshToTeacherReportThesisApplyPage(){
+    var wrapLocation = "#home_right_wrap";
+    $.ajax({
+        type: "POST",
+        url: teacherReportThesisApplyUrl,
+        contentType: "application/json",
+        data: JSON.stringify({
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus){
+        }
+    }); // end ajax
+}
+
+function refreshToTeacherPersonInfoPage(){
+    var wrapLocation = "#home_right_wrap";
+    $.ajax({
+        type: "POST",
+        url: teacherPersonInfoUrl,
+        contentType: "application/json",
+
+        data: JSON.stringify({
+
+        }),
+
+        beforeSend: function(XMLHttpRequest){
+        },
+
+        success: function(data){
+            $(wrapLocation).html(data);
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+            if (XMLHttpRequest.status == 401) {
+                $(wrapLocation).html("您没有访问权限 ~");
+            } else {
+                $(wrapLocation).html("服务器繁忙, 请稍后再试 ~");
+            }
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+        }
+
+    });//end ajax
+}
+
+
 ///////////////////////////////////////////
 ///////// 页面刷新结束       ///////////
 ////////////////////////////////////
-
-
 
 
 ////////////     保存临时值到页面中       //////////////
