@@ -169,7 +169,7 @@ function submitBasicInfo(){
                 "phoneNumber": $("#contactNumber").val(),
                 "email": $("#email").val(),
                 "mailVerifyCode": $("#email_validate_code").val(),
-
+                "department":"研究生院学位办",
             }),
 
             beforeSend: function(XMLHttpRequest){
@@ -209,9 +209,7 @@ function submitPasswordInfo(){
             contentType: "application/json",
 
             data: JSON.stringify({
-                "password": $("#new_password").val(),
-                "repeatPassword": $("#repassword").val(),
-
+                "newPassword": $("#new_password").val(),
             }),
 
             beforeSend: function(XMLHttpRequest){
