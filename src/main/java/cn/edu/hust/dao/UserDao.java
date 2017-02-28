@@ -1,6 +1,7 @@
 package cn.edu.hust.dao;
 
 import cn.edu.hust.model.User;
+import cn.edu.hust.model.request.AdminActiveTeacherSearchRequest;
 import cn.edu.hust.model.request.UserProfileRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import org.apache.ibatis.annotations.*;
@@ -42,6 +43,13 @@ public interface UserDao {
 
     @Select(" SELECT count(*) FROM user WHERE user_id = #{userId}")
     int checkUserIdExists(@Param("userId") String userId);
+
+    @Select("<script>SELECT department, user_id, real_name, phone_number, email, active FROM user " +
+            " where <if test=\"searchRequest.department != '' \">department = #{searchRequest.department}</if>" +
+            "<if test=\"searchRequest.active != '' \">active = #{searchRequest.active}</if>" +
+            "<if test=\"searchRequest.realName != '' \">real_name = #{searchRequest.realName}</if>" +
+            "<if test=\"searchRequest.userId != '' \">user_id = #{searchRequest.userId}</if></script>")
+    List<User> adminActiveTeacherSearch(@Param("searchRequest") AdminActiveTeacherSearchRequest searchRequest);
 
 }
 

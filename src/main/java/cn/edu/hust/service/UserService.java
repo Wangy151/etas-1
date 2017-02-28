@@ -2,6 +2,7 @@ package cn.edu.hust.service;
 
 import cn.edu.hust.dao.UserDao;
 import cn.edu.hust.model.User;
+import cn.edu.hust.model.request.AdminActiveTeacherSearchRequest;
 import cn.edu.hust.model.request.UserProfileRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,10 @@ public class UserService {
 
     public boolean insertUserInfo(UserProfileRequest userProfileRequest){
         return userDao.insertUserInfo(userProfileRequest) > 0;
+    }
+
+    public List<User> adminActiveTeacherSearch(AdminActiveTeacherSearchRequest searchRequest) {
+        return userDao.adminActiveTeacherSearch(searchRequest);
     }
 
 }
