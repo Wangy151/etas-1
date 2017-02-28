@@ -195,10 +195,12 @@ function submitBasicInfo(){
                 var msg = data.msg;
                 if(status == "200")  //成功
                     model_tip_show('model_tip','model_tip_content','信息修改成功',refreshToTeacherPersonInfoPage);
-                else if(status == "500")  //失败
+                else if(status == "300")  //验证码错误
+                    $("#v_email_validate_code").text("邮箱验证码错误");
+                else if(status == "500")  //服务器问题
                     model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                 else
-                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+                    paramErrorAlert("data.status: ",status);
             },
 
             error: function(XMLHttpRequest, textStatus) {
