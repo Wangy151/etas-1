@@ -2,8 +2,8 @@
  * Created by jason on 2017/2/27.
  */
 
-var modifyTeacherInfoUrl = "" ;
-var modifyTeacherPasswdUrl = "";
+var modifyTeacherInfoUrl = "/home/teacher/personInfo/save" ;
+var modifyTeacherPasswdUrl = "/home/teacher/personInfo/password/update";
 
 $(document).ready(function () {
     initTabShow();

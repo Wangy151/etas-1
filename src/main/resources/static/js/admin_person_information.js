@@ -2,8 +2,8 @@
  * Created by jason on 2017/2/27.
  */
 
-var modifyAdminInfoUrl = "";
-var modifyAdminPasswdUrl = "";
+var modifyAdminInfoUrl = "/home/admin/personInfo/save";
+var modifyAdminPasswdUrl = "/home/admin/personInfo/password/update";
 
 $(document).ready(function () {
     initTabShow();
