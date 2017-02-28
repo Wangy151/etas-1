@@ -2,7 +2,7 @@
  * Created by jason on 2017/2/15.
  */
 
-var addAdimistratorUrl = ""
+var addAdimistratorUrl = "/home/admin/addAdministrator/save";
 
 $(document).ready(function () {
     validateForm();
@@ -26,9 +26,9 @@ function addAdministratorBtn(){
                 "role":$("#role").val(),
                 "userId":$("#userId").val(),
                 "realName": $("#realName").val(),
-                "contactNumber": $("#contactNumber").val(),
+                "phoneNumber": $("#contactNumber").val(),
                 "password":$("#password").val(),
-                "repeatPassword":$("#repeatPassword").val(),
+                "department":"研究生院学位办",
                 "email": $("#email").val(),
                 "mailVerifyCode": $("#email_validate_code").val(),
 
@@ -41,11 +41,13 @@ function addAdministratorBtn(){
                 var status = data.code;
                 var msg = data.msg;
                 if(status == "200")  //学生注册成功
-                    model_tip_show('model_tip','model_tip_content','管理员添加成功');
+                    model_tip_show('model_tip','model_tip_content','管理员添加成功',refreshToAdminAddAdministratorPage);
+                else if(status == "300")  //服务器原因失败
+                    $("#v_email_validate_code").text("验证码错误");
                 else if(status == "500")  //服务器原因失败
                     model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
                 else
-                    model_tip_show('model_tip','model_tip_content','服务器繁忙，请稍后再试');
+                    paramErrorAlert("data.status: ",status);
             },
 
             error: function(XMLHttpRequest, textStatus) {

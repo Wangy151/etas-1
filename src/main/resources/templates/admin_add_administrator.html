@@ -55,12 +55,7 @@
                 <div class="form-group">
                     <div class="col-sm-3 _text_right input_tip"><label>身份:</label></div>
                     <div class="col-sm-5" style="margin-left: -12px">
-                        <select disabled="disabled" class="form-control" id="role" name="role">
-                            <option value="">请选择</option>
-                            <option value="学生">学生</option>
-                            <option value="学院教务员">学院教务员</option>
-                            <option value="学院教务员"  selected="selected">学校管理员</option>
-                        </select>
+                        <input type="text" class="form-control" id="role" name="role" value="管理员" disabled="disabled" placeholder="身份"/>
 
                     </div>
                     <div class="col-sm-4 validate_warn" id="v_role"></div>
@@ -97,7 +92,7 @@
 
                     <div class="col-sm-3 _text_right input_tip"><label>登录密码:</label></div>
                     <div class="col-sm-5" style="margin-left: -12px">
-                        <input type="text" class="form-control" id="password" name="password" placeholder="登录密码"/>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="登录密码"/>
                     </div>
                     <div class="col-sm-4 validate_warn" id="v_password"></div>
                 </div>
@@ -106,7 +101,7 @@
 
                     <div class="col-sm-3 _text_right input_tip"><label>确认密码:</label></div>
                     <div class="col-sm-5" style="margin-left: -12px">
-                        <input type="text" class="form-control" id="repeatPassword" name="repeatPassword" placeholder="确认密码"/>
+                        <input type="password" class="form-control" id="repeatPassword" name="repeatPassword" placeholder="确认密码"/>
                     </div>
                     <div class="col-sm-4 validate_warn" id="v_repeatPassword"></div>
                 </div>

@@ -229,8 +229,7 @@ function submitPasswordInfo(){
             contentType: "application/json",
 
             data: JSON.stringify({
-                "password": $("#new_password").val(),
-                "repeatPassword": $("#repassword").val(),
+                "newPassword": $("#new_password").val(),
 
             }),
 
