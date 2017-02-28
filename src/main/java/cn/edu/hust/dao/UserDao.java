@@ -38,7 +38,7 @@ public interface UserDao {
             " VALUES (#{user.role}, #{user.userId}, #{user.password}, " +
             " #{user.realName}, #{user.department}, #{user.phoneNumber}, " +
             " #{user.email}, #{user.active}, #{user.studentType}) ")
-    int insertUserInfo(@Param("user") User user);
+    int insertUserInfo(@Param("user") UserProfileRequest user);
 
     @Select(" SELECT count(*) FROM user WHERE user_id = #{userId}")
     int checkUserIdExists(@Param("userId") String userId);

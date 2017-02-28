@@ -37,10 +37,8 @@ public class UserService {
         return userDao.getBatchStudentType(userIdList);
     }
 
-    public CommonResponse insertUserInfo(User user){
-        CommonResponse commonResponse = new CommonResponse();
-
-        return commonResponse;
+    public boolean insertUserInfo(UserProfileRequest userProfileRequest){
+        return userDao.insertUserInfo(userProfileRequest) > 0;
     }
 
 }
