@@ -9,6 +9,7 @@ import cn.edu.hust.model.response.AdminImportResponse;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
+import cn.edu.hust.utils.FileUtil;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -20,10 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +33,11 @@ import java.util.Map;
 public class AdminImportService {
     @Autowired
     private StudentInfoImportDao studentInfoImportDao;
+
+    public void downloadTemplate(OutputStream outputStream, String fileName) throws IOException {
+        outputStream.write(FileUtil.getFileByteArray(fileName));
+        outputStream.flush();
+    }
 
     /**
      * 管理员导入学生信息(excel文件)

@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 
 /**
  * Created by xiaolei03 on 17/1/10.
@@ -33,6 +31,16 @@ public class AdminImportController {
     @RequestMapping(value = "/index")
     public String index() {
         return "admin_import_student_info";
+    }
+
+    @RequestMapping(value = "/template/download")
+    public void downloadTemplate(HttpServletResponse response) throws IOException {
+        String fileName = "ETAS系统毕业生数据导入模板下载.xls";
+
+        response.reset();
+        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+        response.setHeader("Content-Disposition", "attachment;filename="+ new String((fileName).getBytes(), "iso-8859-1"));
+        adminImportService.downloadTemplate(response.getOutputStream(), fileName);
     }
 
     /**
