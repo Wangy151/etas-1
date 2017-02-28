@@ -43,6 +43,16 @@ public class UserService {
     }
 
     public List<User> adminActiveTeacherSearch(AdminActiveTeacherSearchRequest searchRequest) {
+        // activeStatus --> active
+        String activeStatus = searchRequest.getActiveStatus();
+        if ("已激活".equalsIgnoreCase(activeStatus)) {
+            searchRequest.setActive(1);
+        } else if ("未激活".equalsIgnoreCase(activeStatus)) {
+            searchRequest.setActive(0);
+        } else {
+            searchRequest.setActive(null);
+        }
+
         return userDao.adminActiveTeacherSearch(searchRequest);
     }
 

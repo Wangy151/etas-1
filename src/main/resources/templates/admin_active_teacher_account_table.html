@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>管理员激活教务员结果页面</title>
     <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
     <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
@@ -36,25 +36,20 @@
         <td>选择</td><td>学院</td><td>教工号</td><td>姓名</td><td>联系方式</td><td>邮箱</td><td>状态</td>
         </thead>
         <tbody>
-        <tr>
-            <td><input type="checkbox" name='checkboxStatus' /></td>
-            <td>软件学院</td>
-            <td class="userId">0185211</td>
-            <td>程咬金</td>
-            <td>18855661122</td>
-            <td>zhyxhk@hust.mail.edu.cn</td>
-            <td class="active_status">未激活</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" name='checkboxStatus'/></td>
-            <td>计算机科学与技术学院</td>
-            <td class="userId">0185212</td>
-            <td>张辉耀</td>
-            <td>18855661122</td>
-            <td>zhyxhk@hust.mail.edu.cn</td>
-            <td class="active_status">已激活</td>
+        <tr th:if="${#lists.isEmpty(userList)}">
+            <td colspan="7" align="center">暂无数据, 请尝试输入其他条件重新查询~</td>
         </tr>
 
+        <tr th:each="item : ${userList}">
+            <td><input type="checkbox" name='checkboxStatus' /></td>
+            <td th:text="${item.department}">软件学院</td>
+            <td th:text="${item.userId}" class="userId">0185211</td>
+            <td th:text="${item.realName}">程咬金</td>
+            <td th:text="${item.phoneNumber}">18855661122</td>
+            <td th:text="${item.email}">zhyxhk@hust.mail.edu.cn</td>
+            <td th:if="${item.active} == 0" th:text="未激活" class="active_status">未激活</td>
+            <td th:unless="${item.active} == 0" th:text="已激活" class="active_status">已激活</td>
+        </tr>
         </tbody>
     </table>
 </div>

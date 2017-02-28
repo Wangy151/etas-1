@@ -3,6 +3,7 @@ package cn.edu.hust.controller;
 import cn.edu.hust.model.User;
 import cn.edu.hust.model.request.AdminActiveTeacherSearchRequest;
 import cn.edu.hust.service.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +28,10 @@ public class AdminActiveTeacherController {
     }
 
     @RequestMapping(value = "/search")
-    public List<User> search(@RequestBody AdminActiveTeacherSearchRequest searchRequest) {
-        return userService.adminActiveTeacherSearch(searchRequest);
+    public String search(@RequestBody AdminActiveTeacherSearchRequest searchRequest, Model model) {
+        List<User> userList = userService.adminActiveTeacherSearch(searchRequest);
+        model.addAttribute("userList", userList);
+        return "admin_active_teacher_account_table";
     }
 
 }
