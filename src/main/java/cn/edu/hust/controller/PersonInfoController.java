@@ -41,13 +41,17 @@ public class PersonInfoController {
     @RequestMapping(value = "/student/personInfo/save")
     @ResponseBody
     public CommonResponse saveStudentProfile(@RequestBody UserProfileRequest userProfileRequest, HttpSession session){
-        String mailVerifyCode = userProfileRequest.getVerifyCodeString();
+        String userId = ((User) session.getAttribute("user")).getUserId();
+        userProfileRequest.setUserId(userId);
+
+        String mailVerifyCode = userProfileRequest.getMailVerifyCode();
         // 核对验证码
         String mailVerifyCodeFromSession = (String) session.getAttribute("mailVerifyCode");
         if (!StringUtils.isEmpty(mailVerifyCode) && !mailVerifyCode.equalsIgnoreCase(mailVerifyCodeFromSession)) {
             return new CommonResponse().withCode(300).withMsg("验证码错误");
         }
 
+        // 更新个人资料
         if (userService.updateUserProfile(userProfileRequest)) {
             return new SuccessResponse();
         } else {

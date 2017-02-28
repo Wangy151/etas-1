@@ -19,7 +19,7 @@ public class UserProfileRequest {
     private Date updateTime;
     private Date loginTime;
     private String remark;
-    private String verifyCodeString;
+    private String mailVerifyCode;
 
     @Override
     public String toString() {
@@ -37,7 +37,7 @@ public class UserProfileRequest {
                 ", updateTime=" + updateTime +
                 ", loginTime=" + loginTime +
                 ", remark='" + remark + '\'' +
-                ", verifyCodeString='" + verifyCodeString + '\'' +
+                ", mailVerifyCode='" + mailVerifyCode + '\'' +
                 '}';
     }
 
@@ -145,11 +145,11 @@ public class UserProfileRequest {
         this.remark = remark;
     }
 
-    public String getVerifyCodeString() {
-        return verifyCodeString;
+    public String getMailVerifyCode() {
+        return mailVerifyCode;
     }
 
-    public void setVerifyCodeString(String verifyCodeString) {
-        this.verifyCodeString = verifyCodeString;
+    public void setMailVerifyCode(String mailVerifyCode) {
+        this.mailVerifyCode = mailVerifyCode;
     }
 }
