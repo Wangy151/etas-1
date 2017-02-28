@@ -5,7 +5,8 @@ package cn.edu.hust.model.request;
  */
 public class AdminActiveTeacherSearchRequest {
     private String department;
-    private int active;
+    private String activeStatus;
+    private Integer active;
     private String realName;
     private String userId;
 
@@ -13,6 +14,7 @@ public class AdminActiveTeacherSearchRequest {
     public String toString() {
         return "AdminActiveTeacherSearchRequest{" +
                 "department='" + department + '\'' +
+                ", activeStatus='" + activeStatus + '\'' +
                 ", active=" + active +
                 ", realName='" + realName + '\'' +
                 ", userId='" + userId + '\'' +
@@ -27,11 +29,19 @@ public class AdminActiveTeacherSearchRequest {
         this.department = department;
     }
 
-    public int getActive() {
+    public String getActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(String activeStatus) {
+        this.activeStatus = activeStatus;
+    }
+
+    public Integer getActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(Integer active) {
         this.active = active;
     }
 

@@ -45,10 +45,11 @@ public interface UserDao {
     int checkUserIdExists(@Param("userId") String userId);
 
     @Select("<script>SELECT department, user_id, real_name, phone_number, email, active FROM user " +
-            " where <if test=\"searchRequest.department != '' \">department = #{searchRequest.department}</if>" +
-            "<if test=\"searchRequest.active != '' \">active = #{searchRequest.active}</if>" +
-            "<if test=\"searchRequest.realName != '' \">real_name = #{searchRequest.realName}</if>" +
-            "<if test=\"searchRequest.userId != '' \">user_id = #{searchRequest.userId}</if></script>")
+            " where role = '学院教务员' " +
+            "<if test=\"searchRequest.department != '' \">and department = #{searchRequest.department}</if>" +
+            "<if test=\"searchRequest.active != null \">and active = #{searchRequest.active}</if>" +
+            "<if test=\"searchRequest.realName != '' \">and real_name = #{searchRequest.realName}</if>" +
+            "<if test=\"searchRequest.userId != '' \">and user_id = #{searchRequest.userId}</if></script>")
     List<User> adminActiveTeacherSearch(@Param("searchRequest") AdminActiveTeacherSearchRequest searchRequest);
 
 }
