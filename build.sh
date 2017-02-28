@@ -10,6 +10,7 @@ mkdir output
 
 mkdir -p output/etas/bin
 mkdir -p output/etas/conf
+mkdir -p output/etas/log
 cp target/etas-1.0.jar output/etas/bin/etas.jar
 cp start.sh output/etas/bin
 cp stop.sh output/etas/bin

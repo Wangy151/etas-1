@@ -6,9 +6,12 @@ import cn.edu.hust.model.request.AdminActiveRequest;
 import cn.edu.hust.model.request.AdminActiveTeacherSearchRequest;
 import cn.edu.hust.model.request.UserProfileRequest;
 import cn.edu.hust.model.response.CommonResponse;
+import cn.edu.hust.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,7 +43,7 @@ public class UserService {
         return userDao.getBatchStudentType(userIdList);
     }
 
-    public boolean insertUserInfo(UserProfileRequest userProfileRequest){
+    public boolean insertUserInfo(UserProfileRequest userProfileRequest) {
         return userDao.insertUserInfo(userProfileRequest) > 0;
     }
 
