@@ -1,6 +1,7 @@
 package cn.edu.hust.dao;
 
 import cn.edu.hust.model.User;
+import cn.edu.hust.model.request.UserProfileRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import org.apache.ibatis.annotations.*;
 
@@ -20,6 +21,11 @@ public interface UserDao {
     @Update(" update user set password = #{newPassword} WHERE user_id = #{username} OR email = #{username} ")
     int updateUserPassword(@Param("newPassword") String newPassword,
                            @Param("username") String username);
+
+    @Update(" update user set department = #{user.department}, real_name = #{user.realName}, " +
+            " phone_number = #{user.phoneNumber}, email = #{user.email}, student_type =  #{user.studentType} " +
+            " where user_id = #{user.userId}")
+    int updateUserProfile(@Param("user") UserProfileRequest user);
 
     //created by jason
     @Select(" SELECT student_type FROM user WHERE user_id = #{userId} ")

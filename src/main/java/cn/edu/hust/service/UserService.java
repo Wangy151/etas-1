@@ -2,6 +2,7 @@ package cn.edu.hust.service;
 
 import cn.edu.hust.dao.UserDao;
 import cn.edu.hust.model.User;
+import cn.edu.hust.model.request.UserProfileRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class UserService {
 
     public User getUserInfo(String username) {
         return userDao.getUserInfo(username);
+    }
+
+    public boolean updateUserProfile(UserProfileRequest userProfileRequest) {
+        return userDao.updateUserProfile(userProfileRequest) > 0;
     }
 
     public boolean updateUserPassword(String newPassword, String username) {
