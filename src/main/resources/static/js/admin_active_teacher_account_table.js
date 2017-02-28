@@ -3,8 +3,8 @@
  */
 
 var adminSearchTeacherUrl = "/home/admin/activeTeacher/search";
-var adminActiveTeacherUrl = "";
-var adminCancelActiveTeacherUrl = "";
+var adminActiveTeacherUrl = "/home/admin/activeTeacher/active";
+var adminCancelActiveTeacherUrl = "/home/admin/activeTeacher/cancelActive";
 $(document).ready(function () {
     select_all();
     no_select_all();
@@ -151,7 +151,7 @@ function refreshSearchResult(){
             "department":$("#department").val(),
             "activeStatus":$("#activeStatus").val(),
             "realName":$("#realName").val(),
-            "userID":$("#userId").val(),
+            "userId":$("#userId").val(),
         }),
 
         beforeSend: function(XMLHttpRequest){
