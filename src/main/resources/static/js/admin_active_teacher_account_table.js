@@ -2,7 +2,7 @@
  * Created by jason on 2017/2/27.
  */
 
-var adminSearchTeacherUrl = "";
+var adminSearchTeacherUrl = "/home/admin/activeTeacher/search";
 var adminActiveTeacherUrl = "";
 var adminCancelActiveTeacherUrl = "";
 $(document).ready(function () {

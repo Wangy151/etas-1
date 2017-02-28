@@ -42,7 +42,7 @@
     </style>
 
     <script>
-        var adminSearchTeacherUrl = "";
+        var adminSearchTeacherUrl = "/home/admin/activeTeacher/search";
         $(document).ready(function () {
             search();
         });
@@ -57,9 +57,9 @@
                     contentType: "application/json",
                     data: JSON.stringify({
                         "department":$("#department").val(),
-                        "activeStatus":$("#activeStatus").val(),
+                        "active":$("#activeStatus").val(),
                         "realName":$("#realName").val(),
-                        "userID":$("#userId").val(),
+                        "userId":$("#userId").val(),
                     }),
 
                     beforeSend: function(XMLHttpRequest){
