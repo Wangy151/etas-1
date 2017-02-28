@@ -2,7 +2,7 @@
  * Created by jason on 2017/2/26.
  */
 
-var downloadFileModelUrl = "";
+var downloadFileModelUrl = "/home/admin/import/template/download";
 var uploadStudentFileUrl = "/home/admin/import/upload"
 $(document).ready(function () {
     downloadFileModel();
@@ -20,7 +20,7 @@ function downloadFileModel(){
         form.attr("enctype","multipart/form-data")
         form.attr("target","_self");
         form.attr("method","post");
-        form.attr("action",uploadStudentFileUrl);
+        form.attr("action",downloadFileModelUrl);
         $(".wrap_body").append(form);//将表单放置在web中
 
         form.submit();//表单提交
