@@ -2,8 +2,8 @@
  * Created by jason on 2017/2/27.
  */
 
-var modifyTeacherInfoUrl = "" ;
-var modifyTeacherPasswdUrl = "";
+var modifyTeacherInfoUrl = "/home/teacher/personInfo/save" ;
+var modifyTeacherPasswdUrl = "/home/teacher/personInfo/password/update";
 
 $(document).ready(function () {
     initTabShow();
@@ -65,10 +65,6 @@ function validateForm1(){
             email:{
                 required:true,
                 email:true,
-                remote: { //远程验证用户名是否已经存在,若存在false，否则true
-                    url: "/register/checkEmailRegister?"+$("#email").val(),//异步验证
-                    type: "get",
-                },
             },
             email_validate_code:{
                 required:true,
@@ -91,7 +87,6 @@ function validateForm1(){
             email:{
                 required:"邮箱不能为空",
                 email:"邮箱格式不正确",
-                remote:"已被注册!",
             },
             email_validate_code:{
                 required:"邮箱验证码不能为空",
