@@ -52,6 +52,10 @@ public interface UserDao {
             "<if test=\"searchRequest.userId != '' \">and user_id = #{searchRequest.userId}</if></script>")
     List<User> adminActiveTeacherSearch(@Param("searchRequest") AdminActiveTeacherSearchRequest searchRequest);
 
+    @Update("<script>UPDATE user SET active = #{active} WHERE user_id IN <foreach collection='userIdList' item='item' open='(' separator=',' close=')'>#{item}</foreach></script>")
+    int updateActiveStatus(@Param("active") Integer active,
+                          @Param("userIdList") List<String> userIdList);
+
 }
 
 
