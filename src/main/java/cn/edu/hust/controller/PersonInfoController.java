@@ -92,6 +92,50 @@ public class PersonInfoController {
 
     }
 
+    @RequestMapping(value = "/teacher/personInfo/save")
+    @ResponseBody
+    public CommonResponse saveTeacherProfile(@RequestBody UserProfileRequest userProfileRequest, HttpSession session){
+        String userId = ((User) session.getAttribute("user")).getUserId();
+        userProfileRequest.setUserId(userId);
+
+        String mailVerifyCode = userProfileRequest.getMailVerifyCode();
+        // 核对验证码
+        String mailVerifyCodeFromSession = (String) session.getAttribute("mailVerifyCode");
+        if (!StringUtils.isEmpty(mailVerifyCode) && !mailVerifyCode.equalsIgnoreCase(mailVerifyCodeFromSession)) {
+            return new CommonResponse().withCode(300).withMsg("验证码错误");
+        }
+
+        // 更新个人资料
+        if (userService.updateUserProfile(userProfileRequest)) {
+            return new SuccessResponse();
+        } else {
+            return new FailResponse();
+        }
+    }
+
+    @RequestMapping(value = "/teacher/personInfo/password/update")
+    @ResponseBody
+    public CommonResponse updateTeacherPassword(@RequestBody UserProfileRequest userProfileRequest, HttpSession session) {
+        String userId = ((User) session.getAttribute("user")).getUserId();
+        String newPasswordEncoded;
+        try {
+            newPasswordEncoded = MD5Util.encode(userProfileRequest.getNewPassword());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return new FailResponse();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return new FailResponse();
+        }
+
+        if (userService.updateUserPassword(newPasswordEncoded, userId)) {
+            return new SuccessResponse();
+        } else {
+            return new FailResponse();
+        }
+
+    }
+
     @RequestMapping(value = "/admin/personInfo/index")
     public String AdminIndex(Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
@@ -99,6 +143,50 @@ public class PersonInfoController {
         User user1 =  userService.getUserInfo(userId);
         model.addAttribute("user",user1);
         return "admin_person_information";
+
+    }
+
+    @RequestMapping(value = "/admin/personInfo/save")
+    @ResponseBody
+    public CommonResponse saveAdminProfile(@RequestBody UserProfileRequest userProfileRequest, HttpSession session){
+        String userId = ((User) session.getAttribute("user")).getUserId();
+        userProfileRequest.setUserId(userId);
+
+        String mailVerifyCode = userProfileRequest.getMailVerifyCode();
+        // 核对验证码
+        String mailVerifyCodeFromSession = (String) session.getAttribute("mailVerifyCode");
+        if (!StringUtils.isEmpty(mailVerifyCode) && !mailVerifyCode.equalsIgnoreCase(mailVerifyCodeFromSession)) {
+            return new CommonResponse().withCode(300).withMsg("验证码错误");
+        }
+
+        // 更新个人资料
+        if (userService.updateUserProfile(userProfileRequest)) {
+            return new SuccessResponse();
+        } else {
+            return new FailResponse();
+        }
+    }
+
+    @RequestMapping(value = "/admin/personInfo/password/update")
+    @ResponseBody
+    public CommonResponse updateAdminPassword(@RequestBody UserProfileRequest userProfileRequest, HttpSession session) {
+        String userId = ((User) session.getAttribute("user")).getUserId();
+        String newPasswordEncoded;
+        try {
+            newPasswordEncoded = MD5Util.encode(userProfileRequest.getNewPassword());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return new FailResponse();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return new FailResponse();
+        }
+
+        if (userService.updateUserPassword(newPasswordEncoded, userId)) {
+            return new SuccessResponse();
+        } else {
+            return new FailResponse();
+        }
 
     }
 
