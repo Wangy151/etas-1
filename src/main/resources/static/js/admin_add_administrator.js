@@ -64,6 +64,10 @@ function validateForm(){
         rules:{
             userId:{
                 required:true,
+                remote: { //远程验证用户名是否已经存在,若存在false，否则true
+                    url: "/register/checkUserIdRegister",//异步验证
+                    type: "get",
+                },
             },
             realName:{
                 required:true,
@@ -86,6 +90,10 @@ function validateForm(){
             email:{
                 required:true,
                 email:true,
+                remote: { //远程验证用户名是否已经存在,若存在false，否则true
+                    url: "/register/checkEmailRegister?"+$("#email").val(),//异步验证
+                    type: "get",
+                },
             },
             email_validate_code:{
                 required:true,
@@ -94,6 +102,7 @@ function validateForm(){
         messages:{
             userId:{
                 required:"教工号不能为空",
+                remote:"已被注册",
             },
             realName:{
                 required:"姓名不能为空",
@@ -116,6 +125,7 @@ function validateForm(){
             email:{
                 required:"邮箱不能为空",
                 email:"邮箱格式不正确",
+                remote:"已被注册",
             },
             email_validate_code:{
                 required:"邮箱验证码不能为空",
