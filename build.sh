@@ -10,6 +10,7 @@ export PATH=$PATH:$JAVA_HOME/bin
 export M2_HOME=/opt/apache-maven-3.3.9
 export PATH=$PATH:$M2_HOME/bin
 
+echo $PATH
 
 mvn -Dmaven.test.skip=true clean package -U
 
