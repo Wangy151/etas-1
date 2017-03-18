@@ -1,11 +1,6 @@
 #!/bin/bash
 
-cd /home/ray
+rm -rf /home/ray/workspace
+mkdir -p /home/ray/workspace
 
-rm -rf workspace
-mkdir workspace
-
-# cp target/etas-1.0.jar output/etas/bin/etas.jar
-# cp start.sh output/etas/bin
-# cp stop.sh output/etas/bin
-# cp target/classes/application.properties output/etas/conf
+cp -r output/* /home/ray/workspace/
