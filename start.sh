@@ -1,4 +1,5 @@
 #!/bin/sh
+
 APPLICATION=etas.jar
 SPRING_CONFIG_FILE=../conf/application.properties
 MAX_MEMORY=2048M
