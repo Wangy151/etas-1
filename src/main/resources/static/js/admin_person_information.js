@@ -109,28 +109,28 @@ function validateForm2(){
         rules:{
             new_password:{
                 required:true,
-                minlength:5,
-                maxlength:30,
+                minlength:8,
+                maxlength:20,
             },
             repassword:{
                 required:true,
                 equalTo:"#new_password",
-                minlength:5,
-                maxlength:30,
+                minlength:8,
+                maxlength:20,
             },
 
         },
         messages:{
             new_password:{
                 required:"新密码不能为空",
-                minlength:"最小长度为5",
-                maxlength:"最大长度为30",
+                minlength:"最小长度为8",
+                maxlength:"最大长度为20",
             },
             repassword:{
                 required:"重复密码不能为空",
                 equalTo:"两次密码输入不一致",
-                minlength:"最小长度为5",
-                maxlength:"最大长度为30",
+                minlength:"最小长度为8",
+                maxlength:"最大长度为20",
             },
 
         },

@@ -39,11 +39,11 @@ function validateForm () {
             },
             passwd: {
                 required: true,
-                rangelength:[6,20],
+                rangelength:[8,20],
             },
             repasswd: {
                 required: true,
-                rangelength:[6,20],
+                rangelength:[8,20],
                 equalTo:"#passwd",
             },
             realName:{
@@ -83,11 +83,11 @@ function validateForm () {
             },
             passwd: {
                 required: "密码不能为空",
-                rangelength:"长度在6-20之间",
+                rangelength:"长度在8-20之间",
             },
             repasswd: {
                 required: "确认密码不能为空",
-                rangelength:"长度在6-20之间",
+                rangelength:"长度在8-20之间",
                 equalTo:"两次密码输入不一致",
             },
             realName:{

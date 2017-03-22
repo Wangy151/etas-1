@@ -81,7 +81,7 @@ function basicInfoSave()  {
                 var status = data.code;
                 var msg = data.msg;
                 if(status == "200")  //信息保存成功，进入下一步
-                    model_tip_show('model_tip','model_tip_content','信息保存成功');
+                    model_tip_show('model_tip','model_tip_content','信息保存成功',refreshToStudentQueryStatus);
                 else if(status == "500")  //服务器繁忙
                     model_tip_show('model_tip','model_tip_content','系统繁忙，请稍后再试!');
                 else
