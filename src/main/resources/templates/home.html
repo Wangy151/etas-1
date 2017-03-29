@@ -41,28 +41,12 @@
             padding-top: 20px;
             padding-bottom: 20px;
         }
-        .table_body{
-            margin-top: 30px;
-        }
         .table_body thead{
             background-color:rgb(224,224,224) ;
             font-weight: 800;
         }
         .position ol{
             background-color: white;
-        }
-        .one_input{
-            width:21%;
-            height: 30px;
-            float: left;
-            margin-left: 20px;
-        }
-        .input_width{
-            height: 30px;
-        }
-        .search_btn_div{
-            float: left;
-            margin-left: 10px;
         }
 
         .home_welcome_tip{
@@ -83,7 +67,6 @@
 
     </style>
 
-
 </head>
 <body>
 
@@ -91,7 +74,7 @@
     <a href="/home/index"><img src="../static/imgs/top_banner.png" th:src="@{/imgs/top_banner.png}" /></a>
     <div class="welcome_exit">
         <img src="../static/imgs/user.png" th:src="@{/imgs/user.png}" /><span th:text="${session.user.realName}">用户</span>&nbsp;
-        <img src="../static/imgs/role.png" th:src="@{/imgs/role.png}" /><span th:text="${session.user.role}">身份</span>&nbsp;&nbsp;
+        <img src="../static/imgs/role.png" th:src="@{/imgs/role.png}" /><span id="user_role" th:text="${session.user.role}">身份</span>&nbsp;&nbsp;
         <a href="/home/index"><img src="../static/imgs/home.png" th:src="@{/imgs/home.png}" />返回主页</a>|
         <a href="/home/logout"><img src="../static/imgs/exit.png" th:src="@{/imgs/exit.png}" />安全退出</a>
         <span id="savedMyUserId" hidden="hidden" th:text="${session.user.userId}"></span>
@@ -104,24 +87,30 @@
     <div class="mid_body">
         <div class="left">
             <div id="firstpane" class="menu_list">
-                <h3 class="menu_head">学生模块</h3>
-                <div style="display:none" class="menu_body">
-                    <a id="s_thesis_apply_btn" href="javascript:void(0)">优秀论文申请</a>
-                    <a id="s_personal_info_btn" href="javascript:void(0)">管理个人信息</a>
+                <div id="menu_student_model">
+                    <h3 class="menu_head">学生模块</h3>
+                    <div style="display:none" class="menu_body">
+                        <a id="s_thesis_apply_btn" href="javascript:void(0)">优秀论文申请</a>
+                        <a id="s_personal_info_btn" href="javascript:void(0)">管理个人信息</a>
+                    </div>
                 </div>
-                <h3 class="menu_head">学院教务员模块</h3>
-                <div style="display:none" class="menu_body">
-                    <a id="t_report_thesis_btn" href="javascript:void(0)">上报学生优秀论文</a>
-                    <a id="t_personal_info_btn" href="javascript:void(0)">管理个人信息</a>
+                <div id="menu_teacher_model">
+                    <h3 class="menu_head">学院教务员模块</h3>
+                    <div style="display:none" class="menu_body">
+                        <a id="t_report_thesis_btn" href="javascript:void(0)">上报学生优秀论文</a>
+                        <a id="t_personal_info_btn" href="javascript:void(0)">管理个人信息</a>
+                    </div>
                 </div>
-                <h3 class="menu_head">学校管理员模块</h3>
-                <div style="display:none" class="menu_body">
-                    <a id="a_review_thesis_btn" href="javascript:void(0)">审核学院优秀论文上报</a>
-                    <a id="a_export_thesis_info_btn" href="javascript:void(0)">导出优秀论文信息</a>
-                    <a id="a_import_student_info_btn" href="javascript:void(0)">导入学生信息</a>
-                    <a id="a_active_teacher_btn" href="javascript:void(0)">激活学院教务员账户</a>
-                    <a id="a_add_admin_account_btn" href="javascript:void(0)">添加管理员</a>
-                    <a id="a_personal_info_btn" href="javascript:void(0)">管理个人信息</a>
+                <div id="menu_admin_model">
+                    <h3 class="menu_head">学校管理员模块</h3>
+                    <div style="display:none" class="menu_body">
+                        <a id="a_review_thesis_btn" href="javascript:void(0)">审核学院优秀论文上报</a>
+                        <a id="a_export_thesis_info_btn" href="javascript:void(0)">导出优秀论文信息</a>
+                        <a id="a_import_student_info_btn" href="javascript:void(0)">导入学生信息</a>
+                        <a id="a_active_teacher_btn" href="javascript:void(0)">激活学院教务员账户</a>
+                        <a id="a_add_admin_account_btn" href="javascript:void(0)">添加管理员</a>
+                        <a id="a_personal_info_btn" href="javascript:void(0)">管理个人信息</a>
+                    </div>
                 </div>
 
             </div>

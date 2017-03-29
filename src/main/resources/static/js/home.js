@@ -9,6 +9,7 @@ $(document).ready(function () {
     loadStudentModalPage();
     loadTeacherModalPage();
     loadAdminModalPage();
+    initUserModelMenuDiv();
 
 });
 
@@ -78,3 +79,46 @@ function loadAdminModalPage(){
     });
 };
 
+
+function initUserModelMenuDiv() {
+    var userRole = $("#user_role").text();
+    if(userRole == "学生"){
+        showStudentModelDiv();
+        hideTeacherModelDiv();
+        hideAdminModelDiv();
+    }else if(userRole == "学院教务员"){
+        showTeacherModelDiv();
+        hideStudentModelDiv();
+        hideAdminModelDiv();
+    }else if(userRole == "管理员"){
+        showAdminModelDiv();
+        hideStudentModelDiv();
+        hideTeacherModelDiv();
+    }else{
+
+    }
+}
+
+function showStudentModelDiv(){
+    $("#menu_student_model").show();
+}
+
+function hideStudentModelDiv(){
+    $("#menu_student_model").hide();
+}
+
+function showTeacherModelDiv(){
+    $("#menu_teacher_model").show();
+}
+
+function hideTeacherModelDiv(){
+    $("#menu_teacher_model").hide();
+}
+
+function showAdminModelDiv(){
+    $("#menu_admin_model").show();
+}
+
+function hideAdminModelDiv(){
+    $("#menu_admin_model").hide();
+}
