@@ -4,6 +4,7 @@ import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.service.AdminImportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,9 @@ public class AdminImportController {
     @Autowired
     private AdminImportService adminImportService;
 
+    @Value("${studentInfo.import.template.path}")
+    private String STUDENTINFO_IMPORT_TEMPLOATE_PATH;
+
     /**
      * 进入主页
      *
@@ -35,7 +39,7 @@ public class AdminImportController {
 
     @RequestMapping(value = "/template/download")
     public void downloadTemplate(HttpServletResponse response) throws IOException {
-        String fileName = "ETAS系统毕业生数据导入模板下载.xls";
+        String fileName = STUDENTINFO_IMPORT_TEMPLOATE_PATH;
 
         response.reset();
         response.setContentType("application/vnd.ms-excel;charset=utf-8");

@@ -1,1 +1,1 @@
-java -Dspring.config.location=../conf/application.properties -Dfile.encoding=UTF-8 -jar etas.jar
+java -Dspring.config.location=conf\application.properties -Dfile.encoding=UTF-8 -jar bin\etas.jar
