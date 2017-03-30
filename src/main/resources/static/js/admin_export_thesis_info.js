@@ -3,7 +3,7 @@
  */
 
 var adminExportSearchUrl = "/home/admin/export/search";
-var updateStudentsXhUrl = "";
+var updateStudentsXhUrl = "/home/admin/export/xh/update";
 
 $(document).ready(function () {
     search();
