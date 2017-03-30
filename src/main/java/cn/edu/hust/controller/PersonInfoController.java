@@ -1,10 +1,12 @@
 package cn.edu.hust.controller;
 
+import cn.edu.hust.model.HustDepartment;
 import cn.edu.hust.model.User;
 import cn.edu.hust.model.request.UserProfileRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
+import cn.edu.hust.service.HustDepartmentService;
 import cn.edu.hust.service.UserService;
 import cn.edu.hust.utils.MD5Util;
 import org.apache.commons.lang.StringUtils;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * Created by jason on 2017/2/27.
@@ -28,12 +31,19 @@ public class PersonInfoController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HustDepartmentService hustDepartmentService;
+
     @RequestMapping(value = "/student/personInfo/index")
     public String studentIndex(Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
         String userId = user.getUserId();
         User user1 =  userService.getUserInfo(userId);
         model.addAttribute("user",user1);
+
+        List<HustDepartment> hustDepartmentList = hustDepartmentService.getAllDepartments();
+        model.addAttribute("hustDepartmentList", hustDepartmentList);
+
         return "s_person_information";
 
     }
@@ -88,6 +98,10 @@ public class PersonInfoController {
         String userId = user.getUserId();
         User user1 =  userService.getUserInfo(userId);
         model.addAttribute("user",user1);
+
+        List<HustDepartment> hustDepartmentList = hustDepartmentService.getAllDepartments();
+        model.addAttribute("hustDepartmentList", hustDepartmentList);
+
         return "teacher_person_information";
 
     }
@@ -142,6 +156,10 @@ public class PersonInfoController {
         String userId = user.getUserId();
         User user1 =  userService.getUserInfo(userId);
         model.addAttribute("user",user1);
+
+        List<HustDepartment> hustDepartmentList = hustDepartmentService.getAllDepartments();
+        model.addAttribute("hustDepartmentList", hustDepartmentList);
+
         return "admin_person_information";
 
     }

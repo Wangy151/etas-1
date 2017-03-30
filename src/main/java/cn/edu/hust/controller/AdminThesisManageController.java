@@ -1,5 +1,6 @@
 package cn.edu.hust.controller;
 
+import cn.edu.hust.model.HustDepartment;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.AdminReviewRequest;
 import cn.edu.hust.model.request.AdminSearchRequest;
@@ -7,6 +8,7 @@ import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
 import cn.edu.hust.service.AdminThesisManageService;
+import cn.edu.hust.service.HustDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,13 +28,20 @@ public class AdminThesisManageController {
     @Autowired
     private AdminThesisManageService adminThesisManageService;
 
+    @Autowired
+    private HustDepartmentService hustDepartmentService;
+
     /**
      * 进入主页
      *
      * @return
      */
     @RequestMapping(value = "/index")
-    public String index() {
+    public String index(Model model) {
+
+        List<HustDepartment> hustDepartmentList = hustDepartmentService.getAllDepartments();
+        model.addAttribute("hustDepartmentList", hustDepartmentList);
+
         return "admin_review_thesis";
     }
 

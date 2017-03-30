@@ -106,47 +106,8 @@
                     <div class="col-sm-5" style="margin-left: -12px">
                         <select class="form-control" id="college" name="college">
                             <option selected="selected" th:value="${user.department}" th:text="${user.department}"></option>
-                            <option value="机械科学与工程学院">机械科学与工程学院</option>
-                            <option value="计算机科学与技术学院">计算机科学与技术学院</option>
-                            <option value="生命科学与技术学院">生命科学与技术学院</option>
-                            <option value="电气与电子工程学院">电气与电子工程学院</option>
-                            <option value="材料科学与工程学院">材料科学与工程学院</option>
-                            <option value="船舶与海洋工程学院">船舶与海洋工程学院</option>
-                            <option value="能源与动力工程学院">能源与动力工程学院</option>
-                            <option value="自动化学院">自动化学院</option>
-                            <option value="光学与电子信息学院">光学与电子信息学院</option>
-                            <option value="水电与数字化工程学院">水电与数字化工程学院</option>
-                            <option value="软件学院">软件学院</option>
-                            <option value="环境科学与工程学院">环境科学与工程学院</option>
-                            <option value="电子信息与通信学院">电子信息与通信学院</option>
-                            <option value="建筑与城市规划学院">建筑与城市规划学院</option>
-                            <option value="土木工程与力学学院">土木工程与力学学院</option>
-                            <option value="化学与化工学院">化学与化工学院</option>
-                            <option value="数学与统计学院">数学与统计学院</option>
-                            <option value="物理学院">物理学院</option>
-                            <option value="公共管理学院">公共管理学院</option>
-                            <option value="经济学院">经济学院</option>
-                            <option value="管理学院">管理学院</option>
-                            <option value="人文学院">人文学院</option>
-                            <option value="新闻与信息传播学院">新闻与信息传播学院</option>
-                            <option value="马克思主义学院">马克思主义学院</option>
-                            <option value="社会学院">社会学院</option>
-                            <option value="法学院">法学院</option>
-                            <option value="外国语学院">外国语学院</option>
-                            <option value="基础医学院（含法医学系）">基础医学院（含法医学系）</option>
-                            <option value="药学院">药学院</option>
-                            <option value="医药卫生管理学院">医药卫生管理学院</option>
-                            <option value="公共卫生学院">公共卫生学院</option>
-                            <option value="附属协和医院">附属协和医院</option>
-                            <option value="附属同济医院（含附属梨园医院、计划生育研究所、护理学系）">附属同济医院（含附属梨园医院、计划生育研究所、护理学系）</option>
-                            <option value="教育科学研究院">教育科学研究院</option>
-                            <option value="中欧清洁与可再生能源学院">中欧清洁与可再生能源学院</option>
-                            <option value="国学研究院">国学研究院</option>
-                            <option value="体育部">体育部</option>
-                            <option value="武汉光电国家实验室">武汉光电国家实验室</option>
-                            <option value="工程科学学院">工程科学学院</option>
-                            <option value="武汉国际微电子学院">武汉国际微电子学院</option>
 
+                            <option th:each="item : ${hustDepartmentList}" th:value="${item.department}" th:text="${item.department}">机械科学与工程学院</option>
 
                         </select>
 
