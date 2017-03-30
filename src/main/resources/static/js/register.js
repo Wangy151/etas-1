@@ -2,10 +2,11 @@
  * Created by Administrator on 2016/12/2.
  */
 var registerUrl = "/register/submit";
+var getHustDeptJsonUrl = "/department/list";
 
 $(function () {
     validateForm ();
-
+    appendHustDepartToPage();
     //更换验证码
     ChangeValidateCode();
     //发送邮箱验证码
@@ -256,3 +257,15 @@ function initStudentTypeDiv(){
     $("#studentType_hide").hide();
 }
 
+function appendHustDepartToPage(){
+    $.getJSON(getHustDeptJsonUrl, function(data) {
+        $("#college").html("");//清空info内容
+        $("#college").append("<option value='' selected='selected'>请选择</option>");
+        //  <option value='软件学院'>软件学院</option>
+        $.each(data, function(i, item) {
+            $("#college").append(
+            "<option value='"+item.department+"'>"+item.department+"</option>"
+                );
+        });
+    });
+}

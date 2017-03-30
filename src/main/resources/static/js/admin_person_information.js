@@ -62,6 +62,10 @@ function validateForm1(){
             email:{
                 required:true,
                 email:true,
+                remote: { //远程验证用户名是否已经存在,若存在false，否则true
+                    url: "/register/checkEmailRegister?"+$("#email").val(),//异步验证
+                    type: "get",
+                },
             },
             email_validate_code:{
                 required:true,
@@ -81,6 +85,7 @@ function validateForm1(){
             email:{
                 required:"邮箱不能为空",
                 email:"邮箱格式不正确",
+                remote: "已被注册",
 
             },
             email_validate_code:{
@@ -148,8 +153,15 @@ function validateForm2(){
 function sendEmailValidateCode(){
     //emailVerify_btn
     $("#emailVerify_btn").click(function(){
-        if($("#email").valid() == false) return;
+
+        //1.若邮箱已经注册，不能发送验证码
+        var emailStatus = $("#email").valid();
         var email = $("#email").val();
+        if(emailStatus == false){
+            model_tip_show('model_tip','model_tip_content','邮箱为空或已被注册');
+            return;
+        }
+
         sendEmailVerifyCodeFromButton(email,"emailVerify_btn");
     })
 }
