@@ -1,6 +1,8 @@
 package cn.edu.hust.controller;
 
+import cn.edu.hust.model.HustDepartment;
 import cn.edu.hust.model.response.CommonResponse;
+import cn.edu.hust.service.HustDepartmentService;
 import cn.edu.hust.utils.RandomStrUtil;
 import cn.edu.hust.utils.VerifyCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by xiaolei03 on 16/12/3.
@@ -34,6 +37,9 @@ public class CommonController {
 
     @Autowired
     private TemplateEngine templateEngine;
+
+    @Autowired
+    private HustDepartmentService hustDepartmentService;
 
     /**
      * 生成图片验证码
@@ -94,6 +100,12 @@ public class CommonController {
         }
 
         return commonResponse.withCode(200).withMsg("成功");
+    }
+
+    @RequestMapping(value = "/department/list")
+    @ResponseBody
+    public List<HustDepartment> getHustDepartment() {
+       return hustDepartmentService.getAllDepartments();
     }
 
 }

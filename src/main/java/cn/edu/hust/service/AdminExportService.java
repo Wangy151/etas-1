@@ -248,7 +248,7 @@ public class AdminExportService {
         String[] thesisPaths = thesisExportDao.getExportPdf(SqlUtil.arrayToSql(userIds));
         List<String> srcFileList = new ArrayList<String>();
         for (String thesisPath : thesisPaths) {
-            srcFileList.add(thesisPath + ".pdf");
+            srcFileList.add(FILE_UPLOAD_DIRECTORY + File.separator + thesisPath + LW_POSTFIX);
         }
         ZipUtil.doCompress(srcFileList, outputStream);
     }

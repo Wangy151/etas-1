@@ -2,20 +2,14 @@ package cn.edu.hust.controller;
 
 import cn.edu.hust.model.HustDepartment;
 import cn.edu.hust.model.ThesisBasicInfo;
-import cn.edu.hust.model.request.AdminExportRequest;
 import cn.edu.hust.model.request.AdminExportSearchRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
 import cn.edu.hust.service.AdminExportService;
 import cn.edu.hust.service.HustDepartmentService;
-import cn.edu.hust.utils.SqlUtil;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
@@ -41,6 +34,11 @@ public class AdminExportController {
 
     @Autowired
     private HustDepartmentService hustDepartmentService;
+
+    @Value("${file.upload.directory}")
+    private String FILE_UPLOAD_DIRECTORY;
+
+    private static final String LW_POSTFIX = ".pdf";
 
     /**
      * 进入主页
