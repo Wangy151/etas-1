@@ -37,7 +37,7 @@ public interface ThesisExportDao {
     String[] getExportPdf(String whereInSql);
 
     // 更新序号
-    @Select(" SELECT zzxh, lwywlj, student_type, yjxkdm, ejxkdm FROM thesis_basic_info WHERE apply_year = #{applyYear} and apply_status = #{applyStatus}" +
+    @Select(" SELECT zzxh, lwywlj, student_type, xxdm, ejxkdm FROM thesis_basic_info WHERE apply_year = #{applyYear} and apply_status = #{applyStatus}" +
             " ORDER BY department, student_type, zzxh ")
     List<ThesisBasicInfo> getUpdateXhStudentInfo(@Param("applyYear") String applyYear,
                                              @Param("applyStatus") String applyStatus);

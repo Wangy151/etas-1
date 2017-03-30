@@ -42,6 +42,8 @@ public class AdminExportService {
     @Value("${file.upload.directory}")
     private String FILE_UPLOAD_DIRECTORY;
 
+    private static final String LW_POSTFIX = ".pdf";
+
     /**
      * 查询
      * @param adminExportSearchRequest
@@ -283,7 +285,7 @@ public class AdminExportService {
 
         // 处理硕士
         try {
-            this.doUploadXh(masterThesisBasicInfoList);
+            this.doUploadXh(masterThesisBasicInfoList, "YS");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -291,7 +293,7 @@ public class AdminExportService {
 
         // 处理博士
         try {
-            this.doUploadXh(doctorThesisBasicInfoList);
+            this.doUploadXh(doctorThesisBasicInfoList, "YB");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -303,16 +305,16 @@ public class AdminExportService {
     private void resetLwywlj(List<ThesisBasicInfo> thesisBasicInfoList) throws Exception {
         for (ThesisBasicInfo thesisBasicInfo : thesisBasicInfoList) {
             String zzxh = thesisBasicInfo.getZzxh();
-            String pathPrefix = thesisBasicInfo.getYjxkdm() + "_" + thesisBasicInfo.getEjxkdm() + "_" + zzxh;
-            String newLwywlj = pathPrefix + "LW";
+            String pathPrefix = thesisBasicInfo.getXxdm() + "_" + thesisBasicInfo.getEjxkdm() + "_" + zzxh;
+            String newLwywlj = pathPrefix + "_LW";
 
             String lwywlj = thesisBasicInfo.getLwywlj();
             if (!newLwywlj.equals(lwywlj)) {
                 thesisBasicInfo.setLwywlj(newLwywlj);
 
                 // rename
-                File file = new File(FILE_UPLOAD_DIRECTORY + File.separator + lwywlj);
-                File renamedFile = new File(FILE_UPLOAD_DIRECTORY + File.separator + newLwywlj);
+                File file = new File(FILE_UPLOAD_DIRECTORY + File.separator + lwywlj + LW_POSTFIX);
+                File renamedFile = new File(FILE_UPLOAD_DIRECTORY + File.separator + newLwywlj + LW_POSTFIX);
                 if (file.exists()) {
                     file.renameTo(renamedFile);
                 } else {
@@ -324,20 +326,20 @@ public class AdminExportService {
     }
 
     @Transactional
-    private void doUploadXh(List<ThesisBasicInfo> thesisBasicInfoList) throws Exception {
+    private void doUploadXh(List<ThesisBasicInfo> thesisBasicInfoList, String xhPrefix) throws Exception {
         int count = 1;
 
         for (ThesisBasicInfo thesisBasicInfo : thesisBasicInfoList) {
             String index = String.format("%03d", count++);
-            String xh = "YS" + index;
-            String pathPrefix = thesisBasicInfo.getYjxkdm() + "_" + thesisBasicInfo.getEjxkdm() + "_" + xh;
-            String newLwtjblj = pathPrefix + "ZPB";
-            String newLwywlj = pathPrefix + "LW";
+            String xh = xhPrefix + index;
+            String pathPrefix = thesisBasicInfo.getXxdm() + "_" + thesisBasicInfo.getEjxkdm() + "_" + xh;
+            String newLwtjblj = pathPrefix + "_ZPB";
+            String newLwywlj = pathPrefix + "_LW";
 
             String lwywlj = thesisBasicInfo.getLwywlj();
             // rename
-            File file = new File(FILE_UPLOAD_DIRECTORY + File.separator + lwywlj);
-            File renamedFile = new File(FILE_UPLOAD_DIRECTORY + File.separator + newLwywlj);
+            File file = new File(FILE_UPLOAD_DIRECTORY + File.separator + lwywlj + LW_POSTFIX);
+            File renamedFile = new File(FILE_UPLOAD_DIRECTORY + File.separator + newLwywlj + LW_POSTFIX);
             if (file.exists()) {
                 file.renameTo(renamedFile);
             } else {
