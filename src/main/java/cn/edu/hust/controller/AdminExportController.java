@@ -1,5 +1,6 @@
 package cn.edu.hust.controller;
 
+import cn.edu.hust.model.HustDepartment;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.AdminExportRequest;
 import cn.edu.hust.model.request.AdminExportSearchRequest;
@@ -7,6 +8,7 @@ import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
 import cn.edu.hust.service.AdminExportService;
+import cn.edu.hust.service.HustDepartmentService;
 import cn.edu.hust.utils.SqlUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +39,17 @@ public class AdminExportController {
     @Autowired
     private AdminExportService adminExportService;
 
+    @Autowired
+    private HustDepartmentService hustDepartmentService;
 
     /**
      * 进入主页
      */
     @RequestMapping(value = "/index")
-    public String index() {
+    public String index(Model model) {
+        List<HustDepartment> hustDepartmentList = hustDepartmentService.getAllDepartments();
+        model.addAttribute("hustDepartmentList", hustDepartmentList);
+
         return "admin_export_thesis_info";
     }
 

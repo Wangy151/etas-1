@@ -1,11 +1,13 @@
 package cn.edu.hust.controller;
 
+import cn.edu.hust.model.HustDepartment;
 import cn.edu.hust.model.User;
 import cn.edu.hust.model.request.AdminActiveRequest;
 import cn.edu.hust.model.request.AdminActiveTeacherSearchRequest;
 import cn.edu.hust.model.response.CommonResponse;
 import cn.edu.hust.model.response.FailResponse;
 import cn.edu.hust.model.response.SuccessResponse;
+import cn.edu.hust.service.HustDepartmentService;
 import cn.edu.hust.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +28,13 @@ public class AdminActiveTeacherController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HustDepartmentService hustDepartmentService;
+
     @RequestMapping(value = "/index")
-    public String index(Model model, HttpSession session){
+    public String index(Model model){
+        List<HustDepartment> hustDepartmentList = hustDepartmentService.getAllDepartments();
+        model.addAttribute("hustDepartmentList", hustDepartmentList);
         return "admin_active_teacher_account";
     }
 
