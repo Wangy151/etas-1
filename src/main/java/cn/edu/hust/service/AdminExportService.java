@@ -17,6 +17,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.util.StringUtils;
 
@@ -38,8 +39,8 @@ public class AdminExportService {
     @Autowired
     private VelocityEngine velocityEngine;
 
-    @Value("$tjb_save_path")
-    private String TJB_SAVE_PATH;
+    @Value("${file.upload.directory}")
+    private String FILE_UPLOAD_DIRECTORY;
 
     /**
      * 查询
@@ -252,5 +253,104 @@ public class AdminExportService {
 
     public String getAdminExportPdfSql(String whereInSql) {
         return " SELECT lwywlj FROM thesis_basic_info WHERE zzxh IN (" + whereInSql + ")";
+    }
+
+    /**
+     * 更新序号
+     * @param applyYear 申请年份
+     * @return
+     */
+    public boolean updateXh(String applyYear) {
+        List<ThesisBasicInfo> thesisBasicInfoList = thesisExportDao.getUpdateXhStudentInfo(applyYear, "通过审核");
+        // reset  每次更新序号前将文件名重置至最初状态
+        try {
+            this.resetLwywlj(thesisBasicInfoList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
+        List<ThesisBasicInfo> masterThesisBasicInfoList = new ArrayList<ThesisBasicInfo>();
+        List<ThesisBasicInfo> doctorThesisBasicInfoList = new ArrayList<ThesisBasicInfo>();
+        for (ThesisBasicInfo thesisBasicInfo : thesisBasicInfoList) {
+            if ("硕士".equalsIgnoreCase(thesisBasicInfo.getStudentType())) {
+                masterThesisBasicInfoList.add(thesisBasicInfo);
+            } else if ("博士".equalsIgnoreCase(thesisBasicInfo.getStudentType())) {
+                doctorThesisBasicInfoList.add(thesisBasicInfo);
+            }
+        }
+
+        // 处理硕士
+        try {
+            this.doUploadXh(masterThesisBasicInfoList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        // 处理博士
+        try {
+            this.doUploadXh(doctorThesisBasicInfoList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void resetLwywlj(List<ThesisBasicInfo> thesisBasicInfoList) throws Exception {
+        for (ThesisBasicInfo thesisBasicInfo : thesisBasicInfoList) {
+            String zzxh = thesisBasicInfo.getZzxh();
+            String pathPrefix = thesisBasicInfo.getYjxkdm() + "_" + thesisBasicInfo.getEjxkdm() + "_" + zzxh;
+            String newLwywlj = pathPrefix + "LW";
+
+            String lwywlj = thesisBasicInfo.getLwywlj();
+            if (!newLwywlj.equals(lwywlj)) {
+                thesisBasicInfo.setLwywlj(newLwywlj);
+
+                // rename
+                File file = new File(FILE_UPLOAD_DIRECTORY + File.separator + lwywlj);
+                File renamedFile = new File(FILE_UPLOAD_DIRECTORY + File.separator + newLwywlj);
+                if (file.exists()) {
+                    file.renameTo(renamedFile);
+                } else {
+                    throw new Exception("论文文件不存在: " + lwywlj);
+                }
+            }
+        }
+
+    }
+
+    @Transactional
+    private void doUploadXh(List<ThesisBasicInfo> thesisBasicInfoList) throws Exception {
+        int count = 1;
+
+        for (ThesisBasicInfo thesisBasicInfo : thesisBasicInfoList) {
+            String index = String.format("%03d", count++);
+            String xh = "YS" + index;
+            String pathPrefix = thesisBasicInfo.getYjxkdm() + "_" + thesisBasicInfo.getEjxkdm() + "_" + xh;
+            String newLwtjblj = pathPrefix + "ZPB";
+            String newLwywlj = pathPrefix + "LW";
+
+            String lwywlj = thesisBasicInfo.getLwywlj();
+            // rename
+            File file = new File(FILE_UPLOAD_DIRECTORY + File.separator + lwywlj);
+            File renamedFile = new File(FILE_UPLOAD_DIRECTORY + File.separator + newLwywlj);
+            if (file.exists()) {
+                file.renameTo(renamedFile);
+            } else {
+                throw new Exception("论文文件不存在: " + lwywlj);
+            }
+
+            String zzxh = thesisBasicInfo.getZzxh();
+            int affectRows = thesisExportDao.updateStudentXh(xh, newLwtjblj, newLwywlj, zzxh);
+            if (affectRows <= 0) {
+                throw new Exception("数据库中不存在该学号：" + zzxh);
+            }
+
+        }
+
     }
 }

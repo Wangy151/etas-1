@@ -3,6 +3,9 @@ package cn.edu.hust.controller;
 import cn.edu.hust.model.ThesisBasicInfo;
 import cn.edu.hust.model.request.AdminExportRequest;
 import cn.edu.hust.model.request.AdminExportSearchRequest;
+import cn.edu.hust.model.response.CommonResponse;
+import cn.edu.hust.model.response.FailResponse;
+import cn.edu.hust.model.response.SuccessResponse;
 import cn.edu.hust.service.AdminExportService;
 import cn.edu.hust.utils.SqlUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -16,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -97,5 +101,24 @@ public class AdminExportController {
         OutputStream outputStream = response.getOutputStream();
 
         adminExportService.exportPdfPackage(userIds.split(","), outputStream);
+    }
+
+    /**
+     * 更新序号
+     */
+    @RequestMapping(value = "/xh/update")
+    @ResponseBody
+    public CommonResponse updateXh(@RequestBody AdminExportSearchRequest adminExportSearchRequest) throws IOException {
+        String applyYear = adminExportSearchRequest.getApplyYear();
+
+        try {
+            if (adminExportService.updateXh(applyYear)) {
+                return new SuccessResponse();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new FailResponse();
     }
 }
