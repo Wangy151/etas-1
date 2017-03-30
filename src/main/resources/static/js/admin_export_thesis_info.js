@@ -6,8 +6,12 @@ var adminExportSearchUrl = "/home/admin/export/search";
 var updateStudentsXhUrl = "/home/admin/export/xh/update";
 
 $(document).ready(function () {
+    initPageShow();
     search();
-    updateStudentsXH();
+    model1_UpdateXH();
+    model1_cancelUpdateXH();
+    model2_UpdateXH();
+    model2_cancelUpdateXH();
 });
 
 //搜索按钮事件
@@ -44,30 +48,52 @@ function search(){
     }) //click
 }
 
-function updateStudentsXH(){
+function initPageShow(){
+    openModalWindow("model_updateXH1_tip");
+}
+
+function model1_UpdateXH(){
+    $("#model_updateXH1_ok_btn").click(function(){
+        closeModal("model_updateXH1_tip");
+        openModalWindow("model_updateXH2_tip");
+    })
+
+}
+
+function model1_cancelUpdateXH(){
+    $("#model_updateXH1_cancel_btn").click(function(){
+        closeModal("model_updateXH1_tip");
+    })
+}
+
+function model2_UpdateXH(){
     //1.检查年份是否为空
     //2.弹出确认框
     //3.发送数据给后台处理
     //4.弹出浮动进度框
     //5.显示最后处理结果
 
-    $("#update_students_xh_btn").click(function () {
+    $("#model_updateXH2_ok_btn").click(function () {
         //1.检查年份是否为空
-        var applyYear = $("#apply_year").val();
+        var applyYear = $("#apply_year1").val();
         if(applyYear == ""){
-            model_tip_show('model_tip','model_tip_content','请选择学生的申请年份');
+            alert("更新年份不能为空");
             return;
         }
+        //2.开始更新
+        closeModal("model_updateXH2_tip");
+        updateStudentsXH1(applyYear);
+    })
+}
 
-        //2.弹出确认框
-        var confirmMsg = "确认是否更新"+applyYear+"年所有通过审核学生的序号";
-        model_ok_show("model_ok","model_ok_content",confirmMsg,"model_ok_btn",updateStudentsXH1);
+function model2_cancelUpdateXH(){
+    $("#model_updateXH2_cancel_btn").click(function(){
+        closeModal("model_updateXH2_tip");
     })
 
 }
 
-function updateStudentsXH1(){
-    closeModal("model_ok");
+function updateStudentsXH1(applyYear){
     //3.发送数据给后台处理
     $.ajax({
         type: "POST",
@@ -75,7 +101,7 @@ function updateStudentsXH1(){
         contentType: "application/json",
 
         data: JSON.stringify({
-            "applyYear":$("#apply_year").val(),
+            "applyYear":applyYear,
         }),
 
         beforeSend: function(XMLHttpRequest){
@@ -105,7 +131,6 @@ function updateStudentsXH1(){
     });
 
 }
-
 
 
 

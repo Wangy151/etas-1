@@ -145,7 +145,6 @@
         </div>
 
         <div class="search_btn_div">
-            <button type="button" id="update_students_xh_btn" class="btn btn-primary">更新所有学生序号</button>
             <button type="button" id="search_btn" class="btn btn-primary">查询</button>
         </div>
         <div class="clear"></div>
@@ -241,20 +240,67 @@
 
 <!-- 提示更新序号  Model  -->
 <!--调用方法:model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",success_func)-->
-<div id="model_updateXH_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+<div id="model_updateXH1_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <h3 class="modal-title" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_ok_body" id="model_updateXH1_content">
+                导出通过审核的学生信息前需要更新基本信息表中的序号、论文推荐表路径等字段信息
+            </div>
+            <div class="model_foot">
+                <div class="model_ok_btn_close">
+                    <button type="button" id="model_updateXH1_cancel_btn" class="btn btn-primary">已更新，跳过</button>
+                    <button type="button" id="model_updateXH1_ok_btn" class="btn btn-primary" data-dismiss="modal" style=" float:right;margin-right:5px">全部更新</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model  -->
+
+<!-- 提示更新序号1  Model  -->
+<!--调用方法:model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",success_func)-->
+<div id="model_updateXH2_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
     <div class="modal-dialog modal-sm model_size">
         <div class="modal-content">
             <div class="model_head">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h3 class="modal-title" style="text-align: center">提示</h3>
+                <h3 class="modal-title" style="text-align: center">更新序号</h3>
             </div>
-            <div class="model_ok_body" id="model_updateXH_content">
-                导出通过审核的学生信息前需要更新所有序号字段
+            <div class="model_ok_body" id="model_updateXH2_content">
+                更新年份
+                <select id="apply_year1" class="input_width" style="width:60%">
+                    <option value="">请选择</option>
+                    <!--<option value="2016">2016</option>-->
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                    <option value="2031">2031</option>
+                    <option value="2032">2032</option>
+                    <option value="2033">2033</option>
+                    <option value="2034">2034</option>
+                    <option value="2035">2035</option>
+                </select>
             </div>
             <div class="model_foot">
                 <div class="model_ok_btn_close">
-                    <button type="button" id="model_updateXH_ok_btn" class="btn btn-primary">已更新</button>
-                    <button type="button" id="model_updateXH_cancel_btn" class="btn btn-primary" data-dismiss="modal" style=" float:right;margin-right:5px">未更新</button>
+                    <button type="button" id="model_updateXH2_ok_btn" class="btn btn-primary">开始更新</button>
+                    <button type="button" id="model_updateXH2_cancel_btn" class="btn btn-primary" data-dismiss="modal" style=" float:right;margin-right:5px">取消</button>
                 </div>
 
             </div>
