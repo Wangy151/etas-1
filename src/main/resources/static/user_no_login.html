@@ -2,9 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <link href="css/general.css" rel="stylesheet">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/general_help.js"></script>
+    <title>重新登录</title>
+
+    <script>
+        $(document).ready(function () {
+            initReloginModel();
+            returnToLoginPageBtn();
+        });
+        function initReloginModel(){
+            model_tip_show('model_tip','model_tip_content','请重新登录');
+        }
+
+        function returnToLoginPageBtn(){
+            $("#returnToLoginPageBtn").click(function(){
+                location.assign("/index.html");
+            })
+        }
+
+    </script>
+
 </head>
 <body>
-为了保证账号安全,请您重新登录: <a href="/index.html">返回登录页面</a>
+
+
+<!-- Model  -->
+<!--调用方法:model_tip_show('model_tip1','model_tip_content1','系统繁忙请稍后再试!');-->
+
+<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel1" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button id="returnToLoginPageBtn" type="button" class="btn btn-primary btn-block" data-dismiss="modal">返回登录页面</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model  -->
+
+
 </body>
 </html>

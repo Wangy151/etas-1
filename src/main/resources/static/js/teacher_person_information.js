@@ -159,7 +159,7 @@ function sendEmailValidateCode(){
         if($("#email").valid()==false) return;
         // 邮箱合法后
         var email = $("#email").val();
-        sendEmailVerifyCode(email);
+        sendEmailVerifyCodeFromButton(email,"emailVerify_btn");
     })
 }
 

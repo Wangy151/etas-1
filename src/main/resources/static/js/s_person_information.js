@@ -168,7 +168,7 @@ function sendEmailValidateCode(){
         //检验邮箱输入框是否合法
         if($("#email").valid()) return;
 
-        sendEmailVerifyCode(email);
+        sendEmailVerifyCodeFromButton(email,"emailVerify_btn");
     })
 }
 
