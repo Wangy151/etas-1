@@ -86,17 +86,25 @@ function initUserModelMenuDiv() {
         showStudentModelDiv();
         hideTeacherModelDiv();
         hideAdminModelDiv();
+        changeMenuSlip();
     }else if(userRole == "学院教务员"){
         showTeacherModelDiv();
         hideStudentModelDiv();
         hideAdminModelDiv();
+        changeMenuSlip();
     }else if(userRole == "管理员"){
         showAdminModelDiv();
         hideStudentModelDiv();
         hideTeacherModelDiv();
+        changeMenuSlip();
     }else{
 
     }
+}
+
+function changeMenuSlip(){
+    $("h3.menu_head").addClass("current").next("div.menu_body").slideToggle(300).siblings("div.menu_body").slideUp("slow");
+    $("h3.menu_head").siblings().removeClass("current");
 }
 
 function showStudentModelDiv(){
