@@ -10,6 +10,7 @@ import cn.edu.hust.model.response.SuccessResponse;
 import cn.edu.hust.model.response.ThesisApplyAbstractResponse;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -38,6 +39,9 @@ public class StudentService {
 
     @Autowired
     private StudentInfoImportDao studentInfoImportDao;
+
+    @Value("${file.upload.directory}")
+    private String FILE_UPLOAD_DIRECTORY;
 
     /**
      * 基本信息表
@@ -126,7 +130,7 @@ public class StudentService {
             return new FailResponse();
         }
 
-        String fileSavePath = fileName;
+        String fileSavePath = FILE_UPLOAD_DIRECTORY + File.separator + fileName;
 
         // delete old file
         File fileObj = new File(fileSavePath);
@@ -147,9 +151,11 @@ public class StudentService {
     }
 
     public byte[] getFileByteArray(String fileName) throws IOException {
-        File f = new File(fileName);
+        String fileSavePath = FILE_UPLOAD_DIRECTORY + File.separator + fileName;
+
+        File f = new File(fileSavePath);
         if (!f.exists()) {
-            throw new FileNotFoundException(fileName);
+            throw new FileNotFoundException(fileSavePath);
         }
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream((int) f.length());
