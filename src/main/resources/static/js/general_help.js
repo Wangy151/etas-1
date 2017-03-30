@@ -571,6 +571,38 @@ function paramErrorAlert(paramName,paramValue){
     alert("system param invalid error: "+ paramName + "  " + paramValue);
 }
 
+function sendEmailVerifyCodeFromButton(email,buttonId){
+    //emailVerify_btn
+    $.ajax({
+        type: "GET",
+        url: sendEmailVerifyCodeUrl+email,
+        beforeSend: function(XMLHttpRequest){
+            $("#"+buttonId).text("正在发送...");
+            $("#"+buttonId).attr("disabled","disabled");
+        },
+
+        success: function(data){
+            var status = data.code;
+            var msg = data.msg;
+            if(status == "200")
+                model_tip_show('model_tip','model_tip_content','系统已发送邮箱验证码，请查收');
+            else if(status ==  "500")
+                model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
+            else
+                model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试');
+        },
+
+        error: function(XMLHttpRequest, textStatus) {
+        },
+
+        complete: function(XMLHttpRequest, textStatus){
+            $("#"+buttonId).removeAttr("disabled");
+            $("#"+buttonId).text("发送验证码");
+        }
+
+    });
+}
+
 function sendEmailVerifyCode(email){
     //emailVerify_btn
     $.ajax({

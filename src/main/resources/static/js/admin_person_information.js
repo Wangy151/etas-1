@@ -150,7 +150,7 @@ function sendEmailValidateCode(){
     $("#emailVerify_btn").click(function(){
         if($("#email").valid() == false) return;
         var email = $("#email").val();
-        sendEmailVerifyCode(email);
+        sendEmailVerifyCodeFromButton(email,"emailVerify_btn");
     })
 }
 

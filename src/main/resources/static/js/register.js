@@ -211,10 +211,16 @@ function ChangeValidateCode() {
 //发送验证码
 function sendEmailVerifyCodeBtn() {
     $("#emailVerify_btn").click(function () {
-        if($("#email").valid()){  //发送邮箱验证码前验证表单验证码是否合法
-            var email = $("#email").val();
-            sendEmailVerifyCode(email);
-        } //valid
+        //1.若邮箱已经注册，不能发送验证码
+        var emailStatus = $("#email").valid();
+        var email = $("#email").val();
+        if(emailStatus == false){
+            model_tip_show('model_tip','model_tip_content','邮箱为空或已被注册');
+            return;
+        }
+        //2.发送邮件
+        sendEmailVerifyCodeFromButton(email,"emailVerify_btn");
+
     });
 
 }
