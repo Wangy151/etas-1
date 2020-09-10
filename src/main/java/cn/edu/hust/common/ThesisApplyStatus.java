@@ -1,7 +1,7 @@
 package cn.edu.hust.common;
 
 /**
- * Created by xiaolei03 on 17/1/4.
+ * Created by xiaolei03 on 17/1/4. and meihao
  */
 
 /**
