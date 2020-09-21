@@ -85,19 +85,7 @@
                     <fork>true</fork>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                    <!--指定你的jdk地址-->
-                    <executable>
-                        D:\code\sdk\jdk\bin\javac.exe
-                    </executable>
-                </configuration>
-            </plugin>
-
+                          
         </plugins>
     </build>
 </project>
