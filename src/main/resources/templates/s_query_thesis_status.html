@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <title>学生查询论文状态</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link href="../static/css/s_query_thesis_status.css" th:href="@{/css/s_query_thesis_status.css}" rel="stylesheet"/>
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
+    <script type="text/javascript" src="../static/js/s_query_thesis_status.js" th:src="@{/js/s_query_thesis_status.js}"></script>
+</head>
+<body>
+
+    <div class="table_body">
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <td>表类型</td><td>是否完成</td><td>操作</td><td>申请状态</td>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>基本信息表</td>
+                    <td id="basicInfoStatus" th:text="${thesisApplyAbstractResponse.basicTableFinish}">完成</td>
+                    <td>
+                        <a href="#" id="basicTable_create_btn"><img src="../static/imgs/add.png" th:src="@{/imgs/add.png}" />新增</a>&nbsp;|&nbsp;
+                        <a href="#" id="basicTable_edit_btn"><img src="../static/imgs/edit.png" th:src="@{/imgs/edit.png}" />编辑</a>&nbsp;|&nbsp;
+                        <a href="#" id="basicTable_view_btn"><img src="../static/imgs/view.png" th:src="@{/imgs/view.png}" />查看</a>
+                    </td>
+                    <td id="applyStatus" rowspan="2" th:text="${thesisApplyAbstractResponse.applyStatus}">待学生提交</td>
+
+                </tr>
+                <tr>
+                    <td>推荐表</td>
+                    <td id="tjbStatus" th:text="${thesisApplyAbstractResponse.tjbFinish}">未完成</td>
+                    <td>
+                        <a href="#" id="tjb_create_btn"><img src="../static/imgs/add.png" th:src="@{/imgs/add.png}" />新增</a>&nbsp;|&nbsp;
+                        <a href="#" id="tjb_edit_btn"><img src="../static/imgs/edit.png" th:src="@{/imgs/edit.png}" />编辑</a>&nbsp;|&nbsp;
+                        <a href="#" id="tjb_view_btn"><img src="../static/imgs/view.png" th:src="@{/imgs/view.png}" />查看</a>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="apply_btn_div">
+        <button type="button" id="deleteApply_btn" class="btn btn-lg btn-primary">删除申请</button>
+        <button type="button" id="submitApply_btn" class="btn btn-lg btn-primary" style="margin-left:40px;">提交申请</button>
+    </div>
+
+    <!-- Model  -->
+    <!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+
+    <div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_body" id="model_tip_content">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_btn_close">
+                        <button type="button" id="model_tip_close_btn" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
+
+
+    <!-- 确定/取消 Model  -->
+    <!--调用方法:model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",success_func)-->
+
+    <div id="model_ok" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_ok_body" id="model_ok_content">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_ok_btn_close">
+                        <button type="button" id="model_ok_btn" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" style=" float:right;margin-right:5px">取&nbsp;&nbsp;消</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
+
+</body>
+</html>

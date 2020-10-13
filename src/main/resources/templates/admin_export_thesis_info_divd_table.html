@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>管理员导出结果页面</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
+    <script type="text/javascript" src="../static/js/admin_export_thesis_info_divd_table.js" th:src="@{/js/admin_export_thesis_info_divd_table.js}"></script>
+</head>
+<body>
+    <div class="table_body">
+        <div class="row" style="margin-top: 50px;margin-bottom: 10px">
+            <div class="col-md-1" style="margin-left: 10px">
+                <button type="button" id="select_all_btn" class="btn btn-primary btn-xs">全选</button>
+            </div>
+            <div class="col-md-1" style="margin-left: -30px">
+                <button type="button" id="no_select_all_btn" class="btn btn-primary btn-xs">反选</button>
+            </div>
+            <div class="col-md-2" style="margin-left: -30px">
+                <button type="button" id="export_execl_file_btn" class="btn btn-success btn-xs">导出Excel文件</button>
+            </div>
+            <div class="col-md-2" style="margin-left: -30px">
+                <button type="button" id="export_lwtjb_file_btn" class="btn btn-success btn-xs">导出论文推荐表</button>
+            </div>
+            <div class="col-md-2" style="margin-left: -30px">
+                <button type="button" id="export_thesis_pdf_file_btn" class="btn btn-success btn-xs">导出论文pdf文件</button>
+            </div>
+
+        </div>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <td>选择</td><td>申请年份</td><td>学院</td><td>学生类型</td><td>姓名</td><td>学号</td><td>论文题目</td><td>导师姓名</td><td>状态</td>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(thesisBasicInfoList)}">
+                <td colspan="9" align="center">暂无数据, 请尝试输入其他条件重新查询~</td>
+            </tr>
+
+            <tr th:each="item : ${thesisBasicInfoList}">
+                <td><input type="checkbox" name="checkboxStatus" /></td>
+                <td th:text="${item.applyYear}">2017</td>
+                <td th:text="${item.department}">计算机科学与技术学院</td>
+                <td th:text="${item.studentType}">硕士</td>
+                <td th:text="${item.zzxm}">吴耀武</td>
+                <td class="userId" th:text="${item.zzxh}">M201376136</td>
+                <td th:text="${item.lwtm}">基于HTTP协议的电力智能锁控系统设计与研究</td>
+                <td th:text="${item.dsxm}">刘晓军</td>
+                <td th:text="${item.applyStatus}">同意</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Model  -->
+    <!--调用方法:model_tip_show('model_tip1','model_tip_content1','系统繁忙请稍后再试!');-->
+
+    <div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="myModalLabel1" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_body" id="model_tip_content">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_btn_close">
+                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
+
+    <!-- 确定/取消 Model  -->
+    <!--调用方法:model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",success_func)-->
+    <div id="model_ok" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_ok_body" id="model_ok_content">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_ok_btn_close">
+                        <button type="button" id="model_ok_btn" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" style=" float:right;margin-right:5px">取&nbsp;&nbsp;消</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
+
+    <!-- 更新所有学生序号  Model  -->
+    <div id="model_update_xh" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" style="text-align: center">更新序号进度</h3>
+                </div>
+                <div class="model_body" id="model_file_status_content">
+                    <div class="text-center text-info">系统正在更新学生序号，请不要关闭本窗口</div>
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 40%;">
+                            <span class="sr-only">40% 完成</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="model_foot">
+                    <!--<div class="model_btn_close">-->
+                    <!--<button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
+
+</body>
+</html>

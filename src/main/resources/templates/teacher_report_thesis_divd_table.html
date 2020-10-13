@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>教务员上报论文表格</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet"/>
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet"/>
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
+    <script type="text/javascript" src="../static/js/teacher_report_thesis_divd_table.js" th:src="@{/js/teacher_report_thesis_divd_table.js}"></script>
+    <style rel="stylesheet">
+
+        .search .search_row{
+            background-color: rgb(245,245,245);
+            height:auto;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .table_body{
+            margin-top: 30px;
+        }
+        .table_body thead{
+            background-color:rgb(224,224,224) ;
+            font-weight: 800;
+        }
+        .position ol{
+            background-color: white;
+        }
+        table td{
+            text-align: center;
+        }
+
+    </style>
+
+
+</head>
+<body>
+<div class="table_body">
+    <div class="row" style="margin-bottom: 15px;">
+        <div class="col-md-1" style="margin-left: 10px">
+            <button type="button" id="select_all_btn" class="btn btn-primary btn-xs">全选</button>
+        </div>
+        <div class="col-md-1" style="margin-left: -30px">
+            <button type="button" id="no_select_all_btn" class="btn btn-primary btn-xs">反选</button>
+        </div>
+        <div class="col-md-1" style="margin-left: -30px">
+            <button type="button" id="report_btn" class="btn btn-success btn-xs">上报</button>
+        </div>
+        <div class="col-md-1" style="margin-left: -30px">
+            <button type="button" id="cancel_report_btn" class="btn btn-danger btn-xs">取消上报</button>
+        </div>
+
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <td>选择</td><td>申请年份</td><td>学号</td><td>姓名</td><td>学生类型</td><td>导师姓名</td><td>论文题目</td><td>状态</td><td>基本信息表操作</td><td>论文推荐表操作</td>
+        </thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(thesisBasicInfoList)}">
+                <td colspan="10" align="center">暂无数据, 请尝试输入其他条件重新查询~</td>
+            </tr>
+
+            <tr th:each="item : ${thesisBasicInfoList}">
+                <td><input type="checkbox" name="checkboxStatus"/></td>
+                <td th:text="${item.applyYear}">2017</td>
+                <td class="userId" th:text="${item.zzxh}">M201476130</td>
+                <td th:text="${item.zzxm}">刘杰</td>
+                <td th:text="${item.studentType}">硕士</td>
+                <td th:text="${item.dsxm}">付海文</td>
+                <td th:text="${item.lwtm}">基于HTTP协议的电力智能锁控系统设计与实现</td>
+                <td class="apply_status" th:text="${item.applyStatus}">待学院上报</td>
+                <td>
+                    <a class="basicInfoViewBtn" href="#">
+                        <img src="../static/imgs/view.png" th:src="@{/imgs/view.png}" />查看
+                    </a>&nbsp;|&nbsp;
+                    <a class="basicInfoEditBtn" href="#">
+                        <img src="../static/imgs/edit.png" th:src="@{/imgs/edit.png}" />修改
+                    </a>
+                </td>
+                <td>
+                    <a class="tjbViewBtn" href="#">
+                        <img src="../static/imgs/view.png" th:src="@{/imgs/view.png}" />查看
+                    </a>&nbsp;|&nbsp;
+                    <a class="tjbEditBtn" href="#">
+                        <img src="../static/imgs/edit.png" th:src="@{/imgs/edit.png}" />修改
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Model  -->
+<!--调用方法:model_tip_show('model_tip1','model_tip_content1','系统繁忙请稍后再试!');-->
+
+<div id="model_tip1" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel1" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content1">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model  -->
+
+<!-- 确定/取消 Model  -->
+<!--调用方法:model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",success_func)-->
+
+<div id="model_ok" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_ok_body" id="model_ok_content">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_ok_btn_close">
+                    <button type="button" id="model_ok_btn" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" style=" float:right;margin-right:5px">取&nbsp;&nbsp;消</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model  -->
+
+
+</body>
+</html>

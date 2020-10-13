@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>优秀论文基本信息表</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
+    <link href="../static/css/master_thesis_apply_sheet.css" th:href="@{/css/master_thesis_apply_sheet.css}" rel="stylesheet" />
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
+
+</head>
+<body>
+
+<div id="sheet_wrap">
+
+    <div class="table_title">
+        <span>湖北省优秀论文基本信息表--预览</span>
+    </div>
+
+
+    <form id="basic_info_form" style="border-top: 1px solid black;">
+        <table class="table" id="table0">
+            <tbody>
+            <tr>
+                <td class="td_key">省市代码</td>
+                <td><input type="text" disabled="disabled" id="ssdm" name="ssdm" value="42"/></td>
+                <td class="td_key">省市名称</td>
+                <td class="td_border_left"><input type="text" disabled="disabled" id="ssmc" name="ssmc" value="湖北省"/></td>
+            </tr>
+            <tr>
+                <td class="td_key">学校代码</td>
+                <td><input type="text" id="xxdm" name="xxdm" disabled="disabled" value="10487"/></td>
+                <td class="td_key">学校名称</td>
+                <td><input type="text" id="xxmc" name="xxmc" disabled="disabled" value="华中科技大学"/></td>
+            </tr>
+
+            <tr>
+                <td class="td_key">作者学号</td>
+                <td><input type="text" id="zzxh" name="zzxh" disabled="disabled" placeholder="请填写正确的学号" th:value="${thesisBasicInfo.zzxh}" /></td>
+                <td class="td_key">序号</td><td><input type="text" id="xh" name="xh" disabled="disabled" placeholder="此项由学校管理员填写" th:value="${thesisBasicInfo.xh}" /></td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>参评类型</td>
+                <td>
+                    <input id="cplx" name="cplx" disabled="disabled" th:value="${thesisBasicInfo.cplx}" />
+                </td>
+                <td class="td_key"><span class="font_star">*</span>攻读方式</td>
+                <td>
+                    <input id="gdfs" name="gdfs" disabled="disabled" th:value="${thesisBasicInfo.gdfs}" />
+                </td>
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>作者姓名</td>
+                <td><input type="text" id="zzxm" name="zzxm" placeholder="姓名中间不允许有空格" th:value="${thesisBasicInfo.zzxm}" disabled="disabled" /></td>
+                <td class="td_key"><span class="font_star">*</span>作者性别</td>
+                <td>
+                    <input id="xb" name="xb" disabled="disabled" th:value="${thesisBasicInfo.xb}" />
+                </td>
+            </tr>
+
+            <tr>
+                <td class="td_key">出生年月</td>
+                <td><input type="text" id="csny" name="csny" disabled="disabled" placeholder="如199109" th:value="${thesisBasicInfo.csny}" /></td>
+                <td class="td_key"><span class="font_star">*</span>民族</td>
+                <td>
+                    <input name="mz" id="mz" disabled="disabled" th:value="${thesisBasicInfo.mz}" />
+                </td>
+            </tr>
+
+            <tr>
+                <td class="td_key">导师姓名</td>
+                <td><input type="text" id="dsxm" name="dsxm" disabled="disabled" placeholder="导师姓名，限填1人" th:value="${thesisBasicInfo.dsxm}" /></td>
+            </tr>
+
+            <tr>
+                <td class="td_key">论文题目</td>
+                <td colspan="3"><input type="text" id="lwtm" name="lwtm" disabled="disabled" placeholder="论文题目" th:value="${thesisBasicInfo.lwtm}" /></td>
+            </tr>
+
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>论文英文题目</td>
+                <td colspan="3"><input type="text" id="lwywtm" name="lwywtm" disabled="disabled" placeholder="论文英文题目，最大长度200" th:value="${thesisBasicInfo.lwywtm}" /></td>
+            </tr>
+
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>研究方向</td>
+                <td><input type="text" id="yjfx" name="yjfx" disabled="disabled" placeholder="研究方向,最大长度100" th:value="${thesisBasicInfo.yjfx}" /></td>
+                <td class="td_key"><span class="font_star">*</span>中文关键字</td>
+                <td><input type="text" id="lwzwgjz" name="lwzwgjz" disabled="disabled" placeholder="中文关键字" th:value="${thesisBasicInfo.lwzwgjz}" /></td>
+            </tr>
+
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>论文页数</td>
+                <td><input type="text" id="lwys" name="lwys" disabled="disabled" placeholder="论文页数，为数字，如72" th:value="${thesisBasicInfo.lwys}" /></td>
+                <td class="td_key"><span class="font_star">*</span>攻读类别</td>
+                <td>
+                    <input id="gdlb" name="gdlb" disabled="disabled" th:value="${thesisBasicInfo.gdlb}" />
+                </td>
+            </tr>
+
+            <tr>
+                <td class="td_key">Word论文推荐表路径</td>
+                <td><input type="text" id="lwtjblj" name="lwtjblj" disabled="disabled" placeholder="由系统自动生成" th:value="${thesisBasicInfo.lwtjblj}" /></td>
+                <td class="td_key">PDF论文原文路径</td>
+                <td><input type="text" id="lwywlj" name="lwywlj" disabled="disabled" placeholder="由系统自动生成" th:value="${thesisBasicInfo.lwywlj}" /></td>
+            </tr>
+
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>入学年月(格式如201609)</td><td>
+                <input type="text" id="rxny" name="rxny" disabled="disabled" placeholder="入学年月,如201609" th:value="${thesisBasicInfo.rxny}"/></td>
+                <td class="td_key">获学位日期</td>
+                <td><input type="text" id="hdxwrq" name="hdxwrq" disabled="disabled" placeholder="获学位日期,如20160606" th:value="${thesisBasicInfo.hdxwrq}"/></td>
+            </tr>
+
+            <tr>
+                <td class="td_key">一级学科码</td>
+                <td><input type="text" id="yjxkdm" name="yjxkdm" disabled="disabled" placeholder="一级学科码" th:value="${thesisBasicInfo.yjxkdm}"/></td>
+                <td class="td_key">一级学科名称</td>
+                <td><input type="text" id="yjxkmc" name="yjxkmc" disabled="disabled" placeholder="一级学科名称" th:value="${thesisBasicInfo.yjxkmc}"/></td>
+            </tr>
+
+            <tr>
+                <td class="td_key">二级学科码</td>
+                <td><input type="text" id="ejxkdm" name="ejxkdm" disabled="disabled" placeholder="二级学科码" th:value="${thesisBasicInfo.ejxkdm}"/></td>
+                <td class="td_key">二级学科名称</td>
+                <td><input type="text" id="ejxkmc" name="ejxkmc" disabled="disabled" placeholder="二级学科名称" th:value="${thesisBasicInfo.ejxkmc}"/></td>
+            </tr>
+
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>作者职称(没有 填无)</td>
+                <td><input type="text" id="zzzc" name="zzzc" disabled="disabled" placeholder="作者职称，长度不超过10" th:value="${thesisBasicInfo.zzzc}"/></td>
+                <td class="td_key">学校联系人</td>
+                <td><input type="text" id="xxlxr" name="xxlxr" disabled="disabled" value="王老师"/></td>
+            </tr>
+
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>备注(没有 填无)</td>
+                <td colspan="3"><input type="text" id="bz" name="bz" disabled="disabled" placeholder="长度不超过100，只标注特殊情况，如论文为非中文撰写，如英语撰写的，请备注“英文撰写”" th:value="${thesisBasicInfo.bz}"/></td>
+
+            </tr>
+            <tr>
+                <td class="td_key"><span class="font_star">*</span>论文上传（pdf格式）</td>
+                <td colspan="3">
+                    <span th:if="${thesisBasicInfo.uploadStatus} == 0" th:text="您还未上传文件"></span>
+                    <a href="" th:if="${thesisBasicInfo.uploadStatus} == 1" th:href="'/home/student/thesis/apply/basicInfoTable/pdf/download?fileName=' + ${thesisBasicInfo.lwywlj} + '.pdf'" th:text="${thesisBasicInfo.lwywlj} + '.pdf'"></a>
+                </td>
+            </tr>
+
+            <script>
+                $(document).ready(function () {
+                    $("#file_btn").click(function () {
+                        $("#fileUploadModal").modal();
+                    })
+                })
+            </script>
+
+            </tbody>
+        </table>
+
+    </form>
+
+
+    <!--<div class="submit_btn_div">-->
+    <!--<button type="button" class="btn btn-primary btn-block">以上信息确认无误，提交到系统</button>-->
+    <!--</div>-->
+
+</div>
+
+
+<!-- Model  -->
+<!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+
+<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model  -->
+
+
+<!--  文件上传 Model  -->
+<!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+
+<div id="fileUploadModal" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size" style="width:450px;height:450px">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" style="text-align: center">论文文件上传</h3>
+            </div>
+            <div class="model_body">
+                <form id="file_submit_form" name="file_submit_form">
+                    <div class="text-justify small text-danger">注意：论文为pdf格式，论文页眉、页脚和内容部分<strong>不能出现学校名称、作者姓名、导师姓名</strong>，否则会影响论文申请</div>
+                    <input type="file" id="article_file" name="file" enctype="multipart/form-data" style="margin-top:20px" class="form-control" value="选择EXECL文件"/>
+                    <!--<input class="form-control" id="article_file" name="file" type="file" enctype="multipart/form-data" value="选择EXECL文件"/>-->
+                    <input type="text" id="savedFileName" name="fileName" hidden="hidden"/>
+                    <input type="text" id="savedUserId" name="userId" hidden="hidden"/>
+                    <div id="file_status_warn" style="height:30px"></div>
+                    <button type="button" id="fileUpload_btn" class="btn btn-default">上传论文</button>
+                </form>
+
+                <!--<form id="form1" name="form1">-->
+                <!--<div class="col-md-4"><input class="form-control" id="student_info_file" name="file" type="file" enctype="multipart/form-data" value="选择EXECL文件"/></div>-->
+                <!--<div class="col-md-4"><button type="button" id="uploadFile_btn" class="btn btn-primary">上传学生信息库</button></div>-->
+                <!--</form>-->
+
+            </div>
+            <div class="model_foot" style="padding-top: 50px;">
+                <div class="model_btn_close">
+                    <!--<button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- file upload Model  -->
+
+</body>
+</html>

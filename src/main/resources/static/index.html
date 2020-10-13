@@ -6,20 +6,18 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
     <link href="css/general.css" rel="stylesheet">
+    <link href="css/layout.css" rel="stylesheet">
     <script src="js/jquery-3.1.1.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/loginFormValidate.js"></script>
     <style rel="stylesheet">
-        .head{
-            height: 70px;
-            border: 1px solid rgb(224,224,224);
-        }
+
         .mid{
             height:480px;
             border-bottom: 1px solid rgb(224,224,224);
         }
-        .foot{
-            height: 30px;
-        }
+
         .left_background{
             float: left;
             width: 520px;
@@ -36,89 +34,170 @@
             margin-right:150px;
             border: 1px solid rgb(224,224,224);
         }
-        ._border{
-            border: 1px solid rgb(224,224,224);
-        }
-        ._text_right{
-            text-align: right;
-
-        }
 
     </style>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            ClickChangeValidateCode();
+            ajaxLogin();
+
+
+        })//$(document).ready
+
+        function ClickChangeValidateCode(){
+            //点击验证码图片切换验证码
+            $("#validateCode_btn").click(function(){
+                ChangeValidateCode();
+            });
+        }
+
+        function ajaxLogin(){
+            //点击登录按钮，进行异步登录
+            $("#login_btn").click(function () {
+                var status = checkFormIfValid();  //先查看表单验证是否通过
+                if(status==true){
+                    $("#validateWarn").html();
+                    DisableLoginBtn();
+                    $.ajax({
+                        type: "POST",
+                        url: "/login",
+                        contentType: "application/json",
+
+                        data: JSON.stringify({
+                            "username": $("#username").val(),
+                            "password": $("#passwd").val(),
+                            "verifyCodeString": $("#validateCode").val()
+                        }),
+
+                        beforeSend: function(XMLHttpRequest){
+                        },
+
+                        success: function(data){
+                            var status = data.code;
+                            var msg = data.msg;
+                            if(status == "200") //成功
+                                location.assign("/home/index");
+                            else{ //登陆失败
+                                ChangeValidateCode();
+                                $("#validateWarn").html(msg);
+                                AbleLoginBtn();
+                            }
+
+                        },
+                        error: function(XMLHttpRequest, textStatus) {
+                            AbleLoginBtn();
+                        },
+                        complete: function(XMLHttpRequest, textStatus){
+                        }
+                    });
+                }//if
+            }) //click
+        }
+
+        function ChangeValidateCode() {
+            $("#validateCodeImg").attr("src", $("#validateCodeImg").attr("src") + 1);
+        }
+
+        function DisableLoginBtn(){
+            $("#login_btn").attr('disabled','disabled');
+            $("#login_btn").html("正在登录，请稍等...");
+        }
+
+        function AbleLoginBtn(){
+            $("#login_btn").removeAttr('disabled');
+            $("#login_btn").html("登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录");
+        }
+
+        function checkFormIfValid(){
+            //username  passwd   validateCode
+            if($("#username").valid()==false) return false;
+            if($("#passwd").valid()==false) return false;
+            if($("#validateCode").valid()==false) return false;
+            return true;
+        }
+    </script>
+
 </head>
 <body>
-    <div class="head">
-        <img src="imgs/top_banner.png"/>
+<div class="head">
+    <img src="imgs/top_banner.png"/>
 
+</div>
+<div class="mid">
+    <div class="left_background">
+        <img src="imgs/hust_gate.png"/>
     </div>
-    <div class="mid">
-        <div class="left_background">
-            <img src="imgs/hust_gate.png"/>
-        </div>
-        <div class="login">
-            <h3 style="text-align: center">登录</h3>
+    <div class="login">
+        <h3 style="text-align: center">登录</h3>
 
-            <form class="form-horizontal" role="form" style="margin-top: 20px">
-                <div class="form-group">
+        <form class="form-horizontal" id="loginForm" role="form" style="margin-top: 20px">
+            <div class="form-group">
 
-                    <div class="col-sm-3 _text_right input_tip"><label>用户名:</label></div>
-                    <div class="col-sm-8" style="margin-left: -12px">
-                        <input type="text" class="form-control" placeholder="用户名">
-                    </div>
+                <div class="col-sm-3 _text_right input_tip"><label>用户名:</label></div>
+                <div class="col-sm-8" style="margin-left: -12px">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="学号/教工号/邮箱">
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="form-group">
 
-                    <div class="col-sm-3 _text_right input_tip"><label>密&nbsp;&nbsp;&nbsp;&nbsp;码:</label></div>
-                    <div class="col-sm-8" style="margin-left: -12px">
-                        <input type="password" class="form-control" id="inputPassword3" placeholder="密码">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-3 _text_right input_tip"><label>验证码:</label></div>
-                    <div class="col-sm-4" style="margin-left: -12px">
-                        <input type="text" class="form-control" placeholder="Email">
-                    </div>
-                    <div class="col-sm-4">
-                        <img src="imgs/validate.jpg">
-                    </div>
-                </div>
-
-                <div class="form-group">
-
-                    <div class="col-sm-offset-3 validate_warn">密码错误</div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-8">
-                        <button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 微软雅黑;">
-                            登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
-                        </button>
-                    </div>
-                </div>
-
-            </form>
-
-            <div class="row" style="margin-top: 50px">
-
-                <div class="col-sm-offset-5 col-md-3">
-                    <a href="">忘记密码</a>
-                </div>
-                <div class="col-md-4">
-                    <a href="register.html">教务员注册</a>
+                <div class="col-sm-3 _text_right input_tip"><label>密&nbsp;&nbsp;&nbsp;&nbsp;码:</label></div>
+                <div class="col-sm-8" style="margin-left: -12px">
+                    <input type="password" class="form-control" id="passwd" name="passwd" placeholder="密码">
                 </div>
             </div>
 
+            <div class="form-group">
+                <div class="col-sm-3 _text_right input_tip"><label>验证码:</label></div>
+                <div class="col-sm-4" style="margin-left: -12px">
+                    <input type="text" class="form-control" id="validateCode" name="validateCode" placeholder="验证码">
+                </div>
+                <div class="col-sm-5">
+                    <a href="#" id="validateCode_btn"><img id="validateCodeImg" src="/verifyCode?id=1" TITLE="点击切换验证码"></a>
+                </div>
+            </div>
 
+            <div class="form-group">
 
+                <div class="col-sm-offset-3 validate_warn" id="validateWarn"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-8">
+                    <button type="button" id="login_btn" class="btn btn-primary btn-lg btn-block" style="font-family: 微软雅黑;">
+                        登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="row" style="margin-top: 50px">
+
+            <div class="col-sm-offset-5 col-md-3" style="text-align:right">
+                <a href="findPassword.html">忘记密码</a>
+            </div>
+            <div class="col-md-4" style="text-align:left">
+                <a href="register.html">新用户注册</a>
+            </div>
         </div>
-    </div>
-    <div class="foot">
-        <div class="row">
-            <div class="col-md-5"></div>
-            <div class="col-md-4" style="margin-top: 10px;">© 2016 xxx.com 版权所有</div>
-        </div>
 
     </div>
+</div>
+<div class="foot">
+    <div class="row center">
+        <a href="http://www.hust.edu.cn" target="_blank">华中科技大学</a> |
+        <a href="http://gs.hust.edu.cn/" target="_blank">研究生院</a> |
+        <a href="http://www.lib.hust.edu.cn/" target="_blank">图书馆</a> |
+        <a href="http://xsyj.hust.edu.cn/" target="_blank">校史馆</a> |
+        <a href="http://student.ehust.net/" target="_blank">学工在线</a> |
+        <a href="http://www.hustonline.net/" target="_blank">华中大在线</a>
+    </div>
+    <div class="row center">
+        ©2017 华中科技大学研究生院 版权所有<br/>
+        <span class="text-info">本网站在Chrome浏览器访问最佳，如使用360浏览器，请选择【兼容模式】访问</span><br/>
+    </div>
+</div>
+
 </body>
 </html>

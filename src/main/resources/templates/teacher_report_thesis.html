@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>教务员上报论文</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet"/>
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet"/>
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet"/>
+
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" src="../static/js/teacher_report_thesis.js" th:src="@{/js/teacher_report_thesis.js}"></script>
+    <style rel="stylesheet">
+        .right{
+            width:84%;
+            min-height: 300px;
+            float:right;
+            border: 1px solid rgb(224,224,224);
+        }
+
+        .search{
+            background-color: rgb(245,245,245);
+        }
+        .search .search_row{
+            background-color: rgb(245,245,245);
+            height:auto;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .table_body{
+            margin-top: 30px;
+        }
+        .table_body thead{
+            background-color:rgb(224,224,224) ;
+            font-weight: 800;
+        }
+        .position ol{
+            background-color: white;
+        }
+        .one_input{
+            width:15%;
+            height: 30px;
+            float: left;
+            margin-left: 15px;
+        }
+        .input_width{
+            height: 30px;
+        }
+        .search_btn_div{
+            float: left;
+            margin-left: 10px;
+        }
+
+    </style>
+
+    <script>
+
+    </script>
+
+</head>
+<body>
+        <div class="search">
+            <div class="search_row">
+                <div class="one_input input_width" style="width:20%">
+                    <label for="school">学院:</label>
+                    <span id="school" th:text="${session.user.department}">软件学院</span>
+                </div>
+                <div class="one_input input_width">
+                    <label for="year">申请年份</label>
+                    <select id="year" name="year" class="input_width" style="width: 50%">
+                        <option value="">请选择</option>
+                        <!--<option value="2016">2016</option>-->
+                        <option value="2017">2017</option>
+                        <option value="2018">2018</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <option value="2031">2031</option>
+                        <option value="2032">2032</option>
+                        <option value="2033">2033</option>
+                        <option value="2034">2034</option>
+                        <option value="2035">2035</option>
+                    </select>
+                </div>
+                <div class="one_input input_width">
+                    <label for="apply_status">申请状态</label>
+                    <select id="apply_status" name="apply_status" class="input_width" style="width: 60%">
+                        <option value="">请选择</option>
+                        <option value="待学院上报">待学院上报</option>
+                        <option value="待学校审核">待学校审核</option>
+                        <option value="通过审核">通过审核</option>
+                    </select>
+                </div>
+                <div class="one_input input_width">
+                    <label for="student_type">学生类型</label>
+                    <select id="student_type" name="student_type" class="input_width" style="width: 50%">
+                        <option value="">请选择</option>
+                        <option value="硕士">硕士</option>
+                        <option value="博士">博士</option>
+                    </select>
+                </div>
+                <div class="one_input input_width">
+                    <label for="realName">姓名</label>
+                    <input type="text" id="realName" name="realName" style="width:50%"/>
+                </div>
+
+                <div class="search_btn_div">
+                    <button id="search_btn" type="button" class="btn btn-primary">查询</button>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+
+        <!-- 学院教务员上报表格填充框 -->
+        <div id="talbe_wrap">
+
+        </div>
+
+
+        <!-- Model  -->
+        <!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+
+        <div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+            <div class="modal-dialog modal-sm model_size">
+                <div class="modal-content">
+                    <div class="model_head">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+                    </div>
+                    <div class="model_body" id="model_tip_content">
+
+                    </div>
+                    <div class="model_foot">
+                        <div class="model_btn_close">
+                            <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model  -->
+
+</body>
+</html>

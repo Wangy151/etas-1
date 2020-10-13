@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8" />
+    <title>优秀论文申请系统</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
+    <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
+    <link href="../static/css/menu.css" th:href="@{/css/menu.css}" rel="stylesheet" />
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
+    <script type="text/javascript" src="../static/js/menu.js" th:src="@{/js/menu.js}"></script>
+    <script type="text/javascript" src="../static/js/home.js" th:src="@{/js/home.js}"></script>
+    <style rel="stylesheet">
+        .mid{
+            min-height: 200px;
+        }
+        .mid_body{
+            height: auto;
+            margin:0 auto;
+        }
+        .left{
+            width:15%;
+            min-height: 100px;
+            float:left;
+            border: 1px solid rgb(224,224,224);
+        }
+        .right{
+            width:84%;
+            min-height: 300px;
+            float:right;
+            border: 1px solid rgb(224,224,224);
+        }
+
+        .search .search_row{
+            background-color: rgb(245,245,245);
+            height:auto;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        .table_body thead{
+            background-color:rgb(224,224,224) ;
+            font-weight: 800;
+        }
+        .position ol{
+            background-color: white;
+        }
+
+        .home_welcome_tip{
+            margin-top: 10px;
+            margin-left: 20px;
+            font-size: larger;
+            line-height: 30px;
+        }
+        .home_welcome_tip span{
+            font-weight: 600;
+
+        }
+
+        .websit_speci_content{
+            min-height: 100px;
+            margin-left:30px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="head">
+    <a href="/home/index"><img src="../static/imgs/top_banner.png" th:src="@{/imgs/top_banner.png}" /></a>
+    <div class="welcome_exit">
+        <img src="../static/imgs/user.png" th:src="@{/imgs/user.png}" /><span th:text="${session.user.realName}">用户</span>&nbsp;
+        <img src="../static/imgs/role.png" th:src="@{/imgs/role.png}" /><span id="user_role" th:text="${session.user.role}">身份</span>&nbsp;&nbsp;
+        <a href="/home/index"><img src="../static/imgs/home.png" th:src="@{/imgs/home.png}" />返回主页</a>|
+        <a href="/home/logout"><img src="../static/imgs/exit.png" th:src="@{/imgs/exit.png}" />安全退出</a>
+        <span id="savedMyUserId" hidden="hidden" th:text="${session.user.userId}"></span>
+        <span id="savedThesisApplyUserId" hidden="hidden"></span>
+
+    </div>
+
+</div>
+<div class="mid">
+    <div class="mid_body">
+        <div class="left">
+            <div id="firstpane" class="menu_list">
+                <div id="menu_student_model">
+                    <h3 class="menu_head">学生模块</h3>
+                    <div style="display:none" class="menu_body">
+                        <a id="s_thesis_apply_btn" href="javascript:void(0)">优秀论文申请</a>
+                        <a id="s_personal_info_btn" href="javascript:void(0)">管理个人信息</a>
+                    </div>
+                </div>
+                <div id="menu_teacher_model">
+                    <h3 class="menu_head">学院教务员模块</h3>
+                    <div style="display:none" class="menu_body">
+                        <a id="t_report_thesis_btn" href="javascript:void(0)">上报学生优秀论文</a>
+                        <a id="t_personal_info_btn" href="javascript:void(0)">管理个人信息</a>
+                    </div>
+                </div>
+                <div id="menu_admin_model">
+                    <h3 class="menu_head">学校管理员模块</h3>
+                    <div style="display:none" class="menu_body">
+                        <a id="a_review_thesis_btn" href="javascript:void(0)">审核学院优秀论文上报</a>
+                        <a id="a_export_thesis_info_btn" href="javascript:void(0)">导出优秀论文信息</a>
+                        <a id="a_import_student_info_btn" href="javascript:void(0)">导入学生信息</a>
+                        <a id="a_active_teacher_btn" href="javascript:void(0)">激活学院教务员账户</a>
+                        <a id="a_add_admin_account_btn" href="javascript:void(0)">添加管理员</a>
+                        <a id="a_personal_info_btn" href="javascript:void(0)">管理个人信息</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 代码部分end -->
+        </div>
+
+        <div class="right">
+            <div id="home_right_wrap">
+
+                <div class="home_welcome_tip">
+                    欢迎 <span th:text="${session.user.realName}">用户</span> 进入华中科技大学优秀论文申请系统。<br/>
+                    一、您的学号/工号是 <span id="homeUserId" th:text="${session.user.userId}">M201476136</span>，邮箱为 <span th:text="${session.user.email}">meihao_private@126.com</span>，请牢记登录信息。<br/>
+                    二、您可以点击<span>【管理个人信息】</span>修改自己的个人基本信息以及登录密码。<br/>
+                    三、特别注意：申请前请阅读以下注意事项:<br/>
+                       <div class="websit_speci_content">
+                           <img src="../static/imgs/website_spec_content.png" th:src="@{/imgs/website_spec_content.png}" />
+                       </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+</body>
+</html>

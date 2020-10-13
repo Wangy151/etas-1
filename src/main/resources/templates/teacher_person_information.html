@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8" />
+    <title>学院教务员个人信息中心</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js" th:src="@{/js/general_help.js}"></script>
+    <script type="text/javascript" src="../static/js/teacher_person_information.js" th:src="@{/js/teacher_person_information.js}"></script>
+    <style rel="stylesheet">
+
+        .search .search_row{
+            background-color: rgb(245,245,245);
+            height:auto;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .table_body thead{
+            background-color:rgb(224,224,224) ;
+            font-weight: 800;
+        }
+        .position ol{
+            background-color: white;
+        }
+
+        .modify_btn_div{
+            font-size: larger;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="info_form">
+    <div class="modify_btn_div">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-4">
+                <a href="#" id="modify_basic_info_href">修改基本信息</a>
+            </div>
+            <div class="col-md-2">
+                <a href="#" id="modify_passwd_href">修改密码</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modify_info_frame">
+
+        <div id="basic_info_model">
+            <form class="form-horizontal" id="basic_info_model_form" role="form" style="margin-top: 20px">
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>身份:</label></div>
+                    <div class="col-sm-5" style="margin-left: -12px">
+                        <input type="text" th:value="${user.role}" disabled="disabled" class="form-control" placeholder="身份"/>
+                    </div>
+                    <div class="col-sm-4 validate_warn" id="v_role"></div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>教职工号:</label></div>
+                    <div class="col-sm-5" style="margin-left: -12px">
+                        <input type="text" th:value="${user.userId}" disabled="disabled" class="form-control" placeholder="学号/教职工号"/>
+                    </div>
+                    <div class="col-sm-4 validate_warn" id="v_idnumber"></div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>姓名:</label></div>
+                    <div class="col-sm-5" style="margin-left: -12px">
+                        <input type="text" th:value="${user.realName}" class="form-control" id="realName" name="realName" placeholder="姓名"/>
+                    </div>
+                    <div class="col-sm-4 validate_warn" id="v_realName"></div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>所在院系:</label></div>
+                    <div class="col-sm-5" style="margin-left: -12px">
+                        <select class="form-control" id="college" name="college">
+                            <option selected="selected" th:value="${user.department}" th:text="${user.department}"></option>
+                            <option th:each="item : ${hustDepartmentList}" th:value="${item.department}" th:text="${item.department}">机械科学与工程学院</option>
+                        </select>
+
+                    </div>
+                    <div class="col-sm-4 validate_warn" id="v_college"></div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>联系方式:</label></div>
+                    <div class="col-sm-5" style="margin-left: -12px">
+                        <input type="text" th:value="${user.phoneNumber}" class="form-control" id="contactNumber" name="contactNumber" placeholder="联系方式"/>
+                    </div>
+                    <div class="col-sm-4 validate_warn" id="v_contactNumber"></div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>邮箱:</label></div>
+                    <div class="col-sm-5" style="margin-left: -12px">
+                        <input type="text" th:value="${user.email}" class="form-control" id="email" name="email" placeholder="邮箱"/>
+                    </div>
+                    <div class="col-sm-4 validate_warn" id="v_email"></div>
+                </div>
+
+                <div class="form-group" id="email_div_show">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>邮箱验证码:</label></div>
+                    <div class="col-sm-3" style="margin-left: -12px">
+                        <input type="text" class="form-control" id="email_validate_code" name="email_validate_code" placeholder="邮箱验证码"/>
+                    </div>
+                    <div class="col-sm-2" style="margin-left: -12px">
+                        <button type="button" id="emailVerify_btn" class="btn btn-default">发送邮箱验证码</button>
+                    </div>
+                    <div class="col-sm-4 validate_warn" id="v_email_validate_code"></div>
+                </div>
+
+                <div class="form-group" style="margin-top: 30px">
+                    <div class="col-sm-offset-3 col-sm-5">
+                        <button type="button" id="modify_basic_info_btn" class="btn btn-primary btn-lg btn-block">保存以上基本信息</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div id="password_model">
+            <form class="form-horizontal" id="password_model_form" role="form" style="margin-top: 20px">
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>新密码:</label></div>
+                    <div class="col-sm-5" style="margin-left: -12px">
+                        <input type="password" class="form-control" id="new_password" name="new_password" placeholder="新密码"/>
+
+                    </div>
+                    <div class="col-sm-4 validate_warn" id="v_new_password"></div>
+                </div>
+
+                <div class="form-group">
+
+                    <div class="col-sm-3 _text_right input_tip"><label>确认新密码:</label></div>
+                    <div class="col-sm-5" style="margin-left: -12px">
+                        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="确认新密码"/>
+                    </div>
+                    <div class="col-sm-4 validate_warn" id="v_repassword"></div>
+                </div>
+
+                <div class="form-group" style="margin-top: 30px">
+                    <div class="col-sm-offset-3 col-sm-5">
+                        <button type="button" id="modify_passwd_btn" class="btn btn-primary btn-lg btn-block">保存以上基本信息</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Model  -->
+<!--调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');-->
+
+<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content">
+
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model  -->
+
+</body>
+</html>

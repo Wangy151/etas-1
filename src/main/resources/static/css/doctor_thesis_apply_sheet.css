@@ -1,0 +1,73 @@
+.table_title{
+    text-align: center;
+    /*margin-bottom: 20px;*/
+}
+
+
+table tbody tr td{
+    border:1px solid black;
+}
+
+td input{
+    border:1px solid rgb(224,224,224);
+}
+
+td textarea{
+    border:1px solid rgb(224,224,224);
+}
+
+.table_title span{
+    font-size:x-large;
+    font-weight: 300;
+}
+.td_key{
+    font-weight: 700;
+}
+.table tr td{
+    text-align: center;
+}
+#table1 tbody td{
+    width: 12.5%;
+}
+#table2 tbody td{
+    width: 7.1%;
+}
+#table3 tbody td{
+    width: 14.2%;
+}
+table tbody tr td input,select{
+    width:98%;
+}
+#table4 .t4_c1{
+    width: 7%;
+}
+#table4 .t4_c2{
+    width: 11%;
+}
+#table4 .t4_c3{
+    width: 82%;
+}
+table textarea{
+    width:95%;
+}
+.checkTure{
+    margin-bottom: 60px;
+}
+
+.check_msg{
+    margin-left: 20px;
+    text-align: center;
+}
+.checkTure_btn_div{
+    text-align: center;
+    margin:0 auto;
+}
+.d_t2_c1{
+    width:12.5%;
+}
+.d_t2_c2{
+    width:9.4%;
+}
+.d_t2_c3{
+    width:78%;
+}

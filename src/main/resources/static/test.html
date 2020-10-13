@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <link href="css/bootstrap.css"></link>
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <!--<script>-->
+        <!--var mydate = new Date();-->
+        <!--document.writeln(mydate.getFullYear());-->
+        <!--document.writeln(mydate.getYear());-->
+        <!--document.writeln(mydate.getMonth());-->
+    <!--</script>-->
+</head>
+<body>
+    <br/>
+    <!--<script>-->
+        <!--var a1 = 5,a2;-->
+        <!--a2 = a1;-->
+        <!--a1 = 4;-->
+        <!--$(document).ready(function(){-->
+            <!--a1 = 10;-->
+            <!--a2 =a1;-->
+            <!--fun1();-->
+        <!--});-->
+        <!--a1 = 20;-->
+        <!--function fun1(){-->
+            <!--a1 = 12;-->
+        <!--}-->
+    <!--</script>-->
+
+
+    <!--<script type="text/javascript">-->
+        <!--var mydate=new Date();-->
+        <!--document.write("当前时间："+mydate+"<br>");-->
+        <!--mydate.setTime(mydate.getTime() + 60 * 60 * 1000);-->
+        <!--document.write("推迟一小时时间：" + mydate);-->
+        <!--document.writeln();-->
+    <!--</script>-->
+
+
+    <!--<script>-->
+        <!--var dd = new Date();-->
+        <!--dd.setFullYear(1990,11,19);-->
+        <!--document.writeln(dd);-->
+        <!--document.writeln();-->
+        <!--dd.setDate(dd.getDate() + 2);-->
+        <!--document.writeln(dd+"    ");-->
+
+        <!--document.writeln(dd.getFullYear());-->
+
+    <!--</script>-->
+
+    <!--<script>-->
+        <!--var arr1 = new Array();-->
+        <!--arr1[0] = "meihao";-->
+        <!--arr1[1] = "xiaolei";-->
+        <!--var arr2 = new Array("qilin","raoxiaolong");-->
+        <!--alert(arr1.concat(arr2));-->
+
+    <!--</script>-->
+
+    <!--<script>-->
+        <!--var mystr = "meihao";-->
+        <!--mystr = mystr.substring(1,3);-->
+        <!--mystr = mystr.substr(1,3);-->
+        <!--alert(mystr);-->
+    <!--</script>-->
+
+    <!--<script>-->
+        <!--document.write(Math.floor(2.13) + "<br/>");-->
+        <!--document.write(Math.ceil(2.13) + "<br/>");-->
+        <!--window.print();-->
+    <!--</script>-->
+
+
+    <!--<script>-->
+        <!--var i = 0;-->
+        <!--var id = window.setInterval(fun3,2*1000);-->
+        <!--function fun3(){-->
+            <!--i++;-->
+            <!--if(i >= 8){-->
+                <!--window.clearInterval(id);-->
+                <!--return;-->
+            <!--}else{-->
+                <!--document.write("hello" + "<br/>");-->
+            <!--}-->
+        <!--}-->
+    <!--</script>-->
+
+
+    <!--测试setTimeout  和  clearTimeout方法-->
+    <input type="button" value="触发setTimeout" onclick="f_setTimeout()"/>
+    <input type="button" value="触发refreshPage" onclick="refreshPage()"/>
+    <input type="button" value="触发assignPage" onclick="assignPage()"/>
+    <script>
+        function f_setTimeout(){
+           window.setInterval("alert('hello')",2 * 1000);
+        }
+        function refreshPage(){
+            window.location.reload();
+        }
+        function assignPage(){
+            window.location.assign("http://www.baidu.com");
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+    <!-- Model  -->
+    <!--调用方法:model_tip_show('model_tip1','model_tip_content1','系统繁忙请稍后再试!');-->
+
+    <div id="model_tip1" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" id="myModalLabel1" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_body" id="model_tip_content1">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_btn_close">
+                        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
+
+    <!-- 确定/取消 Model  -->
+    <!--调用方法:model_ok_show("model_ok","model_ok_content","确认是否提交申请","model_ok_btn",success_func)-->
+    <div id="model_ok" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+        <div class="modal-dialog modal-sm model_size">
+            <div class="modal-content">
+                <div class="model_head">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h3 class="modal-title" style="text-align: center">提示</h3>
+                </div>
+                <div class="model_ok_body" id="model_ok_content">
+
+                </div>
+                <div class="model_foot">
+                    <div class="model_ok_btn_close">
+                        <button type="button" id="model_ok_btn" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" style=" float:right;margin-right:5px">取&nbsp;&nbsp;消</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model  -->
+
+
+</body>
+</html>

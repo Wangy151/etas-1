@@ -1,3 +1,8 @@
+a{
+    text-decoration:none;
+    color:black;
+}
+
 ._border{
     border: 1px solid rgb(224,224,224);
 }
@@ -10,11 +15,84 @@
 }
 
 .validate_warn{
-    color: red;
+    color: #ff0000;
     margin-top: 4px;
 }
 
 .input_tip{
     font-family: 微软雅黑;
     margin-top: 4px;
+}
+
+._border{
+    border: 1px solid rgb(224,224,224);
+}
+
+#model_tip{
+    margin-top: 200px;
+}
+
+.model_head{
+    text-align: center;
+    min-height: 50px;
+    font-size:x-large;
+    font-family: 黑体;
+}
+
+.model_body{
+    font-family: 微软雅黑;
+    font-size:larger;
+    min-height: 100px;
+    text-align: center;
+    padding-top:20px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+}
+
+.model_ok_body{
+    font-family: 微软雅黑;
+    font-size:larger;
+    min-height: 100px;
+    text-align: center;
+    padding-top:20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.model_foot{
+    min-height: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.model_size{
+    width:420px;
+    height: 250px;
+}
+
+.model_btn_close{
+    width:100px;
+    margin:0 auto;
+}
+
+.model_ok_btn_close{
+    width:250px;
+    margin:0 auto;
+}
+
+.font_star{
+    color: #ff0000;
+    font-weight: bolder;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.border_top{
+    border-top: 1px solid black;
+}
+
+.key_word{
+    color: #ff0000;
+    font-weight: 600;
 }

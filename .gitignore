@@ -103,3 +103,7 @@ ENV/
 bce-osp-datacenter.Rproj
 .RData
 .Rhistory
+
+.DS_Store
+*.log*
+output/

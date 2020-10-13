@@ -6,123 +6,198 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
     <link href="css/general.css" rel="stylesheet">
+    <link href="css/layout.css" rel="stylesheet">
     <script src="js/jquery-3.1.1.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/general_help.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/register.js"></script>
     <style rel="stylesheet">
         .head{
             height: 70px;
             border: 1px solid rgb(224,224,224);
         }
         .registe_body{
-            width:600px;
+            width:650px;
             min-height: 50px;
             margin:0 auto;
             border: 1px solid rgb(224,224,224);
         }
+        .tip{
+            text-align: center;
+        }
     </style>
+
 </head>
 <body>
-    <div class="head">
-        <a href="index.html"><img src="imgs/top_banner.png"/></a>
+<div class="head">
+    <a href="index.html"><img src="imgs/top_banner.png"/></a>
+
+</div>
+
+<div class="mid">
+    <div class="registe_body">
+
+        <h3 style="text-align: center">新用户注册</h3>
+        <div class="tip input_tip">请用户务必按照个人真实信息填写，错误信息将影响优秀论文的申请</div>
+        <form class="form-horizontal" id="register_form" role="form" style="margin-top: 20px">
+            <div class="form-group">
+
+                <div class="col-sm-3 _text_right input_tip"><label>身份:</label></div>
+                <div class="col-sm-6" style="margin-left: -12px">
+                    <select class="form-control" id="role" name="role">
+                        <option value="" selected="selected">请选择</option>
+                        <option value="学生">学生</option>
+                        <option value="学院教务员">学院教务员</option>
+                    </select>
+
+                </div>
+                <div class="col-sm-3 validate_warn" id="v_role"></div>
+            </div>
+
+            <div class="form-group" id="studentType_hide">
+
+                <div class="col-sm-3 _text_right input_tip"><label>学生类型:</label></div>
+                <div class="col-sm-6" style="margin-left: -12px">
+                    <select class="form-control" id="studentType" name="studentType">
+                        <option value="" selected="selected">请选择</option>
+                        <option value="硕士">硕士</option>
+                        <option value="博士">博士</option>
+                    </select>
+
+                </div>
+                <div class="col-sm-3 validate_warn" id="v_studentType"></div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-3 _text_right input_tip"><label>学号/教职工号:</label></div>
+                <div class="col-sm-6" style="margin-left: -12px">
+                    <input type="text" class="form-control" id="userId" name="userId" placeholder="学号/教职工号">
+                </div>
+                <div class="col-sm-3 validate_warn" id="v_idnumber"></div>
+            </div>
+
+
+            <div class="form-group">
+
+                <div class="col-sm-3 _text_right input_tip"><label>密码:</label></div>
+                <div class="col-sm-6" style="margin-left: -12px">
+                    <input type="password" class="form-control" id="passwd" name="passwd" placeholder="密码">
+                </div>
+                <div class="col-sm-3 validate_warn" id="v_passwd"></div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-3 _text_right input_tip"><label>确认密码:</label></div>
+                <div class="col-sm-6" style="margin-left: -12px">
+                    <input type="password" class="form-control" id="repasswd" name="repasswd" placeholder="确认密码">
+                </div>
+                <div class="col-sm-3 validate_warn" id="v_repasswd"></div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-3 _text_right input_tip"><label>姓名:</label></div>
+                <div class="col-sm-6" style="margin-left: -12px">
+                    <input type="text" class="form-control" id="realName" name="realName" placeholder="姓名">
+                </div>
+                <div class="col-sm-3 validate_warn" id="v_realName"></div>
+            </div>
+
+
+            <div class="form-group">
+
+                <div class="col-sm-3 _text_right input_tip"><label>所在院系:</label></div>
+                <div class="col-sm-6" style="margin-left: -12px">
+                    <select class="form-control" id="college" name="college">
+                        <option value="" selected="selected">请选择</option>
+                    </select>
+
+                </div>
+                <div class="col-sm-3 validate_warn" id="v_college"></div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-3 _text_right input_tip"><label>联系方式:</label></div>
+                <div class="col-sm-6" style="margin-left: -12px">
+                    <input type="text" class="form-control" id="contactNumber" name="contactNumber" placeholder="联系方式">
+                </div>
+                <div class="col-sm-3 validate_warn" id="v_contactNumber"></div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-3 _text_right input_tip"><label>邮箱:</label></div>
+                <div class="col-sm-6" style="margin-left: -12px">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="邮箱">
+                </div>
+                <div class="col-sm-3 validate_warn" id="v_email"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3 _text_right input_tip"><label>邮箱验证码:</label></div>
+                <div class="col-sm-3" style="margin-left: -12px">
+                    <input type="text" class="form-control" id="validateCode" name="validateCode" placeholder="邮箱验证码">
+                </div>
+                <div class="col-sm-3 validate_warn">
+                    <button type="button" id="emailVerify_btn" class="btn btn-default">发送邮箱验证码</button>
+                </div>
+                <div class="col-sm-3 validate_warn" id="v_validateCode">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 30px">
+                <div class="col-sm-offset-3 col-sm-6">
+                    <button type="button" id="register_btn" class="btn btn-primary btn-lg btn-block">注册</button>
+                </div>
+            </div>
+
+        </form>
 
     </div>
+</div>
 
-    <div class="mid">
-        <div class="registe_body">
+<div class="foot">
+    <div class="row center">
+        <a href="http://www.hust.edu.cn" target="_blank">华中科技大学</a> |
+        <a href="http://gs.hust.edu.cn/" target="_blank">研究生院</a> |
+        <a href="http://www.lib.hust.edu.cn/" target="_blank">图书馆</a> |
+        <a href="http://xsyj.hust.edu.cn/" target="_blank">校史馆</a> |
+        <a href="http://student.ehust.net/" target="_blank">学工在线</a> |
+        <a href="http://www.hustonline.net/" target="_blank">华中大在线</a>
+    </div>
+    <div class="row center">
+        ©2017 华中科技大学研究生院 版权所有
+    </div>
+</div>
 
-            <h3 style="text-align: center">教务员注册</h3>
+<!--- Model  --->
+<!---调用方法:model_tip_show('model_tip','model_tip_content','系统繁忙请稍后再试!');---->
 
-            <form class="form-horizontal" role="form" style="margin-top: 20px">
-                <div class="form-group">
+<div id="model_tip" class="modal" tabindex="-5" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static" >
+    <div class="modal-dialog modal-sm model_size">
+        <div class="modal-content">
+            <div class="model_head">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title" id="myModalLabel" style="text-align: center">提示</h3>
+            </div>
+            <div class="model_body" id="model_tip_content">
 
-                    <div class="col-sm-3 _text_right input_tip"><label>用户名:</label></div>
-                    <div class="col-sm-6" style="margin-left: -12px">
-                        <input type="text" class="form-control" placeholder="用户名">
-                    </div>
-                    <div class="col-sm-3 validate_warn _text_left">长度在5-20之间</div>
-                </div>
-                <div class="form-group">
-
-                    <div class="col-sm-3 _text_right input_tip"><label>密码:</label></div>
-                    <div class="col-sm-6" style="margin-left: -12px">
-                        <input type="password" class="form-control" id="inputPassword3" placeholder="密码">
-                    </div>
-                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
-                </div>
-
-                <div class="form-group">
-
-                    <div class="col-sm-3 _text_right input_tip"><label>确认密码:</label></div>
-                    <div class="col-sm-6" style="margin-left: -12px">
-                        <input type="password" class="form-control" placeholder="确认密码">
-                    </div>
-                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
-                </div>
-
-                <div class="form-group">
-
-                    <div class="col-sm-3 _text_right input_tip"><label>姓名:</label></div>
-                    <div class="col-sm-6" style="margin-left: -12px">
-                        <input type="text" class="form-control" placeholder="姓名">
-                    </div>
-                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
+            </div>
+            <div class="model_foot">
+                <div class="model_btn_close">
+                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">关闭</button>
                 </div>
 
-                <div class="form-group">
-
-                    <div class="col-sm-3 _text_right input_tip"><label>教职工号:</label></div>
-                    <div class="col-sm-6" style="margin-left: -12px">
-                        <input type="text" class="form-control" placeholder="教职工号">
-                    </div>
-                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
-                </div>
-
-                <div class="form-group">
-
-                    <div class="col-sm-3 _text_right input_tip"><label>所在院系:</label></div>
-                    <div class="col-sm-6" style="margin-left: -12px">
-                        <select class="form-control">
-                            <option>软件学院</option>
-                            <option>机械学院</option>
-                            <option>计算机学院</option>
-                            <option>同济医学院</option>
-                            <option>材料与科学学院</option>
-                        </select>
-
-                    </div>
-                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
-                </div>
-
-                <div class="form-group">
-
-                    <div class="col-sm-3 _text_right input_tip"><label>联系方式:</label></div>
-                    <div class="col-sm-6" style="margin-left: -12px">
-                        <input type="text" class="form-control" placeholder="联系方式">
-                    </div>
-                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-3 _text_right input_tip"><label>验证码:</label></div>
-                    <div class="col-sm-2" style="margin-left: -12px">
-                        <input type="text" class="form-control" placeholder="验证码">
-                    </div>
-                    <div class="col-sm-4">
-                        <img src="imgs/validate.jpg">
-                    </div>
-                    <div class="col-sm-3 validate_warn">长度在5-20之间</div>
-                </div>
-
-                <div class="form-group" style="margin-top: 30px">
-                    <div class="col-sm-offset-3 col-sm-6">
-                        <button type="button" class="btn btn-primary btn-lg btn-block">注册</button>
-                    </div>
-                </div>
-
-            </form>
-
+            </div>
         </div>
     </div>
+</div>
+
+<!--- Model  --->
 
 </body>
 </html>

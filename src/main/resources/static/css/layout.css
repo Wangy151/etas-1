@@ -1,0 +1,24 @@
+.head{
+    height: 70px;
+    border: 1px solid rgb(224,224,224);
+}
+
+.head .welcome_exit{
+    float: right;
+    height:40%;
+    margin-top: 30px;
+    margin-right: 20px;
+    font-size: larger;
+}
+
+.foot{
+    height: auto;
+}
+
+.foot .center{
+            margin-top: 10px;
+            text-align:center;
+        }
+.clear{
+    clear:both;
+}

@@ -1,0 +1,23 @@
+.search .search_row{
+    background-color: rgb(245,245,245);
+    height:auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.table_body td{
+    text-align: center;
+}
+
+.table_body thead{
+    background-color:rgb(224,224,224) ;
+    font-weight: 800;
+}
+.position ol{
+    background-color: white;
+}
+
+.apply_btn_div{
+    margin:0 auto;
+    text-align: center;
+}

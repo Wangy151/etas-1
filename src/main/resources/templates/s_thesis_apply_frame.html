@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>优秀论文申请</title>
+    <link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link href="../static/css/bootstrap-theme.css" th:href="@{/css/bootstrap-theme.css}" rel="stylesheet" />
+    <link href="../static/css/general.css" th:href="@{/css/general.css}" rel="stylesheet" />
+    <script type="text/javascript" src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script type="text/javascript" src="../static/js/bootstrap.js" th:src="@{/js/bootstrap.js}"></script>
+    <script type="text/javascript" src="../static/js/general_help.js.js" th:src="@{/js/general_help.js}"></script>
+    <script type="text/javascript" src="../static/js/jquery.validate.js" th:src="@{/js/jquery.validate.js}"></script>
+    <style rel="stylesheet">
+
+        /*.mid{*/
+            /*width:1000px;*/
+            /*margin:0 auto;*/
+            /*padding-top: 10px;*/
+            /*min-height:300px;*/
+            /*!*border: 1px solid rgb(224,224,224);*!*/
+        /*}*/
+
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            loadBasicInfoPage();
+            loadThesisTjbPage();
+
+        });
+
+        function loadBasicInfoPage(){
+            $("#basic_info_btn").click(function(){
+                // $("#apply_form_wrap").load("s_apply_basic_info_edit.html");
+                //alert($("#savedThesisApplyUserId").val());
+                ///var savedUserId = $("#savedThesisApplyUserId").val();
+                refreshToBasicInfoPage();
+            });
+        };
+
+        function loadThesisTjbPage(){
+            $("#thesis_tjb_btn").click(function(){
+                // $("#apply_form_wrap").load("s_thesis_apply_tjb_frame.html");
+
+                refreshToTjbFramePage();
+            });
+        }
+
+    </script>
+
+</head>
+<body>
+<div class="mid" style="padding-top: 15px;">
+    <div class="row">
+        <div class="col-md-2">
+            <button type="button" id="basic_info_btn" class="btn btn-default">基本信息表</button>
+        </div>
+        <div class="col-md-2">
+            <button type="button" id="thesis_tjb_btn" class="btn btn-default">优秀论文推荐表</button>
+        </div>
+
+    </div>
+
+    <hr/>
+
+    <div id="apply_form_wrap">
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
